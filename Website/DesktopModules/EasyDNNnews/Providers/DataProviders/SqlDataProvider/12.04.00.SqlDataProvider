@@ -1,0 +1,75 @@
+﻿IF NOT EXISTS (SELECT UpdateVersion FROM {databaseOwner}[{objectQualifier}EasyDNNNewsUpdate] WHERE UpdateVersion = '12.04.00')
+BEGIN
+	INSERT {databaseOwner}[{objectQualifier}EasyDNNNewsUpdate]([UpdateVersion],[Finished],[InstallType]) VALUES(N'12.04.00',0, N'DNN')
+END
+GO
+
+IF NOT EXISTS  (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsAITranslationSchedule' and column_name = 'AITranslateScheduleFields')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsAITranslationSchedule] ADD AITranslateScheduleFields NVARCHAR(4000)
+END
+GO
+
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsNewTags' and column_name = 'TitleTag')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] ADD TitleTag NVARCHAR(256) NULL
+END
+GO
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsNewTags' and column_name = 'MetaDescription')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] ADD MetaDescription NVARCHAR(1000) NULL
+END
+GO
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsNewTags' and column_name = 'MetaKeywords')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] ADD MetaKeywords NVARCHAR(500) NULL
+END
+GO
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsNewTags' and column_name = 'AddRobotsFollowTag')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] ADD AddRobotsFollowTag NVARCHAR(250) NULL
+END
+
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsNewTags' and column_name = 'TagImage')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] ADD TagImage NVARCHAR(1500) NULL
+END
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsNewTags' and column_name = 'Description')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] ADD Description NVARCHAR(MAX) NULL
+END
+
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsTagsLocalization' and column_name = 'TitleTag')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] ADD TitleTag NVARCHAR(256) NULL
+END
+GO
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsTagsLocalization' and column_name = 'MetaDescription')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] ADD MetaDescription NVARCHAR(1000) NULL
+END
+GO
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsTagsLocalization' and column_name = 'MetaKeywords')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] ADD MetaKeywords NVARCHAR(500) NULL
+END
+GO
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsTagsLocalization' and column_name = 'AddRobotsFollowTag')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] ADD AddRobotsFollowTag NVARCHAR(250) NULL
+END
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsTagsLocalization' and column_name = 'Description')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] ADD Description NVARCHAR(MAX) NULL
+END

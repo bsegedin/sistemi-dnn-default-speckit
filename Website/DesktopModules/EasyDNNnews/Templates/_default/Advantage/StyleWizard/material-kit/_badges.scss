@@ -1,0 +1,59 @@
+#{$baseThemeClass}{
+  .badge {
+      padding: 5px 12px;
+      text-transform: uppercase;
+      font-size: 10px;
+      color: $white-color;
+
+      @include badge-color();
+  }
+
+  .badge-default[href]:hover,
+  .badge-default[href]:focus {
+    background-color: darken($brand-default, 5%);
+  }
+
+  .badge-primary[href]:hover,
+  .badge-primary[href]:focus {
+    background-color: darken($brand-primary, 5%);
+  }
+
+  .badge-info[href]:hover,
+  .badge-info[href]:focus {
+    background-color: darken($brand-info, 5%);
+  }
+
+  .badge-success[href]:hover,
+  .badge-success[href]:focus {
+    background-color: darken($brand-success, 5%);
+  }
+
+  .badge-warning[href]:hover,
+  .badge-warning[href]:focus {
+    background-color: darken($brand-warning, 5%);
+    color: $white-color;
+  }
+
+  .badge-danger[href]:hover,
+  .badge-danger[href]:focus {
+    background-color: darken($brand-danger, 5%);
+  }
+  .badge-rose[href]:hover,
+  .badge-rose[href]:focus {
+    background-color: darken($brand-rose, 5%);
+  }
+  .pro-badge{
+    position: relative;
+    font-size: 22px;
+    text-transform: uppercase;
+    font-weight: bold;
+    right: -10px;
+    padding: 10px 18px;
+    top: -30px;
+    background: $white-color;
+    border-radius: 3px;
+    color: #444444;
+    line-height: 22px;
+    box-shadow: 0 5px 5px -2px rgba(31, 31, 31, 0.4);
+  }
+}

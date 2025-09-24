@@ -1,0 +1,872 @@
+#{$baseThemeClass}
+
+	.eds_openModal
+		cursor: pointer
+
+	.edn_isotopeLayout
+
+		> div
+			margin: 0 auto
+			max-width: 100%
+
+	.edn_clear
+
+		&::after
+			content: ""
+			width: 100%
+			clear: both
+			display: table
+
+	.visually-hidden
+		position: absolute !important
+		width: 1px !important
+		height: 1px !important
+		padding: 0 !important
+		margin: -1px !important
+		overflow: hidden !important
+		clip: rect(0,0,0,0) !important
+		white-space: nowrap !important
+		border: 0 !important
+
+	.EDNcategorycolor-default
+		color: $primaryColor
+
+	.EDNcategorycolor-red
+		color: $red
+
+	.EDNcategorycolor-blue
+		color: $blue
+
+	.EDNcategorycolor-black
+		color: $black
+
+	.EDNcategorycolor-green
+		color: $green
+
+	.EDNcategorycolor-yellow
+		color: $yellow
+
+	.EDNcategorycolor-pink
+		color: $pink
+
+	.EDNcategorycolor-gray
+		color: $gray
+
+	.EDNcategorycolor-orange
+		color: $orange
+
+	.EDNcategorycolor-brown
+		color: $brown
+
+	.edn_category
+		display: inline-block
+
+		> a,
+		> span
+			display: inline-block
+			line-height: 1
+			word-break: break-all
+			text-transform: uppercase
+			font-weight: 600
+			letter-spacing: -0.5px
+
+		> a
+			text-decoration: none
+
+			&:hover
+				color: $darkColor
+				text-decoration: none
+
+		&.edn_categoryBadge
+
+			> a,
+			> span
+				color: #fff
+				font-size: .9rem
+				padding: .4rem .7rem
+				background-color: $primaryColor
+				border-radius: .2rem
+
+			.EDNcategorycolor-red
+				background-color: $red
+
+			.EDNcategorycolor-blue
+				background-color: $blue
+
+			.EDNcategorycolor-black
+				background-color: $black
+
+			.EDNcategorycolor-green
+				background-color: $green
+
+			.EDNcategorycolor-yellow
+				background-color: $yellow
+
+			.EDNcategorycolor-pink
+				background-color: $pink
+
+			.EDNcategorycolor-gray
+				background-color: $gray
+
+			.EDNcategorycolor-orange
+				background-color: $orange
+
+			.EDNcategorycolor-brown
+				background-color: $brown
+
+			&.edn_categoryBadgeSmall
+
+				> a,
+				> span
+					font-size: .8rem
+					padding: .3rem .5rem
+
+		&.edn_categoryDefaultColor
+
+			> a,
+			> span
+				color: $defaultColor
+
+			> a
+
+				&:hover
+					color: $primaryColor
+
+		& + img
+			margin-left: 1rem
+
+	figure
+		margin: 0
+		padding: 0
+		display: block
+		border: none
+
+	.edn_articleTitle
+		//font-family: $headingsFont
+		//font-weight: 700
+		//color: $darkColor
+		//line-height: 1.2
+		margin: 0
+		padding: 0
+
+		a
+			color: inherit
+			text-decoration: none
+			transition: all 200ms
+			display: block
+
+			&:hover
+				color: $primaryColor
+				text-decoration: none
+
+		&.edn_defaultTitle
+			font-family: $defaultFont
+			font-weight: 600
+
+	.edn_articleTitleSmall
+		font-size: 1rem
+		margin-bottom: .3rem
+
+		.edn_featuredBadge
+			font-size: .8rem
+			line-height: 1.4
+			padding: 0 .3rem
+
+	.edn_time
+		font-size: .8rem
+		letter-spacing: -0.5px
+
+	.eds_smallArticle
+
+		.edn_category
+			font-size: .75rem
+			margin-right: .3rem
+
+	.edn_horizontalList
+
+		.eds_smallArticle
+			padding: 1.5rem 1rem 1.5rem 0
+
+			& ~ .eds_smallArticle
+				padding-left: 1rem
+
+	.edn_verticalList
+
+		.eds_smallArticle
+			padding-top: 1rem
+			padding-bottom: 1rem
+			border-bottom: solid 1px $greyColor
+
+			.edn_articleTitleSmall
+				font-size: .9rem
+
+	.edn_verticalList2
+
+		.eds_smallArticle
+			padding-bottom: .5rem
+
+			.edn_articleTitleSmall
+				font-size: .9rem
+				margin-top: .2rem
+
+	.edn_verticalList3
+
+		.eds_smallArticle
+			padding-top: 1rem
+
+			.edn_articleTitleSmall
+				font-size: 1rem
+
+	.edn_featuredBadge
+		display: none
+		color: #fff !important
+		background-color: $primaryColor
+		border-radius: .2rem
+		padding: .3rem .5rem
+		font-family: $defaultFont
+		font-weight: 400
+		letter-spacing: -0.5px
+		text-transform: uppercase
+		font-size: 1rem
+		vertical-align: middle
+		margin-right: .3rem
+
+	article
+
+		&.EDN_featured
+
+			.edn_featuredBadge
+				display: inline-block
+
+	.edn_articlesRssWrapper
+		margin-top: 1rem
+		border-top: solid 1px $greyColor
+		border-bottom: solid 1px $greyColor
+		padding: .3rem 0
+		text-align: right
+
+		> a
+			color: $darkGreyColor
+			text-decoration: none
+
+			&:hover
+				text-decoration: none
+				color: $darkColor
+
+			&::after
+				content: "\f09e"
+				color: $primaryColor
+				font-family: $icon
+				font-weight: 900
+				margin-left: .5rem
+
+	.edn_articleThumbnail
+		position: relative
+		overflow: hidden
+
+		a
+			display: block
+
+			img
+				max-width: 100%
+				height: auto
+
+	.edn_imageWrapper
+		display: block
+		max-width: 100%
+
+		img
+			width: 100%
+			height: auto
+
+	.edn_absoluteLink
+		font-size: 0
+		line-height: 0
+		position: absolute
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		display: block
+		z-index: 1
+
+	.edn_articleSummary
+
+		&.edn_bigSummary
+			font-size: 1rem
+
+	.edn_leadArticle
+
+		.edn_articleThumbnail
+
+			.edn_imageWrapper
+				position: relative
+
+				&::after
+					content: ""
+					position: absolute
+					top: 0
+					left: 0
+					width: 100%
+					height: 100%
+					background: linear-gradient(0deg,rgba(0,0,0,0.8),rgba(0,0,0,0.5) 42%,rgba(0,0,0,0) 61%,rgba(0,0,0,0))
+
+			.edn_articleTitle
+				color: #fff
+
+				a
+
+					&:hover
+						color: $greyColor
+
+			.edn_articleSummary
+				color: #fff
+
+		.edn_thumbnailMeta
+			position: absolute
+			right: 0
+			bottom: 0
+			left: 0
+			padding: 0 1.5rem 1.5rem
+
+		.edn_articleTitle
+			//font-family: $defaultFont
+			//line-height: 1.2
+			font-size: 2.8rem
+			//color: $darkColor
+			margin: 0
+			@include lg-device-width
+				font-size: 2rem
+			@include md-device-width
+				font-size: 1.5rem
+
+			a
+
+				&:hover
+					color: $primaryColor
+
+		.edn_articleSummary
+			font-size: 1rem
+			@include lg-device-width
+				font-size: .9rem
+
+			p
+				margin: 0
+
+		.edn_featuredBadge
+			margin-bottom: .4rem
+
+		.edn_category
+			margin-bottom: .5rem
+
+		&.edn_leadArticleSmall
+
+			.edn_articleThumbnail
+
+				a.edn_imageWrapper
+					overflow: hidden
+
+					img
+						transition: all 300ms
+
+				&:hover
+
+					a.edn_imageWrapper
+
+						img
+							transform: scale3d(1.1, 1.1, 1.1)
+
+			.edn_articleTitle
+				font-size: 1.5rem
+				margin: .75rem 0 0
+				@include xl-device-width
+					font-size: 1.3rem
+				@include md-device-width
+					font-size: 1.1rem
+
+			.edn_thumbnailMeta
+				padding: 0 1rem 1rem
+
+			.edn_featuredBadge
+				font-size: .8rem
+				padding: .2rem .3rem
+
+			.edn_category
+				margin-bottom: 0
+
+	.edn_col40,
+	.edn_col50
+
+		.edn_leadArticle
+
+			.edn_articleTitle
+				@include xl-device-width
+					font-size: 1.3rem
+				@include md-device-width
+					font-size: 1.1rem
+
+			.edn_thumbnailMeta
+				@include lg-device-width
+					padding: 0 1rem 1rem
+
+			.edn_articleSummary
+				@include lg-device-width
+					font-size: .8rem
+
+	.edn__articleListWrapper
+
+		.edn_simpleArticle
+
+			&.edn_imageRight,
+			&.edn_imageLeft
+
+				.edn_imageWrapper
+					flex: 0 0 30%
+
+	.edn_simpleArticle
+		margin-bottom: .75rem
+
+		&.edn_imageTop
+
+			.edn_category
+
+				& + .edn_articleTitle
+					margin-top: .5rem
+
+			.edn_imageWrapper
+				margin-bottom: 1rem
+
+			> figure
+
+				.edn_imageWrapper
+					margin-bottom: 0
+					padding-bottom: 1rem
+
+		&.edn_imageRight,
+		&.edn_imageLeft
+
+			&.edn_col50,
+			&.edn_col100
+				margin-bottom: 2rem
+				@include md-device-width
+					margin-bottom: 1.5rem
+
+				.edn_imageWrapper
+					flex: 0 0 50%
+
+		&.edn_imageRight
+
+			.edn_imageWrapper
+				margin-left: auto
+
+			.edn_articleTitle
+				padding-right: .75rem
+
+			&.edn_col100
+
+				.edn_articleTitle
+					padding-right: 1.5rem
+
+		&.edn_imageLeft
+
+			.edn_imageWrapper
+				padding-right: .75rem
+
+			&.edn_col100
+
+				.edn_imageWrapper
+					padding-right: 1.5rem
+
+		//> figure
+
+			//&:hover
+
+				//.edn_articleTitle
+
+					//> a
+						//color: $primaryColor
+
+		&.edn_defaultList
+			margin-bottom: 1.5rem
+
+			&.edn_imageRight,
+			&.edn_imageLeft
+
+				.edn_imageWrapper
+					flex: 0 0 auto
+					@include md-device-width
+						flex: 0 0 30%
+					@include sm-device-width
+						flex: 0 0 100%
+						width: 100%
+						padding-bottom: 1rem
+
+			&.edn_imageRight
+
+				.edn_imageWrapper
+					padding-left: 1.5rem
+					@include md-device-width
+						padding-left: .5rem
+
+			&.edn_imageLeft
+
+				.edn_imageWrapper
+					padding-right: 1.5rem
+					@include md-device-width
+						padding-right: .5rem
+						align-self: start
+
+			.edn_articleSummary
+				@include md-device-width
+					font-size: .9rem
+
+			.edn_articleTitle
+				@include md-device-width
+					font-size: 1rem
+
+			.edn_articleMeta
+				font-size: .7rem
+
+	.edn_separator
+		border-top: solid 1px $greyColor
+		margin-top: 1.5rem
+		padding-top: 1rem
+
+	.edn_articleMeta
+		font-size: .8rem
+		display: flex
+		flex-flow: row wrap
+		align-items: center
+		padding: .5rem 0
+
+		a
+			color: $darkColor
+			text-decoration: none
+			margin-right: .3rem
+
+			&:hover
+				color: $primaryColor
+				text-decoration: none
+
+		time
+			margin-left: .3rem
+
+		img
+			border-radius: 50%
+			margin-right: .3rem
+
+	.edn_marginBottom
+		margin-bottom: 1rem
+
+	.edn_alignItemsStretch
+
+		.edn_articleMeta
+			margin-top: auto
+			margin-bottom: 1rem
+
+		article
+			display: flex
+			flex-flow: column
+
+	.edn_bottomBorder
+		position: relative
+		margin-bottom: 1rem
+
+		&::after
+			content: ""
+			border-bottom: solid 1px $greyColor
+			display: block
+			position: absolute
+			right: .75rem
+			bottom: 0
+			left: .75rem
+
+	.edn_contentCenter
+		text-align: center
+
+		.edn_articleMeta
+			justify-content: center
+
+	.edn_widgetTitle
+		margin: .5rem 0
+		padding: 0
+		font-weight: 700
+
+	.edn_darkModuleTitle
+		margin: 0 4px 0 0
+		padding: 6px 10px 5px
+		color: #fff
+		background-color: #000000
+		font-family: $defaultFont
+		font-size: .9rem
+		line-height: 1
+		font-weight: 500
+		letter-spacing: 0.5px
+
+	.edNews_tags
+		display: flex
+		flex-flow: row wrap
+		align-items: center
+
+		a
+			margin-right: 4px
+			padding: 5px 8px 4px
+			border: 1px solid #ededed
+			color: $darkColor
+			font-family: $defaultFont
+			font-size: 1rem
+			line-height: 1
+			font-weight: 500
+			letter-spacing: 0.5px
+			text-decoration: none
+
+			&:hover
+				background-color: $darkColor
+				color: #fff
+				text-decoration: none
+
+	&.eds_subCollection_tagCloud
+
+		.edNews_tags
+
+			a
+				margin-top: 4px
+
+	.edn_overflowHidden
+		overflow: hidden
+
+	.edn_primaryWrapper
+		padding: 2rem
+		background-color: #fff
+		box-shadow: 0 0 10px rgba(0,0,0,0.12)
+		margin-bottom: 2rem
+		@include md-device-width
+			padding: 1rem
+
+		.edn_boxHeader
+
+			> h4
+				font-family: $defaultFont
+				color: $darkColor
+				font-size: 1.1rem
+				font-weight: 700
+				margin: 0 0 1rem
+				padding: 0
+				text-transform: uppercase
+
+	.edn_shadowTitle
+		display: block
+		position: relative
+		color: #f7f7f7
+		font-size: 6rem
+		font-weight: 700
+		text-transform: uppercase
+		text-align: center
+		margin: 2rem 0
+		line-height: 1
+		font-family: $defaultFont
+
+		.edn_firstWord
+			font-size: 2rem
+			color: #000
+			text-transform: none
+			position: absolute
+			bottom: 1.8rem
+			left: 50%
+			transform: translateX(-50%)
+
+	.edn_moduleList,
+	.archive_list ul
+		margin: 0
+		padding: 0
+		font-size: 0
+		line-height: 0
+
+		li
+			list-style-type: none !important
+			margin: .3rem 0
+			padding: 0
+
+			&.hasChild
+				cursor: pointer
+
+			ul
+				margin-left: 1rem
+
+			> div
+				position: relative
+				padding: .3rem 0
+				overflow: hidden
+
+				a
+					display: none
+					outline: none
+					text-decoration: none
+
+				&.edn_hasCount
+					padding-right: 5rem
+
+			&.active
+
+				> div
+
+					.edn_link
+						color: $primaryColor
+
+		li
+
+			> div
+				border: solid 1px $greyColor
+
+			> div
+				border-top: none,
+				border-right: none,
+				border-left: none
+
+				.edn_articleCount
+					background-color: transparent
+					border-bottom: none
+
+			&.opened
+
+				> div,
+				> div .edn_articleCount
+					border-color: $primaryColor
+
+		.edn_link,
+		> li > a
+			font: .9rem/1.1 $defaultFont
+			color: $darkColor
+			text-decoration: none
+			transition: color 300ms
+			display: inline
+
+			&:hover
+				color: $primaryColor
+				text-decoration: none
+
+		.edn_articleCount
+			position: absolute
+			right: 0
+			bottom: 0
+			//background-color: #dadada
+			text-align: center
+			padding: .2rem
+			font: .8rem/1.4 $defaultFont
+			color: $primaryColor
+			display: inline-block
+			min-width: 3rem
+			max-width: 4rem
+
+		.expand_collapse
+			cursor: pointer
+			height: auto !important
+			visibility: visible !important
+			transition: all .2s ease-in-out
+			display: inline
+			vertical-align: middle
+
+			> span
+				display: none
+
+			&::before
+				content: "\f107"
+				font: 900 1rem/0 $icon
+				padding: 0 .5rem
+				display: inline-block
+				color: $primaryColor
+				transition: color 300ms
+
+			&:hover
+
+				&::before
+					color: $darkColor
+
+			&.collapse
+
+				&::before
+					content: "\f106"
+
+		.edn_rss
+			display: inline
+			float: left
+			margin-right: .5rem
+			color: $primaryColor
+
+			&::before
+				font: 900 1rem/1.1 $icon
+				content: "\f143"
+				display: inline-block
+
+			> span
+				display: none
+
+		.edn_image
+			display: inline-block
+			float: left
+			margin-left: .5rem
+
+			> img
+				border: solid 1px $primaryColor
+				transition: border 200ms linear
+				margin-right: 5px
+
+			&:hover
+
+				> img
+					border-color: $defaultColor
+
+	.archive_list.events ul
+		background-color: #f4f4f4
+		padding: 1rem
+		border-bottom: solid 0.8rem #fc4c3b
+
+		> li
+			border-bottom: solid 2px #dadada
+			padding: 0.5rem 0
+
+			> a
+
+				> span
+					font-family: $defaultFont
+					color: $defaultColor
+
+@keyframes fadeInRight
+
+	from
+		opacity: 0
+		transform: translateX(20px)
+
+	to
+		opacity: 1
+		transform: translateX(0)
+
+@keyframes fadeInLeft
+
+	from
+		opacity: 0
+		transform: translateX(-20px)
+
+	to
+		opacity: 1
+		transform: translateX(0)
+
+@keyframes fadeInTop
+
+	from
+		opacity: 0
+		transform: translateY(-20px)
+
+	to
+		opacity: 1
+		transform: translateY(0)
+
+@keyframes fadeOutTop
+
+	from
+		opacity: 1
+		transform: translateY(0)
+
+	to
+		opacity: 0
+		transform: translateY(-20px)

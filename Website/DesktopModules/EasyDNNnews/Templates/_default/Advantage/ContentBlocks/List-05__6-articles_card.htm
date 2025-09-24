@@ -1,0 +1,125 @@
+<!--TemplateGroup:contentBlockDefault-->
+
+<!--ArticleRepeat:Before:-->
+<div class="card card-profile text-left px-3 pb-3">
+	<div class="edn_widgetHeaderWrapper edNews_clearFix card-header pb-0 px-0 mx-0">
+		[EasyDNNnews:IfExists:Paging]
+		<div class="edNews_prevNextPagination">
+			<span class="edNews_previous edn__contentBlock_previousPage"><i class="fas fa-chevron-left"></i><span>[EasyDNNnewsLocalizedText:PreviousPageText]</span></span>
+			<span class="edNews_next edn__contentBlock_nextPage"><i class="fas fa-chevron-right"></i><span>[EasyDNNnewsLocalizedText:NextPageText]</span></span>
+		</div>
+		[EasyDNNnews:EndIf:Paging]
+		<div class="edn__contentBlock_header">
+			[EasyDNNnews:IfExists:ModuleHeader]<h3 class="edn_widgetTitle h4 badge badge-primary edn__contentBlock_title edn_widgetTitle my-0"><span>[EasyDNNnews:ModuleTitle]</span></h3>[EasyDNNnews:EndIf:ModuleHeader]
+			[EasyDNNnews:IfExists:CategoriesFilter]
+			[EasyDNNnews:Categories:Html:UnorderedList]
+			<div class="edn__contentBlock_hiddenItemWrapper mt-3">
+				<div class="edn_contentBlock_trigger"></div>
+				<ol class="edn__contentBlock_itemList edn__contentBlock_hiddenItemList"></ol>
+			</div>
+			[EasyDNNnews:EndIf:CategoriesFilter]
+		</div>
+	</div>
+	<div class="edn_mainWrapper">
+		<div class="edn__articleListWrapper edn_WrapperFirst [EasyDNNnews:ArticleListWrapperClass]">
+<!--RepeatEnd:Before:-->
+
+<!--MultiArticleTemplate-->
+<!--Before:1:-->
+			<div class="row mt-4">
+<!--BeforeEnd-->
+<!--ArticleRepeat:1:2:-->
+				<div class="ednCB_animatedArticle ednCB_1 col-lg-6">
+					<div class="card card card-plain card-blog d-block mt-0">
+						[EasyDNNnews:IfExists:Image]
+						<div class="card-header card-header-image mb-1 edNews_mediaContainer">
+							<a title="[EasyDNNnews:Title]" href="[EasyDNNnews:Title:Link]">
+								<img loading="lazy" class="img" src="[EasyDNNnews:Image:Width:610:Height:550:Resize:Crop]">
+							</a>
+							[EasyDNNnews:IfExists:Comments]<span class="h6 badge badge-pill badge-secondary px-3 py-2 edNews_risedImageBadge"><i class="fas fa-comment-dots"></i> [EasyDNNnews:Comments]</span>[EasyDNNnews:EndIf:Comments]
+							<div class="badge edNews_categoryBadge">[EasyDNNnews:Categories separator=" " last]</div>
+						</div>
+						[EasyDNNnews:EndIf:Image]
+						<div class="card-body p-0">
+							<div class="author mt-4 small">
+								<b>[EasyDNNnews:Author:Link]</b>, [EasyDNNnews:IfNotExists:Event][EasyDNNnews:PublishDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event]
+							</div>
+							<h2 class="h3 mt-1 mb-2 card-title">
+								<a title="[EasyDNNnews:Title]" href="[EasyDNNnews:Title:Link]">[EasyDNNnews:Title]</a>
+							</h2>
+							<div class="card-description">
+								[EasyDNNnews:Summary:Limit]
+							</div>
+						</div>
+					</div>
+				</div>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+<!--After:1:2:-->
+			</div>
+<!--AfterEnd-->
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--Before:3:4:-->
+			<div class="row">
+<!--BeforeEnd-->
+<!--ArticleRepeat:3:4:-->
+				<div class="ednCB_animatedArticle ednCB_2 col-md-6 mt-3">
+					<div class="edNews_smallCardArticle">
+						<a title="[EasyDNNnews:Title]" href="[EasyDNNnews:Title:Link]">
+							[EasyDNNnews:IfExists:Image]
+							<img loading="lazy" src="[EasyDNNnews:Image:Width:125:Height:80:Resize:Crop]">
+							[EasyDNNnews:EndIf:Image]
+							<div class="ml-3">
+								<span class="edNews_smallTitle title h5">[EasyDNNnews:Title]</span><br>
+								<time class="text-muted small">[EasyDNNnews:IfNotExists:Event][EasyDNNnews:PublishDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event]</time>
+							</div>
+						</a>
+					</div>
+				</div>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+<!--After:3:4:-->
+			</div>
+<!--AfterEnd-->
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--Before:5:6:-->
+			<div class="row">
+<!--BeforeEnd-->
+<!--ArticleRepeat:5:6:-->
+				<div class="ednCB_animatedArticle ednCB_3 col-md-6 mt-3">
+					<div class="edNews_smallCardArticle">
+						<a title="[EasyDNNnews:Title]" href="[EasyDNNnews:Title:Link]">
+							[EasyDNNnews:IfExists:Image]
+							<img loading="lazy" src="[EasyDNNnews:Image:Width:125:Height:80:Resize:Crop]">
+							[EasyDNNnews:EndIf:Image]
+							<div class="ml-3">
+								<span class="edNews_smallTitle title h5">[EasyDNNnews:Title]</span><br>
+								<time class="text-muted small">[EasyDNNnews:IfNotExists:Event][EasyDNNnews:PublishDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event]</time>
+							</div>
+						</a>
+					</div>
+				</div>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+<!--After:5:6:-->
+			</div>
+<!--AfterEnd-->
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--ArticleRepeat:After:-->
+			</div>
+			<p class="eds_noContent">[EasyDNNnewsLocalizedText:NoContentMessage]</p>
+			<p class="eds_contentError">[EasyDNNnewsLocalizedText:ContentErrorMessage]</p>
+		</div>
+	</div>
+</div>
+<!--RepeatEnd:After:-->
+<!--MultiArticleEnd-->

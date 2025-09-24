@@ -1,0 +1,24 @@
+﻿IF NOT EXISTS  (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsPortalSettings' and column_name = 'ForceMapsSettings')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsPortalSettings] ADD ForceMapsSettings BIT CONSTRAINT DF_{objectQualifier}EasyDNNNewsPortalSettings_ForceMapsSettings DEFAULT (0) NOT NULL
+END
+GO
+
+IF NOT EXISTS  (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsPortalSettings' and column_name = 'MapsDefaultType')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsPortalSettings] ADD MapsDefaultType NVARCHAR(20) CONSTRAINT DF_{objectQualifier}EasyDNNNewsPortalSettings_MapsDefaultType DEFAULT ('HYBRID') NOT NULL
+END
+GO
+
+IF NOT EXISTS  (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsPortalSettings' and column_name = 'ForceMapsWidth')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsPortalSettings] ADD ForceMapsWidth INT CONSTRAINT DF_{objectQualifier}EasyDNNNewsPortalSettings_ForceMapsWidth DEFAULT (400) NOT NULL
+END
+GO
+
+IF NOT EXISTS  (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsPortalSettings' and column_name = 'ForceMapsHeight')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsPortalSettings] ADD ForceMapsHeight INT CONSTRAINT DF_{objectQualifier}EasyDNNNewsPortalSettings_ForceMapsHeight DEFAULT (300) NOT NULL
+END
+GO
+

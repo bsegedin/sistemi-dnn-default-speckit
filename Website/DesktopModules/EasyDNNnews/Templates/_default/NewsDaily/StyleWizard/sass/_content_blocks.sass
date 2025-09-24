@@ -1,0 +1,318 @@
+#{$baseThemeClass}
+
+	&.eds_subCollection_contentBlock
+		position: relative
+
+		.ednCB_mainWrapper
+			transition: opacity 400ms
+
+		.edn__contentBlock_header
+			font-size: 0
+			line-height: 0
+			display: flex
+			flex-flow: row wrap
+			align-items: center
+			//margin-bottom: 1.5rem
+			position: relative
+			box-shadow: 0 -3px 0 0px $primaryColor inset
+			@include sm-device-width
+				width: auto !important
+
+		.edn__contentBlock_itemList
+			margin: 0 0 0 auto
+			padding: 0
+			border: 0
+			visibility: hidden
+			transition: all 600ms
+			opacity: 0
+
+			> li
+				font: 600 .8rem/1rem $defaultFont
+				color: $darkColor
+				cursor: pointer
+				list-style: none
+				display: inline-block
+				padding: 0 10px
+				margin: 0
+				border: 0
+				transition: color .1s
+				text-transform: uppercase
+				letter-spacing: -0.5px
+
+				&.edn__contentBlock_hide
+					display: none !important
+
+				&:hover,
+				&.edn__contentBlock_active
+					color: $primaryColor
+
+			&.edn__contentBlock_visibleItemList
+				//display: table
+				//white-space: nowrap
+				//float: left
+				padding-left: 1rem
+				display: flex
+				margin: .5rem 0
+
+				//> li
+					//display: table-cell
+
+			//&.edn__contentBlock_itemsHidden
+				//padding-right: 2rem
+
+		.edn__contentBlock_hiddenItemList
+			margin: 0
+			padding: 1rem
+			display: none
+			position: absolute
+			top: 100%
+			right: 0
+			left: 0
+			background-color: #fff
+			box-shadow: 0 0 6px rgba(0, 0, 0, .2)
+			z-index: 10000
+			@include sm-device-width
+				right: 0 !important
+
+			&::before
+				content: ""
+				position: absolute
+				right: 0
+				bottom: 100%
+				left: 0
+				height: 2rem
+
+			> li
+				margin: .4rem
+				padding: .2rem 1rem
+				list-style: none
+				white-space: nowrap
+				text-align: center
+				position: relative
+				z-index: 2
+				color: $darkColor
+				font-size: .9rem
+				text-transform: none
+				@include sm-device-width
+					white-space: normal
+					line-height: 1.5rem !important
+
+				&:first-child
+
+					&::after
+						@include sm-device-width
+							display: none
+
+				&::after
+					content: ""
+					top: 15%
+					right: 0
+					bottom: 15%
+					position: absolute
+					background-color: #dcdcdc
+					width: 1px
+					@include sm-device-width
+						width: auto
+						top: 0
+						right: 2%
+						bottom: auto
+						left: 2%
+						height: 1px
+
+		.edn__contentBlock_hiddenItemWrapper
+			display: none
+
+			&.edn__contentBlock_itemsHidden
+				display: block
+
+			&.edn__showItems
+
+				> .edn__contentBlock_hiddenItemList
+					display: block
+
+					> li
+
+						&.edn__contentBlock_hide
+							display: inline-block !important
+							@include sm-device-width
+								display: block !important
+
+				> .edn_contentBlock_trigger
+					//border-color: $primaryColor
+
+					&::after
+						color: $darkColor
+
+			&:hover
+				@include md-device-min-width
+
+					> .edn__contentBlock_hiddenItemList
+						display: block
+
+						> li
+
+							&.edn__contentBlock_hide
+								display: inline-block !important
+								@include sm-device-width
+									display: block !important
+
+			&.edn__showItems,
+			&:hover
+
+					> .edn_contentBlock_trigger
+						//border-color: $primaryColor
+
+						&::after
+							color: $darkColor
+
+			&.edn__itemListClicked
+
+				> .edn__contentBlock_hiddenItemList
+					display: none
+
+		.edn_contentBlock_trigger
+			width: 2rem
+			height: 2rem
+			cursor: pointer
+			position: relative
+			overflow: hidden
+			//position: absolute
+			//top: 0
+			//right: 0
+			//transform: translateY(50%)
+
+			&::after
+				margin: 0
+				padding: 0
+				border: 0
+				width: 100%
+				font: 900 1.2rem/1.8rem $icon
+				content: "\f063"
+				color: $primaryColor
+				display: block
+				text-align: center
+				position: absolute
+				transition: all 300ms
+				cursor: pointer
+
+		.ednCB_mainWrapper
+			position: relative
+
+		.edn_articleList
+			//opacity: 0
+			//transition: opacity 600ms
+
+		.edn_isotopeLayout
+
+			> .edn__articleListWrapper
+				position: relative
+
+				> article
+					position: absolute
+
+		.eds_noContent,
+		.eds_contentError
+			font: 1rem/1.3 $defaultFont
+			display: none
+			border: 0
+			padding: 30px 0
+			margin: 0 auto
+			color: $greyColor
+			text-align: center
+
+		&.edn__contentBlock_disablePreviousPage
+
+			.edn__contentBlock_previousPage
+				pointer-events: none
+				opacity: .6
+
+		&.edn__contentBlock_disableNextPage
+
+			.edn__contentBlock_nextPage
+				pointer-events: none
+				opacity: .6
+
+		&.edn__contentBlock_disablePreviousPage.edn__contentBlock_disableNextPage,
+		&.edn__contentBlock_contentError,
+		&.edn__contentBlock_noContent
+
+			.edn_prevNextPagination,
+			.edn_previous,
+			.edn_next
+				display: none
+
+			.edn__contentBlock_header
+				width: auto
+
+			.edn__contentBlock_hiddenItemList
+				//right: 0
+
+		&.edn__contentBlock_loading
+
+			.edn_articleList
+				//opacity: 0
+
+			.ednCB_mainWrapper
+				//opacity: .2
+
+			.loadingOverlay
+				opacity: 1
+				top: 0
+
+		&.edn__contentBlock_disablePreviousPage
+
+			.edn_articleList
+				//opacity: 0
+
+		&.edn__contentBlock_disableNextPage
+
+			.edn_articleList
+				//opacity: 0
+
+		&.edn__contentBlock_ready
+
+			.edn__contentBlock_itemList
+				visibility: visible
+				opacity: 1
+
+		&.edn__contentBlock_pageReady
+
+			.edn_articleList
+				//opacity: 1
+
+			&.edn__contentBlock_loading
+
+				//.edn_articleList
+					//opacity: 0
+
+		&.edn__contentBlock_triggeredNextPage
+
+			.edn_articleList
+				animation-name: fadeInRight
+				animation-duration: 600ms
+
+		&.edn__contentBlock_triggeredPreviousPage
+
+			.edn_articleList
+				animation-name: fadeInLeft
+				animation-duration: 600ms
+
+		&.edn__contentBlock_noContent
+
+			.ednCB_mainWrapper
+
+				.edn__articleListWrapper
+					display: none
+
+				.eds_noContent
+					display: block
+
+		&.edn__contentBlock_contentError
+
+			.ednCB_mainWrapper
+
+				.edn__articleListWrapper
+					display: none
+
+				.eds_contentError
+					display: block

@@ -1,0 +1,41 @@
+@import "views/basic";
+@import "views/grid";
+@import "views/card";
+@import "views/split-view";
+@import "views/hero";
+@import "views/swiper";
+@import "views/topic-list";
+@import "views/timeline";
+@import "views/accordion";
+@import "views/tabs";
+@import "views/carousel";
+
+
+figure {
+  margin-bottom: 0;
+}
+
+.card {
+  background-color: transparent;
+}
+
+.brand-color-title {
+  .o-title {
+    color: var(--primary);
+  }
+}
+
+.item-paddingY-5 {
+  padding: 2.5rem 0;
+  @media (min-width: 1200px) {
+    padding: 7.5rem 0;
+  }
+}
+
+.bottom-align {
+  justify-content: flex-end;
+}
+
+.image-right {
+  order: 2;
+}

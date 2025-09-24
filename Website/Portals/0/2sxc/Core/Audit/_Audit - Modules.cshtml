@@ -1,0 +1,118 @@
+<!-- Include 2sxc api, datatables and exports -->
+@Html.Partial("_Assets.cshtml")
+@Html.Partial("Shared/_Shared - Loader.cshtml")
+
+<div class="sc-element">
+    @if (Dnn.User.IsSuperUser)
+    {
+        <div class="admin-edit-line">
+            @Edit.Toolbar(settings: new { hover = "right" })
+        </div>
+    }
+
+
+    <div class="table-responsive js-table-wrap c-audit-modules" style="display:none">
+        <table id="table_@Dnn.Module.ModuleID" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>@App.Resources.ModuleID</th>
+                    <th>@App.Resources.ModuleName</th>
+                    <th>@App.Resources.TabName</th>
+                    <th>@App.Resources.IsDeleted</th>
+                    <th>@App.Resources.DateCreated</th>
+                    <th>@App.Resources.UserCreated</th>
+                    <th>@App.Resources.DateModified</th>
+                    <th>@App.Resources.UserModified</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>@App.Resources.ModuleID</th>
+                    <th>@App.Resources.ModuleName</th>
+                    <th>@App.Resources.TabName</th>
+                    <th>@App.Resources.IsDeleted</th>
+                    <th>@App.Resources.DateCreated</th>
+                    <th>@App.Resources.UserCreated</th>
+                    <th>@App.Resources.DateModified</th>
+                    <th>@App.Resources.UserModified</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+       const tableElement = document.getElementById('table_@Dnn.Module.ModuleID');
+
+       // Fetch data from the API
+       const sxc = $2sxc(@Dnn.Module.ModuleID);
+       sxc.webApi.get('app/auto/query/DnnData/Modules').success(function (data) {
+           // Process data for display
+           data.Modules.forEach(item => {
+               item.TabName = `<a href="/default.aspx?tabid=${item.TabID}" target="_blank">${item.TabName}</a>`;
+               item.ModuleID = `${item.ModuleID} - ${item.DefinitionName}`;
+               item.CreatedOnDate = item.CreatedOnDate ? moment(item.CreatedOnDate).format('DD.MM.YYYY') : 'No date';
+               item.LastModifiedOnDate = item.LastModifiedOnDate ? moment(item.LastModifiedOnDate).format('DD.MM.YYYY') : 'No date';
+           });
+
+           // Initialize DataTable
+           const table = new DataTable(tableElement, {
+               data: data.Modules,
+               columns: [
+                   { data: "ModuleID" },
+                   { data: "ModuleTitle" },
+                   { data: "TabName" },
+                   { data: "IsDeleted" },
+                   { data: "CreatedOnDate" },
+                   { data: "CreatedBy" },
+                   { data: "LastModifiedOnDate" },
+                   { data: "ModifiedBy" }
+               ],
+               pageLength: 20,
+               dom: 'Bfrtip', // Layout for buttons and table
+               buttons: ['csv', 'excel', 'pdf'], // Export buttons
+               order: [[0, 'asc']], // Default sort order
+               language: {
+                   emptyTable: "Nema podataka u tablici",
+                   info: "Prikazano _START_ do _END_ od _TOTAL_ rezultata",
+                   infoEmpty: "Prikazano 0 do 0 od 0 rezultata",
+                   infoFiltered: "(filtrirano iz _MAX_ ukupnih rezultata)",
+                   lengthMenu: "Prikaži _MENU_ rezultata po stranici",
+                   loadingRecords: "Dohvaćam...",
+                   processing: "Obrađujem...",
+                   search: "Pretraži:",
+                   zeroRecords: "Ništa nije pronađeno",
+                   paginate: {
+                       first: "Prva",
+                       previous: "Nazad",
+                       next: "Naprijed",
+                       last: "Zadnja"
+                   },
+                   aria: {
+                       sortAscending: ": aktiviraj za rastući poredak",
+                       sortDescending: ": aktiviraj za padajući poredak"
+                   }
+               }
+           });
+
+           // Add input filters to the footer
+           const footerCells = tableElement.querySelectorAll('tfoot th');
+           footerCells.forEach((cell, index) => {
+               const input = document.createElement('input');
+               input.type = 'text';
+               input.className = 'form-control form-control-sm';
+               input.placeholder = cell.textContent;
+               input.addEventListener('input', function () {
+                   table.columns(index).search(this.value).draw();
+               });
+               cell.appendChild(input);
+           });
+
+           // Show the table and remove the loader
+           document.querySelector('.js-loader-container').remove();
+           document.querySelector('.js-table-wrap').style.display = 'block';
+       });
+   });
+
+</script>

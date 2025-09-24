@@ -1,0 +1,1714 @@
+﻿IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsSearchSettings' and column_name = 'CFUseORBetweenElements')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsSearchSettings] ADD CFUseORBetweenElements BIT CONSTRAINT DF_{objectQualifier}EasyDNNNewsSearchSettings_CFUseORBetweenElements DEFAULT(0) NOT NULL;
+END
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsRSSArticle' and column_name = 'CheckId')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsRSSArticle] ADD CheckId NVARCHAR(250) CONSTRAINT DF_{objectQualifier}EasyDNNNewsRSSArticle_CheckId NULL;
+END
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}EasyDNNnewsTagCloudGetTags]') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}[{objectQualifier}EasyDNNnewsTagCloudGetTags]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}EasyDNNNewsGetRelatedArticlesByArticleTags]') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}[{objectQualifier}EasyDNNNewsGetRelatedArticlesByArticleTags]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}EasyDNNNewsGetRelatedArticlesByArticleTags]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE {databaseOwner}[{objectQualifier}EasyDNNNewsGetRelatedArticlesByArticleTags] AS' 
+END
+GO
+ALTER PROCEDURE {databaseOwner}[{objectQualifier}EasyDNNNewsGetRelatedArticlesByArticleTags]
+	@PortalID INT,
+	@ModuleID INT,
+	@UserID INT,
+	@ArticleID INT,
+	@NumberOfItems INT = 5,
+	@OrderBy NVARCHAR(30) = 'PublishDate DESC',
+	@UserCanApprove BIT = 0,
+	@LocaleCode NVARCHAR(20) = NULL,
+	@Perm_ViewAllCategores BIT = 0,
+	@AdminOrSuperUser BIT = 0,
+	@PermissionSettingsSource BIT = 1,
+	@FillterSettingsSource BIT = 1,
+	@CategoryFilterType TINYINT = 1,
+	@HideUnlocalizedItems BIT = 0,
+	@FilterRelatedArticlesBy TINYINT = 0
+AS
+SET NOCOUNT ON;
+IF EXISTS(SELECT 1 FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems]
+WHERE ArticleID <> @ArticleID AND TagID IN (SELECT [TagID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] WHERE ArticleID = @ArticleID))
+BEGIN
+	DECLARE @CurrentDate DATETIME;
+	SET @CurrentDate = GETUTCDATE();
+
+	DECLARE @UserInRoles TABLE (RoleID INT NOT NULL PRIMARY KEY);
+	IF @UserID <> -1
+	INSERT INTO @UserInRoles
+	SELECT DISTINCT r.[RoleID]
+	FROM {databaseOwner}[{objectQualifier}Roles] AS r
+	INNER JOIN {databaseOwner}[{objectQualifier}UserRoles] AS ur ON ur.RoleID = r.RoleID
+	WHERE ur.UserID = @UserID AND r.PortalID = @PortalID AND (ur.ExpiryDate IS NULL OR ur.ExpiryDate > @CurrentDate) AND (ur.EffectiveDate IS NULL OR ur.EffectiveDate < @CurrentDate);
+
+	DECLARE @UserViewCategories TABLE (CategoryID INT NOT NULL PRIMARY KEY);
+	DECLARE @UserViewCategoriesWithFilter TABLE (CategoryID INT NOT NULL PRIMARY KEY);
+	DECLARE @FiltredByCategories TABLE (CategoryID INT NOT NULL PRIMARY KEY);
+
+	IF @AdminOrSuperUser = 1 OR @Perm_ViewAllCategores = 1
+	BEGIN
+		INSERT INTO @UserViewCategories SELECT [CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] WHERE PortalID = @PortalID;
+	END
+	ELSE IF @UserID = -1
+	BEGIN	
+		IF @PermissionSettingsSource = 1 -- by portal
+		BEGIN
+			INSERT INTO @UserViewCategories
+			SELECT rpsc.[CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsRolePremissionsShowCategories] AS rpsc 
+			WHERE rpsc.PremissionSettingsID IN (SELECT PremissionSettingsID FROM {databaseOwner}[{objectQualifier}EasyDNNNewsRolePremissionSettings] WHERE PortalID = @PortalID AND ModuleID IS NULL AND RoleID IS NULL);
+		END
+		ELSE -- by module
+		BEGIN
+			INSERT INTO @UserViewCategories
+			SELECT rpsc.[CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsRolePremissionsShowCategories] AS rpsc
+			WHERE rpsc.[PremissionSettingsID] IN (SELECT [PremissionSettingsID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsRolePremissionSettings] WHERE [PortalID] = @PortalID AND [ModuleID] = @ModuleID AND [RoleID] IS NULL);
+		END
+	END
+	ELSE -- registrirani korisnik
+	BEGIN
+		IF @PermissionSettingsSource = 1 -- by portal
+		BEGIN
+			INSERT INTO @UserViewCategories
+			SELECT rpsc.[CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsRolePremissionsShowCategories] AS rpsc
+			WHERE rpsc.[PremissionSettingsID] IN (SELECT [PremissionSettingsID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsRolePremissionSettings] WHERE [PortalID] = @PortalID AND [ModuleID] IS NULL AND RoleID IN (SELECT [RoleID] FROM @UserInRoles))
+			UNION
+			SELECT upsc.[CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsUserPremissionsShowCategories] AS upsc
+			WHERE upsc.[PremissionSettingsID] IN (SELECT [PremissionSettingsID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsUserPremissionSettings] WHERE [PortalID] = @PortalID AND [UserID] = @UserID AND [ModuleID] IS NULL)
+		END
+		ELSE -- by module
+		BEGIN
+			INSERT INTO @UserViewCategories
+			SELECT rpsc.[CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsRolePremissionsShowCategories] AS rpsc
+			WHERE rpsc.[PremissionSettingsID] IN (SELECT [PremissionSettingsID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsRolePremissionSettings] WHERE [ModuleID] = @ModuleID AND RoleID IN (SELECT [RoleID] FROM @UserInRoles))
+			UNION
+			SELECT upsc.[CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsUserPremissionsShowCategories] AS upsc
+			WHERE upsc.[PremissionSettingsID] IN (SELECT [PremissionSettingsID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsUserPremissionSettings] WHERE [PortalID] = @PortalID AND [UserID] = @UserID AND [ModuleID] = @ModuleID)
+		END
+	END
+
+	IF @FilterRelatedArticlesBy = 1
+	BEGIN
+		IF @CategoryFilterType = 0 -- 0 All categories
+		BEGIN
+			INSERT INTO @UserViewCategoriesWithFilter SELECT [CategoryID] FROM @UserViewCategories;
+			INSERT INTO @FiltredByCategories SELECT [CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] WHERE PortalID = @PortalID;
+		END
+		ELSE IF @CategoryFilterType = 1 -- 1 - SELECTion
+		BEGIN
+			IF @FillterSettingsSource = 1 -- portal
+			BEGIN
+				INSERT INTO @UserViewCategoriesWithFilter 
+				SELECT c.[CategoryID] FROM @UserViewCategories AS c
+				WHERE c.[CategoryID] IN (SELECT pci.CategoryID FROM {databaseOwner}[{objectQualifier}EasyDNNNewsPortalCategoryItems] AS pci WHERE pci.PortalID = @PortalID);		
+				INSERT INTO @FiltredByCategories SELECT [CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsPortalCategoryItems] WHERE PortalID = @PortalID;
+			END
+			ELSE -- module
+			BEGIN
+				INSERT INTO @UserViewCategoriesWithFilter 
+				SELECT c.[CategoryID] FROM @UserViewCategories AS c
+				WHERE c.[CategoryID] IN (SELECT mci.CategoryID FROM {databaseOwner}[{objectQualifier}EasyDNNNewsModuleCategoryItems] AS mci WHERE mci.ModuleID = @ModuleID);		
+				INSERT INTO @FiltredByCategories SELECT [CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsModuleCategoryItems] WHERE ModuleID = @ModuleID;
+			END
+		END
+		ELSE IF @CategoryFilterType = 2 -- 2 - AutoAdd
+		BEGIN
+			IF @FillterSettingsSource = 1 -- portal
+			BEGIN
+				WITH hierarchy AS(
+					SELECT [CategoryID], [ParentCategory]
+					FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] AS cl
+					WHERE (cl.ParentCategory IN (SELECT [CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsPortalCategoryItems] WHERE PortalID = @PortalID) OR cl.CategoryID IN (SELECT [CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsPortalCategoryItems] WHERE PortalID = @PortalID)) AND PortalID = @PortalID
+					UNION ALL
+					SELECT c.[CategoryID], c.[ParentCategory]
+					FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] AS c INNER JOIN hierarchy AS p ON c.ParentCategory = p.CategoryID WHERE c.PortalID = @PortalID
+					)
+				INSERT INTO @FiltredByCategories SELECT DISTINCT CategoryID FROM hierarchy;	
+				INSERT INTO @UserViewCategoriesWithFilter SELECT CategoryID FROM @UserViewCategories WHERE CategoryID IN (SELECT CategoryID FROM @FiltredByCategories);		
+			END
+			ELSE -- module
+			BEGIN
+				WITH hierarchy AS(
+					SELECT [CategoryID], [ParentCategory]
+					FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] AS cl
+					WHERE (cl.ParentCategory IN (SELECT [CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsModuleCategoryItems] WHERE ModuleID = @ModuleID) OR cl.CategoryID IN (SELECT [CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsModuleCategoryItems] WHERE ModuleID = @ModuleID)) AND PortalID = @PortalID
+					UNION ALL
+					SELECT c.[CategoryID], c.[ParentCategory]
+					FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] AS c INNER JOIN hierarchy AS p ON c.ParentCategory = p.CategoryID WHERE c.PortalID = @PortalID
+					)
+				INSERT INTO @FiltredByCategories SELECT DISTINCT CategoryID FROM hierarchy;
+				INSERT INTO @UserViewCategoriesWithFilter SELECT CategoryID FROM @UserViewCategories WHERE CategoryID IN (SELECT CategoryID FROM @FiltredByCategories);
+			END
+		END
+	END
+	ELSE IF @FilterRelatedArticlesBy = 2
+	BEGIN
+		INSERT INTO @FiltredByCategories SELECT [CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] WHERE ArticleID = @ArticleID;
+		
+		INSERT INTO @UserViewCategoriesWithFilter
+		SELECT c.[CategoryID] FROM @UserViewCategories AS c
+		WHERE c.[CategoryID] IN (SELECT CategoryID FROM @FiltredByCategories);
+		
+	END
+	ELSE
+	BEGIN
+		INSERT INTO @UserViewCategoriesWithFilter SELECT [CategoryID] FROM @UserViewCategories;
+		INSERT INTO @FiltredByCategories SELECT [CategoryID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] WHERE PortalID = @PortalID;
+	END
+
+DECLARE @DateRangeType TINYINT;
+DECLARE @StartDate DATETIME;
+
+	IF @LocaleCode IS NULL
+	BEGIN
+		SELECT TOP (@NumberOfItems) n.[ArticleID],n.[PortalID],n.[UserID],n.[Title],n.[SubTitle],n.[Summary],n.[Article],n.[ArticleImage],n.[PublishDate],n.[TitleLink],n.[AuthorAliasName],n.[DetailType],n.[DetailTypeData],n.[CFGroupeID],
+		(
+					SELECT c.[CategoryID] AS "@id", c.[PortalID] AS "@portalid", c.[CategoryName] AS "@name", c.[CategoryURL] AS "@url", c.[Color] AS "@color", c.[CategoryText] AS "@description", c.[CategoryImage] AS "@image"
+					FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] AS c
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS ci ON c.CategoryID = ci.CategoryID
+					WHERE ci.ArticleID = n.ArticleID
+					ORDER BY c.Position
+					FOR XML PATH('category'), ROOT('categories')
+				) AS CatToShow,
+		n.[EventArticle],
+		CASE WHEN n.EventArticle = 0 THEN n.PublishDate ELSE CASE WHEN ned.Recurring = 1 THEN nerd.StartDateTime ELSE ned.StartDate END END AS StartDate,
+		CASE WHEN n.EventArticle = 1 AND ned.Recurring = 1 THEN nerd.RecurringID ELSE NULL END AS RecurringID,
+		CASE WHEN @CategoryFilterType = 0 THEN NULL
+		ELSE
+			CASE WHEN @FillterSettingsSource = 1 THEN
+			 (SELECT TOP 1 CONVERT(varchar(10), clink.NewsModuleID) + ':' + CONVERT(varchar(10), tm.[TabID])
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] as c
+				INNER JOIN @UserViewCategories AS uvc ON c.CategoryID = uvc.CategoryID
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] as cl ON c.CategoryID = cl.CategoryID
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsPortalCategoryLink] as clink ON clink.CategoryID = cl.CategoryID AND clink.SourcePortalID = @PortalID
+				INNER JOIN {databaseOwner}[{objectQualifier}TabModules] AS tm ON clink.NewsModuleID = tm.ModuleID
+				WHERE c.ArticleID = n.[ArticleID] AND cl.PortalID = @PortalID ORDER BY cl.Position)
+			ELSE
+			(SELECT TOP 1 CONVERT(varchar(10), clink.NewsModuleID) + ':' + CONVERT(varchar(10), tm.[TabID]) AS WhereToOpen
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] as c
+				INNER JOIN @UserViewCategories AS uvc ON c.CategoryID = uvc.CategoryID
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] as cl ON c.CategoryID = cl.CategoryID
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryLink] as clink ON clink.CategoryID = cl.CategoryID AND clink.SourceModuleID = @ModuleID
+				INNER JOIN {databaseOwner}[{objectQualifier}TabModules] AS tm ON clink.NewsModuleID = tm.ModuleID
+				WHERE c.ArticleID = n.[ArticleID] AND cl.PortalID = @PortalID ORDER BY cl.Position)
+			END		
+		END AS WhereToOpenLink
+		FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS n
+		LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsEventsData] AS ned ON n.ArticleID = ned.ArticleID
+		LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsEventsRecurringData] AS nerd ON ned.ArticleID = nerd.ArticleID AND ned.ArticleID IS NOT NULL AND ned.Recurring = 1 AND 1 = ( 
+		CASE WHEN @DateRangeType = 2
+		THEN
+			CASE WHEN 
+				((nerd.StartDateTime <= @CurrentDate AND ((nerd.StartDateTime >= @StartDate) OR (nerd.StartDateTime < @StartDate AND nerd.EndDateTime >= @StartDate)))
+				OR (nerd.RecurringID IN (SELECT TOP(CASE WHEN ned.UpcomingOccurrences IS NULL THEN 1 ELSE ned.UpcomingOccurrences END) erd.RecurringID FROM {databaseOwner}[{objectQualifier}EasyDNNNewsEventsRecurringData] AS erd WHERE erd.ArticleID = ned.ArticleID AND erd.StartDateTime > @CurrentDate ORDER BY erd.StartDateTime)))
+			THEN 1 ELSE 0 END
+		ELSE
+			CASE WHEN
+				(nerd.StartDateTime <= @CurrentDate OR nerd.RecurringID IN (SELECT TOP(CASE WHEN ned.UpcomingOccurrences IS NULL THEN 1 ELSE ned.UpcomingOccurrences END) nerdInner.RecurringID FROM {databaseOwner}[{objectQualifier}EasyDNNNewsEventsRecurringData] AS nerdInner WHERE nerdInner.ArticleID = ned.ArticleID AND nerdInner.StartDateTime > @CurrentDate ORDER BY nerdInner.StartDateTime))
+			THEN 1 ELSE 0 END
+		END )
+	WHERE n.ArticleID IN(
+			SELECT na.[ArticleID] FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM @UserViewCategoriesWithFilter)
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti ON na.ArticleID = ti.ArticleID AND (ti.TagID IN (SELECT [TagID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] WHERE ArticleID = @ArticleID))		
+			WHERE na.PortalID=@PortalID
+				AND na.HasPermissions = 0
+				AND na.HideDefaultLocale = 0
+				AND @CurrentDate BETWEEN na.PublishDate AND na.[ExpireDate]
+				AND na.ArticleID <> @ArticleID
+				AND (@UserCanApprove = 1 OR na.Approved = 1)
+				AND (na.Active = 1 OR na.UserID = @UserID)	
+			UNION ALL
+			SELECT na.[ArticleID] FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM @FiltredByCategories)
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti ON na.ArticleID = ti.ArticleID AND (ti.TagID IN (SELECT [TagID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] WHERE ArticleID = @ArticleID))		
+			WHERE na.PortalID=@PortalID
+				AND na.HasPermissions = 1
+				AND na.HideDefaultLocale = 0
+				AND @CurrentDate BETWEEN na.PublishDate AND na.[ExpireDate]
+				AND na.ArticleID <> @ArticleID
+				AND aup.Show = 1
+				AND (@UserCanApprove = 1 OR na.Approved = 1)
+				AND (na.Active = 1 OR na.UserID = @UserID)
+				AND ((@UserID = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserID))
+			UNION
+			SELECT na.[ArticleID] FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM @FiltredByCategories)
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti ON na.ArticleID = ti.ArticleID AND (ti.TagID IN (SELECT [TagID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] WHERE ArticleID = @ArticleID))		
+			WHERE na.PortalID=@PortalID
+				AND na.HasPermissions = 1
+				AND na.HideDefaultLocale = 0
+				AND @CurrentDate BETWEEN na.PublishDate AND na.[ExpireDate]
+				AND na.ArticleID <> @ArticleID
+				AND arp.Show = 1
+				AND (@UserCanApprove = 1 OR na.Approved = 1)
+				AND (na.Active = 1 OR na.UserID = @UserID)
+				AND arp.RoleID IN (SELECT [RoleID] FROM @UserInRoles)
+			)
+		ORDER BY
+			CASE WHEN @OrderBy ='PublishDate DESC' THEN PublishDate END DESC,
+			CASE WHEN @OrderBy ='NumberOfViews DESC' THEN NumberOfViews END DESC;
+	END
+	ELSE
+	BEGIN
+		WITH FinalArticleIDsSet (ArticleID, StartDate, RecurringID) AS(
+		SELECT TOP (@NumberOfItems) n.[ArticleID],
+		CASE WHEN n.EventArticle = 0 THEN n.PublishDate ELSE CASE WHEN ned.Recurring = 1 THEN nerd.StartDateTime ELSE ned.StartDate END END AS StartDate,
+		CASE WHEN n.EventArticle = 1 AND ned.Recurring = 1 THEN nerd.RecurringID ELSE NULL END AS RecurringID
+		FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS n
+		LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsEventsData] AS ned ON n.ArticleID = ned.ArticleID
+		LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsEventsRecurringData] AS nerd ON ned.ArticleID = nerd.ArticleID AND ned.ArticleID IS NOT NULL AND ned.Recurring = 1 AND 1 = ( 
+		CASE WHEN @DateRangeType = 2
+		THEN
+			CASE WHEN 
+				((nerd.StartDateTime <= @CurrentDate AND ((nerd.StartDateTime >= @StartDate) OR (nerd.StartDateTime < @StartDate AND nerd.EndDateTime >= @StartDate)))
+				OR (nerd.RecurringID IN (SELECT TOP(CASE WHEN ned.UpcomingOccurrences IS NULL THEN 1 ELSE ned.UpcomingOccurrences END) erd.RecurringID FROM {databaseOwner}[{objectQualifier}EasyDNNNewsEventsRecurringData] AS erd WHERE erd.ArticleID = ned.ArticleID AND erd.StartDateTime > @CurrentDate ORDER BY erd.StartDateTime)))
+			THEN 1 ELSE 0 END
+		ELSE
+			CASE WHEN
+				(nerd.StartDateTime <= @CurrentDate OR nerd.RecurringID IN (SELECT TOP(CASE WHEN ned.UpcomingOccurrences IS NULL THEN 1 ELSE ned.UpcomingOccurrences END) nerdInner.RecurringID FROM {databaseOwner}[{objectQualifier}EasyDNNNewsEventsRecurringData] AS nerdInner WHERE nerdInner.ArticleID = ned.ArticleID AND nerdInner.StartDateTime > @CurrentDate ORDER BY nerdInner.StartDateTime))
+			THEN 1 ELSE 0 END
+		END )
+		WHERE n.ArticleID IN(
+			SELECT na.[ArticleID] FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM @UserViewCategoriesWithFilter)
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti ON na.ArticleID = ti.ArticleID AND (ti.TagID IN (SELECT [TagID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] WHERE ArticleID = @ArticleID))		
+			WHERE na.PortalID=@PortalID
+				AND na.HasPermissions = 0
+				AND na.HideDefaultLocale = 0
+				AND @CurrentDate BETWEEN na.PublishDate AND na.[ExpireDate]
+				AND na.ArticleID <> @ArticleID
+				AND (@UserCanApprove = 1 OR na.Approved = 1)
+				AND (na.Active = 1 OR na.UserID = @UserID)
+			UNION ALL
+			SELECT na.[ArticleID] FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM @FiltredByCategories)
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti ON na.ArticleID = ti.ArticleID AND (ti.TagID IN (SELECT [TagID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] WHERE ArticleID = @ArticleID))		
+			WHERE na.PortalID=@PortalID
+				AND na.HasPermissions = 1
+				AND na.HideDefaultLocale = 0
+				AND @CurrentDate BETWEEN na.PublishDate AND na.[ExpireDate]
+				AND na.ArticleID <> @ArticleID
+				AND aup.Show = 1
+				AND (@UserCanApprove = 1 OR na.Approved = 1)
+				AND (na.Active = 1 OR na.UserID=@UserID)
+				AND ((@UserID = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserID))
+			UNION
+			SELECT na.[ArticleID] FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM @FiltredByCategories)
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti ON na.ArticleID = ti.ArticleID AND (ti.TagID IN (SELECT [TagID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] WHERE ArticleID = @ArticleID))		
+			WHERE na.PortalID=@PortalID
+				AND na.HasPermissions = 1
+				AND na.HideDefaultLocale = 0
+				AND @CurrentDate BETWEEN na.PublishDate AND na.[ExpireDate]
+				AND na.ArticleID <> @ArticleID
+				AND arp.Show = 1
+				AND (@UserCanApprove = 1 OR na.Approved = 1)
+				AND (na.Active = 1 OR na.UserID=@UserID)
+				AND arp.RoleID IN (SELECT [RoleID] FROM @UserInRoles)
+			)
+		ORDER BY
+			CASE WHEN @OrderBy ='PublishDate DESC' THEN PublishDate END DESC,
+			CASE WHEN @OrderBy ='NumberOfViews DESC' THEN NumberOfViews END DESC
+	)
+	SELECT *,
+		CASE WHEN @CategoryFilterType = 0 THEN NULL
+		ELSE
+			CASE WHEN @FillterSettingsSource = 1 THEN
+			 (SELECT TOP 1 CONVERT(varchar(10), clink.NewsModuleID) + ':' + CONVERT(varchar(10), tm.[TabID])
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] as c
+				INNER JOIN @UserViewCategories AS uvc ON c.CategoryID = uvc.CategoryID
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] as cl ON c.CategoryID = cl.CategoryID
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsPortalCategoryLink] as clink ON clink.CategoryID = cl.CategoryID AND clink.SourcePortalID = @PortalID
+				INNER JOIN {databaseOwner}[{objectQualifier}TabModules] AS tm ON clink.NewsModuleID = tm.ModuleID
+				WHERE c.ArticleID = Result.[ArticleID] AND cl.PortalID = @PortalID ORDER BY cl.Position)
+			ELSE
+			(SELECT TOP 1 CONVERT(varchar(10), clink.NewsModuleID) + ':' + CONVERT(varchar(10), tm.[TabID]) AS WhereToOpen
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] as c
+				INNER JOIN @UserViewCategories AS uvc ON c.CategoryID = uvc.CategoryID
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] as cl ON c.CategoryID = cl.CategoryID
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryLink] as clink ON clink.CategoryID = cl.CategoryID AND clink.SourceModuleID = @ModuleID
+				INNER JOIN {databaseOwner}[{objectQualifier}TabModules] AS tm ON clink.NewsModuleID = tm.ModuleID
+				WHERE c.ArticleID = Result.[ArticleID] AND cl.PortalID = @PortalID ORDER BY cl.Position)
+			END		
+		END AS WhereToOpenLink
+		FROM (
+			SELECT n.[ArticleID],n.[PortalID],n.[UserID],	
+				CASE WHEN cl.ArticleID IS NULL THEN n.[Title] ELSE cl.[Title] END AS Title,
+				CASE WHEN cl.ArticleID IS NULL THEN n.[SubTitle] ELSE cl.[SubTitle] END AS SubTitle,
+				CASE WHEN cl.ArticleID IS NULL THEN n.[Summary] ELSE cl.[Summary] END AS Summary,
+				CASE WHEN cl.ArticleID IS NULL THEN n.[Article] ELSE cl.[Article] END AS Article,
+				n.[ArticleImage],n.[PublishDate],		
+				CASE WHEN cl.ArticleID IS NULL THEN n.[TitleLink] ELSE cl.[clTitleLink] END AS TitleLink,
+				n.[NumberOfViews],n.[AuthorAliasName],n.[DetailType],n.[DetailTypeData],n.[CFGroupeID],
+				(
+					SELECT c.[CategoryID] AS "@id", c.[PortalID] AS "@portalid"
+						,CASE WHEN cl.CategoryID IS NULL THEN c.[CategoryName] ELSE cl.[Title] END AS "@name", cl.[CategoryURL] AS "@url", c.[Color] AS "@color", cl.[CategoryText] AS "@description", c.[CategoryImage] AS "@image"
+					FROM {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryList] AS c
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS ci ON c.[CategoryID] = ci.[CategoryID]
+					LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategoryLocalization] AS cl ON c.[CategoryID] = cl.[CategoryID] AND cl.[LocaleCode] = @LocaleCode
+					WHERE ci.ArticleID = n.ArticleID
+					ORDER BY c.Position
+					FOR XML PATH('category'), ROOT('categories')
+				) AS CatToShow,
+				n.[EventArticle],fas.[RecurringID]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS n
+				INNER JOIN FinalArticleIDsSet AS fas ON n.ArticleID = fas.ArticleID
+				LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS cl ON cl.ArticleID = n.ArticleID AND LocaleCode = @LocaleCode 
+			) As Result
+		ORDER BY
+			CASE WHEN @OrderBy ='PublishDate DESC' THEN PublishDate END DESC,
+			CASE WHEN @OrderBy ='NumberOfViews DESC' THEN NumberOfViews END DESC
+	END
+END
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}EasyDNNnewsTagCloudGetTags]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE {databaseOwner}[{objectQualifier}EasyDNNnewsTagCloudGetTags] AS' 
+END
+GO
+ALTER PROCEDURE {databaseOwner}[{objectQualifier}EasyDNNnewsTagCloudGetTags]
+	@PortalId  INT,
+	@UserId INT,
+	@ModuleId INT,
+	@OrderBy NVARCHAR(20) = 'Size DESC',
+	@AdminOrSuperUser BIT  = 0,
+	@RowCount INT = 0,
+	@LocaleCode NVARCHAR(20) = NULL,
+	@IsSocialInstance BIT = 0,
+	@FilterByDnnUserId INT = 0,
+	@FilterByDnnGroupId INT = 0,
+	@ShowAllAuthors BIT = 1,
+	@CategoryFilterType TINYINT = 0,
+	@FilterByCategoryId INT = NULL,
+	@HideUnlocalizedItems BIT = 0,
+	@SatellitePermissionsSource TINYINT = 0,
+	@PermissionsModuleId INT = 0,
+	@FilterByArticles BIT = 1,
+	@FilterByEvents BIT = 0
+AS
+SET NOCOUNT ON;
+DECLARE @PortalsCount INT;
+DECLARE @IsPortalSharing BIT
+DECLARE @CurrentDate DATETIME;
+SET @CurrentDate = GETUTCDATE();
+
+CREATE TABLE #SharingPortals (PortalID INT PRIMARY KEY);
+CREATE TABLE #UserInRoles (RoleID INT PRIMARY KEY);
+CREATE TABLE #ViewCategories (CategoryID INT PRIMARY KEY);
+CREATE TABLE #FilterCategories (CategoryID INT PRIMARY KEY);
+CREATE TABLE #ViewCategoriesWithFilter (CategoryID INT PRIMARY KEY);
+
+INSERT INTO #SharingPortals
+SELECT SharingPortalID FROM {databaseOwner}[{objectQualifier}EasyDNNNewsModulePortals] WHERE ModuleID = @ModuleId;
+
+SELECT @PortalsCount = @@ROWCOUNT;
+
+IF @PortalsCount = 0
+BEGIN
+	SET @IsPortalSharing = 0;
+	INSERT INTO #SharingPortals SELECT @PortalId
+END
+ELSE
+BEGIN
+	SET @IsPortalSharing = 1;
+	IF @PortalsCount = 1
+	BEGIN
+		SET @PortalId = (SELECT PortalID FROM #SharingPortals); -- because of social dnn tvf
+	END
+END
+
+IF @UserId <> -1
+BEGIN
+	INSERT INTO #UserInRoles
+	EXEC {databaseOwner}[{objectQualifier}EasyDNNnewsUserRoles] @PortalId,@UserId,@IsPortalSharing;
+END
+
+INSERT INTO #ViewCategories
+EXEC {databaseOwner}[{objectQualifier}EasyDNNnewsViewCategories] @PortalId,@PermissionsModuleId,@UserId,@AdminOrSuperUser,@SatellitePermissionsSource,@IsPortalSharing;
+
+IF @FilterByCategoryId IS NULL
+BEGIN
+	INSERT INTO #FilterCategories
+	EXEC {databaseOwner}[{objectQualifier}EasyDNNnewsFilterCategories] @PortalId,@ModuleId,@CategoryFilterType,NULL,NULL,NULL,@ModuleId;
+
+	INSERT INTO #ViewCategoriesWithFilter
+	SELECT c.CategoryID FROM #ViewCategories AS c WHERE c.CategoryID IN (SELECT CategoryID FROM #FilterCategories);
+END
+ELSE
+BEGIN
+	INSERT INTO #ViewCategoriesWithFilter SELECT [CategoryID] FROM #ViewCategories WHERE CategoryID = @FilterByCategoryId;
+	INSERT INTO #FilterCategories SELECT @FilterByCategoryId;
+END
+
+DECLARE @FilterBySocialGroup BIT;
+SET @FilterBySocialGroup = 0;
+DECLARE @FilterAuthorOrAuthors BIT;
+SET @FilterAuthorOrAuthors = 0;
+
+DECLARE @TempAuthorsIDList TABLE (UserID INT PRIMARY KEY);
+IF @IsSocialInstance = 1
+	BEGIN
+		IF @FilterByDnnGroupId <> 0
+		BEGIN	
+			SET @FilterBySocialGroup = 1;
+		END
+	END
+ELSE
+BEGIN
+	IF @ShowAllAuthors = 0
+	BEGIN
+		SET @FilterAuthorOrAuthors = 1;
+		INSERT INTO @TempAuthorsIDList
+		SELECT [UserID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsModuleAuthorsItems] AS mai WHERE mai.ModuleID = @ModuleId
+		UNION 
+		SELECT [UserID] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsAuthorProfile] AS ap 
+			INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsAutorGroupItems] AS agi ON ap.AuthorProfileID = agi.AuthorProfileID
+			INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsModuleGroupItems] AS mgi ON mgi.GroupID = agi.GroupID
+			WHERE mgi.ModuleID = @ModuleId
+	END
+END
+
+IF @RowCount < 1
+	SET @RowCount = 5000;
+
+IF @LocaleCode IS NULL
+BEGIN
+	IF @IsSocialInstance = 0
+	BEGIN
+		IF @FilterByArticles = 1 AND @FilterByEvents = 0 -- only articles
+		BEGIN
+			SELECT TOP(@RowCount) *
+			FROM (
+				SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+				INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 0
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+							AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+							AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+							AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+			)
+			GROUP BY ti.TagID, nt.Name) AS FinalContent
+			ORDER BY
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;
+		END
+		ELSE IF @FilterByArticles = 0 AND @FilterByEvents = 1 -- only events
+		BEGIN
+			print('only events')
+			print(@CurrentDate)
+			SELECT TOP(@RowCount) * FROM (
+				SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsEventsData] AS ne ON ne.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 0
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ne.EndDate > @CurrentDate
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+							AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsEventsData] AS ne ON ne.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ne.EndDate > @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+							AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsEventsData] AS ne ON ne.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ne.EndDate > @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+							AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+			)
+			GROUP BY ti.TagID, nt.Name) AS FinalContent
+			ORDER BY
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;
+		END
+		ELSE -- articles and events
+		BEGIN
+			SELECT TOP(@RowCount) * FROM (
+				SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT DISTINCT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsEventsData] AS ne ON ne.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 0
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (ne.EndDate > @CurrentDate OR ne.EndDate IS NULL)
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+							AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+						UNION ALL
+						SELECT DISTINCT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsEventsData] AS ne ON ne.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (ne.EndDate > @CurrentDate OR ne.EndDate IS NULL)
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+							AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+						UNION
+						SELECT DISTINCT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+							LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsEventsData] AS ne ON ne.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (ne.EndDate > @CurrentDate OR ne.EndDate IS NULL)
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+							AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+			)
+			GROUP BY ti.TagID, nt.Name) AS FinalContent ORDER BY
+			CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+			CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+			CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+			CASE WHEN @OrderBy ='Size ASC' THEN Size END;
+		END
+	END
+	ELSE IF @FilterBySocialGroup = 1
+	BEGIN
+		IF @FilterByArticles = 1 AND @FilterByEvents = 0 -- only articles
+		BEGIN
+			SELECT TOP(@RowCount) * FROM (
+				SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 0
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+			)
+			GROUP BY ti.TagID, nt.Name) AS FinalContent
+			ORDER BY 
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;
+		END
+		ELSE IF @FilterByArticles = 0 AND @FilterByEvents = 1 -- only events
+		BEGIN
+			SELECT TOP(@RowCount) * FROM (
+				SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 0
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+			)
+			GROUP BY ti.TagID, nt.Name) AS FinalContent
+			ORDER BY 
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;
+		END
+		ELSE -- articles and events
+		BEGIN
+			SELECT TOP(@RowCount) * FROM (
+				SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 0
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+			)
+			GROUP BY ti.TagID, nt.Name) AS FinalContent
+			ORDER BY 
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;
+		END
+	END
+	ELSE IF @FilterByDnnUserId <> 0
+	BEGIN
+		IF @FilterByArticles = 1 AND @FilterByEvents = 0 -- only articles
+		BEGIN
+			SELECT TOP(@RowCount) * FROM (
+				SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID] FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 0
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND na.UserID = @FilterByDnnUserId
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND na.UserID = @FilterByDnnUserId
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1  AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND na.UserID = @FilterByDnnUserId
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+			)
+			GROUP BY ti.TagID, nt.Name) AS FinalContent
+			ORDER BY 
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;
+		END
+		ELSE IF @FilterByArticles = 0 AND @FilterByEvents = 1 -- only events
+		BEGIN
+			SELECT TOP(@RowCount) * FROM (
+				SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 0
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND na.UserID = @FilterByDnnUserId
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND na.UserID = @FilterByDnnUserId
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1  AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND na.UserID = @FilterByDnnUserId
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+			)
+			GROUP BY ti.TagID, nt.Name) AS FinalContent
+			ORDER BY 
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;
+		END
+		ELSE -- articles and events
+		BEGIN
+			SELECT TOP(@RowCount) * FROM (
+				SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 0
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND na.UserID = @FilterByDnnUserId
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND na.UserID = @FilterByDnnUserId
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1  AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 1
+							AND na.HideDefaultLocale = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND na.UserID = @FilterByDnnUserId
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+			)
+			GROUP BY ti.TagID, nt.Name) AS FinalContent
+			ORDER BY 
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;	
+		END
+	END
+END
+ELSE
+BEGIN
+	IF @IsSocialInstance = 0
+	BEGIN
+		IF @FilterByArticles = 1 AND @FilterByEvents = 0 -- only articles
+		BEGIN
+			;WITH AllTags(TagID, Size, Name) AS (
+				SELECT TOP(@RowCount) * FROM (
+					SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name]
+					FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+					WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals) 
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+							AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 1
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+							AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 1
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+							AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+					)
+					GROUP BY ti.TagID, nt.Name) AS Result
+					ORDER BY 
+						CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+						CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+						CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+						CASE WHEN @OrderBy ='Size ASC' THEN Size END
+			),
+			LocalizedTags(TagID, Size, Name) AS (
+				SELECT t.[TagID],t.[Size],ntl.[Name] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] AS ntl INNER JOIN AllTags AS t on ntl.TagID = t.TagID WHERE ntl.LocaleCode = @LocaleCode
+			),
+			NotLocalizedTags(TagID, Size, Name) AS(
+				SELECT [TagID],[Size],[Name] FROM AllTags WHERE TagID NOT IN (SELECT TagID FROM LocalizedTags)
+			)
+			SELECT TagID, Size, Name FROM (SELECT TagID, Size, Name FROM LocalizedTags UNION SELECT TagID, Size, Name FROM NotLocalizedTags) AS FinalContent ORDER BY 
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;
+		END
+		ELSE IF @FilterByArticles = 0 AND @FilterByEvents = 1 -- only events
+		BEGIN
+			;WITH AllTags(TagID, Size, Name) AS (
+				SELECT TOP(@RowCount) * FROM (
+					SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name]
+					FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+					WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+						AND ti.ArticleID IN (
+							SELECT na.[ArticleID]
+							FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+							LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+							WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+								AND na.HasPermissions = 0
+								AND na.EventArticle = 1
+								AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+								AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+								AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+								AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+							UNION ALL
+							SELECT na.[ArticleID]
+							FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+							LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+							WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+								AND na.EventArticle = 1
+								AND na.HasPermissions = 1
+								AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+								AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+									AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+								))
+								AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+								AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+							UNION
+							SELECT na.[ArticleID]
+							FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+							LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+							WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+								AND na.EventArticle = 1
+								AND na.HasPermissions = 1
+								AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+								AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+									AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+								))
+								AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+								AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+					)
+					GROUP BY ti.TagID, nt.Name) AS Result
+					ORDER BY 
+						CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+						CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+						CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+						CASE WHEN @OrderBy ='Size ASC' THEN Size END
+			),
+			LocalizedTags(TagID, Size, Name) AS (
+				SELECT t.[TagID],t.[Size],ntl.[Name] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] AS ntl INNER JOIN AllTags AS t on ntl.TagID = t.TagID WHERE ntl.LocaleCode = @LocaleCode
+			),
+			NotLocalizedTags(TagID, Size, Name) AS(
+				SELECT [TagID],[Size],[Name] FROM AllTags WHERE TagID NOT IN (SELECT TagID FROM LocalizedTags)
+			)
+			SELECT TagID, Size, Name FROM (SELECT TagID, Size, Name FROM LocalizedTags UNION SELECT TagID, Size, Name FROM NotLocalizedTags) AS FinalContent ORDER BY 
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;	
+		END
+		ELSE -- articles and events
+		BEGIN
+			;WITH AllTags(TagID, Size, Name) AS (
+				SELECT TOP(@RowCount) * FROM (
+					SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name]
+					FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+					WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+						AND ti.ArticleID IN (
+							SELECT na.[ArticleID]
+							FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+							LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+							WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+								AND na.HasPermissions = 0
+								AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+								AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+								AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+								AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+							UNION ALL
+							SELECT na.[ArticleID]
+							FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+							LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+							WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+								AND na.HasPermissions = 1
+								AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+								AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+									AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+								))
+								AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+								AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+							UNION
+							SELECT na.[ArticleID]
+							FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+							INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+							LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+							WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+								AND na.HasPermissions = 1
+								AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+								AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+									AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+								))
+								AND ((@FilterAuthorOrAuthors = 1 AND na.UserID IN (SELECT UserID FROM @TempAuthorsIDList)) OR (@FilterAuthorOrAuthors = 0))
+								AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+					)
+					GROUP BY ti.TagID, nt.Name) AS Result
+					ORDER BY 
+						CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+						CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+						CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+						CASE WHEN @OrderBy ='Size ASC' THEN Size END
+			),
+			LocalizedTags(TagID, Size, Name) AS (
+				SELECT t.[TagID],t.[Size],ntl.[Name] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] AS ntl INNER JOIN AllTags AS t on ntl.TagID = t.TagID WHERE ntl.LocaleCode = @LocaleCode
+			),
+			NotLocalizedTags(TagID, Size, Name) AS(
+				SELECT [TagID],[Size],[Name] FROM AllTags WHERE TagID NOT IN (SELECT TagID FROM LocalizedTags)
+			)
+			SELECT TagID, Size, Name FROM (SELECT TagID, Size, Name FROM LocalizedTags UNION SELECT TagID, Size, Name FROM NotLocalizedTags) AS FinalContent ORDER BY 
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;	
+		END
+	END
+	ELSE IF @FilterBySocialGroup = 1
+	BEGIN
+		IF @FilterByArticles = 1 AND @FilterByEvents = 0 -- only articles
+		BEGIN
+			;WITH AllTags(TagID, Size, Name) AS (
+			SELECT TOP(@RowCount) * FROM (SELECT nt.TagID, COUNT(*) AS Size, nt.[Name]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 1
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 1
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+				)
+				GROUP BY ti.TagID, nt.TagID, nt.Name) AS Result
+				ORDER BY 
+					CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+					CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+					CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+					CASE WHEN @OrderBy ='Size ASC' THEN Size END
+			),
+			LocalizedTags(TagID, Size, Name) AS (
+				SELECT t.[TagID],t.[Size],ntl.[Name] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] AS ntl INNER JOIN AllTags AS t on ntl.TagID = t.TagID WHERE ntl.LocaleCode = @LocaleCode
+			),
+			NotLocalizedTags(TagID, Size, Name) AS(
+				SELECT [TagID],[Size],[Name] FROM AllTags WHERE TagID NOT IN (SELECT TagID FROM LocalizedTags)
+			)
+			SELECT TagID, Size, Name FROM (SELECT TagID, Size, Name FROM LocalizedTags UNION SELECT TagID, Size, Name FROM NotLocalizedTags) AS FinalContent ORDER BY 
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;
+		END
+		ELSE IF @FilterByArticles = 0 AND @FilterByEvents = 1 -- only events
+		BEGIN
+			;WITH AllTags(TagID, Size, Name) AS (
+			SELECT TOP(@RowCount) * FROM (SELECT nt.TagID, COUNT(*) AS Size, nt.[Name]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 1
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 1
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+				)
+				GROUP BY ti.TagID, nt.TagID, nt.Name) AS Result ORDER BY 
+					CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+					CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+					CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+					CASE WHEN @OrderBy ='Size ASC' THEN Size END
+			),
+			LocalizedTags(TagID, Size, Name) AS (
+				SELECT t.[TagID],t.[Size],ntl.[Name] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] AS ntl INNER JOIN AllTags AS t on ntl.TagID = t.TagID WHERE ntl.LocaleCode = @LocaleCode
+			),
+			NotLocalizedTags(TagID, Size, Name) AS(
+				SELECT [TagID],[Size],[Name] FROM AllTags WHERE TagID NOT IN (SELECT TagID FROM LocalizedTags)
+			)
+			SELECT TagID, Size, Name FROM (SELECT TagID, Size, Name FROM LocalizedTags UNION SELECT TagID, Size, Name FROM NotLocalizedTags) AS FinalContent ORDER BY 
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;		
+		END
+		ELSE -- articles and events
+		BEGIN
+			;WITH AllTags(TagID, Size, Name) AS (
+			SELECT TOP(@RowCount) * FROM (SELECT nt.TagID, COUNT(*) AS Size, nt.[Name]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 0
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 1
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialGroupItems] AS sgi ON sgi.ArticleID = na.ArticleID AND sgi.RoleID = @FilterByDnnGroupId
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 1
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+				)
+				GROUP BY ti.TagID, nt.TagID, nt.Name) AS Result
+				ORDER BY 
+					CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+					CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+					CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+					CASE WHEN @OrderBy ='Size ASC' THEN Size END
+			),
+			LocalizedTags(TagID, Size, Name) AS (
+				SELECT t.[TagID],t.[Size],ntl.[Name] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] AS ntl INNER JOIN AllTags AS t on ntl.TagID = t.TagID WHERE ntl.LocaleCode = @LocaleCode
+			),
+			NotLocalizedTags(TagID, Size, Name) AS(
+				SELECT [TagID],[Size],[Name] FROM AllTags WHERE TagID NOT IN (SELECT TagID FROM LocalizedTags)
+			)
+			SELECT TagID, Size, Name FROM (SELECT TagID, Size, Name FROM LocalizedTags UNION SELECT TagID, Size, Name FROM NotLocalizedTags) AS FinalContent ORDER BY 
+				CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+				CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+				CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+				CASE WHEN @OrderBy ='Size ASC' THEN Size END;		
+		END
+	END
+	ELSE IF @FilterByDnnUserId <> 0
+	BEGIN
+		IF @FilterByArticles = 1 AND @FilterByEvents = 0 -- only articles
+		BEGIN
+			;WITH AllTags(TagID, Size, Name) AS (
+			SELECT TOP(@RowCount) * FROM (SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 0
+							AND na.UserID = @FilterByDnnUserId
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 1
+							AND na.UserID = @FilterByDnnUserId
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 0
+							AND na.HasPermissions = 1
+							AND na.UserID = @FilterByDnnUserId
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+				)
+				GROUP BY ti.TagID, nt.Name) AS Result
+				ORDER BY 
+					CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+					CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+					CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+					CASE WHEN @OrderBy ='Size ASC' THEN Size END
+			),
+			LocalizedTags(TagID, Size, Name) AS (
+				SELECT t.[TagID],t.[Size],ntl.[Name] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] AS ntl INNER JOIN AllTags AS t on ntl.TagID = t.TagID WHERE ntl.LocaleCode = @LocaleCode
+			),
+			NotLocalizedTags(TagID, Size, Name) AS(
+				SELECT [TagID],[Size],[Name] FROM AllTags WHERE TagID NOT IN (SELECT TagID FROM LocalizedTags)
+			)
+			SELECT TagID, Size, Name FROM (SELECT TagID, Size, Name FROM LocalizedTags UNION SELECT TagID, Size, Name FROM NotLocalizedTags) AS FinalContent ORDER BY 
+					CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+					CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+					CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+					CASE WHEN @OrderBy ='Size ASC' THEN Size END;
+		END
+		ELSE IF @FilterByArticles = 0 AND @FilterByEvents = 1 -- only events
+		BEGIN
+			;WITH AllTags(TagID, Size, Name) AS (
+			SELECT TOP(@RowCount) * FROM (SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 0
+							AND na.UserID = @FilterByDnnUserId
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 1
+							AND na.UserID = @FilterByDnnUserId
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.EventArticle = 1
+							AND na.HasPermissions = 1
+							AND na.UserID = @FilterByDnnUserId
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+				)
+				GROUP BY ti.TagID, nt.Name) AS Result
+				ORDER BY 
+					CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+					CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+					CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+					CASE WHEN @OrderBy ='Size ASC' THEN Size END
+			),
+			LocalizedTags(TagID, Size, Name) AS (
+				SELECT t.[TagID],t.[Size],ntl.[Name] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] AS ntl INNER JOIN AllTags AS t on ntl.TagID = t.TagID WHERE ntl.LocaleCode = @LocaleCode
+			),
+			NotLocalizedTags(TagID, Size, Name) AS(
+				SELECT [TagID],[Size],[Name] FROM AllTags WHERE TagID NOT IN (SELECT TagID FROM LocalizedTags)
+			)
+			SELECT TagID, Size, Name FROM (SELECT TagID, Size, Name FROM LocalizedTags UNION SELECT TagID, Size, Name FROM NotLocalizedTags) AS FinalContent ORDER BY 
+					CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+					CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+					CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+					CASE WHEN @OrderBy ='Size ASC' THEN Size END;		
+		END
+		ELSE -- articles and events
+		BEGIN
+			;WITH AllTags(TagID, Size, Name) AS (
+			SELECT TOP(@RowCount) * FROM (SELECT ti.TagID, COUNT(ti.TagID) AS Size, nt.[Name]
+				FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsItems] AS ti
+					INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsNewTags] AS nt ON nt.TagID = ti.TagID
+				WHERE nt.PortalID IN (SELECT PortalID FROM #SharingPortals)
+					AND ti.ArticleID IN (
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #ViewCategoriesWithFilter)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 0
+							AND na.UserID = @FilterByDnnUserId
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND (@AdminOrSuperUser = 1 OR (na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION ALL
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] AS aup ON na.ArticleID = aup.ArticleID 
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 1
+							AND na.UserID = @FilterByDnnUserId
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (((@UserId = -1 AND aup.UserID IS NULL) OR (aup.UserID = @UserId))
+								AND aup.Show = 1 AND na.Approved = 1 AND (na.Active=1 OR na.UserID=@UserId)
+							))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+						UNION
+						SELECT na.[ArticleID]
+						FROM {databaseOwner}[{objectQualifier}EasyDNNNews] AS na
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] AS arp ON na.ArticleID = arp.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsCategories] AS cat ON na.ArticleID = cat.ArticleID AND cat.CategoryID IN (SELECT CategoryID FROM #FilterCategories)
+						INNER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsSocialSecurity] AS nss ON nss.ArticleID = na.ArticleID
+						INNER JOIN {databaseOwner}[{objectQualifier}Journal_User_Permissions](@PortalId,@UserId, @FilterByDnnGroupId) AS t ON t.seckey = nss.SecurityKey
+						LEFT OUTER JOIN {databaseOwner}[{objectQualifier}EasyDNNNewsContentLocalization] AS ncl ON ncl.ArticleID = na.ArticleID
+						WHERE na.PortalID IN (SELECT PortalID FROM #SharingPortals)
+							AND na.HasPermissions = 1
+							AND na.UserID = @FilterByDnnUserId
+							AND na.PublishDate <= @CurrentDate AND na.[ExpireDate] >= @CurrentDate
+							AND ((@AdminOrSuperUser = 1) OR (na.Approved = 1
+								AND (na.Active=1 OR na.UserID=@UserId) AND arp.Show = 1 AND arp.RoleID IN (SELECT [RoleID] FROM #UserInRoles)
+							))
+							AND ((@HideUnlocalizedItems = 1 AND ncl.ArticleID IS NOT NULL AND ncl.LocaleCode = @LocaleCode) OR (@HideUnlocalizedItems = 0))
+				)
+				GROUP BY ti.TagID, nt.Name) AS Result
+				ORDER BY 
+					CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+					CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+					CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+					CASE WHEN @OrderBy ='Size ASC' THEN Size END
+			),
+			LocalizedTags(TagID, Size, Name) AS (
+				SELECT t.[TagID],t.[Size],ntl.[Name] FROM {databaseOwner}[{objectQualifier}EasyDNNNewsTagsLocalization] AS ntl INNER JOIN AllTags AS t on ntl.TagID = t.TagID WHERE ntl.LocaleCode = @LocaleCode
+			),
+			NotLocalizedTags(TagID, Size, Name) AS(
+				SELECT [TagID],[Size],[Name] FROM AllTags WHERE TagID NOT IN (SELECT TagID FROM LocalizedTags)
+			)
+			SELECT TagID, Size, Name FROM (SELECT TagID, Size, Name FROM LocalizedTags UNION SELECT TagID, Size, Name FROM NotLocalizedTags) AS FinalContent ORDER BY 
+					CASE WHEN @OrderBy ='Name ASC' THEN Name END,
+					CASE WHEN @OrderBy ='Size DESC' THEN Size END DESC,
+					CASE WHEN @OrderBy ='Name DESC' THEN Name END DESC,
+					CASE WHEN @OrderBy ='Size ASC' THEN Size END;	
+		END
+	END
+END
+
+IF OBJECT_ID('tempdb..#SharingPortals') IS NOT NULL
+	DROP TABLE #SharingPortals;
+IF OBJECT_ID('tempdb..#UserInRoles') IS NOT NULL
+	DROP TABLE #UserInRoles;
+IF OBJECT_ID('tempdb..#ViewCategories') IS NOT NULL
+	DROP TABLE #ViewCategories;
+	IF OBJECT_ID('tempdb..#FilterCategories') IS NOT NULL
+	DROP TABLE #FilterCategories;
+IF OBJECT_ID('tempdb..#ViewCategoriesWithFilter') IS NOT NULL
+	DROP TABLE #ViewCategoriesWithFilter;
+GO
+
+
+BEGIN TRY
+INSERT {databaseOwner}[{objectQualifier}EasyDNNNewsData] ([EntryID], [Value]) VALUES (25, N'https://storage.easydnnsolutions.com/news/themes/images/')
+END TRY
+BEGIN CATCH
+END CATCH

@@ -1,0 +1,213 @@
+@inherits Custom.Hybrid.Razor14
+@using AppCode;
+@using Core;
+
+@{
+    // Get Content data from the model
+    var contentItems = AsList(Content);
+
+    // Get authentication status using CmsContext
+    var isAnonymus = CmsContext.User.IsAnonymous;
+
+    // Filter content to get only the links that the user has access to. Admins and Content Editors can see demo items but public users can't.
+    var filteredContentItems = CoreHelpers.FilterContent(contentItems, isAnonymus);
+
+    // Get List (Header) data from the model
+    var header = AsDynamic(Header);
+
+    // Load the ViewHelper library
+    var viewHelpers = CreateInstance("AppCode/ViewHelpers.cs");
+    //var viewHelpers = new ViewHelpers(); // This is not workimg right now for dynamic approuch only works for typed approuch or if use main DNN App_Code folder
+
+    // CSS Classes for the header
+    // Set the classes for the section wrapper using header settings
+    var defaultSectionClasses = new List<string> { "app-cb" };
+    string headerContainerType = viewHelpers.GetStringByCondition(header.ContainerType, "", 2, header.ContainerType);
+    string sectionClasses = viewHelpers.CreateCssClassList(defaultSectionClasses, headerContainerType);
+
+    // Set the INNER section wrapper using header settings
+    var defaultInnerSectionClasses = new List<string> { "l-view", "l-view--split" };
+    // We take list of classes from backend separated with comma and convert it to space separated string
+    string modifiersWrapperClasses = viewHelpers.ConvertCommaListToSpaceList(header.Modifiers);
+    string bgColor = viewHelpers.GetStringByCondition(header.BgColor, "", 2, header.BgColor);
+    string innerSectionClasses = viewHelpers.CreateCssClassList(defaultInnerSectionClasses, bgColor, modifiersWrapperClasses);
+
+    int moduleId = CmsContext.Module.Id;
+    string splitViewId = $"split-view-{moduleId}";
+    string splitViewIdHashTag = $"#{splitViewId}";
+
+    // Prefill data for the header edit based on view type
+    var headerPrefill = new
+    {
+        ViewType = "BasicSplit",
+    };
+
+    // Get view settings
+    //dynamic settings = AsDynamic(Settings);
+}
+
+@* Assets needed for view *@
+@Html.Partial("_Shared/_Assets.cshtml")
+
+@Edit.Toolbar(header, prefill: headerPrefill)
+@* Check if view use correct ViewType value in header settings *@
+@Html.Partial("_Shared/_CheckViewType.cshtml", new { viewTypeString = headerPrefill.ViewType, viewTypeEntry = header.ViewType })
+
+<section id="@splitViewId" class="@sectionClasses">
+  <div class="@innerSectionClasses">
+    @* Using for instead foreach to get better performance *@
+    @for (int i = 0; i < filteredContentItems.Count; i++)
+    {
+        var data = filteredContentItems[i];
+        // Get Image object to use in the template
+        var imageField = data.Field("Image");
+        // Get AttachedVideo entity
+        var attachedVideo = AsDynamic(data.AttachedVideo);
+        bool hasVideo = attachedVideo != null && attachedVideo.Count > 0;
+        // Get Content item presentation settings
+        var presentation = AsDynamic(data.Presentation);
+        // We need to kind of formats for aspect ratio, one for 2sxc and one for Bootstrap
+        string arFormat2sxc = !string.IsNullOrEmpty(presentation.ImageAspectRatio) ? presentation.ImageAspectRatio : "3:2";
+        string bootstrapRatio = "ratio ratio-" + arFormat2sxc.Replace(":", "x");
+        // Set image settings
+        var imgSettings = Kit.Image.Settings(aspectRatio: arFormat2sxc, width: presentation.ImageWidth);
+        // Prepare image for rendering
+        var mainImage = Kit.Image.Picture(imageField, width: presentation.ImageWidth, settings: imgSettings);
+        // Determine the thing to set row alternantion
+        bool isEven = i % 2 == 0;
+
+        // Determine the Bootstrap order classes and column width based on presentation.columnSize and presentation.AlternatePositions
+        string columnSizes = $"{presentation.columnSize ?? "col-lg-6,col-lg-6"}";
+        string columnSizesLeft = "order-md-1 " + columnSizes.Split(',')[0];
+        string columnSizesRight = "order-md-2 " + columnSizes.Split(',')[1];
+
+        string mediaOrderClass = presentation.AlternatePositions ? columnSizesRight : columnSizesLeft;
+        string bodyOrderClass = presentation.AlternatePositions ? columnSizesLeft : columnSizesRight;
+
+        // CSS Classes for the item
+        var defaultItemClasses = new List<string> { "d-flex l-item" };
+        // We take list of classes from backend separated with comma and convert it to space separated string
+        string modifiersItemClasses = viewHelpers.ConvertCommaListToSpaceList(presentation.Modifiers);
+        string itemClasses = viewHelpers.CreateCssClassList(defaultItemClasses, modifiersItemClasses);
+
+        bool isVisible = true;
+        if (data.IsDemoItem && CmsContext.User.IsAnonymous)
+        {
+            isVisible = false;
+        }
+
+        if (isVisible)
+        {
+        @* Split item START *@
+        <div class="@itemClasses">
+          <div class="l-item__media @mediaOrderClass">
+            @if (hasVideo)
+            {
+              @* If video is attached show video *@
+              @Html.Partial("_Shared/_Video.cshtml", new { attachedVideo = attachedVideo })
+            }
+            else
+            {
+              @* No video attached, display the image but first check if there is image attached*@
+              if (!string.IsNullOrEmpty(data.Image))
+              {
+                <figure class="o-image">
+                  @* Generate <picture> tag with the correct image formats and sizes, improving responsiveness and loading times.*@
+                  @mainImage
+                  @if (!string.IsNullOrEmpty(imageField.Metadata.Description))
+                  {
+                    <figcaption class="o-image__caption pt-3 px-4 pb-4">
+                      @imageField.Metadata.Description
+                    </figcaption>
+                  }
+                </figure>
+              }
+              else
+              {
+                @* No image attached, display a placeholder image *@
+                var placeholderImage = Kit.Image.Picture(App.Settings.ImagePlaceholder, width: presentation.ImageWidth, settings: imgSettings);
+                <figure class="o-image">
+                  @placeholderImage
+                </figure>
+              }
+            }
+          </div>
+
+          <div class="l-item__body @viewHelpers.GetStringByCondition(presentation.TextAlign, "text-start") @bodyOrderClass">
+            <div class="l-item__body-content @viewHelpers.GetStringByCondition(header.TextColor,"text-body-view")">
+              @if (!isAnonymus)
+              {
+                <small class="badge @(CoreHelpers.GetBadgeClass(data)) rounded-pill">
+                  @CoreHelpers.GetBadgeText(data)
+                </small>
+              }
+              @Edit.Toolbar(data)
+              @* Check if view use correct ViewType value in content item settings *@
+              @Html.Partial("_Shared/_CheckViewType.cshtml", new { viewTypeString = headerPrefill.ViewType, viewTypeEntry = presentation.ViewType })
+              @Html.Partial("_Shared/_Text.cshtml", new { kicker = data.Kicker, title = data.Title, body = data.Body, kickerSize = presentation.KickerSize, kickerWeight = presentation.KickerWeight, headingSize = presentation.HeadingSize, headingWeight = presentation.headingWeight, headingType = presentation.HeadingType })
+              @Html.Partial("_Shared/_Links.cshtml", new { links = AsDynamic(data.LinkList) })
+            </div>
+          </div>
+        </div>
+        @* Split item END *@
+      }
+    }
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const splitViewEl = document.getElementById("@splitViewId");
+    const splitViewVideos = splitViewEl.querySelectorAll("video");
+
+    const splitViewActive = function(entries, observer){
+      const entry = entries[0];
+      //when split view is not visible stop and reset all videos
+      if(!entry.isIntersecting){
+        splitViewVideos.forEach(video => {
+          video.currentTime = 0;
+          video.pause();
+        })
+      } else {
+        if(splitViewVideos.length > 1){
+          //remove loop attribute from all videos if there are multiple videos on basic split
+          splitViewVideos.forEach(vid => {
+            vid.removeAttribute("loop");
+          })
+          //play videos in sequence if there are multiple videos
+          startVideoSequence(0);
+        } else if(splitViewVideos.length === 1 && splitViewVideos[0].autoplay){
+          //if there is only one video and has autoplay enabled then play video
+          splitViewVideos[0].play();
+        }
+      }
+    }
+    const splitViewObserver = new IntersectionObserver(splitViewActive,{
+        root: null,
+        threshold: 0.8,
+    })
+    splitViewObserver.observe(splitViewEl);
+
+    function startVideoSequence(i){
+      playVideo(i);
+    }
+
+    function playVideo(i){
+      if(splitViewVideos[i].autoplay){
+        splitViewVideos[i].play();
+        if(i < splitViewVideos.length-1){
+          splitViewVideos[i].addEventListener("ended", function (){
+            startVideoSequence(i+1);
+          })
+        } else {
+          splitViewVideos[i].addEventListener("ended", function(){
+            startVideoSequence(0);
+          })
+        }
+      } else {
+        if(i < splitViewVideos.length-1) startVideoSequence(i+1);
+        else startVideoSequence(0);
+      }
+    }
+  })
+</script>

@@ -1,0 +1,180 @@
+@inherits Custom.Hybrid.Razor14
+@using AppCode;
+@using Core;
+
+@{
+  // Get Content data from the data model
+  var contentItems = AsList(Content);
+
+  // Get authentication status using CmsContext
+  var isAnonymus = CmsContext.User.IsAnonymous;
+
+  // Filter content to get only the links that the user has access to. Admins and Content Editors can see demo items but public users can't.
+  var filteredContentItems = CoreHelpers.FilterContent(contentItems, isAnonymus);
+
+  // Get List (Header) data from the data model
+  var header = AsDynamic(Header);
+
+  // Load the ViewHelper library
+  var viewHelpers = CreateInstance("AppCode/ViewHelpers.cs");
+  //var viewHelpers = new ViewHelpers(); // This is not workimg right now for dynamic approuch only works for typed approuch or if use main DNN App_Code folder
+
+  // Set the classes for the section wrapper using header settings
+  var defaultSectionClasses = new List<string> { "app-cb" };
+  string headerContainerType = viewHelpers.GetStringByCondition(header.ContainerType, "", 2, header.ContainerType);
+  string sectionClasses = viewHelpers.CreateCssClassList(defaultSectionClasses, headerContainerType);
+
+  // Set the INNER section wrapper using header settings
+  var defaultInnerSectionClasses = new List<string> { "l-view", "l-view--accordion" };
+  // We take list of classes from backend separated with comma and convert it to space separated string
+  string modifiersWrapperClasses = viewHelpers.ConvertCommaListToSpaceList(header.Modifiers);
+  string headerBgColor = viewHelpers.GetStringByCondition(header.BgColor, "", 2, header.BgColor);
+  string innerSectionClasses = viewHelpers.CreateCssClassList(defaultInnerSectionClasses, modifiersWrapperClasses, headerBgColor);
+
+  // Set the accordion id using moduleid. We need this to have more then one accordion on page.
+  int moduleId = CmsContext.Module.Id;
+  string accordionId = $"accordion-{moduleId}";
+  string accordionIdHashTag = $"#{accordionId}";
+
+  // Get view settings
+  //dynamic settings = AsDynamic(Settings);
+
+  // Prefill data for the header edit based on view type
+  var headerPrefill = new
+  {
+    ViewType = "Accordion",
+  };
+}
+
+@Html.Partial("_Shared/_Assets.cshtml", new { plugins = "hls" })
+
+@Edit.Toolbar(header, prefill: headerPrefill)
+@* Check if view use correct ViewType value in header settings *@
+@Html.Partial("_Shared/_CheckViewType.cshtml", new { viewTypeString = headerPrefill.ViewType, viewTypeEntry = header.ViewType })
+
+<section class="@sectionClasses">
+  <div class="@innerSectionClasses">
+    <div id="@accordionId" class="accordion">
+      @for (int i = 0; i < filteredContentItems.Count; i++)
+      {
+        var data = filteredContentItems[i];
+        // Get Image object to use in the template
+        var imageField = data.Field("Image");
+        // Get AttachedVideo entity
+        var attachedVideo = AsDynamic(data.AttachedVideo);
+        bool hasVideo = attachedVideo != null && attachedVideo.Count > 0;
+        // Get Content item presentation settings
+        var presentation = AsDynamic(data.Presentation);
+        // Set image settings
+        var imgSettings = Kit.Image.Settings(aspectRatio: (!string.IsNullOrEmpty(presentation.ImageAspectRatio) ? presentation.ImageAspectRatio : "3:2"), width: presentation.ImageWidth);
+        // Prepare image for rendering, take a look options at: https://docs.2sxc.org/net-code/images/index.html and https://docs.2sxc.org/basics/images/guide/index.html
+        var mainImage = Kit.Image.Img(imageField, width: presentation.ImageWidth, settings: imgSettings, imgClass: "d-block w-100");
+        // We take list of classes from backend separated with comma and convert it to space separated string
+        string modifiersItemClasses = viewHelpers.ConvertCommaListToSpaceList(presentation.Modifiers);
+
+        <div class="accordion-item ">
+          <div class="accordion-header ">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordioncontent-@moduleId-@i" aria-expanded="@(i==0?"true":"false")" aria-controls="accordioncontent-@moduleId-@i">
+              @Html.Partial("_Shared/_Text.cshtml", new { title = data.Title, headingSize = presentation.HeadingSize, headingWeight = presentation.headingWeight, headingType = presentation.HeadingType })
+              @if (!isAnonymus)
+              {
+                <small style="position:absolute;right:0;" class="badge @(CoreHelpers.GetBadgeClass(data)) rounded-pill">
+                  @CoreHelpers.GetBadgeText(data)
+                </small>
+              }
+            </button>
+          </div>
+          <div id="accordioncontent-@moduleId-@i"
+               class="@viewHelpers.GetStringByCondition("accordion-collapse collapse " + modifiersItemClasses, "accordion-collapse collapse", 2, presentation.Modifiers) @(i == 0 ? "show" : "")"
+               data-bs-parent="#@accordionId">
+
+            @if (hasVideo)
+            {
+              @* If video is attached show video *@
+              @Html.Partial("_Shared/_Video.cshtml", new { attachedVideo = attachedVideo })
+            }
+            else if (!string.IsNullOrEmpty(data.Image))
+            {
+              @* No video attached, display the image but first check if there is image attached*@
+              <figure class="o-image">
+                @* Generate <picture> tag with the correct image formats and sizes, improving responsiveness and loading times.*@
+                @mainImage
+                @if (!string.IsNullOrEmpty(imageField.Metadata.Description))
+                {
+                  <figcaption class="o-image__caption pt-1 px-4 pb-4 text-white">
+                    @imageField.Metadata.Description
+                  </figcaption>
+                }
+              </figure>
+            }
+          <div class="l-item__body accordion-caption @viewHelpers.GetStringByCondition(presentation.TextAlign, "text-start")" style="left:0; right:0">
+            @Edit.Toolbar(data)
+            @* Check if view use correct ViewType value in content item settings *@
+            @Html.Partial("_Shared/_CheckViewType.cshtml", new { viewTypeString = headerPrefill.ViewType, viewTypeEntry = presentation.ViewType })
+            @Html.Partial("_Shared/_Text.cshtml", new { kicker = data.Kicker, title = data.Title, body = data.Body, kickerSize = presentation.KickerSize, kickerWeight = presentation.KickerWeight, headingSize = presentation.HeadingSize, headingWeight = presentation.headingWeight, headingType = presentation.HeadingType })
+            @*@Html.Partial("_Shared/_links.cshtml", new { links = AsDynamic(data.LinkList) })*@
+          </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .accordion-collapse {
+    scroll-margin-top: 150px;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    const accordionEl = document.getElementById("@accordionId");
+    const accordionVideos = accordionEl.querySelectorAll("video");
+    const accordionBtns = accordionEl.querySelectorAll(".accordion-button");
+
+    accordionEl.addEventListener('shown.bs.collapse', ev =>  {
+        $(ev.srcElement)[0].scrollIntoView({ behavior: 'smooth' });
+    });
+
+    //handle videos when collapse button is clicked
+    accordionBtns.forEach(item => {
+      item.addEventListener("click", function(){
+        //stop and reset all videos
+        accordionVideos.forEach(video => {
+          video.currentTime = 0;
+          video.pause();
+        })
+        //if there is video in content and video has autoplay enabled then start video when accordion item is shown
+        if(accordionEl.querySelector(`${item.dataset.bsTarget} video`) && accordionEl.querySelector(`${item.dataset.bsTarget} video`).autoplay) accordionEl.querySelector(`${item.dataset.bsTarget} video`).play()
+      })
+    })
+
+    const accordionActive = function(entries, observer){
+      const entry = entries[0];
+      //when accordion not visible stop and reset all videos
+      if(!entry.isIntersecting){
+        accordionVideos.forEach(video => {
+          video.currentTime = 0;
+          video.pause();
+        })
+      } else {
+        //stop and reset all videos except the one in accordion item that is shown when accordion loads
+        accordionVideos.forEach(video => {
+          if(video.closest(".accordion-collapse").classList.contains("show") && video.autoplay){
+            video.play();
+          } else {
+            video.currentTime = 0;
+            video.pause();
+          }
+        })
+      }
+    }
+    const accordionObserver = new IntersectionObserver(accordionActive,{
+        root: null,
+        threshold: 0.8,
+    })
+    accordionObserver.observe(accordionEl);
+  })
+</script>

@@ -1,0 +1,59 @@
+<!--HeaderTemplateBegin-->
+<div class="edNews_articleGallery">
+	[Has:EDG:GalleryBackLink]
+	<a href="[EDG:GalleryBackLink]" class="btn btn-rose btn-round btn-lg edsgg_viewInGravityGallery"><span class="material-icons mr-1">image</span>[EDG:LocalizedText:ViewInGravityGallery]</a>
+	[/Has:EDG:GalleryBackLink]
+<!--
+	[Has:EDG:ItemParentGalleryTitle]
+		<div class="edNews_cardHeader mb-0">
+			<span class="edNews_boxBadge"><i class="fas fa-image"></i></span>
+			<h4 class="edNews_additionalCardTitle">[EDG:ItemParentGalleryTitle]</h4>
+		</div>
+	[/Has:EDG:ItemParentGalleryTitle]
+-->
+<!--
+	[Has:EDG:ItemParentGalleryDescription]<div class="text-muted">[EDG:ItemParentGalleryDescription]</div>[/Has:EDG:ItemParentGalleryDescription]
+-->
+<!--HeaderTemplateEnd-->
+
+<!--ItemTemplateBegin-->
+	<div class="card m-2 mt-5" style="max-width: calc([EDG:ListItemThumbWidth]px - (30px + rem));">
+		[EDG:DontEmbedInPage]
+		<div class="card-header card-header-image">
+			<a class="edsgg__itemDetailsAndLightboxTrigger" href="[EDG:ItemMediaLink]">
+				<img src="[EDG:ItemThumbnail]" alt="[EDG:ItemTitle]">
+			</a>
+		</div>
+		<div class="card-body px-3 py-2">
+			[Has:EDG:ItemTitle]
+			<h5 class="card-title mb-2">
+				<a class="edsgg__itemDetailsAndLightboxTrigger" href="[EDG:ItemMediaLink]">[EDG:ItemTitle]</a>
+			</h5>
+			[/Has:EDG:ItemTitle]
+			<div class="card-description small">
+				[EDG:ItemDescription]
+			</div>
+		</div>
+		[/EDG:DontEmbedInPage]
+		[EDG:EmbedInPage]
+		<div class="card-header card-header-image">
+			[EDG:EmbedMediaData]
+		</div>
+		<div class="card-body px-3 py-2">
+			[Has:EDG:ItemTitle]
+			<h5 class="card-title mb-2">
+				[EDG:ItemTitle]
+			</h5>
+			[/Has:EDG:ItemTitle]
+			<div class="card-description small">
+				[EDG:ItemDescription]
+			</div>
+		</div>
+		[/EDG:EmbedInPage]
+	</div>
+<!--ItemTemplateEnd-->
+
+<!--FooterTemplateBegin-->
+	[EDG:ItemPaging]
+</div>
+<!--FooterTemplateEnd-->

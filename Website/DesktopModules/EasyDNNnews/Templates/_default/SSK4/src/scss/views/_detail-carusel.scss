@@ -1,0 +1,21 @@
+
+
+/* ==========================================================================
+	COMPONENTS / EASY-DNN-NEWS / EDN articles detail - Carusel
+	========================================================================== */
+	
+	.ssk4-edn-article-detail--carusel {
+		.swiper {
+			&-slide {
+				height: 300px;
+				picture {
+					display: block;
+					height: 100%;
+					img {
+						height: 100%;
+						object-fit: cover;
+					}
+				}
+			}
+		}
+	}

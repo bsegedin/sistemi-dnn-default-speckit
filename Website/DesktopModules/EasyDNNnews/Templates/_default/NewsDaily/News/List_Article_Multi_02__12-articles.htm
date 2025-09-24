@@ -1,0 +1,50 @@
+<!--TemplateGroup:listArticleMulti-->
+
+<!--ArticleRepeat:Before:-->
+<!--RepeatEnd:Before:-->
+
+<!--MultiArticleTemplate-->
+<!--Before:1:2:3:-->
+<div class="edn_flexRowWrap edn_alignItemsStretch">
+<!--BeforeEnd-->
+<!--ArticleRepeat:1:2:3:-->
+	<article class="edn_col edn_col33 edn_simpleArticle edn_imageTop edn_bottomBorder [EasyDNNnews:FeaturedArticle]">
+		<figure>
+			[EasyDNNnews:IfExists:Image]
+			<a class="edn_imageWrapper" href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><img loading="lazy" class="edn_articleImage" alt="[EasyDNNnews:Title]" src="[EasyDNNnews:Image]"/></a>
+			[EasyDNNnews:EndIf:Image]
+			<h3 class="edn_articleTitle"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><span class="edn_featuredBadge">Exclusive</span>[EasyDNNnews:Title]</a></h3>
+		</figure>
+		<div class="edn_articleMeta">
+			[EasyDNNnews:Author:Image:Width:20:Height:20:Resize:Crop] [EasyDNNnews:Author:Link] - <time class="edn_time">[EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfNotExists:Event][EasyDNNnews:FormatedDate:MMMM d, yyyy][EasyDNNnews:EndIf:Event]</time>
+		</div>
+	</article>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+<!--After:1:2:3:-->
+</div>
+<!--AfterEnd-->
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--Before:4:5:6:7:8:9:10:11:12:-->
+<div class="edn_flexRowWrap">
+<!--BeforeEnd-->
+<!--ArticleRepeat:4:5:6:7:8:9:10:11:12:-->
+	<article class="eds_smallArticle edn_col edn_col33 edn_marginBottom [EasyDNNnews:FeaturedArticle]">
+		<h2 class="edn_articleTitle edn_articleTitleSmall edn_defaultTitle"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><span class="edn_featuredBadge">Exclusive</span>[EasyDNNnews:Title]</a></h2>
+		<time class="edn_time">[EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfNotExists:Event][EasyDNNnews:FormatedDate:MMMM d, yyyy][EasyDNNnews:EndIf:Event]</time>
+	</article>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+<!--After:4:5:6:7:8:9:10:11:12:-->
+</div>
+<!--AfterEnd-->
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--ArticleRepeat:After:-->
+<!--RepeatEnd:After:-->
+<!--MultiArticleEnd-->

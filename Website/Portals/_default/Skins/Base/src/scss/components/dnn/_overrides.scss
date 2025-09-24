@@ -1,0 +1,402 @@
+@media all {
+	/*DNN Overrides and default styles (do not change) */
+	/* box-sizing Fixes for DNN components, 3dr party plugins, modules */
+	#ControlBar_ControlPanel * {
+		box-sizing: content-box;
+	}
+	#ControlBar_ControlPanel .mark {
+		background-color: transparent;
+		padding: 0;
+	}
+	#ControlNav > li > a {
+		text-decoration: none;
+	}
+	.actionMenu * {
+		box-sizing: content-box;
+	}
+	.dnnCheckbox .mark {
+		padding: 0;
+		background: none;
+	}
+	.ui-dialog {
+		color: black;
+		font-family: Arial, sans-serif;
+	}
+
+	ul,
+	ol {
+		margin: 0;
+	}
+
+	ul {
+		list-style-type: disc;
+		
+		ul {
+			list-style-type: circle;
+		}
+	}
+
+	html body form#Form {
+		a.theme-page-login,
+		a.theme-page-login:link,
+		a.theme-page-login:visited {
+			color: var(--bs-primary);
+			font-size: 10px;
+		}
+		a.theme-page-login:hover {
+			color: var(--bs-white);
+		}
+	}
+	
+	#ControlBar_ControlPanel #ServiceImg {
+		display: none;
+	}
+
+	// ----------------------------------------------------------------------------------------------------
+	// 9. Final adjustments / tweaking / DNN workarounds
+
+	// 9.1 Override width of DNNEmptyPane for 2sxc Quick-Edit control (DNN9)
+	body:not(.dnnEditState) .DNNEmptyPane {
+		width: 100%;
+	}
+
+	.right-pane {
+		position: relative;
+		height: 100%;
+	}
+
+	.DnnModule-Authentication {
+		margin-top: 3rem;
+		@include media-breakpoint-up(xl) {
+			display: flex;
+			height: 100%;
+			margin-top: 0;
+			position: absolute;
+			margin: auto;
+			width: 100%;
+			align-items: center;
+			justify-content: center;
+		}
+		.loginContent {
+			.LoginPanel {
+				float: none;
+				width: auto;
+				@include media-breakpoint-up(xl) {
+					width: 100%;
+					min-width: 400px;
+				}
+			}
+		}
+	}
+
+
+
+
+
+	// 9.2 Login
+	html body form#Form {
+	
+
+		.dnnActions {
+			padding-left: 0;
+			margin-bottom: 2rem;
+
+		}
+		.dnnFormItem > label.dnnFormLabel,
+		.dnnFormItem > span.dnnFormLabel {
+			display: block;
+			margin: 0;
+			width: 0%;
+			text-align: left;
+		}
+		.dnnBoxLabel {
+			font-size: 14px;
+		}
+		.dnnLogin {
+			text-align: center;
+			#dnn_ctr_Login_pnlLogin {
+				margin: 0 auto;
+				max-width: 500px;
+
+				.LoginPanel {
+					@include media-breakpoint-down(md) {
+						width: 100%;
+						padding-right: 0;
+						padding: 0 32px;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+.Normal, .NormalDeleted, .NormalDisabled {
+	$body-font-size: 18px;
+
+	font-size: $body-font-size;
+	line-height: $body-font-size * 1.5;
+}
+
+
+
+.DnnModule-Admin {
+	width: 80%;
+	margin: auto;
+
+	.dnnPrimaryAction,
+	.dnnSecondaryAction {
+		@extend .btn;
+	}
+
+	.dnnPrimaryAction {
+		@include button-variant($primary, $white);
+	}
+
+	.dnnSecondaryAction {
+		@include button-variant($secondary, $white);
+	}
+
+	.dnnActions {
+		list-style-type: none;
+		display: flex;
+	}
+
+	.dnnSendPasswordContent {
+		width: 100%;
+	}
+
+	.dnnTooltip {
+		@extend .tooltip;
+	}
+
+}
+
+.dnnFormItem {
+	text-align: left;
+	margin-bottom: 1rem;
+
+	label {
+		@extend .form-label;
+
+		display: block;
+		float: none;
+		position: relative;
+		width: 100%;
+		overflow: visible;
+		text-align: left;
+		font-size: 14px;
+		font-weight: 700
+
+	}
+	
+	input[type="text"], 
+	input[type="password"]
+	{
+		@extend .form-control;
+	}
+
+	.dnnLoginRememberMe {
+		@extend .form-check;
+		display: flex;
+		align-items: center;
+		input {
+			@extend .form-check-input, .me-2;
+			position: relative !important;
+			z-index: 1 !important;
+			opacity: 1 !important;
+			padding: initial;
+		}
+
+		.dnnCheckbox {
+			@extend .d-none;
+		}
+
+		.dnnBoxLabel {
+			@extend .form-check-label;
+			margin-bottom: 0;
+		}
+
+	}
+
+	.dnnPrimaryAction,
+	.dnnSecondaryAction {
+		@extend .btn;
+	}
+
+	.dnnPrimaryAction {
+		@include button-variant($primary, $white);
+	}
+
+	.dnnSecondaryAction {
+		@include button-variant($secondary, $white);
+	}
+
+	.dnnActions {
+		list-style-type: none;
+	}
+
+}
+
+.dnnPanelLoading {
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	-ms-opacity: .7;
+	opacity: .7;
+}
+
+.dnnLoading {
+	background: #fff url(/Portals/_default/Skins/Base/images/loading.gif) no-repeat center center;
+	position: absolute;
+	z-index: 9999;
+}
+
+
+
+.dnnFormPopup {
+	position: absolute;
+	padding: 18px;
+	background: #fff;
+	-webkit-box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.75);
+	box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.75);
+	z-index: 100000;
+	
+	&, 
+	& > * {
+		 -webkit-box-sizing: content-box;
+		 -moz-box-sizing: content-box;
+		 box-sizing: content-box;
+	}
+
+	& .ui-dialog-titlebar {
+		 position: relative;
+		 padding: 0 0 18px 0;
+		 border-bottom: 1px solid #ddd;
+		 cursor: move;
+		 font-size: 18px;
+		 font-weight: bold;
+	}
+
+	.dnnModalCtrl {
+		 display: block;
+		 position: absolute;
+		 top: -30px;
+		 right: -30px;
+		 width: 69px;
+		 height: 26px;
+		 border-radius: 10px;
+		 background-color: #fff;
+		 -webkit-border-radius: 10px;
+		 box-shadow: 0px 0px 5px #666;
+
+		 & .ui-dialog-titlebar-close {
+				float: right;
+				display: block;
+				height: 18px;
+				width: 30px;
+				margin: 4px 4px 0 1px;
+				overflow: hidden;
+				-webkit-border-top-right-radius: 8px;
+				-webkit-border-bottom-right-radius: 8px;
+				border: none;
+				outline: none;
+				border-top-right-radius: 8px;
+				border-bottom-right-radius: 8px;
+				background: #585858 url(../../images/closeBtn.png) no-repeat;
+				background-position: 8px 4px;
+				text-indent: -9999em;
+				min-width: 0 !important;
+		 }
+	
+		 & .ui-dialog-titlebar-close:hover {
+				background: #358EEA url(../../images/closeBtn.png) no-repeat;
+				background-position: 8px 4px;
+				cursor: pointer;
+		 }
+	
+		 & .dnnToggleMax {
+				float: left;
+				display: block;
+				height: 18px;
+				width: 30px;
+				margin: 4px 0 0 4px;
+				overflow: hidden;
+				-webkit-border-top-left-radius: 8px;
+				-webkit-border-bottom-left-radius: 8px;
+				border-top-left-radius: 8px;
+				border-bottom-left-radius: 8px;
+				background: #585858 url(../../images/resizeBtn.png) no-repeat;
+				background-position: 10px 2px;
+				text-indent: -9999em;
+		 }
+	
+		 & .dnnToggleMax:hover {
+				background: #358EEA url(/resizeBtn.png) no-repeat;
+				background-position: 10px 2px;
+		 }
+	}
+
+	.ui-dialog-titlebar > .ui-dialog-titlebar-close {
+		 display: block;
+		 position: absolute;
+		 top: -30px;
+		 right: -30px;
+		 height: 24px;
+		 width: 24px;
+		 margin: 0px;
+		 overflow: hidden;
+		 -webkit-border-radius: 12px;
+		 border-radius: 12px;
+		 background: #585858 url(/images/closeBtn.png) no-repeat;
+		 background-position: 4px 4px;
+		 border: 3px solid #fff;
+		 text-indent: -9999em;
+		 min-width: 0 !important;
+	}
+
+	/* Poup Iframe styles*/
+	& #iPopUp {
+		 width: 100%!important; /* to overwrite inline javscript styles */
+		 padding-top: 10px;
+	}
+
+	& .ui-dialog-content, #iPopUp .ui-dialog-content {
+		 position: relative;
+		 border: 0;
+		 padding: 0px;
+		 overflow: auto;
+		 background: #fff;
+		 zoom: 1;
+	}
+
+	& .ui-dialog-buttonpane {
+		 margin: .5em 0 0 0;
+		 padding: .3em 1em 0em 0em;
+		 overflow: hidden;
+		 border-width: 1px 0 0 0;
+		 background-image: none;
+		 text-align: left;
+		 border-top: 1px solid #ddd;
+	}
+
+	& .ui-dialog-buttonpane button {
+		 margin: 0.5em 0.4em 0.5em 0em;
+		 padding: 0.5em 1em;
+		 cursor: pointer;
+		 border: none;
+		 outline: none;
+	}
+
+	& .ui-resizable-se {
+		 float: right;
+		 height: 24px;
+		 width: 24px;
+		 background: url(../../images/modal-resize-icn.png) no-repeat bottom;
+	}
+
+	& .dnnDialog {
+		 padding: 10px;
+	}
+}     

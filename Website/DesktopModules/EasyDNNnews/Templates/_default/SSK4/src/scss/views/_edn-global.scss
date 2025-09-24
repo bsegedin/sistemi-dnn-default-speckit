@@ -1,0 +1,42 @@
+/* ==========================================================================
+	COMPONENTS / EASY-DNN-NEWS / EDN Global CSS
+========================================================================== */
+ 
+
+@import 'bootstrap/scss/_pagination';
+
+
+.eds_news_SSK4 {
+
+  a {
+    text-decoration: none;
+  }
+  
+  img {
+    width: 100%;
+  }
+
+}
+
+.article_pager {
+  @extend .pagination;
+  a {
+    @extend .page-link;
+  }
+}
+
+.c-share {
+  ul {
+    list-style-type: none;
+    padding: 0;
+    li {
+      padding-right: .5rem;
+    }
+  }
+
+  svg {
+    height: 30px;
+  }
+}
+
+

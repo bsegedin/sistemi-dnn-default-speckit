@@ -1,0 +1,193 @@
+$document-icon-size: 22px !default;
+$document-title-size: 24px !default;
+
+@use "components" as c with (
+  $document-icon-size: $document-icon-size,
+  $document-title-size: $document-title-size
+);
+
+@use "icon-colors" as icons;
+
+//#region TREE view
+.c-documents-list--dnnnews > .c-folder,
+.c-documents-list--dnnnews > .c-tree {
+  padding-left: 0;
+}
+.c-documents-list--dnnnews .c-folder,
+.c-documents-list--dnnnews .c-tree {
+  list-style: none;
+}
+
+.c-documents-list--dnnnews {
+  .l-folder, .l-file {
+    //margin: 8px 0;
+  }
+
+  // #region UX
+  &.csharp {
+    .l-folder.has-children--true > ul { display: none; }
+    .l-folder.has-children--true.is-open > ul { display: block; }
+  }
+  
+  .l-folder > .c-folder, 
+  .l-file > .c-file {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .l-folder.has-children--true > .c-folder.js-folder-handle { 
+    cursor: pointer;
+    /*
+    &:hover .c-icon {
+      background: darken(color(brand-alt), 15%);
+    }
+    */
+  }
+  .l-folder.has-children--false > .c-folder {
+    color: #555 !important;
+    pointer-events: none;
+    .c-icon {
+      filter: grayscale(.7);
+      opacity: .8;
+    }
+  }
+  .l-file > a { 
+    cursor: pointer;
+    /*
+    &:hover .c-icon {
+      background: darken(color(brand-alt), 15%);
+    }
+    */
+  }
+  //#endregion
+
+  
+  //#region UI styles update
+  .c-icon {
+    @include c.icon(48px, 48px);
+    margin-right: 8px;
+    .c-icon__type {
+      margin-top: 10px;
+      font-family: sans-serif;
+    }
+  }
+
+  .c-folder {
+    & > .c-title {
+      .o-title {
+        font-weight: 700;
+      }
+      .c-description {
+        font-size: 12px;
+        .o-description + .o-description {
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+
+  .c-documents-list__item {
+    display: flex;
+
+    .c-documents-list__item-icon {
+      margin-right: .5rem;
+    }
+
+    & > .c-link {
+      text-decoration: none;
+    }
+
+    & > .c-title {
+      font-weight: 500;
+
+      .c-description {
+        display: flex;
+        font-weight: 100;
+        font-size: 12px;
+  
+        .o-description + .o-description {
+          margin-left: 4px;
+          &:before {
+            content: "/";
+            display: inline-block;
+            margin: 0 4px;
+          }
+        }
+        p {  margin-bottom: 0; display: inline-block;}
+      }
+    }
+
+  }
+  //#endregion
+
+
+  //#region description
+  .c-description {
+    display: flex;
+    align-items: baseline;
+    &, p {
+      margin-bottom: 0;
+    }
+    
+    dt + dt {
+      margin-right: 0.6rem;
+    }
+  }
+  //#endregion
+}
+//#endregion
+
+// simple list (no folders)
+.c-documents-list--dnnnews {
+  
+   .l-page__aside & {
+     & > .o-title {
+       border-bottom: 1px solid #e6e6e6;
+     }
+   }
+ 
+   .c-documents-list__list {
+     list-style: none;
+     margin: 0; padding: 0;
+ 
+     .l-file {
+       .c-documents-list__item {
+         display: flex;
+ 
+         @include icons.IconsColored();
+         > .c-link {
+           text-decoration: none;
+           width: 50px;
+         }
+ 
+         .c-icon {
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+ 
+           margin: 0.3rem 0.6rem 0 0;
+           font-size: 16px;
+           font-weight: bold;
+           &__type {
+             font-size: 9px;
+             text-transform: uppercase;
+           }
+         }
+         .c-title {
+           border-left: 1px solid #e6e6e6;
+           padding-left: 0.6rem;
+ 
+           .c-description {
+             display: flex;
+             font-size: 11px;
+             &__item {
+               margin-right: 0.6rem;
+             }
+           }
+         }
+       }
+     }
+ 
+   }
+} 

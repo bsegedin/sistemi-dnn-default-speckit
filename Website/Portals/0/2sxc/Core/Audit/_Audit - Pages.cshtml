@@ -1,0 +1,116 @@
+<!-- Include 2sxc api, datatables and exports -->
+@Html.Partial("_Assets.cshtml")
+@Html.Partial("Shared/_Shared - Loader.cshtml")
+
+<div class="sc-element">
+@if (Dnn.User.IsSuperUser)
+{
+  <div class="admin-edit-line">
+    @Edit.Toolbar(settings: new { hover = "right" })
+  </div>
+}
+
+<div class="table-responsive js-table-wrap c-audit-pages" style="display:none">
+  <table id="table_@Dnn.Module.ModuleID" class="table table-striped" style="width:100%">
+    <thead>
+      <tr>
+        <th>@App.Resources.TabName</th>
+        <th>@App.Resources.IsDeleted</th>
+        <th>@App.Resources.DateCreated</th>
+        <th>@App.Resources.UserCreated</th>
+        <th>@App.Resources.DateModified</th>
+        <th>@App.Resources.UserModified</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>@App.Resources.TabName</th>
+        <th>@App.Resources.IsDeleted</th>
+        <th>@App.Resources.DateCreated</th>
+        <th>@App.Resources.UserCreated</th>
+        <th>@App.Resources.DateModified</th>
+        <th>@App.Resources.UserModified</th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+</div>
+
+<script>
+$(document).ready(function() {
+  const sxc = $2sxc(@Dnn.Module.ModuleID);
+  const cultureCode = '@Dnn.Tab.CultureCode';
+  let language = '';
+  cultureCode === 'hr-HR' ?
+    language = {
+      "sEmptyTable":      "Nema podataka u tablici",
+      "sInfo":            "Prikazano _START_ do _END_ od _TOTAL_ rezultata",
+      "sInfoEmpty":       "Prikazano 0 do 0 od 0 rezultata",
+      "sInfoFiltered":    "(filtrirano iz _MAX_ ukupnih rezultata)",
+      "sInfoPostFix":     "",
+      "sInfoThousands":   ",",
+      "sLengthMenu":      "Prikaži _MENU_ rezultata po stranici",
+      "sLoadingRecords":  "Dohvaćam...",
+      "sProcessing":      "Obrađujem...",
+      "sSearch":          "Pretraži:",
+      "sZeroRecords":     "Ništa nije pronađeno",
+      "oPaginate": {
+        "sFirst":       "Prva",
+        "sPrevious":    "Nazad",
+        "sNext":        "Naprijed",
+        "sLast":        "Zadnja"
+      },
+      "oAria": {
+        "sSortAscending":  ": aktiviraj za rastući poredak",
+        "sSortDescending": ": aktiviraj za padajući poredak"
+      }
+    } : '';
+
+  $('.loader-text').text('Dohvaćam podatke');
+  sxc.webApi.get('app/auto/query/DnnData/Pages').success(function(data) {
+    // Set placeholder text on column filters
+    $("#table_@Dnn.Module.ModuleID tfoot th").each(function() {
+      const title = $(this).text();
+      $(this).html('<input type="text" class="form-control form-control-sm" placeholder="' + title + '" />');
+    });
+    data.Pages.forEach(function(item) {
+      item.TabName = `<a href="/default.aspx?tabid=${item.TabID}" target="_blank">${item.TabName}</a>`;
+      item.CreatedOnDate ? item.CreatedOnDate = moment(item.CreatedOnDate).format('DD.MM.YYYY') : 'No date'
+      item.LastModifiedOnDate ? item.LastModifiedOnDate = moment(item.LastModifiedOnDate).format('DD.MM.YYYY') : 'No date';
+    });
+
+    const table = $('#table_@Dnn.Module.ModuleID').DataTable({
+      "pageLength": 20,
+      data: data.Pages,
+      dom: 'Bfrtip',
+      columns: [
+        { data: "TabName"},
+        { data: "IsDeleted"},
+        { data: "CreatedOnDate"},
+        { data: "CreatedBy"},
+        { data: "LastModifiedOnDate"},
+        { data: "ModifiedBy"}
+      ],
+      // After JSON load remove spiner and show table
+      initComplete: function() {
+        $('.js-loader-container').remove();
+        $(".js-table-wrap").show();
+      },
+      order: [[ 0, "asc" ]],
+      buttons: [
+        'csv', 'excel', 'pdf'
+      ],
+      // Translation
+      language: language
+    });
+    table.columns().every(function() {
+      const that = this;
+      $('input', this.footer()).on('keyup change', function() {
+        if (that.search() !== this.value) {
+          that.search(this.value).draw();
+        }
+      });
+    });
+  });
+});
+</script>

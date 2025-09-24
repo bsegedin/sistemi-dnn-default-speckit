@@ -1,0 +1,236 @@
+:root {
+  --bs-btn-padding-x: 16px;
+  --bs-btn-padding-y: 12px;
+  --bs-btn-padding-x-mobile: 32px;
+  --bs-btn-padding-y-mobile: 8px;
+}
+// -------------------------
+// This SCSS is used to define UI for login page
+// -------------------------
+
+.theme-variation-login {
+  .dnnFormMessage.dnnFormError,
+  .dnnFormMessage.dnnFormValidationSummary {
+    display: inline-block;
+    max-width: 350px;
+    background-color: #E7677E;
+    border-radius: 12px;
+    color: white;
+    text-align: left;
+
+    @include media-breakpoint-up(lg) {
+      max-width: 100%;
+    }
+
+    span {
+      position: relative;
+      //display: block;
+      padding-left: 4rem;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+
+      &:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: url(/images/form-error.svg);
+        width: 50px;
+        fill: white;
+      }
+    }
+  }
+
+  main {
+    margin-top: 61px;
+    padding: 0;
+
+    .o-title {
+      text-align: center;
+      color: $primary;
+    }
+
+    .login-image {
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .right-pane {
+      padding: 2rem 2rem 8rem;
+      text-align: center;
+
+      @include media-breakpoint-up(xl) {
+        padding: 0 7rem 5rem 5rem;
+      }
+    }
+
+    .DnnModule-Authentication {
+      position: relative;
+      margin-top: 5rem;
+    }
+
+    .col-md-8 {
+      flex: 0 0 auto;
+      width: 100%;
+      padding: 0;
+    }
+  }
+  // Overides
+
+  .l-view, .l-card, .l-item {
+    margin: 0;
+  }
+  // Login
+
+  .LoginPanel, .dnnSendPassword {
+    width: 100%;
+    padding: 0;
+
+    .dnnFormItem {
+      .dnnLabel {
+        font-weight: 600;
+        padding: 0 !important;
+        margin: 0 0 .5rem !important;
+
+        label {
+          font-size: 18px;
+        }
+      }
+
+      input {
+        @extend .form-control, .form-control-lg;
+        background-color: transparent;
+        box-shadow: none;
+        max-width: 100%;
+        margin: 0;
+      }
+
+      &.primary-action {
+        display: flex;
+
+        a {
+          width: 100%;
+        }
+      }
+
+      &.reset-action {
+        ul li {
+          float: none;
+          margin: 0;
+        }
+      }
+
+      a {
+        transition: none;
+        box-shadow: none;
+        padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+        width: 100%;
+        height: 60px;
+        font-size: 1.125rem;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50px;
+        font-weight: 400;
+        text-transform: uppercase;
+        margin: 0;
+
+        &.dnnFormHelp {
+          width: 14px;
+          height: 15px;
+        }
+      }
+
+
+      a.dnnPrimaryAction {
+        background: #0B457F;
+        border-color: #0B457F;
+        color: white;
+
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: #0B457F;
+          background: linear-gradient(90deg, rgb(18, 110, 203) 0%, rgb(11, 69, 127) 100%);
+          border: 0;
+        }
+      }
+
+      a.dnnSecondaryAction {
+        background: #dddddd;
+        border-color: #dddddd;
+        color: white;
+
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: #767676;
+          border: 0;
+        }
+      }
+    }
+  }
+
+  .dnnActions {
+    a {
+      transition: none;
+      box-shadow: none;
+      padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+      width: 100%;
+      height: 60px;
+      font-size: 1.125rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50px;
+      font-weight: 400;
+      text-transform: uppercase;
+      margin: 0;
+
+      &.dnnFormHelp {
+        width: 14px;
+        height: 15px;
+      }
+    }
+
+
+    a.dnnPrimaryAction {
+      background: #0B457F;
+      border-color: #0B457F;
+      color: white;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: #0B457F;
+        background: linear-gradient(90deg, rgb(18, 110, 203) 0%, rgb(11, 69, 127) 100%);
+        border: 0;
+      }
+    }
+
+    a.dnnSecondaryAction {
+      background: #dddddd;
+      border-color: #dddddd;
+      color: white;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: #767676;
+        border: 0;
+      }
+    }
+  }
+}
+
+
+//
+
+
+
+

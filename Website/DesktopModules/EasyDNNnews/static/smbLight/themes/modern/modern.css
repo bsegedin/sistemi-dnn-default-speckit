@@ -1,0 +1,1236 @@
+body.smbLightFixed {
+  overflow: hidden;
+}
+
+.smbLightOverlayWrapper.modern {
+  display: block;
+  position: fixed;
+  max-height: none;
+  max-width: none;
+  height: auto;
+  width: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  z-index: 99999;
+  transition: opacity linear 0.2s;
+}
+.smbLightOverlayWrapper.modern.show {
+  opacity: 1;
+}
+.smbLightOverlayWrapper.modern > .contentWrapper {
+  display: block;
+  position: absolute;
+  max-height: none;
+  max-width: none;
+  height: auto;
+  width: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: none;
+  opacity: 1;
+}
+.smbLightOverlayWrapper.modern .socialButtonsWrapper {
+  position: absolute;
+  display: none;
+  top: auto;
+  left: auto;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 10px 0 3px 10px;
+  border: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 4px 0 0 0;
+}
+.smbLightOverlayWrapper.modern .socialButtonsWrapper > div {
+  display: block;
+  margin: 0 0 1px;
+  padding: 0;
+  border: 0;
+  height: 25px;
+  width: 135px;
+}
+.smbLightOverlayWrapper.modern .socialButtonsWrapper.show {
+  display: block;
+}
+.smbLightOverlayWrapper.modern .mainWrapper {
+  display: block;
+  background: #2F2F2F;
+  border: 1px solid #fff;
+  border-radius: 1px;
+  margin: 52px;
+  position: absolute;
+  top: 0;
+  bottom: auto;
+  left: 0;
+  right: auto;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
+  height: 50px;
+  width: 50px;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .viewWrapper {
+  display: block;
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .viewWrapper > div {
+  display: block;
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  bottom: auto;
+  right: auto;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .viewWrapper > div.activeElement {
+  left: 0;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .viewWrapper > div.audioVideo iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .viewWrapper > div.images img,
+.smbLightOverlayWrapper.modern .mainWrapper .viewWrapper > div.images p {
+  display: block;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  height: auto !important;
+  max-height: none !important;
+  width: auto !important;
+  max-width: none !important;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  right: auto;
+  bottom: auto;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .viewWrapper > div.images img.activeElement {
+  left: 0;
+  height: 100% !important;
+  width: 100% !important;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .viewWrapper > div.images p {
+  text-align: center;
+  font: 16px/20px Arial, sans-serif;
+  top: 50%;
+  margin: -10px 0 0;
+  padding: 0 30px;
+  height: auto;
+  color: #fff;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .viewWrapper > div.images.imageNotLoaded > p {
+  left: 0;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .loadingOverlay {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url(images/loader.gif) 500% 0 #2F2F2F no-repeat;
+  z-index: 1;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .loadingOverlay.inProgress {
+  background-position: center center;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .itemTitle {
+  display: block;
+  font: 17px/0.9 Arial, sans-serif;
+  margin: 0 70px 10px 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  text-shadow: 1px 1px 0 #333;
+  position: absolute;
+  top: auto;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  opacity: 0;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .itemTitle > span {
+  display: block;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .itemTitle > span.eds__SmbLight_lightboxTitle + .eds__SmbLight_lightboxDescription {
+  margin-top: 7px;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .itemTitle > span.eds__SmbLight_lightboxDescription {
+  font-size: 12px;
+  line-height: 1;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .navigation,
+.smbLightOverlayWrapper.modern .mainWrapper .close,
+.smbLightOverlayWrapper.modern .mainWrapper .socialButtonsTrigger {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  position: absolute;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  cursor: pointer;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .navigation {
+  top: 50%;
+  width: 34px;
+  height: 70px;
+  background: #fff;
+  margin-top: -35px;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .navigation > span {
+  display: block;
+  position: absolute;
+  top: 50%;
+  bottom: auto;
+  left: 50%;
+  right: auto;
+  width: 12px;
+  height: 20px;
+  background: url(images/icons.png) no-repeat -28px 0;
+  margin: -10px 0 0 -6px;
+  padding: 0;
+  border: 0;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .navigation.prev {
+  right: 100%;
+  border-radius: 4px 0 0 4px;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .navigation.prev > span {
+  background-position: -28px 0;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .navigation.next {
+  left: 100%;
+  border-radius: 0 4px 4px 0;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .navigation.next > span {
+  background-position: -28px -20px;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .navigation:hover.prev > span {
+  background-position: -40px 0;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .navigation:hover.next > span {
+  background-position: -40px -20px;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .close {
+  top: auto;
+  bottom: 100%;
+  right: 20px;
+  width: 42px;
+  height: 31px;
+  background: #fff;
+  border-radius: 4px 4px 0 0;
+  margin-bottom: 1px;
+  opacity: 1;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .close > span {
+  display: block;
+  position: absolute;
+  top: 50%;
+  bottom: auto;
+  left: 50%;
+  right: auto;
+  width: 14px;
+  height: 15px;
+  background: url(images/icons.png) no-repeat 0 0;
+  margin: -7px 0 0 -7px;
+  padding: 0;
+  border: 0;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .close:hover {
+  background: #ce0000;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .close:hover > span {
+  background-position: -14px 0;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .socialButtonsTrigger {
+  top: 100%;
+  width: 40px;
+  height: 31px;
+  right: 20px;
+  background: #fff;
+  border-radius: 0 0 4px 4px;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .socialButtonsTrigger > span {
+  display: block;
+  position: absolute;
+  top: 50%;
+  bottom: auto;
+  left: 50%;
+  right: auto;
+  width: 13px;
+  height: 15px;
+  background: url(images/icons.png) no-repeat 0 -15px;
+  margin: -7px 0 0 -8px;
+  padding: 0;
+  border: 0;
+  font-size: 0;
+  line-height: 0;
+}
+.smbLightOverlayWrapper.modern .mainWrapper .socialButtonsTrigger:hover > span {
+  background-position: -13px -15px;
+}
+.smbLightOverlayWrapper.modern .mainWrapper.audioItem .navigation {
+  height: 30px;
+  margin-top: -15px;
+}
+.smbLightOverlayWrapper.modern.smbPlus {
+  top: auto;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  bottom: -1px;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: auto;
+  right: auto;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper.positionAnimation {
+  transition: transform ease-in-out 0.5s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper.swipeAnimation {
+  transition: transform cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div {
+  display: inline-block;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  position: relative;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div.imageItem > img {
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  position: absolute;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  opacity: 1;
+  transition: opacity ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div.imageItem::before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  height: 200px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 200px 200px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%236F6F6F' d='M32 0C14.3 0 0 14.3 0 32S14.3 64 32 64V75c0 42.4 16.9 83.1 46.9 113.1L146.7 256 78.9 323.9C48.9 353.9 32 394.6 32 437v11c-17.7 0-32 14.3-32 32s14.3 32 32 32H64 320h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V437c0-42.4-16.9-83.1-46.9-113.1L237.3 256l67.9-67.9c30-30 46.9-70.7 46.9-113.1V64c17.7 0 32-14.3 32-32s-14.3-32-32-32H320 64 32zM96 75V64H288V75c0 19-5.6 37.4-16 53H112c-10.3-15.6-16-34-16-53zm16 309c3.5-5.3 7.6-10.3 12.1-14.9L192 301.3l67.9 67.9c4.6 4.6 8.6 9.6 12.1 14.9H112z'/%3E%3C/svg%3E");
+  position: absolute;
+  color: #6F6F6F;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: -100px 0 0;
+  opacity: 0;
+  transition: opacity ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div.videoItem, .smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div.audioItem {
+  position: relative;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div.videoItem > div, .smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div.audioItem > div {
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  position: absolute;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div.videoItem > div > iframe, .smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div.audioItem > div > iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div.audioItem > div {
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div.audioItem > div > .audiojs .play-pause p {
+  width: 100%;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div.loading.imageItem > img {
+  opacity: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .contentWrapper > div.loading.imageItem::before {
+  opacity: 1;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .mobileOverlay {
+  background: none;
+  height: 100%;
+  width: 100%;
+  display: block;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 -160px 110px -135px #000 inset, -115px 0 120px -100px #000 inset, 115px 0 120px -100px #000 inset;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: auto;
+  right: auto;
+  z-index: 1;
+  transition: box-shadow ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .navigation {
+  margin: -27px 0 0;
+  height: 54px;
+  width: 30px;
+  background: none;
+  display: block;
+  border: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  font-size: 0;
+  line-height: 0;
+  z-index: 2;
+  opacity: 1;
+  transition: opacity ease-in-out 0.2s;
+  cursor: pointer;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .navigation > span {
+  position: relative;
+  top: 15px;
+  left: 7px;
+  right: auto;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .navigation > span::after {
+  transition: all ease-in-out 0.2s;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  content: "";
+  vertical-align: middle;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .navigation:hover > span::after {
+  color: #aaa;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .navigation.prev {
+  left: 0;
+  right: auto;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .navigation.prev > span::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23ffffff' d='M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .navigation.next {
+  right: 0;
+  left: auto;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .navigation.next > span::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23ffffff' d='M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .close {
+  margin: 0;
+  height: 45px;
+  width: 40px;
+  background: none;
+  display: block;
+  border: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: auto;
+  right: 0;
+  font-size: 0;
+  line-height: 0;
+  z-index: 2;
+  opacity: 1;
+  transition: opacity ease-in-out 0.2s;
+  cursor: pointer;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .close > span {
+  position: relative;
+  top: 9px;
+  left: 14px;
+  right: auto;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .close > span::after {
+  transition: all ease-in-out 0.2s;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  content: "";
+  vertical-align: middle;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23ffffff' d='M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .close:hover > span::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23aaaaaa' d='M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .itemTitle {
+  margin: 0;
+  top: auto;
+  bottom: 35px;
+  font: 16px/1.3 Arial, sans-serif;
+  color: #fff;
+  text-align: left;
+  position: absolute;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), 0px 0px 1px rgba(0, 0, 0, 0.5);
+  padding: 0 15px;
+  z-index: 2;
+  opacity: 1;
+  transition: opacity ease-in-out 0.2s, bottom ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  font-size: 0;
+  line-height: 0;
+  padding: 5px 15px 10px;
+  z-index: 2;
+  opacity: 1;
+  transition: opacity ease-in-out 0.2s;
+  cursor: pointer;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions > span {
+  font: 16px/1.3 Arial, sans-serif;
+  font-weight: bold;
+  color: #fff;
+  padding: 0 0 0 3px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), 0px 0px 1px rgba(0, 0, 0, 0.5);
+  transition: color ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions > span::before, .smbLightOverlayWrapper.modern.smbPlus > .actions > span::after {
+  position: relative;
+  left: -3px;
+  transition: all ease-in-out 0.2s;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  content: "";
+  vertical-align: middle;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions > span::after {
+  left: auto;
+  right: -3px;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions:hover > span {
+  color: #aaa;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions:hover > span::before, .smbLightOverlayWrapper.modern.smbPlus > .actions:hover > span::after {
+  color: #aaa;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions.commentsTrigger {
+  left: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions.commentsTrigger > span::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23ffffff' d='M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4l0 0 0 0 0 0 0 0 .3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions.likeTrigger {
+  right: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions.likeTrigger > span {
+  padding: 0 3px 0 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions.likeTrigger > span::after {
+  transition: background ease-in-out 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23aaaaaa' d='M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions.likeTrigger.liked > span::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23ff3939' d='M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions.likeTrigger.liked:hover > span::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23bb1919' d='M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions.socialButtonsTrigger {
+  left: 50%;
+  margin-left: -24px;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions.socialButtonsTrigger > span {
+  font-size: 0;
+  line-height: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .actions.socialButtonsTrigger > span::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23ffffff' d='M352 224c53 0 96-43 96-96s-43-96-96-96s-96 43-96 96c0 4 .2 8 .7 11.9l-94.1 47C145.4 170.2 121.9 160 96 160c-53 0-96 43-96 96s43 96 96 96c25.9 0 49.4-10.2 66.6-26.9l94.1 47c-.5 3.9-.7 7.8-.7 11.9c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-25.9 0-49.4 10.2-66.6 26.9l-94.1-47c.5-3.9 .7-7.8 .7-11.9s-.2-8-.7-11.9l94.1-47C302.6 213.8 326.1 224 352 224z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .socialButtonsWrapper {
+  width: 150px;
+  right: auto;
+  left: 50%;
+  margin-left: -75px;
+  bottom: 45px;
+  z-index: 3;
+  border-radius: 5px;
+  box-sizing: border-box;
+  opacity: 1;
+  transition: opacity ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .socialButtonsWrapper > div {
+  margin-bottom: 5px;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .socialButtonsWrapper::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 100%;
+  width: 0;
+  height: 0;
+  border-color: rgba(0, 0, 0, 0.8) transparent transparent;
+  border-style: solid;
+  border-width: 10px 20px 0;
+  left: 50%;
+  margin: 0 0 0 -20px;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .modalOverlay {
+  background: rgba(0, 0, 0, 0.9);
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 100%;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  position: absolute;
+  opacity: 0;
+  z-index: 3;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  height: 100%;
+  border: 14px solid transparent;
+  border-bottom: 0;
+  border-radius: 5px 5px 0 0;
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  transform: translate3d(0, 100%, 0);
+  transition: transform ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > p.loading {
+  margin: -15px 0 0;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.3;
+  color: #666;
+  position: absolute;
+  top: 200%;
+  left: auto;
+  right: auto;
+  bottom: auto;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  padding: 20px 20px 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 5px 5px 0 0;
+  margin: 0;
+  box-sizing: border-box;
+  background: #fff;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper {
+  top: 0;
+  left: 100%;
+  right: auto;
+  bottom: auto;
+  padding-top: 40px;
+  overflow-y: scroll;
+  z-index: 1;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper > p {
+  font-size: 14px;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper input,
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper textarea {
+  margin: 0 0 20px;
+  padding: 5px 10px;
+  background: #f1f1f1;
+  border: 1px solid #c4c4c4;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.3;
+  box-sizing: border-box;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper textarea {
+  resize: vertical;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper > div.error input,
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper > div.error textarea {
+  border-color: #e97f7f;
+  color: #f00;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper > div.actions {
+  text-align: right;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper > div.actions button {
+  text-transform: uppercase;
+  background: #a7a7a7;
+  border: 0;
+  padding: 5px 10px 4px;
+  margin: 0 0 0 20px;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #fff;
+  transition: opacity ease-in-out 0.2s, background ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper > div.actions button:hover {
+  background: #7B7B7B;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper > div.captchaContainer > .captchaError {
+  display: none;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #f00;
+  padding: 10px 5px;
+  margin: 0 0 5px;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper > div.captchaContainer.error > .captchaError {
+  display: block;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.anonymCommentWrapper.addingAnonComment > div.actions .post {
+  opacity: 0.4;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .top {
+  border: 0;
+  border-bottom: 1px solid #dbdbdb;
+  height: 25px;
+  opacity: 1;
+  transition: opacity ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .top > span {
+  font: 14px/1.3 Arial, sans-serif;
+  color: #949494;
+  position: relative;
+  margin: 0;
+  padding: 0 30px 0 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .top > span::after {
+  position: absolute;
+  left: auto;
+  right: 10px;
+  bottom: auto;
+  background-size: 18px auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  content: "";
+  width: 18px;
+  height: 18px;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .top > span.comments::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23c4c4c4' d='M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4l0 0 0 0 0 0 0 0 .3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z'/%3E%3C/svg%3E");
+  top: -2px;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .top > span.likes::after {
+  transition: all ease-in-out 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23c4c4c4' d='M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z'/%3E%3C/svg%3E");
+  top: -1px;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .top > span.likes.liked::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23FF6D6D' d='M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .top > span.sort {
+  position: absolute;
+  right: 10px;
+  left: auto;
+  top: auto;
+  bottom: auto;
+  cursor: pointer;
+  transition: all ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .top > span.sort::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23c4c4c4' d='M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z'/%3E%3C/svg%3E");
+  transition: all ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .top > span.sort:hover {
+  color: #5b5b5b;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .top > span.sort:hover::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%238f8f8f' d='M151.6 469.6C145.5 476.2 137 480 128 480s-17.5-3.8-23.6-10.4l-88-96c-11.9-13-11.1-33.3 2-45.2s33.3-11.1 45.2 2L96 365.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V365.7l32.4-35.4c11.9-13 32.2-13.9 45.2-2s13.9 32.2 2 45.2l-88 96zM320 480c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H320zm0-128c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H320z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .top > span.sort.desc::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23c4c4c4' d='M151.6 42.4C145.5 35.8 137 32 128 32s-17.5 3.8-23.6 10.4l-88 96c-11.9 13-11.1 33.3 2 45.2s33.3 11.1 45.2-2L96 146.3V448c0 17.7 14.3 32 32 32s32-14.3 32-32V146.3l32.4 35.4c11.9 13 32.2 13.9 45.2 2s13.9-32.2 2-45.2l-88-96zM320 480h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H320c-17.7 0-32 14.3-32 32s14.3 32 32 32zm0-128h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H320c-17.7 0-32 14.3-32 32s14.3 32 32 32zm0-128H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H320c-17.7 0-32 14.3-32 32s14.3 32 32 32zm0-128H544c17.7 0 32-14.3 32-32s-14.3-32-32-32H320c-17.7 0-32 14.3-32 32s14.3 32 32 32z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .top > span.sort.desc:hover::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%238f8f8f' d='M151.6 42.4C145.5 35.8 137 32 128 32s-17.5 3.8-23.6 10.4l-88 96c-11.9 13-11.1 33.3 2 45.2s33.3 11.1 45.2-2L96 146.3V448c0 17.7 14.3 32 32 32s32-14.3 32-32V146.3l32.4 35.4c11.9 13 32.2 13.9 45.2 2s13.9-32.2 2-45.2l-88-96zM320 480h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H320c-17.7 0-32 14.3-32 32s14.3 32 32 32zm0-128h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H320c-17.7 0-32 14.3-32 32s14.3 32 32 32zm0-128H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H320c-17.7 0-32 14.3-32 32s14.3 32 32 32zm0-128H544c17.7 0 32-14.3 32-32s-14.3-32-32-32H320c-17.7 0-32 14.3-32 32s14.3 32 32 32z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .newCommentWrapper {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+  border: 0;
+  border-top: 1px solid #dbdbdb;
+  padding: 0 65px 0 0;
+  background: #fff;
+  z-index: 1;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .newCommentWrapper::before {
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  margin: -17px 0 0;
+  background-position: center center;
+  background-repeat: no-repat;
+  background-size: 25px auto;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23c4c4c4' d='M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM325.8 139.7l14.4 14.4c15.6 15.6 15.6 40.9 0 56.6l-21.4 21.4-71-71 21.4-21.4c15.6-15.6 40.9-15.6 56.6 0zM119.9 289L225.1 183.8l71 71L190.9 359.9c-4.1 4.1-9.2 7-14.9 8.4l-60.1 15c-5.5 1.4-11.2-.2-15.2-4.2s-5.6-9.7-4.2-15.2l15-60.1c1.4-5.6 4.3-10.8 8.4-14.9z'/%3E%3C/svg%3E");
+  width: 33px;
+  height: 33px;
+  content: "";
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .newCommentWrapper > button {
+  background: #a7a7a7;
+  border: 0;
+  border-radius: 2px;
+  margin: -14px 0 0;
+  padding: 5px 10px 4px;
+  font: 14px/1.3 Arial, sans-serif;
+  color: #fff;
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  left: auto;
+  right: 0;
+  transition: background ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .newCommentWrapper > button:hover {
+  background: #7B7B7B;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .newCommentWrapper > textarea {
+  color: #878787;
+  font: 16px/1.3 Arial, sans-serif;
+  margin: 0;
+  padding: 10px 0 0 40px;
+  border: 0;
+  background: none;
+  resize: none;
+  width: 100%;
+  height: 40px;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .newCommentWrapper.filledIn > button {
+  background: #1287bd;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > .noComments {
+  display: none;
+  margin: -10px 0 0;
+  padding: 0;
+  border: 0;
+  font: 16px/1.3 Arial, sans-serif;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  right: 20px;
+  color: #747474;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > ul {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-y: scroll;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > ul > li {
+  display: block;
+  margin: 0;
+  padding: 10px 0 12px 60px;
+  border: 0;
+  border-bottom: 1px solid #dbdbdb;
+  position: relative;
+  font: 0/0 Arial;
+  min-height: 44px;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > ul > li > .authorAvatar {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: auto;
+  bottom: auto;
+  border: 1px solid #adadad;
+  display: block;
+  text-decoration: none;
+  font-size: 0;
+  line-height: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > ul > li > .authorAvatar > img {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > ul > li > .author {
+  color: #1287bd;
+  font: 12px/1.3 Arial, sans-serif;
+  text-decoration: none;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > ul > li > div {
+  margin: 4px 0 0;
+  padding: 0;
+  border: 0;
+  display: block;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > ul > li > div > p {
+  margin: 10px 0 0;
+  padding: 0;
+  border: 0;
+  display: block;
+  font: 12px/1.3 Arial, sans-serif;
+  font-weight: normal;
+  color: #000;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > ul > li > div > p:first-child {
+  margin: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > ul > li > .datetime {
+  margin: 4px 0 0;
+  padding: 0;
+  border: 0;
+  display: block;
+  font: 11px/1.3 Arial, sans-serif;
+  font-weight: normal;
+  color: #949494;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > div.main > ul > li:last-child {
+  border: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > span.closeComments {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  background-color: #dadada;
+  background-position: center 6px;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23767676' d='M246.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 402.7 361.4 265.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 210.7 361.4 73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z'/%3E%3C/svg%3E");
+  background-size: 12px auto;
+  padding: 0 10px 10px;
+  margin: 0 0 0 -40px;
+  border: 0;
+  border-radius: 0 0 4px 4px;
+  width: 60px;
+  height: 25px;
+  z-index: 2;
+  transition: background ease-in-out 0.2s;
+  cursor: pointer;
+  font-size: 0;
+  line-height: 0;
+  z-index: 3;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper > span.closeComments:hover {
+  background-color: #cbcbcb;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%233c3c3c' d='M246.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 402.7 361.4 265.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 210.7 361.4 73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper.noComments > div.main > .noComments {
+  display: block;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper.showAnonymWindow > div.anonymCommentWrapper {
+  left: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper.loading > p.loading {
+  top: 50%;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper.loading > div.main > .top > span.sort {
+  right: -100%;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper.loading > div.main > ul {
+  opacity: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus > .commentsModalWrapper.loading > div.main > .newCommentWrapper {
+  bottom: 100%;
+}
+.smbLightOverlayWrapper.modern.smbPlus.modalActive > .modalOverlay {
+  top: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus.modalActive > .commentsModalWrapper {
+  transform: translate3d(0, 0, 0);
+}
+.smbLightOverlayWrapper.modern.smbPlus.firstItem > .navigation.prev {
+  opacity: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus.lastItem > .navigation.next {
+  opacity: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus.videoActive > .contentWrapper, .smbLightOverlayWrapper.modern.smbPlus.audioActive > .contentWrapper {
+  z-index: 2;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .mobileOverlay {
+  box-shadow: 0 160px 110px -135px #000 inset, -115px 0 120px -100px #000 inset, 115px 0 120px -100px #000 inset, 0 -160px 110px -135px #000 inset;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .navigation {
+  width: 46px;
+  height: 72px;
+  margin-top: -36px;
+  opacity: 0.5;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .navigation > span {
+  top: 9px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .navigation > span::after {
+  font-size: 45px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .navigation:hover {
+  opacity: 1;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .navigation:hover > span::after {
+  color: #fff;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent.lastItem > .navigation.next {
+  transform: translate3d(100%, 0, 0);
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent.firstItem > .navigation.prev {
+  transform: translate3d(-100%, 0, 0px);
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .commentsModalWrapper {
+  border-width: 0;
+  border-radius: 0;
+  width: 400px;
+  transform: translate3d(0, 0, 0);
+  transition: none;
+  right: auto;
+  left: 100%;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .commentsModalWrapper > div {
+  border-radius: 0;
+  padding: 20px 10px 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .commentsModalWrapper > div.main > .top > span.sort {
+  left: 50%;
+  margin: 0 0 0 -21px;
+  position: absolute;
+  right: auto;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .commentsModalWrapper > div.main > .newCommentWrapper {
+  left: 10px;
+  right: 10px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .commentsModalWrapper > div.anonymCommentWrapper {
+  border-top: 37px solid #ffffff;
+  padding: 5px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .commentsModalWrapper > span.closeComments {
+  padding: 0;
+  margin: 0;
+  left: auto;
+  right: 10px;
+  background: transparent !important;
+  width: auto;
+  height: auto;
+  top: 9px;
+  padding: 3px 21px 3px 5px;
+  border-radius: 0;
+  font: 17px/1.3 Arial, sans-serif;
+  color: #c4c4c4;
+  transition: color ease-in-out 0.2s;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .commentsModalWrapper > span.closeComments::after {
+  content: "";
+  transition: all ease-in-out 0.2s;
+  margin-top: 0;
+  position: absolute;
+  top: 0;
+  left: auto;
+  right: 0;
+  bottom: auto;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  background-size: 16px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%23c4c4c4' d='M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .commentsModalWrapper > span.closeComments:hover {
+  color: #9F9F9F;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .commentsModalWrapper > span.closeComments:hover::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath fill='%239F9F9F' d='M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z'/%3E%3C/svg%3E");
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent.animateComments > .commentsModalWrapper {
+  transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent.moveComments > .commentsModalWrapper {
+  transform: translate3d(-100%, 0, 0);
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .modalOverlay {
+  display: none;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .close {
+  height: 45px;
+  width: 45px;
+  opacity: 0.5;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .close > span {
+  left: 10px;
+  top: 5px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .close > span::after {
+  font-size: 29px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .close:hover {
+  opacity: 1;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .close:hover > span::after {
+  color: #fa3222;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .actions {
+  padding: 8px 10px;
+  top: 0;
+  bottom: auto;
+  opacity: 0.5;
+  left: 50%;
+  right: auto;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .actions > span::after, .smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .actions > span::before {
+  font-size: 26px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .actions:hover {
+  opacity: 1;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .actions:hover > span {
+  color: #fff;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .actions:hover > span::after, .smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .actions:hover > span::before {
+  color: #fff;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .actions.likeTrigger {
+  margin: 0 0 0 50px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .actions.commentsTrigger {
+  margin: 0 0 0 -108px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .actions.socialButtonsTrigger > span {
+  position: relative;
+  top: 2px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .actions.socialButtonsTrigger > span::before {
+  left: -1;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent .socialButtonsWrapper {
+  bottom: auto;
+  top: 55px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent .socialButtonsWrapper::after {
+  top: auto;
+  bottom: 100%;
+  border-color: transparent transparent rgba(0, 0, 0, 0.8);
+  border-width: 0 20px 10px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.desktopUserAgent > .itemTitle {
+  bottom: 10px;
+  font-size: 26px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.fadeOutControls > .mobileOverlay {
+  box-shadow: none;
+}
+.smbLightOverlayWrapper.modern.smbPlus.fadeOutControls > .navigation,
+.smbLightOverlayWrapper.modern.smbPlus.fadeOutControls > .close,
+.smbLightOverlayWrapper.modern.smbPlus.fadeOutControls > .actions,
+.smbLightOverlayWrapper.modern.smbPlus.fadeOutControls > .socialButtonsWrapper,
+.smbLightOverlayWrapper.modern.smbPlus.fadeOutControls > .itemTitle {
+  opacity: 0;
+}
+.smbLightOverlayWrapper.modern.smbPlus.fadeOutControls > .itemTitle {
+  bottom: -100px;
+}
+.smbLightOverlayWrapper.modern.smbPlus.hideControls > .navigation,
+.smbLightOverlayWrapper.modern.smbPlus.hideControls > .close,
+.smbLightOverlayWrapper.modern.smbPlus.hideControls > .actions,
+.smbLightOverlayWrapper.modern.smbPlus.hideControls > .socialButtonsWrapper,
+.smbLightOverlayWrapper.modern.smbPlus.hideControls > .itemTitle {
+  display: none;
+}
+.smbLightOverlayWrapper.modern.initializing .mainWrapper .navigation,
+.smbLightOverlayWrapper.modern.initializing .mainWrapper .close,
+.smbLightOverlayWrapper.modern.initializing .mainWrapper .socialButtonsTrigger {
+  display: none;
+}
+.smbLightOverlayWrapper.modern.initializing > .actions,
+.smbLightOverlayWrapper.modern.initializing > .navigation,
+.smbLightOverlayWrapper.modern.initializing > .itemTitle {
+  opacity: 0 !important;
+}

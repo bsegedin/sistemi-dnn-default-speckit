@@ -1,0 +1,55 @@
+@inherits Custom.Hybrid.Razor14
+
+@{
+  var attachedVideo = AsDynamic(DynamicModel.attachedVideo);
+  var videoUrl = attachedVideo != null ? attachedVideo.Url : null;
+  var videoFile = attachedVideo != null ? attachedVideo.File : null;
+  var sourceType = attachedVideo != null ? attachedVideo.SourceType : null;
+  var posterImage = attachedVideo != null ? attachedVideo.PosterImage : null;
+  var autoplay = attachedVideo != null ? attachedVideo.Autoplay : false;
+  var controls = attachedVideo != null ? attachedVideo.Controls : true;
+  var loop = attachedVideo != null ? attachedVideo.Loop : false;
+  var muted = attachedVideo != null ? attachedVideo.Muted : false;
+}
+
+
+@* Video is attached, now render based on SourceType *@
+@if (sourceType == "URL" && !string.IsNullOrEmpty(videoUrl))
+{
+  @* Render YouTube embed based on URL *@
+  <div style="left: 0; width: 100%; height: 100%; position: relative;">
+    <iframe width="100%" height="100%" style="aspect-ratio: 16/9;" src="@videoUrl;controls=@((controls ? "1" : "0"))&autoplay=@((autoplay ? "1" : "0"))&mute=@((muted ? "1" : "0"))&loop=@((loop ? "1" : "0"))" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+}
+else if (sourceType == "File" && !string.IsNullOrEmpty(videoFile))
+{
+  if(@AsAdam(attachedVideo, "File").Files.Count == 1){
+    @* Render HTML5 Video Player if video is one file *@
+    <div class="o-video o-video__local">
+      <video width="100%" poster="@posterImage" @((autoplay ? "autoplay" : null)) @((controls ? "controls" : null)) @((loop ? "loop" : null)) @((muted ? "muted" : null))>
+        <source src="@videoFile" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  } else if(@AsAdam(attachedVideo, "File").Files.Count > 1) {
+    @* Render HTML5 Video Player if video is playlist of files *@
+    foreach (var vid in AsAdam(attachedVideo, "File").Files){
+      if(vid.Url.EndsWith("m3u8")){
+        <div class="o-video o-video__local">
+          <video id="stream-video-@vid.Id" width="100%" height="100%" style="position: absolute; object-fit: cover;" poster="@posterImage" @((autoplay ? "autoplay" : null)) @((controls ? "controls" : null)) @((loop ? "loop" : null)) @((muted ? "muted" : null))></video>
+          <script>
+            @* const videoEl = document.getElementById("stream-video-@vid.Id"); *@
+            if(Hls.isSupported()){
+                const fileUrl = '@vid.Url';
+                var encodeUrl = encodeURI(fileUrl);
+                const hls = new Hls();
+                hls.loadSource(encodeUrl);
+                hls.attachMedia(document.getElementById("stream-video-@vid.Id"));
+            }
+          </script>
+        </div>
+      }
+    }
+  }
+
+}

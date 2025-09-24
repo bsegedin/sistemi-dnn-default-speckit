@@ -1,0 +1,25 @@
+@inherits Custom.Hybrid.Razor14
+@using ToSic.Razor.Blade;
+
+<h5>Core settings overview</h5>
+@Edit.Toolbar(Header)
+<table class="table">
+  <thead>
+    <tr>
+      <th>Zone ID</th>
+      <th>App ID</th>
+      <th>Module ID</th>
+      <th>2sxc View Name</th>
+      <th>2sxc View Id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>@App.ZoneId</td>
+      <td>@App.AppId</td>
+      <td>@CmsContext.Module.Id</td>
+      <td>@CmsContext.View.Name</td>
+      <td>@CmsContext.View.Id</td>
+    </tr>
+  </tbody>
+</table>

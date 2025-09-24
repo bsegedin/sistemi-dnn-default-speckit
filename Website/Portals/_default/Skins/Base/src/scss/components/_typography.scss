@@ -1,0 +1,32 @@
+
+// Set the font-family for body and headings
+$font-family-base: $font-family-sans-serif;
+$headings-font-family: $font-family-sans-serif;
+
+@media all {
+
+	h1, h2, h3, h4, h5, h6 {
+		br {
+			@include media-breakpoint-down(md) {
+				content: "";
+			}
+
+			&:after {
+				@include media-breakpoint-down(md) {
+					content: " ";
+				}
+			}
+		}
+	}
+
+	body {
+		strong {
+			font-weight: bold;
+		}
+
+		ul {
+			list-style-type: disc;
+		}
+	}
+}
+

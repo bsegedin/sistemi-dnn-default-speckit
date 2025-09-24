@@ -1,0 +1,22 @@
+<!--HeaderTemplate-->
+<div class="edNews_additionalCards edNews_articleDocuments">
+	<div class="edNews_cardHeader">
+		<span class="edNews_boxBadge"><i class="fas fa-download"></i></span>
+		<h4 class="edNews_additionalCardTitle">[EasyDNNnewsLocalizedText:Documents]</h4>
+	</div>
+	<ul class="edNews_cardList">
+<!--HeaderEnd-->
+
+<!--TemplateDocument-->
+		<li class="edn_docType_[EasyDNNnews:Document:Type]">
+			<a href="[EasyDNNnews:Document:Link]" target="[EasyDNNnews:Document:Target]">[EasyDNNnews:Document:Title]</a> <span class="text-muted">(<i class="edn_docExtension">[EasyDNNnews:Document:FileExtension],</i> <b class="edn_docFileSize">[EasyDNNnews:Document:FileSize]</b>)<small> - [EasyDNNnews:Document:NumberOfDownloads] [EasyDNNnewsLocalizedText:Downloads]</small></span>
+			[EasyDNNnews:IfNotExists:Document:Permission]<i class="fa fa-lock"></i>[EasyDNNnews:EndIf:Document:Permission]
+			</span>
+			<div class="edNews_linkDescription">[EasyDNNnews:Document:Description]</div>
+		</li>
+<!--TemplateDocumentEnd-->
+
+<!--FooterTemplate-->
+	</ul>
+</div>
+<!--FooterEnd-->

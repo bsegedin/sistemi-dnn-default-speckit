@@ -1,0 +1,39 @@
+@inherits Custom.Hybrid.Razor14
+@using DotNetNuke.Framework.JavaScriptLibraries;
+@using DotNetNuke.Web.Client.ClientResourceManagement;
+
+@{
+	string _appPath = @App.Path;
+	string partList = PageData["parts"];
+
+	var parts = partList.Split(',').Select(s => ((string)s).ToLower().Trim()).ToArray();
+	var all = parts.Contains("all");
+	var styles = all || parts.Contains("styles");
+	var scripts = all || parts.Contains("scripts");
+	var sxcapi = all || parts.Contains("sxcapi");
+	var markdown = all || parts.Contains("markdown");
+	
+	// available plugins definitions
+	var gmap = all || parts.Contains("gmap");
+	var leaflet = all || parts.Contains("leaflet");
+}
+
+@if(styles) {
+	<link rel="stylesheet" 
+		href="@_appPath/dist/css/styles.css"
+		@Kit.Page.AssetAttributes(priority: 10)  />
+}
+
+@if(sxcapi) {
+  <script type="text/javascript" 
+    src="/DesktopModules/ToSIC_SexyContent/js/2sxc.api.min.js"></script>
+}
+@if(scripts) {
+			<script rel="text/javascript" 
+		src="@_appPath/dist/scripts.js"
+		@Kit.Page.AssetAttributes(priority: 15)  ></script>
+}
+
+@if(markdown) {
+	<script src="@_appPath/dist/markdown/markdown-it.min.js" @Kit.Page.AssetAttributes(priority: 20) ></script>
+}

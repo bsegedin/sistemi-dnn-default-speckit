@@ -1,0 +1,2 @@
+﻿<%@ control language="C#" inherits="EasyDNNSolutions.Modules.EasyDNNNews.EditArticleUI, App_Web_editarticleui.ascx.d988a5ac" autoeventwireup="true" %>
+<div id="addEditArticleUI" class="edNews_adminTheme" data-moduleid="<%=ModuleId %>" data-portalid="<%=PortalId %>" data-editarticleid="<%=publicOpenArticleID%>"  data-tabid="<%=TabId %>" data-target-id='<%=string.Format("addEditArticle{0}",ModuleId)%>' data-basepath="<%=basePath %>" data-localecode="<%=localeCode%>"></div>

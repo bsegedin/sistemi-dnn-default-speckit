@@ -1,0 +1,84 @@
+@inherits Custom.Hybrid.Razor14
+@using ToSic.Razor.Blade;
+
+<section class="app-pagelinks app-pagelinks__admin container">
+  <header class="l-header" @Edit.TagToolbar(Header, settings: new { show = "always" })>
+    <h2>Pagelinks Administration</h2>
+  </header>
+
+  <table class="table table-sm">
+
+    @foreach (var group in AsList(App.Data["LinkGroups"]))
+    {
+
+      <thead class="thead-light">
+        <tr>
+          <th class="bg-dark text-white" colspan="7" @Edit.TagToolbar(group, actions: "edit,new", contentType: "LinkGroups", settings: new { show = "always" })>
+            <div class="card">
+              <div class="row g-0">
+                @if (!String.IsNullOrEmpty(group.Icon))
+                {
+                  <div class="col-md-4">
+                    <img class="img-fluid rounded-start" src="@group.Icon" alt="Group Icon" style="width:100%;" />
+                  </div>
+                }
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h4 class="card-title">@group.Title <small>[@group.GroupIdentity]</small></h4>
+                    @if (!String.IsNullOrEmpty(group.Description))
+                    {
+                    <p>@group.Description</p>
+                    }
+                    <ul>
+                      <li>Show title: @group.showTitle</li>
+                      <li>Show icon: @group.showIcon</li>
+                      <li>Is Published: @group.IsPublished</li>
+                      @if (!String.IsNullOrEmpty(group.CssClassName)) { 
+                      <li>CSS class: @group.CssClassName</li>
+                      }
+                    </ul>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </th>
+        </tr>
+        <tr class="text-small">
+          <th scole="col" class="c-item__order">Order</th>
+          <th scole="col" class="c-item__icon">Icon</th>
+          <th scole="col" class="c-item__title">Title</th>
+          <th scole="col" class="c-item__target">Tagret</th>
+          <th scole="col" class="c-item__classname">CSS Class</th>
+          <th scole="col" class="c-item__link">Url</th>
+          <th scole="col" class="c-item__titlehidden">Hidden title</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @foreach (var linkItem in AsList(App.Data["Links"])
+        .Where(
+           x => x.Group == group)
+           .OrderBy(x => x.OrderNumber)
+           .ToList())
+        {
+          <tr class="c-item @(linkItem.isPublished == false ? "table-danger" : "")" @Edit.TagToolbar(linkItem, actions: "edit,publish")>
+            <td class="c-item__order">@linkItem.OrderNumber</td>
+            <td class="c-item__icon">
+              @if (!String.IsNullOrEmpty(linkItem.Icon))
+              {
+                <img class="o-image" src="@linkItem.Icon" style="width:30px;" />
+              }
+            </td>
+            <td class="c-item__title">@linkItem.EntityTitle</td>
+            <td class="c-item__target">@linkItem.Target</td>
+            <td class="c-item__classname"><pre>@linkItem.cssClassName</pre></td>
+            <td class="c-item__link"><a href="@linkItem.Url">@linkItem.Url</a></td>
+            <td class="c-item__titlehidden">@linkItem.isTitleHidden</td>
+
+          </tr>
+        }
+      </tbody>
+    }
+
+  </table>
+</section>

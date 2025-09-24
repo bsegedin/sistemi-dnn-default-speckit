@@ -1,0 +1,201 @@
+#{$baseThemeClass}
+
+	.article_pager,
+	.article_pagination table
+		padding: 2rem 0
+		font-size: 0
+
+	.article_pager a,
+	.article_pagination a,
+	.article_pagination span
+		display: inline-block
+		font: .9rem/1 $defaultFont
+		padding: .6rem 1rem
+		transition: all 200ms linear
+		margin: .3rem
+
+	.article_pager a,
+	.article_pagination a
+		color: $darkColor
+		text-decoration: none
+
+		&:hover
+			color: #fff
+			background-color: $primaryColor
+
+	.article_pagination
+		overflow: hidden
+
+	.article_pager
+		clear: both
+
+		a
+
+			&.next,
+			&.last,
+			&.first,
+			&.prev,
+			&.edn_previusArticle,
+			&.edn_nextArticle
+
+				&::after,
+				&::before
+					font-family: $icon
+					line-height: 0
+					font-weight: 900
+
+			&.next,
+			&.edn_nextArticle
+
+				&::after
+					content: "\f105"
+					margin-left: 4px
+
+			&.last
+
+				&::after
+					content: "\f101"
+					margin-left: 4px
+
+			&.first
+
+				&::before
+					content: "\f100"
+					margin-right: 4px
+
+			&.prev,
+			&.edn_previusArticle
+
+				&::before
+					content: "\f104"
+					margin-right: 4px
+
+	.article_pager a.active,
+	.article_pagination span
+		color: #fff
+		background-color: $primaryColor
+
+	.loadingOverlay
+		position: absolute
+		left: 0
+		right: 0
+		bottom: 0
+		top: 100%
+		opacity: 0
+		transition: opacity 600ms linear
+		background-color: rgba(255, 255, 255, .8)
+
+		&::before
+			content: "\f021"
+			display: inline-block
+			margin-right: 1rem
+			font: normal 900 1.5rem/0 $icon
+			-webkit-animation: fa-spin 2s infinite linear
+			animation: fa-spin 2s infinite linear
+
+		&.edn_loadingBlock
+			text-align: center
+
+			&::before
+				position: absolute
+				top: 50%
+
+	.edNews_loadMoreTriggerWrapper
+		text-align: center
+		line-height: 0
+		font-size: 0
+		padding: 2rem 0 0
+
+		.edNews_loadMoreTrigger
+			position: relative
+			padding: 0
+			background: none transparent
+			box-shadow: none
+			-webkit-appearance: none
+			overflow: hidden
+			width: 100%
+			border: solid 3px $primaryColor
+			cursor: pointer
+
+			> span
+				color: $darkColor
+				font: 1rem/1 $defaultFont
+				display: block
+				padding: .8rem 1rem
+
+			.actionTextContainer
+				background-color: #fff
+				transition: all 200ms linear
+
+			&:hover
+
+				.actionTextContainer
+					color: #fff
+					background-color: $primaryColor
+
+		&.loading
+
+			.trigger
+
+				.loadingOverlay
+					opacity: 1
+					top: 0
+
+		&.hide
+			display: none
+
+	.edn_pagination1
+		display: flex
+		align-items: center
+
+		.edn_previous,
+		.edn_next
+			min-width: 2.5rem
+			min-height: 2.5rem
+			border-radius: 5rem
+			background-color: $greyColor
+			font-size: 1.5rem
+			line-height: 1
+			display: inline-flex
+			align-items: center
+			justify-content: center
+			cursor: pointer
+			transition: all 200ms
+			color: #fff
+
+			&:hover
+				background-color: darken($greyColor, 10%)
+
+		.edn_previous
+			order: 1
+			margin-right: 1rem
+
+		.edn_next
+			order: 3
+			margin-left: 1rem
+
+		.edn_articleList
+			order: 2
+
+	.edn_pagination2
+		display: flex
+		align-items: center
+
+		.edn_previous,
+		.edn_next
+			font-size: 1.5rem
+			line-height: 1
+			cursor: pointer
+			display: inline-flex
+			transition: all 300ms
+			padding: .3rem
+			color: $darkGreyColor
+
+			&:hover
+				color: $primaryColor
+
+		.edn_next
+			margin-left: .5rem
+
+		&.edn_center
+			justify-content: center

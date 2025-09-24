@@ -1,0 +1,2 @@
+System.register([],(function(e){"use strict";return{execute:function(){e("g",n);function n(e,n){var t=0;var i=0;if(e instanceof MouseEvent){t=e.movementX;i=e.movementY}if(typeof TouchEvent!=="undefined"){if(e instanceof TouchEvent){var f=e.touches[0];if(n!=undefined){t=f.pageX-this.previousTouch.pageX;i=f.pageY-this.previousTouch.pageY}n=f}}return{movementX:t,movementY:i}}}}}));
+//# sourceMappingURL=p-0159ea44.system.js.map

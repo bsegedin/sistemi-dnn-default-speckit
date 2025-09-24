@@ -1,0 +1,41 @@
+<!--TemplateGroup:newsListArticleDefault-->
+
+<!--ArticleTemplate-->
+<article class="l-item pb-4">
+
+  <div class="c-item card">
+
+    <div class="row">
+      <figure class="l-media col-md-4 mb-0">
+        <div class="c-image">
+          [EasyDNNnews:IfExists:Image]
+          <img src="[EasyDNNnews:Image]?w=120&h=120&mode=crop&scale=both" class="o-image img-fluid" loading="lazy"
+            alt="[EasyDNNnews:Title]" />[EasyDNNnews:EndIf:Image]
+          [EasyDNNnews:IfNotExists:Image]<img src="/Portals/0/images/brand/edn-feed-placeholder.jpg" class="o-image"
+            loading="lazy" alt="[EasyDNNnews:Title]" />[EasyDNNnews:EndIf:Image]
+        </div>
+      </figure>
+
+      <div class="card-body l-body col-md-8">
+        <div class="c-date">
+          <div class="o-date mx-2"><strong>[EasyDNNnews:FormatedDate:d. M. yyy.]</strong></div>
+        </div>
+        <div class="c-title mb-2 mx-2">
+          <h5 class="o-title"><a href="[EasyDNNnews:Title:Link]" class="o-link">[EasyDNNnews:Title]</a></h5>
+        </div>
+      </div>
+
+      <a href="[EasyDNNnews:Title:Link]" class="o-link o-link--overlay" tabindex="-1"></a>
+    </div>
+
+  </div>
+</article>
+<!--ArticleEnd-->
+
+<!--ArticleRepeat:Before:-->
+<section class="edn-list edn-list--feed ssk4-edn-list--feed">
+  <h4 class="edn-list__title">Recent Posts</h4>
+  <!--RepeatEnd:Before:-->
+  <!--ArticleRepeat:After:-->
+</section>
+<!--RepeatEnd:After:-->

@@ -1,0 +1,33 @@
+@inherits Custom.Hybrid.Razor14
+@using ToSic.Razor.Blade
+
+@{
+  string kicker = DynamicModel.kicker;
+  string title = DynamicModel.title;
+  string body = DynamicModel.body;
+  string kickerSize = DynamicModel.kickerSize;
+  string kickerWeight = DynamicModel.kickerWeight;
+  string headingSize = DynamicModel.headingSize;
+  string headingWeight = DynamicModel.headingWeight;
+  string headingType = DynamicModel.headingType;
+
+  // Determine the heading tag (e.g., "h1", "h2", etc.) to use later in the template
+  string headingTag = !string.IsNullOrEmpty(headingType) ? headingType : "h2";
+}
+
+@if (!string.IsNullOrEmpty(kicker) && kickerSize != "hide")
+{
+  @Tag.P().Class($"o-kicker {kickerSize} {kickerWeight}").Attr("aria-label", "Kicker").Wrap(kicker)
+}
+
+@if (!string.IsNullOrEmpty(title) && headingSize != "hide")
+{
+  @Tag.Custom(headingTag).Class($"o-title {headingSize} {headingWeight}").Attr("aria-label", "Title").Wrap(title)
+}
+
+@if (!string.IsNullOrEmpty(body))
+{
+  <div class="o-body">
+    @Html.Raw(body)
+  </div>
+}

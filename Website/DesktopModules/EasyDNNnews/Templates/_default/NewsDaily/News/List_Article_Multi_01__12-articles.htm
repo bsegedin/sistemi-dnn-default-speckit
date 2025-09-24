@@ -1,0 +1,60 @@
+<!--TemplateGroup:listArticleMulti-->
+
+<!--ArticleRepeat:Before:-->
+<!--RepeatEnd:Before:-->
+
+<!--MultiArticleTemplate-->
+<!--Before:1:2:3:4:-->
+<div class="edn_flexRowWrap">
+<!--BeforeEnd-->
+<!--ArticleRepeat:1:2:3:4:-->
+	<article class="edn_col edn_col25 edn_leadArticle edn_leadArticleSmall [EasyDNNnews:FeaturedArticle]">
+		[EasyDNNnews:IfExists:Image]
+		<div class="edn_articleThumbnail">
+			<a class="edn_absoluteLink" href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]">[EasyDNNnews:Title]</a>
+			<a class="edn_imageWrapper" href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><img loading="lazy" class="edn_articleImage" alt="[EasyDNNnews:Title]" src="[EasyDNNnews:Image]"/></a>
+			<div class="edn_thumbnailMeta">
+				<span class="edn_category edn_categoryBadge edn_categoryBadgeSmall">[EasyDNNnews:Categories separator=" " last]</span>
+				<h2 class="edn_articleTitle"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><span class="edn_featuredBadge">Exclusive</span>[EasyDNNnews:Title]</a></h2>
+			</div>
+		</div>
+		[EasyDNNnews:EndIf:Image]
+		[EasyDNNnews:IfNotExists:Image]
+		<span class="edn_category edn_categoryBadge edn_categoryBadgeSmall">[EasyDNNnews:Categories separator=" " last]</span>
+		<h2 class="edn_articleTitle"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><span class="edn_featuredBadge">Exclusive</span>[EasyDNNnews:Title]</a></h2>
+		[EasyDNNnews:EndIf:Image]
+	</article>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+<!--After:1:2:3:4:-->
+</div>
+<!--AfterEnd-->
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--Before:5:6:7:8:9:10:11:12:-->
+<div class="edn_flexRowWrap edn_separator">
+<!--BeforeEnd-->
+<!--ArticleRepeat:5:6:7:8:9:10:11:12:-->
+	<article class="eds_smallArticle edn_simpleArticle edn_imageRight edn_col edn_col25 edn_flexRow edn_alignItemsCenter [EasyDNNnews:FeaturedArticle]">
+		<div>
+			<h2 class="edn_articleTitle edn_articleTitleSmall"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><span class="edn_featuredBadge">Exclusive</span>[EasyDNNnews:Title]</a></h2>
+			<span class="edn_category">[EasyDNNnews:Categories separator=" " last]</span>
+		</div>
+		[EasyDNNnews:IfExists:Image]
+		<a class="edn_imageWrapper" href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><img loading="lazy" class="edn_articleImage" alt="[EasyDNNnews:Title]" src="[EasyDNNnews:Image:Width:100:Height:100:Resize:Crop]"/></a>
+		[EasyDNNnews:EndIf:Image]
+	</article>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+<!--After:5:6:7:8:9:10:11:12:-->
+</div>
+<!--AfterEnd-->
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--ArticleRepeat:After:-->
+<!--RepeatEnd:After:-->
+<!--MultiArticleEnd-->

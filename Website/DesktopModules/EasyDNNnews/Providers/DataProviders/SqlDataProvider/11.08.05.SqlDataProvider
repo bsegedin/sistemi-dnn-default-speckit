@@ -1,0 +1,58 @@
+﻿IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsPortalSettings' and column_name = 'ShareThisId')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsPortalSettings] ADD ShareThisId NVARCHAR(64) NULL
+END
+GO
+
+UPDATE {databaseOwner}[{objectQualifier}EasyDNNNewsSystemTokens]
+   SET [TokenContent] = N'<div class="sharethis-inline-share-buttons"></div><script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=645b40211b837f0019d42102&product=sop" async="async"></script>'
+ WHERE [TokenTitle] = N'SysAddThis'
+GO
+
+UPDATE {databaseOwner}[{objectQualifier}EasyDNNNewsSystemTokens]
+   SET [TokenContent] = N'<div class="sharethis-inline-share-buttons"></div><script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=645b53fc7b02cd001bbde5e5&product=sop" async="async"></script>'
+ WHERE [TokenTitle] = N'SysAddThisFbTwGoLi'
+GO
+
+
+UPDATE {databaseOwner}[{objectQualifier}EasyDNNNewsSystemTokens]
+   SET [TokenContent] = N'<div class="sharethis-inline-share-buttons" data-url="[EasyDNNnews:ArticleLink]" data-title="[EasyDNNnews:Title]"></div>'
+ WHERE [TokenTitle] = N'SysAddThisFbTwGoLiArticleList'
+GO
+
+DELETE FROM {databaseOwner}[{objectQualifier}EasyDNNNewsSystemTokens]
+      WHERE [TokenTitle] = N'SysGooglePlus'
+GO
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsModuleSettings' and column_name = 'HideSharingPanel')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsModuleSettings] ADD HideSharingPanel BIT NOT NULL DEFAULT(0)
+END
+GO
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsPortalSettings' and column_name = 'HideSharingPanel')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsPortalSettings] ADD HideSharingPanel BIT NOT NULL DEFAULT(0)
+END
+GO
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsModuleSettings' and column_name = 'PostToJournalOn')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsModuleSettings] ADD PostToJournalOn BIT NOT NULL DEFAULT(0)
+END
+GO
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsPortalSettings' and column_name = 'PostToJournalOn')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsPortalSettings] ADD PostToJournalOn BIT NOT NULL DEFAULT(0)
+END
+GO
+
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsModuleSettings' and column_name = 'VisibilitySharing')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsModuleSettings] ADD VisibilitySharing NVARCHAR(255) NOT NULL DEFAULT(N'E')
+END
+GO
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsPortalSettings' and column_name = 'VisibilitySharing')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsPortalSettings] ADD VisibilitySharing NVARCHAR(255) NOT NULL DEFAULT(N'E')
+END
+GO

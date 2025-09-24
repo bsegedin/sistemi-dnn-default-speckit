@@ -1,0 +1,265 @@
+
+
+.theme-variation-splash {
+  position: relative;
+
+  &.user-authenticated {
+    header {
+      background-color: #0B457F;
+      width: 100%;
+      padding: 1rem 0;
+    }
+  }
+
+  .js-section-fade {
+    opacity: 1;
+  }
+
+  header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 1rem;
+    position: absolute;
+    z-index: 2;
+
+    .logo {
+      filter: brightness(0) invert(1);
+      width: 160px;
+      @media (min-width: 992px) {
+        width: 200px;
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    header {
+      padding: 2rem;
+    }
+  }
+
+  .l-view--hero {
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent 40%);
+    }
+  }
+
+  .cs-container {
+    position: relative;
+    margin-bottom: 5rem;
+    @media (min-width: 992px) {
+      margin-bottom: 10rem;
+
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent 40%);
+    }
+
+    img {
+      width: auto;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .content {
+      width: 90%;
+      height: auto;
+      margin: auto;
+      @media (max-width: 576px) {
+        min-height: 300px;
+      } 
+      @media (min-width: 992px) {
+        width: 80%;
+      }
+      @media (min-width: 11992px) {
+        width: 50%;
+      }
+      &-inner {
+        width: 100%;
+        text-align: left;
+        @media (min-width: 992px) {
+          text-align: center;
+        }
+      }
+
+      .splash-h1 {
+        font-size: 2rem;
+        line-height: 1;
+        @media (min-width: 992px) {
+          font-size: 3rem;
+        }
+      }
+    }
+  }
+
+  .main-bg-image {
+    --bs-aspect-ratio: 90%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    @media (min-width: 992px) {
+      --bs-aspect-ratio: 60%;
+    }
+
+    @media (min-width: 1200px) {
+      --bs-aspect-ratio: 50%;
+    }
+
+    @media (min-width: 1600px) {
+      --bs-aspect-ratio: 33.333%;
+    }
+
+    &::before {
+      display: block;
+      padding-top: var(--bs-aspect-ratio);
+      content: "";
+    }
+  }
+
+
+.l-data {
+  padding-bottom: 0;
+}
+
+
+footer {
+  padding: 1rem;
+  width: 100%;
+  z-index: 9;
+
+  .footer-inner {
+    padding-bottom: 0;
+  }
+
+  .copyright-title {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 500;
+    color: #0B457F;
+    font-size: 0.875rem;
+    transition: 0.3s ease-in-out;
+    padding: 0;
+    @media (min-width: 992px) {
+      padding: 0 1rem;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  footer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0 0;
+  }
+}
+
+.footer-wrapper {
+  width: 90%;
+
+}
+
+@media (min-width: 992px) {
+  .footer-wrapper {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.theme-footer-menu {
+    padding: 3rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    @media (min-width: 992px) {
+      justify-content: center;
+    }
+  
+}
+
+.theme-footer-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+@media (min-width: 992px) {
+  .theme-footer-menu ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+  }
+}
+
+.theme-footer-menu ul li {
+  position: relative;
+  &:nth-child(3) {
+    &:after {
+      content: "";
+    }
+  }
+
+}
+
+@media (min-width: 992px) {
+  .theme-footer-menu ul li::after {
+    color: #0B457F;
+    content: "|";
+  }
+}
+
+.theme-footer-menu ul li:last-child::after {
+  content: "";
+}
+
+.theme-footer-menu ul li a {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 500;
+  color: #0B457F;
+  font-size: 0.875rem;
+  transition: 0.3s ease-in-out;
+  padding: 0;
+}
+
+  @media (min-width: 992px) {
+    .theme-footer-menu ul li a {
+      padding: 0 1rem;
+    }
+  }
+
+
+  .theme-footer-social ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    align-items: center;
+    margin-left: -0.4rem;
+    margin-right: -0.4rem;
+  }
+
+  .theme-footer-social ul li {
+    display: inline-block;
+    padding: 0 0.4rem;
+  }
+
+
+  .theme-footer-social ul li svg {
+    height: 25px;
+    fill: #0B457F;
+  }
+
+}

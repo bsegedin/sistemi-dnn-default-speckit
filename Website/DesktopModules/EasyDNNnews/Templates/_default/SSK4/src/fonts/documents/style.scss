@@ -1,0 +1,118 @@
+@import "variables";
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src:
+    url('src/fonts/documents/fonts/documents.ttf?r2ykd9') format('truetype'),
+    url('src/fonts/documents/fonts/documents.woff?r2ykd9') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="doc-ico-"], [class*=" doc-ico-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.doc-ico-file-picture-o {
+  &:before {
+    content: $doc-ico-file-picture-o; 
+  }
+}
+.doc-ico-file-music-o {
+  &:before {
+    content: $doc-ico-file-music-o; 
+  }
+}
+.doc-ico-file-video-o {
+  &:before {
+    content: $doc-ico-file-video-o; 
+  }
+}
+.doc-ico-file-download-o {
+  &:before {
+    content: $doc-ico-file-download-o; 
+  }
+}
+.doc-ico-file-upload-o {
+  &:before {
+    content: $doc-ico-file-upload-o; 
+  }
+}
+.doc-ico-file-openoffice-o {
+  &:before {
+    content: $doc-ico-file-openoffice-o; 
+  }
+}
+.doc-ico-file-vector-o {
+  &:before {
+    content: $doc-ico-file-vector-o; 
+  }
+}
+.doc-ico-chain {
+  &:before {
+    content: $doc-ico-chain; 
+  }
+}
+.doc-ico-link {
+  &:before {
+    content: $doc-ico-link; 
+  }
+}
+.doc-ico-file-text-o {
+  &:before {
+    content: $doc-ico-file-text-o; 
+  }
+}
+.doc-ico-folder-o {
+  &:before {
+    content: $doc-ico-folder-o; 
+  }
+}
+.doc-ico-folder-open-o {
+  &:before {
+    content: $doc-ico-folder-open-o; 
+  }
+}
+.doc-ico-file-pdf-o {
+  &:before {
+    content: $doc-ico-file-pdf-o; 
+  }
+}
+.doc-ico-file-word-o {
+  &:before {
+    content: $doc-ico-file-word-o; 
+  }
+}
+.doc-ico-file-excel-o {
+  &:before {
+    content: $doc-ico-file-excel-o; 
+  }
+}
+.doc-ico-file-powerpoint-o {
+  &:before {
+    content: $doc-ico-file-powerpoint-o; 
+  }
+}
+.doc-ico-file-archive-o {
+  &:before {
+    content: $doc-ico-file-archive-o; 
+  }
+}
+.doc-ico-file-zip-o {
+  &:before {
+    content: $doc-ico-file-zip-o; 
+  }
+}
+

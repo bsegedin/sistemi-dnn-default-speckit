@@ -1,0 +1,17 @@
+@inherits Custom.Hybrid.Razor14
+
+@{
+  // value defined in Razor view
+  string viewTypeString = DynamicModel.viewTypeString;
+  // value from EAV data
+  string viewTypeEntry = DynamicModel.viewTypeEntry;
+}
+
+
+@* Check if view use correct value in EAV entry binded to view (header or content) and show message if not *@
+@if (viewTypeEntry != viewTypeString && CmsContext.User.IsContentAdmin)
+{
+  <div class="alert alert-danger" role="alert">
+    @App.Resources.ViewTypeAlert <strong>@viewTypeString</strong>.
+  </div>
+}

@@ -1,0 +1,53 @@
+<!--TemplateGroup:listArticleMulti-->
+
+<!--ArticleRepeat:Before:-->
+<!--RepeatEnd:Before:-->
+
+<!--MultiArticleTemplate-->
+<!--Before:1:2:3:-->
+<div class="edn_flexRowWrap edn_leadArticleFloat">
+<!--BeforeEnd-->
+
+<!--ArticleRepeat:1:-->
+	<article class="edn_col edn_leadArticle edn_col70 [EasyDNNnews:FeaturedArticle]">
+		[EasyDNNnews:IfExists:Image]
+		<div class="edn_articleThumbnail">
+			<a class="edn_imageWrapper" href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><img loading="lazy" class="edn_articleImage" alt="[EasyDNNnews:Title]" src="[EasyDNNnews:Image]"/></a>
+			<div class="edn_thumbnailMeta">
+				<span class="edn_category edn_categoryBadge">[EasyDNNnews:Categories separator=" " last]</span>
+				<h2 class="edn_articleTitle"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><span class="edn_featuredBadge">Exclusive</span>[EasyDNNnews:Title]</a></h2>
+				<div class="edn_articleSummary">[EasyDNNnews:Summary]</div>
+			</div>
+		</div>
+		[EasyDNNnews:EndIf:Image]
+		[EasyDNNnews:IfNotExists:Image]
+		<span class="edn_category edn_categoryBadge">[EasyDNNnews:Categories separator=" " last]</span>
+		<h2 class="edn_articleTitle"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><span class="edn_featuredBadge">Exclusive</span>[EasyDNNnews:Title]</a></h2>
+		<div class="edn_articleSummary">[EasyDNNnews:Summary]</div>
+		[EasyDNNnews:EndIf:Image]
+	</article>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--ArticleRepeat:2:3:-->
+	<article class="edn_col edn_col30 edn_simpleArticle edn_imageTop [EasyDNNnews:FeaturedArticle]">
+		[EasyDNNnews:IfExists:Image]
+		<a class="edn_imageWrapper" href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><img loading="lazy" class="edn_articleImage" alt="[EasyDNNnews:Title]" src="[EasyDNNnews:Image:Width:300:Height:200:Resize:Crop]"/></a>
+		[EasyDNNnews:EndIf:Image]
+		<span class="edn_category edn_categoryDefaultColor">[EasyDNNnews:Categories separator=" " last]</span>
+		<h2 class="edn_articleTitle edn_articleTitleSmall"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><span class="edn_featuredBadge">Exclusive</span>[EasyDNNnews:Title]</a></h2>
+	</article>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--After:1:2:3:-->
+</div>
+<!--AfterEnd-->
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--ArticleRepeat:After:-->
+<!--RepeatEnd:After:-->
+<!--MultiArticleEnd-->

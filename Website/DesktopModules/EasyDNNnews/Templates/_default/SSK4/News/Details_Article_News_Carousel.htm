@@ -1,0 +1,183 @@
+<!--TemplateGroup:newsDetailsArticleDefault-->
+
+<!--ArticleTemplate-->
+<EDNHeader>
+    <article class="edn-article-detail ssk4-edn-article-detail--carusel">
+</EDNHeader>
+<!--Gallery TOP position-->
+<EDNContentTop></EDNContentTop>
+
+<EDNContent>
+    <section class="l-media mb-5">
+        [EasyDNNnews:IfNotExists:Gallery]
+        [EasyDNNnews:IfExists:Image]
+        <figure class="c-image">
+            <img src="[EasyDNNnews:OriginalArticleImage:AbsoluteUrl]?w=1200&mode=crop" class="o-image" loading="lazy"
+                alt="[EasyDNNnews:Title]" />
+        </figure>
+        [EasyDNNnews:EndIf:Image]
+        [EasyDNNnews:EndIf:Gallery]
+
+        [EasyDNNnews:IfExists:Gallery]
+        <div class="js-swiper-gallery swiper swiper-gallery-stage"></div>
+        [EasyDNNnews:EndIf:Gallery]
+    </section>
+
+    <div class="row">
+        <main class="col-12 col-lg-8">
+            <section class="l-content">
+                <div class="l-content__top mb-4">
+                    <div class="c-date">
+                        <span class="o-value"><strong>[EasyDNNnews:FormatedDate:d. M. yyy.]</strong></span>
+                    </div>
+                    <div class="c-title">
+                        <h2 class="o-title">[EasyDNNnews:Title]</h2>
+                    </div>
+                    [EasyDNNnews:IfExists:SubTitle]
+                    <div class="c-subtitle">
+                        <h6 class="o-subtitle lead">[EasyDNNnews:SubTitle]</h6>
+                    </div>
+                    [EasyDNNnews:EndIf:SubTitle]
+                </div>
+                <div class="c-body">[EasyDNNnews:Article]</div>
+            </section>
+            <section class="l-bottom mb-4">
+                <div class="c-share">
+                    <!-- Share this article -->
+                    <ul class="c-list d-flex">
+                        <li class="c-item">
+                            <a href="https://www.facebook.com/sharer/sharer.php?&u=[EasyDNNnews:CurrentPageURL]"
+                                onclick="window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                                rel="nofollow" target="_new" id="js-fb-share-button" class="o-link">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 320 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                    <path
+                                        d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z" />
+                                </svg>
+                                <span class="visually-hidden">Facebook</span>
+                            </a>
+                        </li>
+                        <li class="c-item">
+                            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=[EasyDNNnews:CurrentPageURL]"
+                                onclick="window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                                rel="nofollow" target="_new" id="js-li-share-button" class="o-link">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                    <path
+                                        d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z" />
+                                </svg>
+                                <span class="visually-hidden">LinkedIn</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+        <aside class="col-12 col-lg-4">
+            <div class="c-article-resource-list">
+                <div class="c-article-resource-list__block mb-3">
+                    <h4>Links</h4>
+                    [EasyDNNnews:Links]
+                </div>
+                <div class="c-article-resource-list__block mb-3">
+                    <h4>Document List</h4>
+                    [EasyDNNnews:DocumentList]
+                </div>
+            </div>
+        </aside>
+    </div>
+</EDNContent>
+
+<EDNContentBottom></EDNContentBottom>
+<!--Gallery BOTTOM position-->
+<EDNFooter>
+    </article>
+</EDNFooter>
+<!--Comments position-->
+<EDNBottom>
+    <link rel="stylesheet" href="\DesktopModules\EasyDNNnews\Templates\_default\SSK4\dist\glightbox.min.css" />
+    <script src="\DesktopModules\EasyDNNnews\Templates\_default\SSK4\dist\glightbox.min.js"></script>
+    <script type="text/javascript"
+        src="/DesktopModules/EasyDNNnews/Templates/_default/SSK4/dist/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="/DesktopModules/EasyDNNnews/Templates/_default/SSK4/dist/swiper/swiper-bundle.min.css">
+    <script type="text/javascript" src="/DesktopModules/EasyDNNnews/Templates/_default/SSK4/js/edn-helpers.js"></script>
+
+    <style>
+        .download-img {
+            position: absolute;
+            background-color: white;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            z-index: 999;
+            padding-left: 2px;
+            padding-top: 2px;
+        }
+
+        .download-img svg {
+            width: 35px;
+            height: 35px;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Hide the initial gallery rendered by .ascx
+            document.querySelector(".edn_article_gallery").style.display = "none";
+
+            const galleryItems = document.querySelectorAll(".edn_article_gallery li a");
+
+            renderBasicSwiper(galleryItems);
+            initLightbox();
+
+            // Init Swiper
+            var swiper = new Swiper('.swiper-gallery-stage', {
+                slidesPerView: 4,
+                spaceBetween: 20,
+                grabCursor: true,
+                loop: true,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 0,
+                    modifier: 1,
+                    slideShadows: false
+                },
+                breakpoints: {
+                    992: {
+                        slidesPerView: 3,
+                        watchSlidesProgress: true,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        watchSlidesProgress: true,
+                    }
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true
+                },
+                on: {
+                    init: function () {
+                        equalizeSlideHeights();
+                    },
+                    resize: function () {
+                        equalizeSlideHeights();
+                    }
+                }
+            });
+
+
+
+        });
+    </script>
+
+</EDNBottom>
+<!--ArticleEnd-->

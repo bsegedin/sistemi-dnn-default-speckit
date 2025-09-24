@@ -1,0 +1,34 @@
+
+
+/* ==========================================================================
+	COMPONENTS / EASY-DNN-NEWS / EDN articles list - Cards
+========================================================================== */
+	
+.ssk4-edn-list--cards {
+	> div {
+		@extend .row;
+	}
+
+	article {
+		@extend .col-12, .col-lg-4;
+
+		padding-bottom: 1rem;
+
+	}
+
+	.c-item {
+		height: 100%;
+		overflow: hidden;
+
+		.c-image {
+			height: 350px;
+
+			img {
+				height: 100%;
+				object-fit: cover;
+			}
+
+		}
+
+	}
+}

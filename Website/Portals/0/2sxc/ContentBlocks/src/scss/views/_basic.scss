@@ -1,0 +1,36 @@
+.app-cb {
+  .l-view--basic-text {
+    .l-item__body-content {
+      padding: 1rem;
+      @media (min-width: 992px) {
+        padding: 2rem;
+      }
+    }
+
+    .text-end {
+      .o-cta {
+        justify-content: flex-end;
+        li {
+          margin-left: 0.5rem;
+          margin-right: 0;
+        }
+      }
+    }
+
+    .text-start {
+      .o-cta {
+        justify-content: flex-start;
+      }
+    }
+
+    .text-center {
+      .o-cta {
+        justify-content: center;
+        li {
+          margin-left: 0.5rem;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+}

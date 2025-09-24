@@ -1,0 +1,147 @@
+#{$baseThemeClass}
+
+	.edn_flexRowWrap
+		display: flex
+		flex-grow: 1
+		flex-flow: row wrap
+
+		&.edn_leadArticleFloat
+			@include lg-device-min-width
+				display: block
+
+			&::after
+				display: table
+				content: ""
+				clear: both
+				width: 100%
+
+			.edn_leadArticle
+				@include lg-device-min-width
+					float: left
+
+			.edn_simpleArticle
+				@include lg-device-min-width
+					display: inline-block
+				@include lg-device-width
+					padding-top: 1rem
+
+		.edn__articleListWrapper
+			display: flex
+			flex-grow: 1
+			flex-flow: row wrap
+
+	.edn_flexRow
+		display: flex
+
+	.edn_flexColumnMD
+		@include md-device-width
+			flex-flow: column
+
+		article
+			flex-basis: 0
+			flex-grow: 1
+			max-width: 100%
+
+	.edn_flexColumnSM
+		@include sm-device-width
+			flex-flow: column
+
+		article
+			flex-basis: 0
+			flex-grow: 1
+			max-width: 100%
+
+	.edn_alignItemsCenter
+		align-items: center
+
+	.edn_alignItemsStretch
+		align-items: stretch
+
+	.pe-0
+		padding-right: 0 !important
+
+	.edn_col
+		padding-right: .75rem
+		padding-left: .75rem
+
+	.edn_col100
+		width: 100%
+		flex: 0 0 100%
+
+	.edn_col70
+		width: 70%
+		flex: 0 0 70%
+		@include lg-device-width
+			width: 100%
+			flex: 0 0 100%
+		@include sm-device-width
+			padding-right: 0
+			padding-left: 0
+
+	.edn_col60
+		width: 60%
+		flex: 0 0 60%
+		@include md-device-width
+			width: 100%
+			flex: 0 0 100%
+			margin-bottom: 1rem
+			padding-right: 0
+			padding-left: 0
+
+	.edn_col50
+		width: 50%
+		flex: 0 0 50%
+		@include md-device-width
+			width: 100%
+			flex: 0 0 100%
+			margin-bottom: 1rem
+			padding-right: 0
+			padding-left: 0
+
+	.edn_col40
+		width: 40%
+		flex: 0 0 40%
+		@include md-device-width
+			width: 100%
+			flex: 0 0 100%
+			margin-bottom: 1.5rem
+			padding-right: 0
+			padding-left: 0
+
+	.edn_col30
+		width: 30%
+		flex: 0 0 30%
+		@include lg-device-width
+			width: 50%
+			flex: 0 0 50%
+		@include sm-device-width
+			width: 100%
+			flex: 0 0 100%
+			padding-right: 0
+			padding-left: 0
+
+	.edn_col25
+		width: 25%
+		flex: 0 0 25%
+		@include lg-device-width
+			width: 50%
+			flex: 0 0 50%
+			margin-top: 1.5rem
+		@include sm-device-width
+			width: 100%
+			flex: 0 0 100%
+			padding-right: 0
+			padding-left: 0
+
+	.edn_col33
+		width: 33.3%
+		flex: 0 0 33.3%
+		@include md-device-width
+			width: 100%
+			flex: 0 0 100%
+			margin-top: 1.5rem
+
+	.edn_flexGrowBasis
+		flex-grow: 1
+		flex-basis: 0
+

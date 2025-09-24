@@ -1,0 +1,44 @@
+// #region icon colors
+
+$icon-color: white !default; // default boja znaka
+$bgcolor-icons: true !default; // je li box pozadina
+$color-icons: false !default; // znak tipa u boji (bez pozadine)
+
+$documents-icon-colors:(
+   xls: #3F9017,
+   xlsx: #3F9017,
+   ppt: #F86B38,
+   pptx: #F86B38,
+   doc: #0B99E5,
+   docx: #0B99E5,
+   rtf: #4BCCE8,
+   zip: #DB8F10,
+   img: #8C5FD6,
+   jpg: #8C5FD6,
+   png: #8C5FD6,
+   pdf: #CF0709,
+   ai:  #FF6815,
+   svg:  #FF6815,
+   cdr: #17AC53,
+   unk: #808080,
+   map: #4D4D4D,
+   lnk: #666666,
+   dir: #555555
+);
+
+
+@function getIconColor( $iconName ) {
+  @return map-get($map: $documents-icon-colos, $key: $iconName);
+}
+
+@mixin IconsColored() {
+  @each $type, $color in $documents-icon-colors {
+    .c-icon[data-type="#{$type}"] {
+      color: $color;
+      background-color: transparent;
+      &:hover {
+        color: lighten($color, 20%);
+      }
+    }
+  }
+}

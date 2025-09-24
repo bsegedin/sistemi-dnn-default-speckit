@@ -1,0 +1,10 @@
+﻿IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsArticleRolePermissions' and column_name = 'PaidContent')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsArticleRolePermissions] ADD PaidContent BIT CONSTRAINT DF_{objectQualifier}EasyDNNNewsArticleRolePermissions_PaidContent DEFAULT(0) NOT NULL
+END
+GO
+IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsArticleUserPermissions' and column_name = 'PaidContent')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsArticleUserPermissions] ADD PaidContent BIT CONSTRAINT DF_{objectQualifier}EasyDNNNewsArticleUserPermissions_PaidContent DEFAULT(0) NOT NULL
+END
+GO

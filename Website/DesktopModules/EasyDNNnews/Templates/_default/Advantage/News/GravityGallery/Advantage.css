@@ -1,0 +1,150 @@
+.eds_GravityGallery_Advantage {
+  margin: 2rem 0;
+}
+.eds_GravityGallery_Advantage .edsgg_widthEnforcer {
+  display: block;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-width: none;
+}
+.eds_GravityGallery_Advantage .edsgg__embedWrapper video {
+  width: 100% !important;
+  height: 100% !important;
+}
+.eds_GravityGallery_Advantage .edsgg__itemsListContainer {
+  margin: 0 auto;
+  z-index: 0;
+  max-width: 100%;
+}
+.eds_GravityGallery_Advantage .card-title {
+  line-height: 1.1;
+}
+.eds_GravityGallery_Advantage .edsgg__loadMediaWrapper {
+  margin-top: 2rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+.eds_GravityGallery_Advantage .edsgg_viewInGravityGallery {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  transform: translateY(-50%);
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction > span {
+  display: inline-block;
+  position: relative;
+  color: #d5d5d5;
+  cursor: pointer;
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction > span::before {
+  content: "\f004";
+  font: 900 1.2rem/1 Font Awesome\ 5 Free;
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction > span > span {
+  display: inline-block;
+  position: absolute;
+  opacity: 0;
+  bottom: 100%;
+  left: 50%;
+  background-color: #fff;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.2rem;
+  transition: all 400ms;
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction .edsgg__likeItem > span {
+  color: #4caf50;
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction .edsgg__likeItem:hover::before {
+  font-weight: 400;
+  color: #4caf50;
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction .edsgg__unlikeItem {
+  opacity: 0;
+  visibility: hidden;
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction .edsgg__unlikeItem::before {
+  content: "";
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction .edsgg__unlikeItem > span {
+  color: #f44336;
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction:hover > span > span {
+  opacity: 0.9;
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction.edsgg__liked .edsgg__likeItem {
+  opacity: 0;
+  visibility: hidden;
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction.edsgg__liked .edsgg__likeItem::before {
+  content: "";
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction.edsgg__liked .edsgg__unlikeItem {
+  visibility: visible;
+  opacity: 1;
+  color: #4caf50;
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction.edsgg__liked .edsgg__unlikeItem::before {
+  content: "\f004";
+}
+.eds_GravityGallery_Advantage .edsgg__likeAction.edsgg__liked:hover .edsgg__unlikeItem::before {
+  font-weight: 400;
+  color: #d5d5d5;
+}
+.eds_GravityGallery_Advantage .edsgg_galleryDetails {
+  margin: 0;
+  padding: 0;
+}
+.eds_GravityGallery_Advantage .edsgg_galleryDetails li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.eds_GravityGallery_Advantage .edsgg_galleryDetails li + li {
+  margin-left: 0.2rem;
+}
+.eds_GravityGallery_Advantage .edsgg_GalleryOwnerAvatar {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  border-radius: 50%;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2);
+}
+.eds_GravityGallery_Advantage .edsgg_GalleryOwnerAvatar img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.eds_GravityGallery_Advantage .edsgg_popUpLink {
+  position: relative;
+}
+.eds_GravityGallery_Advantage .edsgg_popUpLink span {
+  display: inline-block;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  bottom: 100%;
+  left: 50%;
+  background-color: #fff;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.2rem;
+  transition: all 400ms;
+}
+.eds_GravityGallery_Advantage .edsgg_popUpLink:hover span {
+  opacity: 1;
+  visibility: visible;
+}

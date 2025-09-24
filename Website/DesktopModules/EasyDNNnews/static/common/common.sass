@@ -1,0 +1,1015 @@
+@charset "UTF-8"
+
+@import url("../font-awesome/css/font-awesome.min.css")
+
+@mixin extra-small-device-width
+	@media handheld, only screen and (max-width:480px), only screen and (max-device-width:480px)
+		@content
+
+@mixin small-device-width
+	@media handheld, only screen and (max-width:768px), only screen and (max-device-width:768px)
+		@content
+
+@mixin small-device-min-width
+	@media only screen and (min-width:768px)
+		@content
+
+@mixin middle-device-width
+	@media handheld, only screen and (max-width:992px), only screen and (max-device-width:992px)
+		@content
+
+@mixin large-device-width
+	@media handheld, only screen and (max-width:1200px), only screen and (max-device-width:1200px)
+		@content
+
+$color1: #189fd3 /*blue*/
+$color2: #41c981 /*green*/
+$color3: #7dc7d2 /*light blue*/
+$color4: #e07171 /*red*/
+$icon: "FontAwesome"
+$defaultFont: "Arial"
+
+.eds_modalWrapper
+	background-color: rgba(0, 0, 0, .6)
+	position: fixed
+	left: 0
+	right: 0
+	top: 0
+	bottom: 0
+	z-index: 99999
+	transition: all 200ms ease-in 0s
+	opacity: 0
+	visibility: hidden
+
+	*
+		-webkit-box-sizing: content-box
+		-moz-box-sizing: content-box
+		box-sizing: content-box
+
+		&.eds_attendantsPrices
+
+			li
+
+				input[type="text"]
+					width: 35px
+
+	.eds_modalContent
+		position: relative
+		width: 90%
+		max-width: 600px
+		margin: 6% auto
+		background-color: #fff
+		border-radius: 4px
+		box-shadow: 0 0 3px rgba(0, 0, 0, .5)
+		display: none
+		-moz-box-sizing: border-box
+		box-sizing: border-box
+		font-family: Arial
+		color: #7b7b7b
+		font-size: 12px
+		text-align: left
+
+		> div
+			padding: 20px 20px 0
+			position: relative
+			overflow: auto
+
+		.dnnLabel
+			margin: 0
+			padding: 0
+			text-align: left
+			width: auto
+
+		.dnnFormHelp
+			right: 8px
+
+		.dnnTooltip
+			display: inline
+
+		> h3
+			background-color: #189fd3
+			color: #fff !important
+			font: normal 18px/50px Arial !important
+			font-weight: normal
+			margin: 0
+			padding: 0 20px
+			letter-spacing: normal
+			border-radius: 3px 3px 0 0
+			height: 50px
+
+			&::before
+				font-family: $icon
+				color: #fff
+				padding-right: 15px
+				font-size: 30px
+				line-height: 50px
+				vertical-align: middle
+
+			> span,
+			> label
+				color: inherit
+				font: inherit
+
+		input[type="text"],
+		textarea,
+		select
+			background: none #F9F9F9
+			border: solid 1px #ddd
+				radius: 3px
+			box-shadow: none
+			line-height: 1
+			font-family: Arial
+			font-size: 12px
+			text-shadow: none
+			color: #444
+			margin: 0
+			padding: 0 10px
+			-moz-box-sizing: border-box
+			box-sizing: border-box
+			width: 240px
+			transition: box-shadow 200ms linear
+
+			&:hover
+				border: solid 1px #C1C1C1
+				box-shadow: none
+				color: #444
+				background: none #F9F9F9
+
+			&:focus
+				border: solid 1px #BABDC9
+				box-shadow: 0 0 3px #98ACF4
+				background: transparent #fff
+				color: #444
+
+			&:disabled
+				color: #929292
+				text-shadow: 1px 1px 0 #fff
+				cursor: not-allowed
+
+		input[type="text"]
+
+			&.eds_numberOfTickets
+				width: 45px
+				border-right-width: 3px
+				border-right-color: #f00
+
+		input[type="text"],
+		select
+			height: 26px
+			padding-right: 0
+			width: 240px
+
+		textarea
+			padding: 10px
+
+		input[type="text"],
+		textarea,
+		select
+			@include small-device-width
+				width: 100% !important
+
+		.edn_bottomButtonWrapper
+			text-align: right
+			margin: 20px 0
+
+			button[type="button"],
+			input[type="submit"]
+				box-shadow: none !important
+				border: none !important
+				border-radius: 3px !important
+				font-family: Arial !important
+				font-size: 16px !important
+				font-weight: normal !important
+				line-height: 48px !important
+				text-shadow: none !important
+				padding: 0 30px !important
+				cursor: pointer !important
+				text-decoration: none !important
+				display: inline-block !important
+				text-transform: none !important
+				margin: 0 !important
+				height: auto !important
+				transition: all 100ms linear !important
+
+			input[type="submit"]
+				background: none $color1 !important
+				color: #fff !important
+
+				&:hover
+					background: none #2cb3e7 !important
+
+				&.edn_stripeSubmit
+					border: solid 2px #747bff !important
+					background: #fff url("../../images/stripe_checkout.png") 13px center no-repeat !important
+					color: #747bff !important
+					border-radius: 24px !important
+					padding-right: 25px !important
+					padding-left: 50px !important
+					font-size: 12px !important
+					text-transform: uppercase !important
+
+					&:hover
+						background-color: #747bff !important
+						color: #fff !important
+						background-image: url("../../images/stripe_checkout_white.png") !important
+
+			button[type="button"]
+
+				&.eds_modalClose
+					margin-right: 20px !important
+					background: none #e9e9ed !important
+					color: #7b7b7b !important
+
+					&:hover
+						background: none #d0d0d7 !important
+
+		input[type="radio"],
+		input[type="checkbox"]
+
+			& + label
+				line-height: 22px
+				margin-left: 3px
+				font-weight: normal
+				display: inline-block
+
+		.eds_labelAndInput
+			margin: 0 0 10px
+			padding: 0
+			white-space: nowrap
+			position: relative
+			font-size: 0
+
+			&::after
+				display: block
+				content: ""
+				clear: both
+				font-size: 0
+				line-height: 0
+				height: 0
+
+			.HTMLeditor,
+			> .dnnLeft,
+			> .dnnRight
+				float: none
+
+			input,
+			textarea,
+			select
+
+				& ~ span
+					font-size: 11px
+					line-height: 1
+					color: #C42323
+					margin-left: 8px
+					width: auto !important
+					display: inline
+					margin: 0
+					font-weight: normal
+					margin-left: 5px
+					position: absolute
+					left: 165px
+					bottom: -5px
+					top: auto
+					text-shadow: 0px 0px 2px #fff
+					transition: opacity 200ms ease
+					@include small-device-width
+						bottom: auto
+						left: auto
+						right: 10px
+
+				&:focus
+
+					& ~ span
+						opacity: .1
+
+			&.eds_paymentInfo
+				font-size: 12px
+				line-height: 1
+				color: #3b3b3b
+				margin: 0 0 7px
+
+				> span
+					font-size: inherit
+					line-height: inherit
+					color: inherit
+					margin: 0
+
+				&.eds_estimatedTotal
+					font-weight: bold
+					font-size: 16px
+
+					> span
+						color: #e3011f
+
+			> label,
+			> div,
+			> span
+				@include small-device-width
+					width: 100%
+					clear: both
+					float: none
+					display: block
+
+			&.eds_noWidthLabel
+
+				> label,
+				> span
+					width: auto
+					white-space: normal
+
+				> label
+					line-height: 1.3
+
+				> input,
+				> label
+					vertical-align: top
+
+			&.eds_labelWidth100
+
+				label,
+				> span
+					width: 100px
+
+				input[type="text"],
+				select,
+				textarea
+					width: 280px
+
+				input,
+				textarea
+
+					& ~ span
+						left: 125px
+						@include small-device-width
+							left: auto
+
+			&.eds_bigInput
+
+				input[type="text"],
+				textarea,
+				select
+					width: 440px
+					@include middle-device-width
+						width: 280px
+
+				textarea
+					height: 110px
+
+		label,
+		.eds_labelAndInput > span
+			font-family: Arial
+			font-size: 13px
+			line-height: 26px
+			color: #7B7B7B
+			width: 140px
+			display: inline-block
+			margin: 0 15px 0 0
+			vertical-align: top
+			font-weight: bold
+			text-decoration: none
+			@include small-device-width
+				display: block
+				width: 100%
+
+		a.dnnFormHelp,
+		.dnnForm .dnnFormItem a.dnnFormHelp,
+		.dnnTooltip label a.dnnFormHelp
+			font-family: Arial
+			font-size: 13px
+			line-height: 1
+			color: #7B7B7B
+
+		> div
+
+			.eds_eventRegistrationLoading
+				position: absolute
+				top: 0
+				left: 0
+				right: 0
+				bottom: 0
+				content: ""
+				background: rgba(255, 255, 255, .5) url("images/eventRegistrationLoading.gif") no-repeat  center center
+
+	.edn_errorMessage
+		font-family: Arial
+		line-height: 1
+		font-size: 11px
+		color: #AB1111
+		margin-left: 10px
+		@include small-device-width
+			display: block
+			margin-top: 2px
+			margin-left: 0
+
+	.eds_closeWindowButtonOuter
+		position: absolute
+		top: 8px
+		right: 8px
+		width: 30px
+		height: 30px
+		text-align: center
+		border: solid 1px #115f7d
+			radius: 3px
+		line-height: 0 !important
+		font-size: 0 !important
+		cursor: pointer
+		background: none transparent
+		transition: background 100ms linear
+
+		&::before
+			font-family: $icon
+			color: #fff
+			font-size: 22px
+			line-height: 28px
+			content: "\f00d"
+
+		&:hover
+			background-color: #115f7d
+
+	.edNews_tooltipContent
+		border-radius: 5px
+		border: 1px solid #B8D5E0
+		background: #0A445B
+		color: #fff
+		box-shadow: 0 0 5px rgba(0, 0, 0, .7)
+		max-width: 350px
+		position: absolute
+		font-family: Arial, sans-serif
+		font-size: 14px
+		line-height: 16px
+		padding: 5px 8px
+		overflow: hidden
+		visibility: hidden
+		opacity: 0
+		transition: all 400ms
+		top: auto
+		bottom: 100%
+		z-index: 999
+
+	.edNews_tooltip
+		position: relative
+
+		&::after
+			position: absolute
+			top: 0
+			left: auto
+			right: -6px
+			display: block
+			background: none
+			content: "\f059"
+			font: 16px/1 $icon
+			text-align: center
+			padding: 0
+			color: #555
+			transition: color ease-in-out .4s
+
+		&:hover
+
+			.edNews_tooltipContent
+				opacity: 1
+				visibility: visible
+
+	.eds_labelAndInput
+
+		&:first-child
+
+			.edNews_tooltipContent
+				top: 100%
+				bottom: auto
+
+	.eds_updateProfile
+		font-size: 0
+		margin: 0
+		padding: 0
+		line-height: 0
+		text-align: right
+		float: right
+		margin: 11px 70px 0 0
+
+		> a
+			text-decoration: underline
+			color: #fff
+			font-size: 14px
+			line-height: 19px
+			display: inline-block
+			background: url("images/user.png") no-repeat 0 0
+			padding: 1px 0 0 22px
+
+			&:hover
+				text-decoration: none
+
+	.eds_infoMessages
+		margin: 10px 0
+		display: block
+		line-height: 1.1 !important
+		font-size: 16px !important
+		color: #fff !important
+		padding: 15px 25px
+		border-radius: 2px
+		margin: 5px
+
+		&::before
+			font-size: 21px
+			color: #fff !important
+			font-family: $icon
+			padding-right: 20px
+			line-height: 1
+
+		&.eds_success
+			background-color: #00be9c
+
+			&::before
+				content: "\f058"
+
+		&.eds_info
+			background-color: #189fd3
+
+			&::before
+				content: "\f05a"
+
+		&.eds_warning
+			background-color: #f3c500
+
+			&::before
+				content: "\f071"
+
+		&.eds_error
+			background-color: #e07171
+
+			&::before
+				content: "\f06a"
+
+	.eds_formStatus
+		padding-bottom: 15px
+
+	.edNews_eventDateRestriction
+		margin: 10px 0 0
+
+		> table
+			width: 100%
+			border: solid 1px #ffffff
+			box-shadow: 0 0 0 1px #E9E9E9
+			margin-bottom: 10px
+			border-collapse: collapse
+			border-spacing: 0
+
+			> tbody
+				background-color: #F4F4F4
+
+				> tr
+
+					> td
+						padding: 4px
+						text-align: center
+						vertical-align: middle
+						border: none
+						border-bottom: solid 1px #E6E6E6
+
+						&:first-child
+							background-color: #F4F4F4
+
+						input[type="radio"]
+							margin: 10px
+
+					&:nth-child(odd)
+
+						> td
+							border-bottom: solid 1px #fff
+							background-color: #E6E6E6
+
+							&:first-child
+								background-image: linear-gradient(to top right, #F4F4F4, #F4F4F4 50%, #E6E6E6 50%, #E6E6E6)
+								border-bottom-color: #F4F4F4
+								position: relative
+
+					&:last-child
+
+						> td
+							border-bottom: none
+
+	.eds_styledRadio
+		display: inline-block
+		vertical-align: middle
+		box-sizing: border-box
+
+		*
+			vertical-align: middle
+			box-sizing: border-box
+
+		*::before,
+		*::after
+			box-sizing: border-box
+
+		input[type="radio"]
+			display: none
+
+			& + label
+				display: inline-block
+				position: relative
+				margin: 0
+				vertical-align: baseline
+				border-radius: 50% 0 0 50%
+				padding: 2px 0 0 25px
+				min-height: 25px
+
+				&::before,
+				&::after
+					position: absolute
+					display: inline-block
+					vertical-align: middle
+					border: 5px solid #fff
+						radius: 50%
+					background: #fff
+					margin: 0
+					padding: 0
+					content: ""
+					font-size: 0
+					line-height: 0
+					transition: all ease-in-out .2s
+
+				&::before
+					width: 20px
+					height: 20px
+					top: 2px
+					left: 2px
+
+				&::after
+					border: 2px solid #919191
+					background: transparent
+					width: 18px
+					height: 18px
+					top: 3px
+					left: 3px
+
+				&:hover
+
+					&::before
+						background: #60cb20 !important
+
+					&::after
+						border-color: #60cb20 !important
+
+			&:checked
+
+				& + label
+
+					&::before
+						background: $color1
+
+					&::after
+						border-color: $color1
+
+			&:disabled
+				pointer-events: none
+
+				& + label
+					opacity: .6
+					pointer-events: none
+
+		&.eds_noLabel
+			overflow: hidden
+			width: 22px
+			height: 22px
+
+	.eds_preview_cell_title_disabled
+		opacity: .6
+
+	&.eds_modalVisible
+		opacity: 1
+		visibility: visible
+
+		.eds_modalContent
+			display: block
+
+	&.eds_contactForm
+
+		.eds_modalContent
+
+			> h3
+
+				&::before
+					content: "\f0e0"
+
+	&.eds_authorProfileFullInfo
+
+		.eds_modalContent
+
+			> h3
+
+				&::before
+					content: "\f022"
+
+			> div
+				color: #7b7b7b
+
+				p
+					margin: 0
+					padding: 0
+					color: #7b7b7b
+
+					& + p
+						margin-top: 15px
+
+	&.eds_themeSettings
+
+		.eds_modalContent
+			width: 90%
+			max-width: 1200px
+
+			> h3
+
+				&::before
+					content: "\f085"
+
+			.edNews_adminTheme
+				overflow: unset
+				padding: 0
+
+	&.eds_width70
+
+		.eds_modalContent
+			width: 70%
+			max-width: 70%
+
+	.edn__contentLoading
+		height: 200px
+		text-align: center
+
+		> img
+			display: inline-block
+			margin: 40px auto
+
+	.eds_animated
+		-webkit-animation-duration: 1s
+		animation-duration: 1s
+		-webkit-animation-fill-mode: both
+		animation-fill-mode: both
+
+	.styleDisplayNone
+		display: none !important
+
+	.loading
+		position: relative
+
+		&::before,
+		&::after
+			display: block
+			position: absolute
+			content: ""
+			z-index: 999
+
+		&::before
+			top: 0
+			right: 0
+			bottom: 0
+			left: 0
+			background-color: rgba(255, 255, 255, .4)
+
+		&::after
+			content: "\f021"
+			font: 900 3rem/1 $icon
+			color: $color1
+			animation: spin 2s linear infinite
+			top: 50%
+			left: 50%
+			margin-top: -2rem
+			margin-left: -1rem
+
+	@-webkit-keyframes fadeInDown
+		0%
+			opacity: 0
+			-webkit-transform: translateY(-20px)
+			transform: translateY(-20px)
+
+		100%
+			opacity: 1
+			-webkit-transform: translateY(0)
+			transform: translateY(0)
+
+	@keyframes fadeInDown
+		0%
+			opacity: 0
+			-webkit-transform: translateY(-20px)
+			-ms-transform: translateY(-20px)
+			transform: translateY(-20px)
+
+		100%
+			opacity: 1
+			-webkit-transform: translateY(0)
+			-ms-transform: translateY(0)
+			transform: translateY(0)
+
+	.eds_fadeInDown
+		-webkit-animation-name: fadeInDown
+		animation-name: fadeInDown
+
+	@keyframes spin
+
+		100%
+			transform: rotate(360deg)
+
+.edNews_adminInfo
+	display: inline-block
+	margin: 1rem
+	border-width: 1px
+	border-style: solid
+	border: solid 1px #ababab
+	border-radius: 3px
+	padding: 5px 10px
+	line-height: 0
+	background-color: #fff
+	font: normal normal 12px/1.1 $defaultFont
+
+	label
+		font: inherit
+
+	&.edNews_info
+		border-color: #85bdf8
+		color: #85bdf8 !important
+
+	&.edNews_warning
+		border-color: #fa6900
+		color: #fa6900 !important
+
+	&.edNews_blockCenter
+		display: block
+		margin-left: 0
+		margin-right: 0
+
+	.edNews_textCenter
+		text-align: center
+
+	.edNews_inputGroup
+
+		*
+			vertical-align: middle
+
+		input[type="checkbox"],
+		input[type="radio"]
+			margin: 0
+
+		input
+
+			& + label
+				margin: 0 0 0 7px
+
+.eds_modalContent
+
+	ul
+		margin: 15px 0
+		padding: 0
+
+		li
+			list-style-type: none
+			margin: 0 0 5px
+			padding: 0
+
+			label
+				font-weight: normal
+
+				span
+					font-weight: bold
+
+body.eds__modalWindowOpened
+	height: 100vh
+	overflow-y: hidden
+
+.personalBarContainer
+
+	~ div
+
+		.eds_modalWrapper
+			left: 80px
+
+.news
+
+	.edn_userDashboard
+		margin-bottom: 2rem
+		font-size: 0
+		position: relative
+		border-radius: 7px !important
+		border: none !important
+		background: none !important
+		padding: 0 !important
+		@include middle-device-width
+			margin-bottom: 1rem
+
+		&::before
+			display: block
+			content: ""
+			position: absolute
+			right: 0
+			bottom: 0
+			left: 0
+			height: 32px
+			background-color: #f7f7f7
+			border-radius: 7px
+			@include middle-device-width
+				height: 100%
+
+		> div,
+		a
+			display: inline-block
+
+		a
+			position: relative
+			font: 12px/32px Arial !important
+			color: #9b9b9b !important
+			text-decoration: none !important
+			text-align: center !important
+			padding: 0 0.4rem !important
+			background: none !important
+			transition: all 400ms !important
+			height: 32px !important
+			background-color: #f7f7f7 !important
+			cursor: pointer
+			text-transform: none !important
+			border: none !important
+			@include middle-device-width
+				font-size: 0 !important
+				height: 40px !important
+
+			&::before
+				display: inline-block
+				vertical-align: middle
+
+			&::before
+				font: 20px/0 $icon
+				transition: all 400ms
+				z-index: 1
+				color: #c9c9c9
+				padding-right: .2rem
+				@include middle-device-width
+					font-size: 24px
+					padding-right: 0
+					line-height: 40px
+
+			&:hover
+				color: #5f5f5f !important
+				background-color: #edeef0 !important
+				text-decoration: none !important
+
+				&::before
+					color: #5f5f5f
+
+			&:first-child
+				border-top-left-radius: 7px
+
+				&:hover
+					border-top-left-radius: 0
+
+			&:last-child
+				border-top-right-radius: 7px
+
+				&:hover
+					border-top-right-radius: 0
+
+			&.add_article
+
+				&::before
+					content: "\f055"
+
+			&.article_manager
+
+				&::before
+					content: "\f15c"
+
+			&.event_manager
+
+				&::before
+					content: "\f133"
+
+			&.approve_articles
+
+				&::before
+					content: "\f046"
+
+			&.approve_comments
+
+				&::before
+					content: "\f0e6"
+
+			&.category_manager
+
+				&::before
+					content: "\f0ca"
+
+			&.dashboard
+
+				&::before
+					content: "\f26c"
+
+			&.settings
+
+				&::before
+					content: "\f013"
+
+			&.author_profile
+
+				&::before
+					content: "\f2be"
+
+			&.themeSettings
+
+				&::before
+					content: "\f1fc"

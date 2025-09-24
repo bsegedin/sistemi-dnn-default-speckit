@@ -1,0 +1,28 @@
+<!--TemplateGroup:listArticleSimple-->
+<!--ArticleRepeat:Before:-->
+<div class="[EasyDNNnews:ArticleListWrapperClass] edn_simpleList">
+<!--RepeatEnd:Before:-->
+<!--ArticleTemplate-->
+	<article>
+		<h2 class="edn_articleTitle edn_smallerTitle">
+			<a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]">
+				[EasyDNNnews:IfExists:Image]
+				<span><img loading="lazy" class="edn_articleImage" alt="[EasyDNNnews:Title]" src="[EasyDNNnews:Image:Width:115:Height:70:Resize:Crop]"/></span>
+				[EasyDNNnews:EndIf:Image]
+				[EasyDNNnews:Title]
+			</a>
+		</h2>
+		<div class="edn_metaDetails">
+			<time>[EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfNotExists:Event][EasyDNNnews:PublishDate][EasyDNNnews:EndIf:Event]</time>
+		</div>
+	</article>
+<!--ArticleEnd-->
+
+<!--ArticleRepeat:After:-->
+</div>
+[EasyDNNnews:IfExists:RSS]
+<div class="edn_articlesRssWrapper">
+	<a href="[EasyDNNnews:RSSLink]" target="_blank"><span>[EasyDNNnewsLocalizedText:RSSLinkText]</span></a>
+</div>
+[EasyDNNnews:EndIf:RSS]
+<!--RepeatEnd:After:-->

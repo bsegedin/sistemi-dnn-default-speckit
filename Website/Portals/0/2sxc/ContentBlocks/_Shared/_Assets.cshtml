@@ -1,0 +1,27 @@
+@inherits Custom.Hybrid.Razor14
+
+@{
+
+  string plugins = DynamicModel.plugins;
+
+  string appRoot = App.Path;
+
+  @* Include app main style *@
+  <link rel="stylesheet" href="@appRoot/dist/styles.css" @Kit.Page.AssetAttributes(priority: 150) />
+
+  @* Include app main javascript *@
+  <script type="text/javascript" src="@appRoot/dist/scripts.js" @Kit.Page.AssetAttributes(position: "bottom")></script>
+
+  if(!String.IsNullOrEmpty(plugins)){
+    @* Include swiperjs *@
+    if(plugins.Contains("swiper")){
+      <link rel="stylesheet" href="@appRoot/dist/swiper/swiper-bundle.min.css" @Kit.Page.AssetAttributes(priority: 200) />
+      <script type="text/javascript" src="@appRoot/dist/swiper/swiper-bundle.min.js" @Kit.Page.AssetAttributes(position: "bottom")></script>
+    }
+    @* Include hls for video streaming *@
+    if(plugins.Contains("hls")){
+      <script type="text/javascript" src="@appRoot/dist/hls/hls.min.js" @Kit.Page.AssetAttributes(position: "bottom")></script>
+    } 
+  }
+
+}

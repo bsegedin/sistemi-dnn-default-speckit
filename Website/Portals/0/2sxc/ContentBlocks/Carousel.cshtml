@@ -1,0 +1,139 @@
+@inherits Custom.Hybrid.Razor14
+@using AppCode;
+@using Core;
+
+@{
+  // Get Content data from the data model
+  var contentItems = AsList(Content);
+
+  // Get authentication status using CmsContext
+  var isAnonymus = CmsContext.User.IsAnonymous;
+
+  // Filter content to get only the links that the user has access to. Admins and Content Editors can see demo items but public users can't.
+  var filteredContentItems = CoreHelpers.FilterContent(contentItems, isAnonymus);
+
+  // Get List (Header) data from the data model
+  var header = AsDynamic(Header);
+
+  // Load the ViewHelper library
+  var viewHelpers = CreateInstance("AppCode/ViewHelpers.cs"); 
+  //var viewHelpers = new ViewHelpers(); // This is not workimg right now for dynamic approuch only works for typed approuch or if use main DNN App_Code folder
+
+  // Set the classes for the section wrapper using header settings
+  var defaultSectionClasses = new List<string> { "app-cb" };
+  string headerContainerType = viewHelpers.GetStringByCondition(header.ContainerType, "", 2, header.ContainerType);
+  string sectionClasses = viewHelpers.CreateCssClassList(defaultSectionClasses, headerContainerType);
+
+  // Set the INNER section wrapper using header settings
+  var defaultInnerSectionClasses = new List<string> { "l-view", "l-view--carousel" };
+  // We take list of classes from backend separated with comma and convert it to space separated string
+  string modifiersWrapperClasses = viewHelpers.ConvertCommaListToSpaceList(header.Modifiers);
+  string innerSectionClasses = viewHelpers.CreateCssClassList(defaultInnerSectionClasses, modifiersWrapperClasses);
+
+  // Set the carousel id using moduleid. We need this to have more then one carousel on page.
+  int moduleId = CmsContext.Module.Id;
+  string carouselId = $"carousel-{moduleId}";
+  string carouselIdHashTag = $"#{carouselId}";
+
+  // Get view settings
+  //dynamic settings = AsDynamic(Settings);
+}
+
+@Html.Partial("_Shared/_Assets.cshtml")
+
+@* @Edit.Toolbar(header) *@
+<section class="@sectionClasses">
+  @if (Edit.Enabled)
+  {
+    <div class="position-absolute top-0 start-0" style="z-index:100">
+      @Edit.Toolbar(header)
+    </div>
+  }
+  <div class="@innerSectionClasses">
+    <div id="@carouselId" class="@viewHelpers.GetStringByCondition("carousel slide carousel-fade", "carousel slide", 3, "", header.EnableCrossfade)" data-bs-ride="@(header.EnableAutoplay ? "carousel" : "ride")">
+      @if (header.ShowIndicators)
+      {
+        <div class="carousel-indicators">
+          @for (int i = 0; i < filteredContentItems.Count; i++)
+          {
+            bool isVisible = true;
+            if(filteredContentItems[i].IsDemoItem && CmsContext.User.IsAnonymous){
+              isVisible = false;
+            }
+            <button type="button" data-bs-target="@carouselIdHashTag" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="true" aria-label="Slide @i" style="display:@(isVisible ? "block" : "none");"></button>
+          }
+        </div>
+      }
+      <div class="carousel-inner">
+        @for (int i = 0; i < filteredContentItems.Count; i++)
+        {
+          var data = filteredContentItems[i];
+          // Get Content item presentation settings
+          var presentation = AsDynamic(data.Presentation);
+
+          // Get AttachedVideo entity
+          //var attachedVideo = AsDynamic(data.AttachedVideo);
+          //bool hasVideo = attachedVideo != null && attachedVideo.Count > 0;
+
+          // We take list of classes from backend separated with comma and convert it to space separated string
+          string modifiersItemClasses = viewHelpers.ConvertCommaListToSpaceList(presentation.Modifiers);
+
+          bool isVisible = true;
+          if(data.IsDemoItem && CmsContext.User.IsAnonymous)
+          {
+            isVisible = false;
+          }
+          @* Carousel item START *@
+          if(isVisible)
+          {
+            <div class="@viewHelpers.GetStringByCondition("carousel-item " + modifiersItemClasses, "carousel-item", 2, presentation.Modifiers) @(i == 0 ? "active" : "")">
+              @if (Edit.Enabled)
+              {
+                <div class="position-absolute top-50 start-50 translate-middle" style="z-index:100">
+                  @Edit.Toolbar(data, toolbar: new[] { "settings&hover=left&autoAddMore=start" })
+                </div>
+              }
+              @Html.Partial("_Shared/_GetDesktopAndMobileImage.cshtml", new { data, viewHelpers, LazyLoadEnabled = false, ImgClass = "d-block w-100" })
+              @if (header.EnableCaptions)
+              {
+                <div class="l-item__body carousel-caption container @viewHelpers.GetStringByCondition(presentation.TextAlign, "text-start")" style="left:0; right:0">
+                  @if (!isAnonymus)
+                  {
+                    <small class="badge @(CoreHelpers.GetBadgeClass(data)) rounded-pill">
+                      @CoreHelpers.GetBadgeText(data)
+                    </small>
+                  }
+                  @Html.Partial("_Shared/_Text.cshtml", new { kicker = data.Kicker, title = data.Title, body = data.Body, kickerSize = presentation.KickerSize, kickerWeight = presentation.KickerWeight, headingSize = presentation.HeadingSize, headingWeight = presentation.headingWeight, headingType = presentation.HeadingType })
+                  @Html.Partial("_Shared/_links.cshtml", new { links = AsDynamic(data.LinkList) })
+                </div>
+              }
+            </div>
+          }
+          
+          @* Carousel item END *@
+        }
+      </div>
+      @if (header.ShowControls)
+      {
+        <button class="carousel-control-prev" type="button" data-bs-target="@carouselIdHashTag" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="@carouselIdHashTag" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const pageCarousel = document.querySelector('@carouselIdHashTag')
+    const carousel = new bootstrap.Carousel(pageCarousel, {
+      interval: @header.SlideInterval,
+      touch: true
+    })
+  });
+</script>

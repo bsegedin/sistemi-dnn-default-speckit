@@ -1,0 +1,47 @@
+// Icons from documents icon package
+@use "../../fonts/documents/style.scss";
+
+.doc-ico-pdf,
+.doc-ico-ai {
+  @extend .doc-ico-file-pdf-o;
+}
+
+.doc-ico-xls,
+.doc-ico-xlsx {
+  @extend .doc-ico-file-excel-o;
+}
+
+.doc-ico-ppt {
+  @extend .doc-ico-file-powerpoint-o;
+}
+
+.doc-ico-rtf,
+.doc-ico-doc,
+.doc-ico-docx {
+  @extend .doc-ico-file-word-o;
+}
+
+.doc-ico-zip {
+  @extend .doc-ico-file-archive-o;
+}
+.doc-ico-svg {
+  @extend .doc-ico-file-vector-o;
+}
+
+.doc-ico-map {
+  @extend .doc-ico-folder-o;
+}
+
+.doc-ico-map-open,
+.is-open > .doc-ico-map {
+  @extend .doc-ico-folder-open-o;
+}
+
+.doc-ico-lnk {
+  @extend .doc-ico-chain;
+}
+
+.doc-ico-unk,
+.doc-ico-txt {
+  @extend .doc-ico-file-text-o;
+}

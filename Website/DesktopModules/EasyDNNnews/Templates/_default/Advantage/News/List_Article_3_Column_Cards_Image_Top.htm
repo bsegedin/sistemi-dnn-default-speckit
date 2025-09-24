@@ -1,0 +1,59 @@
+<!--TemplateGroup:listArticleDefault-->
+<!--ArticleRepeat:Before:-->
+<div class="[EasyDNNnews:ArticleListWrapperClass] mb-3 row">
+<!--RepeatEnd:Before:-->
+<!--ArticleTemplate-->
+	<article class="col-md-6 col-lg-4">
+		[EasyDNNnews:HasArticlePermissions]
+		<div class="edn_adminActions">
+			[EasyDNNnews:ArticlePermissions:Edit]
+			[EasyDNNnews:ArticlePermissions:Publish]
+			[EasyDNNnews:ArticlePermissions:Approve]
+		</div>
+		[EasyDNNnews:HasArticlePermissionsEnd]
+		<div class="card card-profile text-left">
+			[EasyDNNnews:IfExists:Image]
+			<div class="card-header card-header-image">
+				<a title="[EasyDNNnews:Title]" href="[EasyDNNnews:Title:Link]">
+					<img loading="lazy" class="img" src="[EasyDNNnews:Image]">
+				</a>
+			</div>
+			[EasyDNNnews:EndIf:Image]
+			<div class="card-body">
+				<h2 class="h4 card-title">
+					<a title="[EasyDNNnews:Title]" href="[EasyDNNnews:Title:Link]">[EasyDNNnews:Title]</a>
+				</h2>
+				<div class="d-flex align-items-center">
+					<time class="small d-flex align-items-center my-1">
+						<i class="material-icons mr-1 text-muted">schedule</i> [EasyDNNnews:IfNotExists:Event][EasyDNNnews:PublishDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event]
+					</time>
+					<div class="card-category mb-1 small ml-auto">[EasyDNNnews:Categories separator=" " last]</div>
+				</div>
+				<div class="card-description">
+					[EasyDNNnews:Summary]
+				</div>
+				<div class="text-center">
+					<a class="btn btn-primary btn-round btn-sm" href="[EasyDNNnews:Title:Link]" target="[EasyDNNnews:DetailTarget]" title="[EasyDNNnews:Title]">[EasyDNNnews:IfNotExists:EventRegistration][EasyDNNnewsLocalizedText:Read][EasyDNNnews:EndIf:EventRegistration][EasyDNNnews:IfExists:EventRegistration][EasyDNNnewsLocalizedText:Register][EasyDNNnews:EndIf:EventRegistration]</a>
+				</div>
+			</div>
+			<div class="card-footer mt-1">
+				<div class="author small align-items-center mt-1">
+					<span class="avatar">[EasyDNNnews:Author:Image:Width:30:Height:30:Resize:Crop]</span>[EasyDNNnews:Author:Link]
+				</div>
+				<div class="stats ml-auto d-flex align-items-center">
+					[EasyDNNnews:IfExists:Comments]
+					<i class="material-icons">chat_bubble</i> [EasyDNNnews:Comments]
+					[EasyDNNnews:EndIf:Comments]
+				</div>
+			</div>
+		</div>
+	</article>
+<!--ArticleEnd-->
+
+<!--ArticleRepeat:After:-->
+</div>
+[EasyDNNnews:IfExists:RSS]
+<hr class="mt-5">
+<a class="text-right d-block m-3" href="[EasyDNNnews:RSSLink]" target="_blank" title="[EasyDNNnewsLocalizedText:RSSLinkText]"><i class="material-icons">rss_feed</i><span class="sr-only">[EasyDNNnewsLocalizedText:RSSLinkText]</span></a>
+[EasyDNNnews:EndIf:RSS]
+<!--RepeatEnd:After:-->

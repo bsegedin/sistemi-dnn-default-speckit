@@ -1,0 +1,89 @@
+<!--HeaderTemplateBegin-->
+<div class="edNews_articleGallery">
+	[Has:EDG:GalleryBackLink]
+	<a href="[EDG:GalleryBackLink]" class="btn btn-rose btn-round btn-lg edsgg_viewInGravityGallery"><span class="material-icons mr-1">image</span>[EDG:LocalizedText:ViewInGravityGallery]</a>
+	[/Has:EDG:GalleryBackLink]
+<!--
+	[Has:EDG:ItemParentGalleryTitle]
+		<div class="edNews_cardHeader mb-0">
+			<span class="edNews_boxBadge"><i class="fas fa-image"></i></span>
+			<h4 class="edNews_additionalCardTitle">[EDG:ItemParentGalleryTitle]</h4>
+		</div>
+	[/Has:EDG:ItemParentGalleryTitle]
+-->
+<!--
+	[Has:EDG:ItemParentGalleryDescription]<div class="text-muted">[EDG:ItemParentGalleryDescription]</div>[/Has:EDG:ItemParentGalleryDescription]
+-->
+<!--HeaderTemplateEnd-->
+
+<!--ItemTemplateBegin-->
+	<div class="card m-2 mt-5" style="max-width: calc([EDG:ListItemThumbWidth]px - (30px + 3rem));">
+		[EDG:DontEmbedInPage]
+		<div class="card-header card-header-image">
+			<a class="edsgg__itemDetailsAndLightboxTrigger" href="[EDG:ItemMediaLink]">
+				<img src="[EDG:ItemThumbnail]" alt="[EDG:ItemTitle]">
+			</a>
+			<span class="edsgg_mediaType_[EDG:MediaType]"></span>
+		</div>
+		<div class="card-body px-3 py-2">
+			<div class="float-right">[EDG:MediaLike]</div>
+			<div class="d-flex align-items-center small text-muted">
+				<span><i class="fas fa-comment text-primary"></i> [EDG:NumberOfLikes]</span>
+				<span class="ml-2"><i class="fas fa-heart text-primary"></i> [EDG:NumberOfComments]</span>
+			</div>
+			[Has:EDG:ItemTitle]
+			<h5 class="card-title mb-2">
+				<a class="edsgg__itemDetailsAndLightboxTrigger" href="[EDG:ItemMediaLink]">[EDG:ItemTitle]</a>
+			</h5>
+			[/Has:EDG:ItemTitle]
+			<div class="card-description small">
+				[EDG:ItemDescription]
+			</div>
+		</div>
+		[/EDG:DontEmbedInPage]
+		[EDG:EmbedInPage]
+		<div class="card-header card-header-image">
+			[EDG:EmbedMediaData]
+		</div>
+		<div class="card-body px-3 py-2">
+			[Has:EDG:ItemTitle]
+			<h5 class="card-title mb-2">[EDG:ItemTitle]</h5>
+			[/Has:EDG:ItemTitle]
+			<div class="card-description small">
+				[EDG:ItemDescription]
+			</div>
+		</div>
+		[/EDG:EmbedInPage]
+		<div class="card-footer small text-muted d-block px-3">
+			<ul class="edsgg_galleryDetails d-flex flex-wrap align-items-center">
+				<li>
+					<i class="fas fa-eye text-primary"></i> [EDG:ItemNumberOfViews]
+				</li>
+				<li>
+					[EDG:MediaRatingAction]
+				</li>
+				<li class="ml-auto edsgg_addThisButton">
+					[EDG:ItemsShareButtons]
+				</li>
+				<li class="ml-auto">
+					<a class="button edsgg_buttonLink" title="[EDG:LocalizedText:Email]" href="mailto:?to=&subject=[EDG:LocalizedText:EmailSubject]&body=[EDG:LocalizedText:EmailBody][EDG:CurrentMediaURL]"><i class="fas fa-envelope"></i><span class="sr-only">[EDG:LocalizedText:Email]</span></a>
+				</li>
+			</ul>
+			<ul class="edsgg_galleryDetails d-flex flex-wrap mt-2 align-items-center">
+				<li>
+					<a class="edsgg_GalleryOwnerAvatar edsgg_popUpLink" href="[EDG:ItemAuthorProfileLink]">[EDG:ItemAuthorAvatar]<span>[EDG:ItemAuthor]</span></a>
+				</li>
+				[Has:EDG:MediaDownload]
+				<li class="edsgg_mediaDownload ml-auto">
+					<a class="button edsgg_buttonLink edsgg_popUpLink" href="[EDG:MediaDownloadLink]" ><i class="fas fa-download"></i><span>[EDG:LocalizedText:DownloadMedia] <em>.[EDG:DownloadMediaExtension]</em> ([EDG:DownloadMediaSize])</span></a>
+				</li>
+				[/Has:EDG:MediaDownload]
+			</ul>
+		</div>
+	</div>
+<!--ItemTemplateEnd-->
+
+<!--FooterTemplateBegin-->
+	[EDG:ItemPaging]
+</div>
+<!--FooterTemplateEnd-->

@@ -1,0 +1,84 @@
+@inherits Custom.Hybrid.Razor14
+@using ToSic.Razor.Blade;
+@using ToSic.Sxc.Services;
+@using System.Dynamic;
+@using System.Collections.Generic;
+
+@using DotNetNuke.Entities.Tabs;
+@functions {
+   dynamic GetAllPages(){
+      return DotNetNuke.Entities.Tabs.TabController.GetPortalTabs(CmsContext.Site.Id, -1, true, string.Empty, true, false, true, true, false);
+   }
+}
+
+<h2>Site tree</h2>
+
+<table class="table">
+   <thead>
+      <tr>
+         <th>IsVisible</th>
+         <th>ID<br><small>ParentId</small></th>
+         <th>Level<br><small>TabOrder</small></th>
+         <th>IndentedTabName<br><small>LocalizedTabName</small></th>
+         <th>FullUrl</th>
+         <th>HasChildren</th>
+         <th>SkinSrc</th>
+      </tr>
+   </thead>
+
+   <!-- https://docs.dnncommunity.org/api/DotNetNuke.Entities.Tabs.TabInfo.html -->
+   @foreach (TabInfo _page in GetAllPages())
+   {
+      <tr>
+         <td><code>@_page.IsVisible</code></td>
+         <td>@_page.TabID <br><small>@_page.ParentId</small></td>
+         <td>@_page.Level <small>@_page.TabOrder</small></td>
+         <td>@_page.IndentedTabName.Replace("..."," - ") <br> <small>@_page.LocalizedTabName</small></td>
+         <td><a href="@_page.FullUrl">view</a></td>
+         <td><code>@_page.HasChildren</code></td>
+         <td><small>@_page.SkinSrc</small></td>
+      </tr>
+   }
+
+</table>
+
+
+@* 
+@{
+   var siteTree = new Dictionary<int,dynamic>();
+}
+
+@foreach (TabInfo _page in GetAllPages()) {
+
+   if(!siteTree.ContainsKey(_page.ParentId) || !siteTree.ContainsKey(_page.TabID)) {
+
+      dynamic node = new ExpandoObject();
+         node.Tab = _page;
+         node.Children = new Dictionary<int,dynamic>();
+
+      siteTree.Add(_page.TabID, node);
+
+      <pre>{"id": @_page.TabID, "parentId": @node.Tab.ParentId, "title": @_page.LocalizedTabName}</pre>
+   }
+
+   if (siteTree.ContainsKey(_page.ParentId)) {
+
+      dynamic node = new ExpandoObject();
+         node.Tab = _page;
+         node.Children = new Dictionary<int,dynamic>();
+
+      var parentNode = siteTree[_page.ParentId];
+      parentNode.Children.Add(_page.TabID, node);
+
+      <pre>    {"id": @_page.TabID, "parentId": @node.Tab.ParentId, "title": @_page.LocalizedTabName}</pre>
+   }
+}
+
+
+@foreach (var item in siteTree)
+{
+   var tab = item.Value.Tab;
+   var children = item.Value.Children;
+   <pre>@tab.TabID @tab.TabName (@children.Count)</pre>
+} 
+*@

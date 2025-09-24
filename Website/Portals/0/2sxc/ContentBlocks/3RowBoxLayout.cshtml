@@ -1,0 +1,360 @@
+@inherits Custom.Hybrid.Razor14
+@using ToSic.Sxc.Services
+@using ToSic.Sxc.Images
+@using AppCode;
+@using Core;
+
+@{
+  // Get Content data from the data model
+  var contentItems = AsList(Content);
+
+    // Get authentication status using CmsContext
+  var isAnonymus = CmsContext.User.IsAnonymous;
+
+  // Filter content to get only the links that the user has access to. Admins and Content Editors can see demo items but public users can't.
+  var filteredContentItems = CoreHelpers.FilterContent(contentItems, isAnonymus);
+  int filteredContentItemsCount = isAnonymus && filteredContentItems.Count > 3 ? 3 : filteredContentItems.Count;
+
+  // Get List (Header) data from the data model
+  var header = AsDynamic(Header);
+
+  // Load the ViewHelper library
+  var viewHelpers = CreateInstance("AppCode/ViewHelpers.cs");
+  //var viewHelpers = new ViewHelpers(); // This is not workimg right now for dynamic approuch only works for typed approuch or if use main DNN App_Code folder
+
+  // CSS Classes for the header
+  // Set the classes for the section wrapper using header settings
+  var defaultSectionClasses = new List<string> { "app-cb" };
+  string headerContainerType = viewHelpers.GetStringByCondition(header.ContainerType, "", 2, header.ContainerType);
+  string sectionClasses = viewHelpers.CreateCssClassList(defaultSectionClasses, headerContainerType);
+
+  // Set the INNER section wrapper using header settings
+  var defaultInnerSectionClasses = new List<string> { "l-view", "l-view--card", "grid-list", "grid-row-layout"};
+  // Depending of header AlternatePositions setting we add a class to the section to reverse the order of items in the grid
+  string alternateGrid = header.AlternatePositions ? "grid-row-layout-reverse" : "";
+    // We take list of classes from backend separated with comma and convert it to space separated string
+  string modifiersWrapperClasses = viewHelpers.ConvertCommaListToSpaceList(header.Modifiers);
+  string bgColor = viewHelpers.GetStringByCondition(header.BgColor, "", 2, header.BgColor);
+  string innerSectionClasses = viewHelpers.CreateCssClassList(defaultInnerSectionClasses, alternateGrid, bgColor, modifiersWrapperClasses);
+
+  // Set the advancesplit view id using moduleid. We need this to have more then one advancesplit view on page.
+  int moduleId = CmsContext.Module.Id;
+  string boxRowLayoutId = $"row-box-layout-{moduleId}";
+  string boxRowLayoutIdHashTag = $"#{boxRowLayoutId}";
+
+  // Prefill form data for the header based on view type
+  var headerPrefill = new
+  {
+    ViewType = "3RowBoxLayout",
+  };
+
+  // Get view settings
+  //dynamic settings = AsDynamic(Settings);
+}
+
+@* Assets needed for view *@
+@Html.Partial("_Shared/_Assets.cshtml", new { plugins = "hls" })
+
+@Edit.Toolbar(header, prefill: headerPrefill)
+@* Check if view use correct ViewType value in header settings *@
+@Html.Partial("_Shared/_CheckViewType.cshtml", new { viewTypeString = headerPrefill.ViewType, viewTypeEntry = header.ViewType })
+
+@if (!isAnonymus)
+{
+    if(filteredContentItemsCount > 3)
+    {
+        <div class="alert alert-warning" role="alert">
+            @App.Resources.AlertOnly3Items
+        </div>
+    }
+}
+
+<div class="@sectionClasses">
+  <section id="@boxRowLayoutId" class="@innerSectionClasses">
+    @* Using for instead foreach to get better performance *@
+    @for (int i = 0; i < filteredContentItemsCount; i++)
+    {
+      var data = filteredContentItems[i];
+      // Get Image object to use in the template
+      var imageField = data.Field("Image");
+      // Get AttachedVideo entity
+      var attachedVideo = AsDynamic(data.AttachedVideo);
+      bool hasVideo = attachedVideo != null && attachedVideo.Count > 0;
+      // Get Content item presentation settings
+      var presentation = AsDynamic(data.Presentation);
+      // We need to kind of formats for aspect ratio, one for 2sxc and one for Bootstrap
+      string arFormat2sxc = !string.IsNullOrEmpty(presentation.ImageAspectRatio) ? presentation.ImageAspectRatio : "3:2";
+      string bootstrapRatio = "ratio ratio-" + arFormat2sxc.Replace(":", "x");
+      // Set image settings
+      var imgSettings = Kit.Image.Settings(aspectRatio: arFormat2sxc, width: presentation.ImageWidth);
+      // Prepare image for rendering
+      var mainImage = Kit.Image.Picture(imageField, width: presentation.ImageWidth, settings: imgSettings);
+      // We take list of classes from backend separated with comma and convert it to space separated string
+      string modifiersItemClasses = viewHelpers.ConvertCommaListToSpaceList(presentation.Modifiers);
+      bool useImageOverlay = presentation.UseImageOverlay ?? false;
+
+      bool isSplitItem = !String.IsNullOrEmpty(presentation.ViewType) && presentation.ViewType == "BasicSplit" ? true : false;
+      // Determine the Bootstrap order classes based on presentation.AlternatePositions, different values for card and split view type
+      string mediaOrderClass = presentation.AlternatePositions ? "order-last" : "order-first";
+      string bodyOrderClass = presentation.AlternatePositions ? "order-first" : "order-last";
+      if(isSplitItem)
+      {
+        // Determine the Bootstrap order classes and column width based on presentation.columnSize and presentation.AlternatePositions
+        string columnSizes = $"{presentation.columnSize ?? "col-lg-6,col-lg-6"}";
+        string columnSizesLeft = "order-md-1 " + columnSizes.Split(',')[0];
+        string columnSizesRight = "order-md-2 " + columnSizes.Split(',')[1];
+
+        mediaOrderClass = presentation.AlternatePositions ? columnSizesRight : columnSizesLeft;
+        bodyOrderClass = presentation.AlternatePositions ? columnSizesLeft : columnSizesRight;
+      }
+
+      bool isVisible = true;
+      if (data.IsDemoItem && CmsContext.User.IsAnonymous)
+      {
+        isVisible = false;
+      }
+
+      if (isVisible)
+      {
+        <div class="grid-item">
+            @if(isSplitItem)
+            {
+                @* Split item START *@
+                <div class="@viewHelpers.GetStringByCondition("d-flex l-item " + modifiersItemClasses, "d-flex l-item", 2, presentation.Modifiers) @viewHelpers.GetStringByCondition("reverse-item", "", 3, "", header.AlternatePositions)">
+                    <div class="l-item__media @mediaOrderClass">
+                    @if (hasVideo)
+                    {
+                        @* If video is attached show video *@
+                        @Html.Partial("_Shared/_Video.cshtml", new { attachedVideo = attachedVideo })
+                    }
+                    else
+                    {
+                        @* No video attached, display the image but first check if there is image attached*@
+                        if (!string.IsNullOrEmpty(data.Image))
+                        {
+                        <figure class="o-image">
+                            @* Generate <picture> tag with the correct image formats and sizes, improving responsiveness and loading times.*@
+                            @mainImage
+                            @if (!string.IsNullOrEmpty(imageField.Metadata.Description))
+                            {
+                            <figcaption class="o-image__caption pt-1 px-4 pb-4 text-white">
+                                @imageField.Metadata.Description
+                            </figcaption>
+                            }
+                        </figure>
+                        }
+                        else
+                        {
+                        @* No image attached, display a placeholder image *@
+                        var placeholderImage = Kit.Image.Picture(App.Settings.ImagePlaceholder, width: presentation.ImageWidth, settings: imgSettings);
+                        <figure class="o-image">
+                            @placeholderImage
+                        </figure>
+                        }
+                    }
+                    </div>
+
+                    <div class="l-item__body @viewHelpers.GetStringByCondition(presentation.TextAlign, "text-start") @bodyOrderClass">
+                    <div class="l-item__body-content @viewHelpers.GetStringByCondition(header.TextColor,"text-body-view")">
+                        @if (!isAnonymus)
+                        {
+                        <small class="badge @(CoreHelpers.GetBadgeClass(data)) rounded-pill">
+                            @CoreHelpers.GetBadgeText(data)
+                        </small>
+                        }
+                        @Edit.Toolbar(data)
+                        @* Check if view use correct ViewType value in content item settings *@
+@*                         @Html.Partial("_Shared/_CheckViewType.cshtml", new { viewTypeString = headerPrefill.ViewType, viewTypeEntry = presentation.ViewType }) *@
+                        @Html.Partial("_Shared/_Text.cshtml", new { kicker = data.Kicker, title = data.Title, body = data.Body, kickerSize = presentation.KickerSize, kickerWeight = presentation.KickerWeight, headingSize = presentation.HeadingSize, headingWeight = presentation.headingWeight, headingType = presentation.HeadingType })
+                        @Html.Partial("_Shared/_Links.cshtml", new { links = AsDynamic(data.LinkList) })
+                    </div>
+                    </div>
+                </div>
+                @* Split item END *@
+            }
+            else if (presentation.ViewType == "BasicCard")
+            {
+                @* Card item START *@
+                <div class="@viewHelpers.GetStringByCondition(header.ColLayout, "col-12 col-lg")">
+                    <div class="@viewHelpers.GetStringByCondition("card overlay-body__text", "card", 3, "", useImageOverlay) @viewHelpers.GetStringByCondition("l-item " + modifiersItemClasses, "l-item", 2, presentation.Modifiers)">
+                    <div class="l-item__media @mediaOrderClass">
+                        @if (hasVideo)
+                        {
+                        @* If video is attached show video *@
+                        @Html.Partial("_Shared/_Video.cshtml", new { attachedVideo = attachedVideo })
+                        }
+                        else if (!string.IsNullOrEmpty(data.Image))
+                        {
+                        @* No video attached, display the image but first check if there is image attached*@
+                        <figure class="o-image">
+                            @* Generate <picture> tag with the correct image formats and sizes, improving responsiveness and loading times.*@
+                            @mainImage
+                            @if (!string.IsNullOrEmpty(imageField.Metadata.Description))
+                            {
+                            <figcaption class="o-image__caption pt-1 px-4 pb-4 text-white">
+                                @imageField.Metadata.Description
+                            </figcaption>
+                            }
+                        </figure>
+                        }
+                        else
+                        {
+                        @* No image attached, display a placeholder image *@
+                        var placeholderImage = Kit.Image.Picture(App.Settings.ImagePlaceholder, width: presentation.ImageWidth, settings: imgSettings);
+                        <figure class="o-image">
+                            @placeholderImage
+                        </figure>
+                        }
+                    </div>
+
+                    <div class="@viewHelpers.GetStringByCondition("l-item__body card-img-overlay", "l-item__body", 3, "", useImageOverlay) @viewHelpers.GetStringByCondition(presentation.TextAlign, "text-start")">
+                        <div class="l-item__body-content @viewHelpers.GetStringByCondition(header.TextColor,"text-body-view") @bodyOrderClass">
+                        @if (useImageOverlay)
+                        {
+                            <a class="js-close-overlay">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path class="fa-secondary" opacity=".4" d="" /><path class="fa-primary" d="M345 137c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-119 119L73 103c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l119 119L39 375c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l119-119L311 409c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-119-119L345 137z" /></svg>
+                            </a>
+                        }
+                        @Edit.Toolbar(data)
+                        @* Check if view use correct ViewType value in content item settings *@
+        @*                   @Html.Partial("_Shared/_CheckViewType.cshtml", new { viewTypeString = headerPrefill.ViewType, viewTypeEntry = presentation.ViewType }) *@
+                        @Html.Partial("_Shared/_Text.cshtml", new { kicker = data.Kicker, title = data.Title, kickerSize = presentation.KickerSize, kickerWeight = presentation.KickerWeight, headingSize = presentation.HeadingSize, headingWeight = presentation.headingWeight, headingType = presentation.HeadingType })
+                        <div class="@viewHelpers.GetStringByCondition("o-description", "o-description--default", 3, "", useImageOverlay)">
+                            
+                            @Html.Partial("_Shared/_Text.cshtml", new { body = data.Body })
+                            @Html.Partial("_Shared/_links.cshtml", new { links = AsDynamic(data.LinkList) })
+                        </div>
+                        
+                        @if (!isAnonymus)
+                        {
+                            <small class="badge @(CoreHelpers.GetBadgeClass(data)) rounded-pill">
+                            @CoreHelpers.GetBadgeText(data)
+                            </small>
+                        }
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                @* Card item END *@
+            }
+            else
+            {
+                <div class="alert alert-danger" role="alert">
+                    @Edit.Toolbar(data)
+                    @App.Resources.AlertForItemViewType
+                </div>
+            }
+        </div>
+      }
+    }
+  </section>
+</div>
+
+<style>
+  .grid-row-layout{
+    display:grid;
+    width: 100%;
+    min-height: 600px;
+    grid-gap:24px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "full full"
+        "bottom-left bottom-right";
+  }
+  .grid-row-layout .grid-item:nth-child(1){
+    grid-area: full;
+  }
+  .grid-row-layout .grid-item:nth-child(2){
+    grid-area: bottom-left;
+  }
+  .grid-row-layout .grid-item:nth-child(3){
+    grid-area: bottom-right;
+  }
+  .grid-row-layout-reverse{
+    grid-template-areas:
+        "bottom-left bottom-right"
+        "full full";
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const boxRowLayoutEl = document.getElementById("@boxRowLayoutId");
+    const boxRowLayoutVideos = boxRowLayoutEl.querySelectorAll("video");
+
+
+    const cards = document.querySelectorAll('.card');
+
+
+    cards.forEach(card => {
+      card.addEventListener('click', function() {
+        const content = this.querySelector('.l-item__body-content');
+        if (content) {
+            content.classList.add('js-show');
+        }
+      });
+
+      // Adding close button logic
+      const closeButton = card.querySelector('.js-close-overlay');
+      if (closeButton) {
+        closeButton.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent the card click event from firing
+            const content = card.querySelector('.l-item__body-content');
+            if (content) {
+                content.classList.remove('js-show');
+            }
+        });
+      }
+    });
+
+    const boxRowLayoutActive = function(entries, observer){
+      const entry = entries[0];
+      //when boxRowLayout view is not visible stop and reset all videos
+      if(!entry.isIntersecting){
+        boxRowLayoutVideos.forEach(video => {
+          video.currentTime = 0;
+          video.pause();
+        })
+      } else {
+        if(boxRowLayoutVideos.length > 1){
+          //remove loop attribute from all videos if there are multiple videos on advance split
+          boxRowLayoutVideos.forEach(vid => {
+            vid.removeAttribute("loop");
+          })
+          //play videos in sequence if there are multiple videos
+          startVideoSequence(0);
+        } else if(boxRowLayoutVideos.length === 1 && boxRowLayoutVideos[0].autoplay) {
+          //if there is only one video and has autoplay enabled then play video
+          boxRowLayoutVideos[0].play();
+        }
+      }
+    }
+    const boxRowLayoutObserver = new IntersectionObserver(boxRowLayoutActive,{
+        root: null,
+        threshold: 0.6,
+    })
+    boxRowLayoutObserver.observe(boxRowLayoutEl);
+
+    function startVideoSequence(i){
+      playVideo(i);
+    }
+
+    function playVideo(i){
+      if(boxRowLayoutVideos[i].autoplay){
+        boxRowLayoutVideos[i].play();
+        if(i < boxRowLayoutVideos.length-1){
+          boxRowLayoutVideos[i].addEventListener("ended", function (){
+            startVideoSequence(i+1);
+          })
+        } else {
+          boxRowLayoutVideos[i].addEventListener("ended", function(){
+            startVideoSequence(0);
+          })
+        }
+      } else {
+        if(i < boxRowLayoutVideos.length-1) startVideoSequence(i+1);
+        else startVideoSequence(0);
+      }
+    }
+  })
+</script>

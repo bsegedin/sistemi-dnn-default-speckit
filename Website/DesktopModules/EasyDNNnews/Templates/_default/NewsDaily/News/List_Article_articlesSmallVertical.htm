@@ -1,0 +1,14 @@
+<!--TemplateGroup:listArticleVertical-->
+<!--ArticleRepeat:Before:-->
+<div class="edn_articleList edn_verticalList [EasyDNNnews:ArticleListWrapperClass]">
+<!--RepeatEnd:Before:-->
+<!--ArticleTemplate-->
+	<article class="eds_smallArticle [EasyDNNnews:FeaturedArticle]">
+		<h2 class="edn_articleTitle edn_articleTitleSmall"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><span class="edn_featuredBadge">Exclusive</span>[EasyDNNnews:Title]</a></h2>
+		<span class="edn_category">[EasyDNNnews:Categories separator=" " last]</span> <time class="edn_time">[EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfNotExists:Event][EasyDNNnews:FormatedDate:MMMM d, yyyy][EasyDNNnews:EndIf:Event]</time>
+	</article>
+<!--ArticleEnd-->
+
+<!--ArticleRepeat:After:-->
+</div>
+<!--RepeatEnd:After:-->

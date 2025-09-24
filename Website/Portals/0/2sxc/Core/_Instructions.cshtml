@@ -1,0 +1,28 @@
+@inherits Custom.Hybrid.Razor14
+@using ToSic.Sxc.Services; @* Make it easier to use https://r.2sxc.org/services *@
+@using ToSic.Razor.Blade;
+
+@{
+  var mdText = File.ReadAllText(Server.MapPath(App.Path + "/" + Content.MarkdownPath));
+  mdText = mdText.Replace(System.Environment.NewLine, "\\n");
+}
+
+@Html.Partial("_Shared/_Assets.cshtml", new { parts = "scripts,markdown" })
+
+<div class="c-instructions" @Edit.TagToolbar(Content)>
+  @if (Content.showTitle)
+  {
+    <h2>@Content.Title</h2>
+  }
+  @if (!String.IsNullOrEmpty(@Content.Body))
+{
+<div class="c-instructions__eav">@Html.Raw(Content.Body)</div>
+}
+<div id="markdownContent" class="c-instructions__md"></div>
+</div>
+
+<script>
+   document.addEventListener('DOMContentLoaded', function(event) {
+      parseMarkdown("#markdownContent", '@Html.Raw(mdText)')
+   });
+</script>

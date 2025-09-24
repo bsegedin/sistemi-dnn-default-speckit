@@ -1,0 +1,133 @@
+.l-view--swiper {
+  // .swiper-wrapper {
+  // //   justify-content: center;
+  // // }
+
+
+  &.img-no-fading {
+    .swiper-slide {
+      opacity: 1;
+    }
+  }
+
+  .swiper-slide {
+    position: relative;
+    width: 80%;
+    margin-right: .5rem;
+    margin-left: .5rem;
+    opacity: .3;
+    transition: opacity 0.3s ease-in;
+
+    @media (min-width: 1200px) {
+      margin-right: calc(var(--bs-gutter-x)* 0.5);
+      margin-left: calc(var(--bs-gutter-x)* 0.5);
+      width: 50%;
+    }
+
+    .swiper-caption {
+
+      &.card-img-overlay {
+        //padding: 1.75rem;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 9;
+      }
+
+      @media (max-width: 576px) {
+        text-align: center !important;
+      }
+
+    }
+
+    img {
+      height: 400px;
+      object-fit: cover;
+
+      @media (min-width: 576px) {
+        height: 600px;
+      }
+
+      @media (min-width: 1200px) {
+        height: auto;
+      }
+    }
+
+    &.swiper-slide-fully-visible {
+      opacity: 1;
+    }
+  }
+
+  // Content Align
+  // Bottom
+  .content-bottom {
+    .swiper-caption {
+      top: auto;
+      bottom: 0;
+    }
+  }
+
+  // Center
+  .content-center {
+    .swiper-caption {
+      justify-content: center;
+    }
+  }
+
+  // Top
+  .content-top {
+    .swiper-caption {
+      top: 0;
+      bottom: auto;
+    }
+  }
+
+
+  .text-end {
+    .o-kicker, .o-title, .o-body, .o-cta {
+      justify-content: flex-end;
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  .text-start {
+    .o-kicker, .o-title, .o-body, .o-cta {
+      justify-content: flex-start;
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  .text-center {
+    .o-kicker, .o-title, .o-body, .o-cta {
+      justify-content: center;
+      display: flex;
+      width: 100%;
+    }
+  }
+}
+
+.swiper {
+  .swiper-pagination {
+    position: relative;
+    margin-top: 2rem;
+    &-bullet {
+      width: 14px;
+      height: 14px;
+      background-color: #ccc;
+      opacity: 1;
+
+      &.swiper-pagination-bullet-active {
+        background-color:  var(--bs-primary);
+        border-color: var(--bs-primary);
+      }
+    }
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color:  var(--bs-primary);
+  }
+}

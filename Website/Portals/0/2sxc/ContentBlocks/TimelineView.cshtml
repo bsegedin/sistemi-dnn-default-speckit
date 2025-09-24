@@ -1,0 +1,56 @@
+@inherits Custom.Hybrid.Razor14
+@using AppCode;
+@using Core;
+
+@{
+  // Get Content data from the data model
+  var contentItems = AsList(Content);
+
+  // Get authentication status using CmsContext
+  var isAnonymus = CmsContext.User.IsAnonymous;
+
+  // Filter content to get only the links that the user has access to. Admins and Content Editors can see demo items but public users can't.
+  var filteredContentItems = CoreHelpers.FilterContent(contentItems, isAnonymus);
+
+  // Load the ViewHelper library
+  var viewHelpers = CreateInstance("AppCode/ViewHelpers.cs");
+  //var viewHelpers = new ViewHelpers();
+}
+
+@Html.Partial("_Shared/_Assets.cshtml")
+
+
+<div class="container">
+  <section class="app-cb l-view l-view--timeline js-section-fade timeline">
+    <div class="timeline-center-line"></div>
+    <div class="timeline-content">
+      @for (int i = 0; i < filteredContentItems.Count; i++)
+      {
+        var data = filteredContentItems[i];
+        // Get Image object to use in the template
+        var imageField = data.Field("Image");
+        var imgSettings = Kit.Image.Settings(aspectRatio: "16:9", width: 800);
+        var mainImage = Kit.Image.Img(imageField, width: 800, settings: imgSettings, imgClass: "d-block w-100");
+
+        <div class="timeline-article" @Edit.TagToolbar(data)>
+          <div class="timeline-article-date">
+            @if (!isAnonymus)
+            {
+              <small class="badge @(CoreHelpers.GetBadgeClass(data)) rounded-pill">
+                @CoreHelpers.GetBadgeText(data)
+              </small>
+            }
+            <h2>@data.Title</h2>
+          </div>
+
+          <div class="timeline-article-card">
+            <div class="image">@mainImage</div>
+            <div class="content">
+              @Html.Partial("_Shared/_Text.cshtml", new { body = data.Body })
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+</div>

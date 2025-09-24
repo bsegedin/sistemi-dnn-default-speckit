@@ -1,0 +1,24 @@
+﻿SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}EasyDNNNewsZeroGravityGallerySettings]') AND type in (N'U'))
+BEGIN
+CREATE TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsZeroGravityGallerySettings](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PortalID] [int] NOT NULL,
+	[ModuleID] [int] NULL,
+	[ArticleID] [int] NULL,
+	[GalleryLightbox] [tinyint] NOT NULL,
+	[ThumbnailResizeMethod] [tinyint] NOT NULL,
+	[Template] [nvarchar](250) NOT NULL,
+	[ThumbnailWidth] [int] NOT NULL,
+	[ThumbnailHeight] [int] NOT NULL,
+	[JpegQuality] [int] NOT NULL,
+ CONSTRAINT [PK_{objectQualifier}EasyDNNNewsZeroGravityGallerySettings] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF)
+)
+END
+GO

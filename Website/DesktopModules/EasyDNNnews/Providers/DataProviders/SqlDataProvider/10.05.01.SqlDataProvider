@@ -1,0 +1,4 @@
+﻿IF NOT EXISTS (select * from INFORMATION_SCHEMA.columns where table_name = '{objectQualifier}EasyDNNNewsSearchSettings' and column_name = 'ShowCFUseORBetweenElements')
+BEGIN
+	ALTER TABLE {databaseOwner}[{objectQualifier}EasyDNNNewsSearchSettings] ADD ShowCFUseORBetweenElements BIT CONSTRAINT DF_{objectQualifier}EasyDNNNewsSearchSettings_ShowCFUseORBetweenElements DEFAULT(0) NOT NULL;
+END

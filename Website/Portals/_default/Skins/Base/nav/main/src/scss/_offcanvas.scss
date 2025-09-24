@@ -1,0 +1,21 @@
+
+@include media-breakpoint-down(lg) {
+
+  .navbar {
+    .offcanvas {
+
+      &-header {
+        justify-content: flex-end;
+        width: 100%;
+      }
+  
+      &-body {
+        width: 100%;
+      }
+  
+  
+    }
+  }
+
+}
+

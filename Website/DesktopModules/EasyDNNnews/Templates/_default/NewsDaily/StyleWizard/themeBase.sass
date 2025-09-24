@@ -1,0 +1,85 @@
+@mixin sm-device-width
+	@media (max-width: 576px)
+		@content
+
+@mixin md-device-width
+	@media (max-width: 768px)
+		@content
+
+@mixin lg-device-width
+	@media (max-width: 992px)
+		@content
+
+@mixin xl-device-width
+	@media (max-width: 1200px)
+		@content
+
+@mixin xxl-device-width
+	@media (max-width: 1400px)
+		@content
+
+@mixin sm-device-min-width
+	@media (min-width: 576px)
+		@content
+
+@mixin md-device-min-width
+	@media (min-width: 768px)
+		@content
+
+@mixin lg-device-min-width
+	@media (min-width: 992px)
+		@content
+
+@mixin xl-device-min-width
+	@media (min-width: 1200px)
+		@content
+
+@mixin xxl-device-min-width
+	@media (min-width: 1400px)
+		@content
+
+@import url("../../../static/fontawesome-free-6/css/all.min.css")
+
+$headingsFont: 'PT Serif', serif
+$defaultFont: 'Work Sans', sans-serif
+$icon: 'Font Awesome 6 Free'
+
+$fontSize: .9rem
+$lineHeight: 1.3
+
+$defaultColor: #000
+$darkColor: #000
+$primaryColor: #ec3535
+$greyColor: #eaeaea
+$lightGreyColor: #f7f7f7
+$darkGreyColor: #444
+
+$red: #fc4c3b
+$blue: #2e7de0
+$black: #000
+$green: #64ce66
+$yellow: #f6c606
+$pink: #ffc0cb
+$gray: #808080
+$orange: #ff6a00
+$brown: #e49908
+
+$pageWidth: 1440px
+$defaultPadding: 1.5rem
+
+$themeName: "NewsDaily"
+$baseThemeClass: ".eds_news_#{$themeName}"
+
+@import sass/base
+@import sass/grid
+@import sass/news
+@import sass/content_blocks
+@import sass/pagination
+@import sass/comments
+@import sass/calendar
+@import sass/qtip
+@import sass/search
+@import sass/catalog
+//@import sass/dashboard
+
+@import sass/print

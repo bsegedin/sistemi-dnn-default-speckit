@@ -1,0 +1,48 @@
+<!--TemplateGroup:contentBlockDefault-->
+
+<!--ArticleRepeat:Before:-->
+<div class="edn_widgetHeaderWrapper edNews_clearFix">
+	[EasyDNNnews:IfExists:Paging]
+	<div class="edNews_prevNextPagination">
+		<span class="edNews_previous edn__contentBlock_previousPage"><i class="fas fa-chevron-left"></i><span>[EasyDNNnewsLocalizedText:PreviousPageText]</span></span>
+		<span class="edNews_next edn__contentBlock_nextPage"><i class="fas fa-chevron-right"></i><span>[EasyDNNnewsLocalizedText:NextPageText]</span></span>
+	</div>
+	[EasyDNNnews:EndIf:Paging]
+	<div class="edn__contentBlock_header">
+		[EasyDNNnews:IfExists:ModuleHeader]<h3 class="edn_widgetTitle h4 badge badge-primary edn__contentBlock_title edn_widgetTitle my-0"><span>[EasyDNNnews:ModuleTitle]</span></h3>[EasyDNNnews:EndIf:ModuleHeader]
+		[EasyDNNnews:IfExists:CategoriesFilter]
+		[EasyDNNnews:Categories:Html:UnorderedList]
+		<div class="edn__contentBlock_hiddenItemWrapper mt-3">
+			<div class="edn_contentBlock_trigger"></div>
+			<ol class="edn__contentBlock_itemList edn__contentBlock_hiddenItemList"></ol>
+		</div>
+		[EasyDNNnews:EndIf:CategoriesFilter]
+	</div>
+</div>
+<div class="edn_mainWrapper">
+	<div class="edn__articleListWrapper edn_WrapperFirst [EasyDNNnews:ArticleListWrapperClass]">
+<!--RepeatEnd:Before:-->
+
+<!--ArticleTemplate-->
+		<div class="ednCB_animatedArticle ednCB_3 mt-3">
+			<div class="edNews_smallCardArticle">
+				<a title="[EasyDNNnews:Title]" href="[EasyDNNnews:Title:Link]">
+					[EasyDNNnews:IfExists:Image]
+					<img loading="lazy" src="[EasyDNNnews:Image:Width:125:Height:80:Resize:Crop]">
+					[EasyDNNnews:EndIf:Image]
+					<div class="ml-3">
+						<span class="edNews_smallTitle title h5">[EasyDNNnews:Title]</span><br>
+						<time class="text-muted small">[EasyDNNnews:IfNotExists:Event][EasyDNNnews:PublishDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event]</time>
+					</div>
+				</a>
+			</div>
+		</div>
+<!--ArticleEnd-->
+
+<!--ArticleRepeat:After:-->
+		</div>
+		<p class="eds_noContent">[EasyDNNnewsLocalizedText:NoContentMessage]</p>
+		<p class="eds_contentError">[EasyDNNnewsLocalizedText:ContentErrorMessage]</p>
+	</div>
+</div>
+<!--RepeatEnd:After:-->

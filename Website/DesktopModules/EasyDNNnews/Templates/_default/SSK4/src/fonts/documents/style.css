@@ -1,0 +1,80 @@
+@font-face {
+  font-family: 'documents';
+  src:
+    url('fonts/documents.ttf?r2ykd9') format('truetype'),
+    url('fonts/documents.woff?r2ykd9') format('woff'),
+    url('fonts/documents.svg?r2ykd9#documents') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="doc-ico-"], [class*=" doc-ico-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'documents' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.doc-ico-file-picture-o:before {
+  content: "\e927";
+}
+.doc-ico-file-music-o:before {
+  content: "\e928";
+}
+.doc-ico-file-video-o:before {
+  content: "\e92a";
+}
+.doc-ico-file-download-o:before {
+  content: "\e9c7";
+}
+.doc-ico-file-upload-o:before {
+  content: "\e9c8";
+}
+.doc-ico-file-openoffice-o:before {
+  content: "\eae0";
+}
+.doc-ico-file-vector-o:before {
+  content: "\eae0";
+}
+.doc-ico-chain:before {
+  content: "\f0c1";
+}
+.doc-ico-link:before {
+  content: "\f0c1";
+}
+.doc-ico-file-text-o:before {
+  content: "\f0f6";
+}
+.doc-ico-folder-o:before {
+  content: "\f114";
+}
+.doc-ico-folder-open-o:before {
+  content: "\f115";
+}
+.doc-ico-file-pdf-o:before {
+  content: "\f1c1";
+}
+.doc-ico-file-word-o:before {
+  content: "\f1c2";
+}
+.doc-ico-file-excel-o:before {
+  content: "\f1c3";
+}
+.doc-ico-file-powerpoint-o:before {
+  content: "\f1c4";
+}
+.doc-ico-file-archive-o:before {
+  content: "\f1c6";
+}
+.doc-ico-file-zip-o:before {
+  content: "\f1c6";
+}

@@ -1,0 +1,137 @@
+// Global
+
+// .l-country-choser {
+//   .js-section-fade {
+//     opacity: 1;
+//   }
+// }
+
+
+.l-country-choser {
+  .l-grid {
+    display: grid;
+    width: 100%;
+    min-height: 700px;
+    grid-gap: 12px;
+    @media (min-width: 992px) {
+      grid-gap: 24px;
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 49% 49%;
+      grid-template-areas:
+      "left-item right-top"
+      "left-item right-bottom";
+    }
+
+    &-item {
+      background-color: $primary;
+    }
+
+    .l-view, .card {
+      margin-bottom: 0;
+    }
+
+    .top-pane-left {
+      @media (max-width: 992px) {
+        order: 2;
+      }
+      @media (min-width: 992px) {
+        grid-area: left-item;
+        height: 100%;
+        .l-pane,  .DnnModule, .l-mc, .l-mc__content, .Mod2sxcappC, 
+        .sc-content-block, .app-cb, .l-view, .row, 
+         .col-12, .card, .l-item__media {
+           height: 100%;
+         }
+      }
+    }
+
+    .top-pane-right {
+      @media (max-width: 992px) {
+        order: 1;
+      }
+      @media (min-width: 992px) {
+        grid-area: right-top;
+      }
+    }
+
+    .top-pane-bottom {
+      @media (max-width: 992px) {
+        order: 3;
+      }
+      @media (min-width: 992px) {
+        grid-area: right-bottom;
+        .l-pane,  .DnnModule, .l-mc, .l-mc__content, .Mod2sxcappC, 
+        .sc-content-block, .app-cb, .l-view, .row, 
+         .col-12, .card, .l-item__media {
+           height: 100%;
+         }
+        
+      }
+    }
+
+  }
+
+
+  .c-country-choser {
+    height: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    &__head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .o-kicker {
+        margin-bottom: .5rem;
+      }
+      .o-title {
+        font-weight: 300;
+        text-align: center;
+      }
+    }
+
+    .btn {
+      width: 60px;height: 60px;
+      padding: 0;
+      color: white;
+      svg {
+        width: 25px;
+        fill: white;
+      }
+      &:hover,
+      &:focus,
+      &:hover {
+        background-color: white;
+        svg {
+          fill: $primary;
+        }
+      }
+    }
+  }
+
+  select {
+    background-color: transparent;
+    color: white;
+    &.form-select {
+      background-image: url(/images/angle-down-sharp.svg);
+      background-size: 20px;
+      font-weight: 300;
+      &:focus,
+      &:active {
+        box-shadow: 0 0 0 0.1rem rgba(255, 255, 255, 1) !important;
+        border: 1px solid white;
+      }
+    }
+    option {
+      color: black;
+    }
+  }
+
+}
+
+
+

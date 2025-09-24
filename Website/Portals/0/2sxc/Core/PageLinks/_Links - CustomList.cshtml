@@ -1,0 +1,52 @@
+@inherits Custom.Hybrid.Razor14
+@using System.Linq;
+@using System.Collections.Generic;
+@using Core;
+
+@{
+  // Get authentication status using CmsContext
+  var isAnonymus = CmsContext.User.IsAnonymous;
+
+  // Get all data bind to this view
+  var links = AsList(Content);
+
+  // Filter content to get only the links that the user has access to. Admins and Content Editors can see demo items but public users can't.
+  var filteredContent = CoreHelpers.FilterContent(links, isAnonymus);
+}
+
+<section class="app-pagelinks">
+  <div class="list-group">
+    @foreach (var item in filteredContent)
+    {
+      <a href="@item.Url"
+         target="@(String.IsNullOrEmpty(item.Target) ? "_self" : item.Target)"
+         class="list-group-item list-group-item-action @(!String.IsNullOrEmpty(item.cssClassName) ? item.cssClassName : "")"
+         @Edit.TagToolbar(item)>
+
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">
+            @if (!String.IsNullOrEmpty(item.Icon))
+            {
+              <img src="@item.Icon" alt="@item.Title Icon" class="me-2" style="width: 20px;">
+            }
+            @if (!(item.IsTitleHidden == true))
+            {
+              @item.Title
+            }
+          </h5>
+          @if (!isAnonymus)
+          {
+            <small class="badge @(CoreHelpers.GetBadgeClass(item)) rounded-pill">
+              @CoreHelpers.GetBadgeText(item)
+            </small>
+          }
+        </div>
+
+        @if (!String.IsNullOrEmpty(item.Description))
+        {
+          <p class="mb-1">@Html.Raw(item.Description)</p>
+        }
+      </a>
+    }
+  </div>
+</section>

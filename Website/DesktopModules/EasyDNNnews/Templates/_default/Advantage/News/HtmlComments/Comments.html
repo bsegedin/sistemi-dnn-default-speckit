@@ -1,0 +1,175 @@
+﻿<!--CommentsTemplateBegin-->
+<!--CommentsSectionWrapperHeaderTemplateBegin-->
+<div class="media-area edNews__commentsWrapper py-3 py-lg-5">
+	<h3 class="title text-center">[EasyDNNnews:Comments:LocalizedText:Comment]</h3>
+	<div class="bootstrap-select mb-4">
+		<div class="btn dropdown-toggle select-with-transition bs-placeholder edNews__showCommentsTrigger">
+			<span class="filter-option">
+				<span class="edNews_commentExpanded">[EasyDNNnews:Comments:LocalizedText:Collapse] </span>
+				<span class="edNews_commentCollapsed">[EasyDNNnews:Comments:LocalizedText:Expand] </span>
+				[EasyDNNnews:Comments:LocalizedText:Comments] <i class="text-muted">([EasyDNNnews:Comments:NumberOfComments])</i>
+				</span>
+		</div>
+	</div>
+	<div class="edNews__commentsCollapseWrapper">
+<!--CommentsSectionWrapperHeaderTemplateEnd-->
+
+<!--CommentsListHeaderTemplateBegin-->
+<!--CommentsListHeaderTemplateEnd-->
+
+<!--SingleCommentInListTemplateBegin-->
+
+		<div class="edNews_commentDetails media">
+			<div class="float-left">
+				<div class="avatar">
+					[EasyDNNnews:Comments:CommentersAvatar]
+				</div>
+			</div>
+			<div class="media-body">
+				<h4 class="media-heading">[EasyDNNnews:Comments:CommentersName] <small>· [EasyDNNnews:Comments:CommentDateAdded]</small></h4>
+				<div class="edNews_commentText">
+					[EasyDNNnews:Comments:CommentFormatedText]
+				</div>
+				[EasyDNNnews:Comments:IfExists:CommentEditPermission]
+				<div class="edNews__editCommentContainer">
+					<span class="edNews_errorMessage edNews__commentsNoCommentError">[EasyDNNnews:Comments:LocalizedText:PleaseSpecifyaComment]</span>
+					<textarea class="edNews__editCommentContent" rows="2" cols="20"></textarea>
+					<div class="edNews_commentActions">
+						<span class="edNews__editCommentSaveTrigger"><span>[EasyDNNnews:Comments:LocalizedText:Save]</span></span><span class="edNews__editCommentCancelTrigger"><span>[EasyDNNnews:Comments:LocalizedText:Cancel]</span></span>
+					</div>
+				</div>
+				[EasyDNNnews:Comments:EndIf:CommentEditPermission]
+				<div class="media-footer d-flex justify-content-end align-items-center">
+					[EasyDNNnews:Comments:IfExists:VotingEnabled]
+					<div class="edNews_votes">
+						<div class="edNews__commentVoting_trigger edNews__commentVoting_upvote[EasyDNNnews:Comments:IfExists:CommentUpVoted] edNews__commentVoting_voted[EasyDNNnews:Comments:EndIf:CommentUpVoted]">
+							<span class="edNews_actionIcon fa fa-thumbs-o-up"></span>
+							<span class="edNews_numberVotes edNews__commentVoting_goodVotes">[EasyDNNnews:Comments:CommentGoodVotes]</span>
+						</div>
+						<div class="edNews__commentVoting_trigger edNews__commentVoting_downvote[EasyDNNnews:Comments:IfExists:CommentDownVoted] edNews__commentVoting_voted[EasyDNNnews:Comments:EndIf:CommentDownVoted]">
+							<span class="edNews_actionIcon fa fa-thumbs-o-down"></span>
+							<span class="edNews_numberVotes edNews__commentVoting_badVotes">[EasyDNNnews:Comments:CommentBadVotes]</span>
+						</div>
+					</div>
+					[EasyDNNnews:Comments:EndIf:VotingEnabled]
+					<div class="edNews_adminEdit">
+						<div class="edNews_commentActions">[EasyDNNnews:Comments:CommentAdminActions]</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+<!--SingleCommentInListTemplateEnd-->
+
+<!--CommentsListFooterTemplateBegin-->
+<!--CommentsListFooterTemplateEnd-->
+
+<!--CommentsAddFormTemplateBegin-->
+		<div class="edNews_addComment edNews_registeredUser">
+			<p class="edNews__replyingToMessage">[EasyDNNnews:Comments:LocalizedText:YouAreReplyingTo]</p>
+			<span class="edNews_errorMessage edNews__commentsNoCommentError">[EasyDNNnews:Comments:LocalizedText:PleaseEnterAComment]</span>
+			<span class="edNews__commentPendingApproval">[EasyDNNnews:Comments:LocalizedText:YourCommentWasAddedButItMustBeApprovedFirst]</span>
+			<div class="media media-post">
+				<div class="author float-left">
+					<div class="avatar">
+						[EasyDNNnews:Comments:CommentersAvatar]
+					</div>
+				</div>
+				<div class="media-body">
+					<div class="form-group label-floating bmd-form-group">
+						<textarea class="form-control edNews__commentsCommentInput" rows="5" id="edNews_commentsCommentInput_[EasyDNNnews:Comments:ModuleID]"></textarea>
+						<label class="form-control-label bmd-label-floating" for="edNews_commentsCommentInput_[EasyDNNnews:Comments:ModuleID]">[EasyDNNnews:Comments:LocalizedText:Comment]:</label>
+					</div>
+					<div class="media-footer">
+						[EasyDNNnews:Comments:IfExists:CaptchaControl]
+						<span class="edNews_errorMessage edNews__commentsNoCaptchaError">[EasyDNNnews:Comments:LocalizedText:PleaseSolveCaptcha]</span>
+						<div class="edNews_captchaControl">
+							[EasyDNNnews:Comments:CaptchaControl]
+						</div>
+						[EasyDNNnews:Comments:EndIf:CaptchaControl]
+						<span class="edNews__commentsSubmitComment btn btn-primary btn-wd float-right">[EasyDNNnews:Comments:LocalizedText:AddComment]</span>
+					</div>
+				</div>
+			</div>
+		</div>
+<!--CommentsAddFormTemplateEnd-->
+
+<!--CommentsUnregisteredUserAddFormTemplateBegin-->
+		<div class="edNews_addComment edNews_clearFix">
+			<p class="edNews__replyingToMessage">[EasyDNNnews:Comments:LocalizedText:YouAreReplyingTo]</p>
+			<p class="edNews__commentPendingApproval">[EasyDNNnews:Comments:LocalizedText:YourCommentWasAddedButItMustBeApprovedFirst]</p>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group label-floating bmd-form-group">
+						<span class="edNews_errorMessage edNews__commentsNoNameError">[EasyDNNnews:Comments:LocalizedText:PleaseSpecifyYourName]</span>
+						<input id="edNews_commentsAuthorNameInput_[EasyDNNnews:Comments:ModuleID]" class="edNews__commentsAuthorNameInput form-control" type="text" name="name">
+						<label class="form-control-label bmd-label-floating" for="edNews_commentsAuthorNameInput_[EasyDNNnews:Comments:ModuleID]">[EasyDNNnews:Comments:LocalizedText:Name]:</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group label-floating bmd-form-group">
+						<span class="edNews_errorMessage edNews__commentsNoEmailError">[EasyDNNnews:Comments:LocalizedText:PleaseSpecifyYourEmailAddress]</span>
+						<span class="edNews_errorMessage edNews__commentsInvalidEmailError">[EasyDNNnews:Comments:LocalizedText:PleaseSpecifyaValidEmailAddress]</span>
+						<input id="edNews_commentsAuthorEmailInput_[EasyDNNnews:Comments:ModuleID]" class="edNews__commentsAuthorEmailInput form-control" type="text" name="email">
+						<label class="form-control-label bmd-label-floating" for="edNews_commentsAuthorEmailInput_[EasyDNNnews:Comments:ModuleID]">[EasyDNNnews:Comments:LocalizedText:Email]:</label>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="form-group label-floating bmd-form-group">
+						<span class="edNews_errorMessage edNews__commentsNoCommentError">[EasyDNNnews:Comments:LocalizedText:PleaseEnterAComment]</span>
+						<textarea id="edNews_commentsCommentInput_[EasyDNNnews:Comments:ModuleID]" class="edNews__commentsCommentInput form-control " rows="5"></textarea>
+						<label class="form-control-label bmd-label-floating" for="edNews_commentsCommentInput_[EasyDNNnews:Comments:ModuleID]">[EasyDNNnews:Comments:LocalizedText:Comment]:</label>
+					</div>
+				</div>
+			</div>
+			[EasyDNNnews:Comments:IfExists:CaptchaControl]
+			<span class="edNews_errorMessage edNews__commentsNoCaptchaError">[EasyDNNnews:Comments:LocalizedText:PleaseSolveCaptcha]</span>
+			<div class="edNews_captchaControl">
+				[EasyDNNnews:Comments:CaptchaControl]
+			</div>
+			[EasyDNNnews:Comments:EndIf:CaptchaControl]
+			[EasyDNNnews:Comments:IfExists:GDPRComplianceAgreement]
+			<div class="edNews_adminInfo edNews_block">
+				<label>[EasyDNNnews:Comments:LocalizedText:CommentsGDPRComplianceAgreementRules]</label>
+				<span class="edNews_errorMessage edNews__commentsGDPRComplianceError">[EasyDNNnews:Comments:LocalizedText:CommentsGDPRComplianceAgreementError]</span>
+				<div class="edNews_textCenter">
+					<div class="edNews_inputGroup edNews_adminInfo edNews_info">
+						<input id="commentsGDPRComplianceAgreementRules" class="edNews__commentsGDPRComplianceAgreementRules" type="checkbox" /><label for="commentsGDPRComplianceAgreementRules">[EasyDNNnews:Comments:LocalizedText:IAgree]</label>
+					</div>
+				</div>
+			</div>
+			[EasyDNNnews:Comments:EndIf:GDPRComplianceAgreement]
+			<span class="edNews__commentsSubmitComment btn btn-primary btn-wd float-right">[EasyDNNnews:Comments:LocalizedText:AddComment]</span>
+		</div>
+<!--CommentsUnregisteredUserAddFormTemplateEnd-->
+
+<!--CommentsSectionWrapperFooterTemplateBegin-->
+		[EasyDNNnews:Comments:AddForm]
+		[EasyDNNnews:Comments:LoadMoreButton]
+	</div>
+</div>
+<!--CommentsSectionWrapperFooterTemplateEnd-->
+
+<!--CommentsVisibleOnlyToSubscribersTemplateBegin-->
+<div class="alert alert-info">
+	<div class="container">
+		<div class="alert-icon">
+			<i class="material-icons">info_outline</i>
+		</div>
+		[EasyDNNnews:Comments:LocalizedText:CommentsOnlyPaid]
+	</div>
+</div>
+<!--CommentsVisibleOnlyToSubscribersTemplateEnd-->
+
+<!--CommentsNoPermissionToPostCommentsTemplateBegin-->
+<div class="alert alert-warning">
+	<div class="container">
+		<div class="alert-icon">
+			<i class="material-icons">warning</i>
+		</div>
+		[EasyDNNnews:Comments:LocalizedText:NoPermissionToPostComments]
+	</div>
+</div>
+<!--CommentsNoPermissionToPostCommentsTemplateEnd-->
+
+<!--CommentsTemplateEnd-->

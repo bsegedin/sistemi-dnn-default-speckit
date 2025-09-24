@@ -1,0 +1,1 @@
+﻿<%@ WebHandler Language="C#" CodeBehind="AddLink.ashx.cs" Class="EasyDNNSolutions.Modules.EasyDNNNews.Links.AddLink" %>

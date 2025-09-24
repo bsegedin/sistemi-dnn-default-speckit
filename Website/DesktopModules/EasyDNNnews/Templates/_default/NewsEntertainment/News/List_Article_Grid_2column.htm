@@ -1,0 +1,37 @@
+<!--TemplateGroup:listArticleDefault-->
+<!--ArticleRepeat:Before:-->
+<div class="[EasyDNNnews:ArticleListWrapperClass] edn_cols edn_flexRow edn_colGutter edn_itemsStretch edn_flexFlowWrap">
+<!--RepeatEnd:Before:-->
+<!--ArticleTemplate-->
+	<div class="edn_width50 edn_whiteBg edn_marginY">
+		<article class="edn_articleStyle10 edn_flexRow edn_itemsCenter">
+			[EasyDNNnews:IfExists:Image]
+			<section>
+				<a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><img loading="lazy" class="edn_articleImage" alt="[EasyDNNnews:Title]" src="[EasyDNNnews:Image]"/></a>
+			</section>
+			[EasyDNNnews:EndIf:Image]
+			<div>
+				[EasyDNNnews:HasArticlePermissions]
+				<div class="edn_adminActions">
+					[EasyDNNnews:ArticlePermissions:Edit]
+					[EasyDNNnews:ArticlePermissions:Publish]
+					[EasyDNNnews:ArticlePermissions:Approve]
+				</div>
+				[EasyDNNnews:HasArticlePermissionsEnd]
+				<div class="edn_flexRow edn_itemsCenter">
+					<span class="edn_category">[EasyDNNnews:Categories separator=" " last]</span>
+					<time>[EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfNotExists:Event][EasyDNNnews:FormatedDate:m][EasyDNNnews:EndIf:Event]</time>
+				</div>
+				[EasyDNNnews:IfExists:SubTitle]
+				<h3 class="edn_articleTitle edn_articleSubTitle">[EasyDNNnews:SubTitle]</h3>
+				[EasyDNNnews:EndIf:SubTitle]
+				<h2 class="edn_articleTitle"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]">[EasyDNNnews:Title]</a></h2>
+				<div class="edn_articleSummary">[EasyDNNnews:Summary]</div>
+			</div>
+		</article>
+	</div>
+<!--ArticleEnd-->
+
+<!--ArticleRepeat:After:-->
+</div>
+<!--RepeatEnd:After:-->

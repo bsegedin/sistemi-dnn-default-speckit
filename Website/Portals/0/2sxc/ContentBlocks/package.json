@@ -1,0 +1,47 @@
+{
+  "name": "sistemi.hr-content-blocks-app",
+  "version": "01.00.00",
+  "description": "Sistemi.hr Starterkit Content Blocks 2sxc app",
+  "main": "(none)",
+  "scripts": {
+    "build-dev": "webpack --mode development",
+    "build-prod": "webpack --mode production",
+    "postinstall": "npm install copyfiles -g && npm run copy-libs",
+    "copy-libs": "npm run copy-swiper-js && npm run copy-swiper-css && npm run copy-hls",
+    "copy-swiper-js": "copyfiles -f node_modules/swiper/swiper-bundle.min.js dist/swiper/",
+    "copy-swiper-css": "copyfiles -f node_modules/swiper/swiper-bundle.min.css dist/swiper/",
+    "copy-hls": "copyfiles -f node_modules/hls.js/dist/hls.min.js dist/hls/"
+  },
+  "author": "Sistemi.hr",
+  "license": "MIT",
+  "repository": "https://github.com/netmedsis/sistemi-dnn-starterkit",
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "autoprefixer": "^10.4.13",
+    "babel-loader": "^9.1.2",
+    "browser-sync": "^2.27.10",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "copyfiles": "^2.4.1",
+    "css-loader": "^7.1.1",
+    "css-minimizer-webpack-plugin": "^7.0.0",
+    "mini-css-extract-plugin": "^2.9.0",
+    "postcss-loader": "^8.1.1",
+    "sass": "^1.75.0",
+    "sass-loader": "^14.2.1",
+    "terser-webpack-plugin": "^5.3.11",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.2.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "swiper": "^11.2.5",
+    "hls.js": "1.5.20"
+  },
+  "presets": [
+    "@babel/preset-env"
+  ]
+}

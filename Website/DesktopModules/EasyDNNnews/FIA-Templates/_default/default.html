@@ -1,0 +1,96 @@
+﻿<!doctype html>
+<html lang="en" prefix="op: http://media.facebook.com/op#">
+<head>
+	<meta charset="utf-8">
+	<link rel="canonical" href="[EasyDNNnews:ArticleLink]">
+	<meta property="op:markup_version" content="v1.0">
+</head>
+<body>
+	<article>
+		<header>
+			<h1>[EasyDNNnews:Title]</h1>
+			[EasyDNNnews:IfExists:SubTitle]
+			<h2>[EasyDNNnews:SubTitle]</h2>
+			[EasyDNNnews:EndIf:SubTitle]
+			<address>[EasyDNNnews:Author:DisplayName]</address>
+			<time class="op-published" datetime="[EasyDNNnews:FormatedDate:O]">[EasyDNNnews:FormatedDate:O]</time>
+			<time class="op-modified" dateTime="[EasyDNNnews:FormatedLastModifiedDate:O]">[EasyDNNnews:FormatedLastModifiedDate:O]</time>
+			[EasyDNNnews:IfExists:Event]
+			[EasyDNNnewsLocalizedText:Eventdate]: <strong>[EasyDNNnews:EventDate]</strong>
+			[EasyDNNnews:IfExists:EventLocation]
+			<p>[EasyDNNnewsLocalizedText:EventLocation]: <strong>[EasyDNNnews:EventLocation]</strong></p>
+			[EasyDNNnews:EndIf:EventLocation]
+			[EasyDNNnews:IfExists:Payment]<span>[EasyDNNnewsLocalizedText:Price]: [EasyDNNnews:Price]</span>[EasyDNNnews:EndIf:Payment]
+			<a href="[EasyDNNnews:iCalendar]"><span>[EasyDNNnewsLocalizedText:ExportEvent]</span></a>
+			[EasyDNNnews:EndIf:Event]
+			[EasyDNNnews:IfExists:Image]
+			<figure>
+				<img src="[EasyDNNnews:Image:Width:2048:Height:2048:Resize:Proportional]" />
+				[EasyDNNnews:IfExists:MainImageTitle]
+				<figcaption>[EasyDNNnews:MainImageTitle]</figcaption>
+				[EasyDNNnews:EndIf:MainImageTitle]
+			</figure>
+			[EasyDNNnews:EndIf:Image]
+		</header>
+		<p>[EasyDNNnews:Article]</p>
+
+		[EasyDNNnews:ArticleMaps]
+		[EasyDNNnews:DocumentList]
+		[EasyDNNnews:Links]
+
+		<figure class="op-slideshow">
+			[EasyDNNnews:IfExists:GalleryImage:1]
+			<figure>
+				<img src="[EasyDNNnews:GalleryImage:1:Width:2048:Height:2048:Resize:Proportional]" />
+			</figure>
+			[EasyDNNnews:EndIf:GalleryImage]
+			[EasyDNNnews:IfExists:GalleryImage:2]
+			<figure>
+				<img src="[EasyDNNnews:GalleryImage:2:Width:2048:Height:2048:Resize:Proportional]" />
+			</figure>
+			[EasyDNNnews:EndIf:GalleryImage]
+			[EasyDNNnews:IfExists:GalleryImage:3]
+			<figure>
+				<img src="[EasyDNNnews:GalleryImage:3:Width:2048:Height:2048:Resize:Proportional]" />
+			</figure>
+			[EasyDNNnews:EndIf:GalleryImage]
+			[EasyDNNnews:IfExists:GalleryImage:4]
+			<figure>
+				<img src="[EasyDNNnews:GalleryImage:4:Width:2048:Height:2048:Resize:Proportional]" />
+			</figure>
+			[EasyDNNnews:EndIf:GalleryImage]
+			[EasyDNNnews:IfExists:GalleryImage:5]
+			<figure>
+				<img src="[EasyDNNnews:GalleryImage:5:Width:2048:Height:2048:Resize:Proportional]" />
+			</figure>
+			[EasyDNNnews:EndIf:GalleryImage]
+			[EasyDNNnews:IfExists:GalleryImage:6]
+			<figure>
+				<img src="[EasyDNNnews:GalleryImage:6:Width:2048:Height:2048:Resize:Proportional]" />
+			</figure>
+			[EasyDNNnews:EndIf:GalleryImage]
+			[EasyDNNnews:IfExists:GalleryImage:7]
+			<figure>
+				<img src="[EasyDNNnews:GalleryImage:7:Width:2048:Height:2048:Resize:Proportional]" />
+			</figure>
+			[EasyDNNnews:EndIf:GalleryImage]
+			[EasyDNNnews:IfExists:GalleryImage:8]
+			<figure>
+				<img src="[EasyDNNnews:GalleryImage:8:Width:2048:Height:2048:Resize:Proportional]" />
+			</figure>
+			[EasyDNNnews:EndIf:GalleryImage]
+			[EasyDNNnews:IfExists:GalleryImage:9]
+			<figure>
+				<img src="[EasyDNNnews:GalleryImage:9:Width:2048:Height:2048:Resize:Proportional]" />
+			</figure>
+			[EasyDNNnews:EndIf:GalleryImage]
+			[EasyDNNnews:IfExists:GalleryImage:10]
+			<figure>
+				<img src="[EasyDNNnews:GalleryImage:10:Width:2048:Height:2048:Resize:Proportional]" />
+			</figure>
+			[EasyDNNnews:EndIf:GalleryImage]
+		</figure>
+		<footer></footer>
+	</article>
+</body>
+</html>

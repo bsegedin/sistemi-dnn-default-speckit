@@ -1,0 +1,40 @@
+<!--TemplateGroup:contentBlockDefault-->
+
+<!--ArticleRepeat:Before:-->
+<header class="edn_widgetHeaderWrapper">
+	<div class="edn__contentBlock_header">
+		[EasyDNNnews:IfExists:ModuleHeader]<h2 class="edn_widgetTitle edn__contentBlock_title"><span>[EasyDNNnews:ModuleTitle]</span></h2>[EasyDNNnews:EndIf:ModuleHeader]
+		[EasyDNNnews:IfExists:CategoriesFilter]
+		[EasyDNNnews:Categories:Html:UnorderedList]
+		<div class="edn__contentBlock_hiddenItemWrapper">
+			<div class="edn_contentBlock_trigger">More</div>
+			<ol class="edn__contentBlock_itemList edn__contentBlock_hiddenItemList"></ol>
+		</div>
+		[EasyDNNnews:EndIf:CategoriesFilter]
+	</div>
+</header>
+<div class="ednCB_mainWrapper">
+	<div class="edn_verticalList2 edn_articleList">
+<!--RepeatEnd:Before:-->
+
+<!--ArticleTemplate-->
+		<article class="eds_smallArticle edn_articleList [EasyDNNnews:FeaturedArticle]">
+			<span class="edn_category">[EasyDNNnews:Categories separator=" " last]</span>
+			<h2 class="edn_articleTitle edn_articleTitleSmall"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><span class="edn_featuredBadge">Exclusive</span>[EasyDNNnews:Title]</a></h2>
+			<time class="edn_time">[EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfNotExists:Event][EasyDNNnews:FormatedDate:MMMM d, yyyy][EasyDNNnews:EndIf:Event]</time>
+		</article>
+<!--ArticleEnd-->
+
+<!--ArticleRepeat:After:-->
+	</div>
+	[EasyDNNnews:IfExists:Paging]
+	<div class="edn_pagination2">
+		<span class="edn_previous edn__contentBlock_previousPage"><span class="visually-hidden">[EasyDNNnewsLocalizedText:PreviousPageText]</span><i class="fa-solid fa-arrow-left"></i></span>
+		<span class="edn_next edn__contentBlock_nextPage"><span class="visually-hidden">[EasyDNNnewsLocalizedText:NextPageText]</span><i class="fa-solid fa-arrow-right"></i></span>
+	</div>
+	[EasyDNNnews:EndIf:Paging]
+	<p class="eds_noContent">[EasyDNNnewsLocalizedText:NoContentMessage]</p>
+	<p class="eds_contentError">[EasyDNNnewsLocalizedText:ContentErrorMessage]</p>
+</div>
+<div class="loadingOverlay edn_loadingBlock"></div>
+<!--RepeatEnd:After:-->

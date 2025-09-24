@@ -1,0 +1,198 @@
+<!--TemplateGroup:detailsArticleDefault-->
+<!--ArticleTemplate-->
+<EDNHeader>
+<article class="edNews_article edNews_articleDetails card card-blog" [EasyDNNnews:ArticleMetaDataAttribute]>
+	<div class="card-body p-3">
+</EDNHeader>
+<!--Gallery TOP position-->
+<EDNContentTop>
+		<h1 class="title h2 mt-0">[EasyDNNnews:Title]</h1>
+		[EasyDNNnews:IfNotExists:Image]
+		<span class="float-right h5 badge badge-pill badge-secondary px-3 py-2"><i class="fas fa-eye"></i> [EasyDNNnews:NumberOfViews][EasyDNNnews:IfExists:Comments]<i class="fas fa-comment-dots ml-3"></i> [EasyDNNnews:Comments][EasyDNNnews:EndIf:Comments]</span>
+		[EasyDNNnews:EndIf:Image]
+		<div class="text-muted edNews_articleHeaderMeta mb-3 mb-lg-4">
+			[EasyDNNnews:Author:Link]
+			<time> / [EasyDNNnews:PublishDate][EasyDNNnews:EndIf:Event]</time>
+			<div class="edNews_articleCategories d-inline-block"> / [EasyDNNnewsLocalizedText:Categories]: [EasyDNNnews:Categories]</div>
+		</div>
+		<div class="edNews_clearFix"></div>
+		[EasyDNNnews:IfMediaType:Image]
+		<div class="edNews_mediaContainer">
+			[EasyDNNnews:IfExists:GalleryBackLink]
+			<div class="edNews_galleryBackLinkWrapper">
+				<a href="[EasyDNNnews:GalleryBackLink]" class="btn btn-rose btn-round"><span class="material-icons mr-1">image</span>[EasyDNNnewsLocalizedText:ViewInGallery]</a>
+			</div>
+			[EasyDNNnews:EndIf:GalleryBackLink]
+			<picture>
+				<source media="(max-width: 480px)" srcset="[EasyDNNnews:Image:Width:400:Height:400:Resize:Proportional]">
+				<source media="(max-width: 640px)" srcset="[EasyDNNnews:Image:Width:600:Height:600:Resize:Proportional]">
+				<img class="rounded" alt="[EasyDNNnews:Title]" src="[EasyDNNnews:Image]" />
+			</picture>
+			<span class="h5 badge badge-pill badge-secondary px-3 py-2"><i class="fas fa-eye"></i> [EasyDNNnews:NumberOfViews][EasyDNNnews:IfExists:Comments] <i class="fas fa-comment-dots ml-3"></i> [EasyDNNnews:Comments][EasyDNNnews:EndIf:Comments]</span>
+		</div>
+		[EasyDNNnews:EndIfMediaType]
+		[EasyDNNnews:IfMediaType:EmbedMedia]
+		<div class="edNews_mediaContainer">
+			[EasyDNNnews:IfExists:GalleryBackLink]
+			<div class="edNews_galleryBackLinkWrapper">
+				<a href="[EasyDNNnews:GalleryBackLink]" class="btn btn-rose btn-round"><span class="material-icons mr-1">image</span>[EasyDNNnewsLocalizedText:ViewInGallery]</a>
+			</div>
+			[EasyDNNnews:EndIf:GalleryBackLink]
+			[EasyDNNnews:MainMedia]
+		</div>
+		<span class="float-right h5 badge badge-pill badge-secondary px-3 py-2"><i class="fas fa-eye"></i> [EasyDNNnews:NumberOfViews][EasyDNNnews:IfExists:Comments]<i class="fas fa-comment-dots ml-3"></i> [EasyDNNnews:Comments][EasyDNNnews:EndIf:Comments]</span>
+		[EasyDNNnews:EndIfMediaType]
+		[EasyDNNnews:IfExists:SubTitle]
+		<h4>[EasyDNNnews:SubTitle]</h4>
+		[EasyDNNnews:EndIf:SubTitle]
+		[EasyDNNnews:IfExists:Event]
+		<hr>
+		<div class="edNews_eventDetails edNews_clearFix card mt-5">
+			<div class="card-header edNews_eventHeader bg-light">
+				<time class="h4">[EasyDNNnewsLocalizedText:Eventdate]: <strong>[EasyDNNnews:EventDate]</strong> <a class="edNews_calendarExport edn_toolTip" href="[EasyDNNnews:iCalendar]" title="[EasyDNNnewsLocalizedText:ExportEvent]"><span class="edn_toolTipContent">[EasyDNNnewsLocalizedText:ExportEvent]</span><i class="fas fa-calendar"></i></a></time>
+				[EasyDNNnews:IfExists:Payment]<span class="pro-badge float-right edNews_eventPrice ml-auto bg-primary text-white">[EasyDNNnews:Price]</span>[EasyDNNnews:EndIf:Payment]
+				[EasyDNNnews:IfExists:EventLocation]
+				<p class="edNews_eventLocation">[EasyDNNnewsLocalizedText:EventLocation]: <strong>[EasyDNNnews:EventLocation]</strong></p>
+				[EasyDNNnews:EndIf:EventLocation]
+			</div>
+			<div class="card-body">
+				[EasyDNNnews:IfExists:EventRegistration]
+				<div class="d-flex">
+					<ul class="edNews_detailsList">
+						<li><i class="fas fa-users text-primary mr-2"></i><span><strong>[EasyDNNnewsLocalizedText:NumberOfAttendants]: </strong>[EasyDNNnews:EventRegistration:NumberOfAttendants]</span></li>
+						<li><i class="fas fa-ticket-alt text-primary mr-2"></i><span><strong>[EasyDNNnewsLocalizedText:MaxNumberOfTickets]: </strong>[EasyDNNnews:EventRegistration:MaxNumberOfTickets]</span></li>
+						<li><i class="fas fa-ticket-alt text-success mr-2"></i><span><strong>[EasyDNNnewsLocalizedText:NotUsedTickets]: </strong>[EasyDNNnews:EventRegistration:NotUsedTickets]</span></li>
+					</ul>
+					<div class="ml-auto align-self-end">[EasyDNNnews:EventRegistration:RegisterButton]</div>
+				</div>
+				[EasyDNNnews:EventRegistration:InfoMessage]
+				[EasyDNNnews:EndIf:EventRegistration]
+				[EasyDNNnews:IfExists:EventSignUp]
+				<div class="eds_signUpActionBarWrapper edNews_clearFix">
+					<h4>[EasyDNNnewsLocalizedText:AreYouGoing]</h4>[EasyDNNnews:SignUpActionBar]
+				</div>
+				[EasyDNNnews:EndIf:EventSignUp]
+			</div>
+		</div>
+		<hr>
+		[EasyDNNnews:EndIf:Event]
+</EDNContentTop>
+<EDNContent>
+		[EasyDNNnews:Article]
+</EDNContent>
+<EDNContentBottom>
+		<div class="edNews_clearFix"></div>
+		<div class="edNews_socialPrintWrapper">
+			[EasyDNNnews:SocialButtons:ShareThis]
+			[EasyDNNnews:Print:ArticleDetails]
+			<div class="edNews_votingRating">
+				[EasyDNNnews:ArticleRating]
+				[EasyDNNnews:IfExists:ArticleVoting]
+				<div class="edn_ArticleVoting">
+					<span class="edn__voteArticleUp"><i class="far fa-thumbs-up"></i><span class="eds__voteCount">[EasyDNNnews:ArticleGoodVotesCount]</span><span class="edn_voteTooltip">[EasyDNNnewsLocalizedText:Upvote]</span></span>
+					<span class="edn__voteArticleDown"><i class="far fa-thumbs-down"></i><span class="eds__voteCount">[EasyDNNnews:ArticleBadVotesCount]</span><span class="edn_voteTooltip">[EasyDNNnewsLocalizedText:Downvote]</span></span>
+				</div>
+				[EasyDNNnews:EndIf:ArticleVoting]
+			</div>
+		</div>
+		[EasyDNNnews:IfExists:Tags]
+		<div class="edNews_tags edNews_clearFix my-4">
+			<h4 class="title mb-2">[EasyDNNnewsLocalizedText:Tags]</h4>
+			[EasyDNNnews:Tags separator=""]
+		</div>
+		[EasyDNNnews:EndIf:Tags]
+		[EDNcf:ShowAll]
+		[EasyDNNnews:ArticleMaps]
+		[EasyDNNnews:EventRegistration:ListOfAttendants]
+		[EasyDNNnews:DocumentList]
+		[EasyDNNnews:Links]
+</EDNContentBottom>
+<!--Gallery BOTTOM position-->
+<EDNFooter>
+		[EasyDNNnews:GravityGallery]
+		[EasyDNNnews:IfExists:AuthorProfile]
+		<hr>
+		<div class="edNews_additionalCards">
+			<div class="card card-profile card-plain text-left my-0">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="card-avatar">
+							[EasyDNNnews:Author:Image:Width:130:Height:130:Resize:Crop]
+						</div>
+						<div class="text-center mt-3">
+							[EasyDNNnews:Author:FullInfo]
+							[EasyDNNnews:Author:Contact]
+						</div>
+					</div>
+					<div class="col-md-9">
+						<span class="edn_otherPostsBy float-right small">[EasyDNNnewsLocalizedText:Otherpostsby] [EasyDNNnews:Author:Link]</span>
+						<h4 class="card-title">[EasyDNNnews:Author:DisplayName]</h4>
+						<div class="description">[EasyDNNnews:Author:ShortInfo]</div>
+						<div class="edNews_authorButtons mt-2">
+							[EasyDNNnews:Author:Facebook]
+							[EasyDNNnews:Author:Twitter]
+							[EasyDNNnews:Author:LinkedIn]
+							[EasyDNNnews:Author:GooglePlus]
+							[EasyDNNnews:Author:YouTube]
+							[EasyDNNnews:Author:Instagram]
+							[EasyDNNnews:Author:Website]
+						</div>
+					</div>
+					<div class="col-md-12 text-right">
+						[EasyDNNnews:Author:RSSURL]
+					</div>
+				</div>
+			</div>
+		</div>
+		[EasyDNNnews:EndIf:AuthorProfile]
+		[EasyDNNnews:IfExists:AuthorGroup]
+		<hr>
+		<div class="edNews_additionalCards">
+			<div class="card card-profile card-plain text-left my-0">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="card-avatar">
+							[EasyDNNnews:Author:GroupImage:Width:130:Height:130:Resize:Crop]
+						</div>
+						<div class="text-center mt-3">
+							[EasyDNNnews:Author:GroupContact]
+						</div>
+					</div>
+					<div class="col-md-9">
+						<h4 class="card-title">[EasyDNNnews:Author:GroupName]</h4>
+						<div class="description">[EasyDNNnews:Author:GroupInfo]</div>
+						<div class="edNews_authorButtons mt-2">
+							[EasyDNNnews:Author:GroupFacebook]
+							[EasyDNNnews:Author:GroupTwitter]
+							[EasyDNNnews:Author:GroupLinkedIn]
+							[EasyDNNnews:Author:GroupGooglePlus]
+							[EasyDNNnews:Author:GroupYouTube]
+							[EasyDNNnews:Author:GroupInstagram]
+							[EasyDNNnews:Author:GroupWebsite]
+						</div>
+					</div>
+					<div class="col-md-12 text-right">
+						[EasyDNNnews:Author:GroupRSSURL]
+					</div>
+				</div>
+			</div>
+		</div>
+		[EasyDNNnews:EndIf:AuthorGroup]
+		[EasyDNNnews:RelatedArticles]
+</EDNFooter>
+<!--Comments position-->
+<EDNBottom>
+		[EasyDNNnews:IfExists:SimpleForumComments]
+		<div class="edNews_additionalCards pb-0">
+			<div class="edNews_cardHeader d-flex mb-0">
+				<span class="edNews_boxBadge"><span class="material-icons">comment</span></span>
+				<h4 class="edNews_additionalCardTitle">[EasyDNNnewsLocalizedText:LatestCommentsOnForum] <span class="text-primary">([EasyDNNnews:Comments])</span></h4>
+				<a class="btn btn-primary ml-auto mr-3" href="[EasyDNNnews:SimpleForumCommentsTopicLink]"><i class="fas fa-plus-square mr-2"></i>[EasyDNNnewsLocalizedText:OpenInSimpleForum]</a>
+			</div>
+		</div>
+		[EasyDNNnews:EndIf:SimpleForumComments]
+		[EasyDNNnews:ListComments]
+	</div>
+</article>
+</EDNBottom>
+<!--ArticleEnd-->

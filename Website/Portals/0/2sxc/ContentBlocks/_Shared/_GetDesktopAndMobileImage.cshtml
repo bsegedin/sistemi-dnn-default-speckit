@@ -1,0 +1,77 @@
+@inherits Custom.Hybrid.Razor14
+@using ToSic.Razor.Blade
+
+@{
+    var data = DynamicModel.data;
+    var viewHelpers = DynamicModel.viewHelpers;
+    bool lazyLoadEnabled = DynamicModel.LazyLoadEnabled;
+    string imgClass = DynamicModel.ImgClass;
+    var presentation = AsDynamic(data.Presentation);
+
+    // Get Image objects to use in the template
+    var desktopImageData = data.Field("Image");
+    var mobileImageData = data.Field("MobileImage");
+
+    // Collect all necessary data for image rendering
+
+    // Fallbacks
+    string imagePlaceholder = App.Settings.ImagePlaceholder;
+    string defaultAltText = "Image";
+
+    // Desktop image data
+    bool hasDesktopImageAttached = desktopImageData.Url != "";
+    int desktopImageWidth = presentation.ImageWidth != null && presentation.ImageWidth > 0 ? (int)presentation.ImageWidth : 1920; // Default to 1920 if null or <= 0
+    string desktopImageAspectRatio = presentation.ImageAspectRatio != null ? presentation.ImageAspectRatio : "16:9";
+    int desktopImageHeight = viewHelpers.CalculateImageHeight(desktopImageAspectRatio, desktopImageWidth);
+    string imageAltText = "";
+    if (hasDesktopImageAttached)
+    {
+        imageAltText = Text.First(desktopImageData.Metadata.Description, defaultAltText);
+    }
+
+    // Mobile image data
+    bool hasMobileImageAttached = mobileImageData.Url != "";
+    int mobileImageWidth = 512; // ToDo maybe put this in the presentation settings
+    string mobileImageAspectRatio = "9:16"; // ToDo maybe put this in the presentation settings
+    int mobileImageHeight = viewHelpers.CalculateImageHeight(mobileImageAspectRatio, mobileImageWidth);
+
+    // Set image settings for each image type
+    ToSic.Sxc.Images.IResizeSettings desktopImageSettings = Kit.Image.Settings(aspectRatio: desktopImageAspectRatio, width: desktopImageWidth);
+    ToSic.Sxc.Images.IResizeSettings mobileImageSettings = Kit.Image.Settings(aspectRatio: mobileImageAspectRatio, width: mobileImageWidth);
+
+    // Create srcset strings
+    string mobileSrcSet = $"{mobileImageData.Url}?w={mobileImageWidth}&h={mobileImageHeight}&quality={mobileImageSettings.Quality}&mode={mobileImageSettings.ResizeMode}&scale={mobileImageSettings.ScaleMode}&format=webp";
+    string desktopSrcSet = $"{desktopImageData.Url}?w={desktopImageWidth}&h={desktopImageHeight}&quality={desktopImageSettings.Quality}&mode={desktopImageSettings.ResizeMode}&scale={desktopImageSettings.ScaleMode}&format=webp";
+
+    // Set default placeholder image which will show if no image attached to image fields
+    ToSic.Sxc.Images.IResponsivePicture desktopImageAsPicture = Kit.Image.Picture(imagePlaceholder, width: desktopImageWidth, settings: desktopImageSettings, imgClass: "d-block w-100");
+    ToSic.Sxc.Images.IResponsivePicture mobileImageAsPicture = Kit.Image.Picture(imagePlaceholder, width: mobileImageWidth, settings: mobileImageSettings, imgClass: "d-block w-100");
+
+    // Check if images are attached to field
+    if (hasDesktopImageAttached)
+    {
+        desktopImageAsPicture = Kit.Image.Picture(desktopImageData, width: desktopImageWidth, settings: desktopImageSettings, imgClass: "d-block w-100");
+    }
+    if (hasMobileImageAttached)
+    {
+        mobileImageAsPicture = Kit.Image.Picture(mobileImageData, width: mobileImageWidth, settings: mobileImageSettings, imgClass: "d-block w-100");
+    }
+
+    // Determine loading attribute value
+    string loadingAttribute = lazyLoadEnabled ? "lazy" : "eager";
+}
+
+@* If no desktop image attached create placeholder image or if is only desktop image arrached create desktop picture element using 2sxc mechanism.*@
+@if (!hasDesktopImageAttached || (hasDesktopImageAttached && !hasMobileImageAttached))
+{
+    @desktopImageAsPicture
+}
+
+@if (hasDesktopImageAttached && hasMobileImageAttached)
+{
+    <picture>
+        <source type="image/webp" media="(min-width: 601px)" srcset="@desktopSrcSet 1920w">
+        <source type="image/webp" media="(max-width: 600px)" srcset="@mobileSrcSet 512w">
+        <img loading="@loadingAttribute" class="@imgClass" src="@desktopSrcSet" alt="@imageAltText" width="@mobileImageWidth" height="@mobileImageHeight">
+    </picture>
+}

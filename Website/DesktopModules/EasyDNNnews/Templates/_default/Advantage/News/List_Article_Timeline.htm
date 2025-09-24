@@ -1,0 +1,59 @@
+<!--TemplateGroup:listArticleTimeline-->
+<!--ArticleRepeat:Before:-->
+<div class="[EasyDNNnews:ArticleListWrapperClass] mb-3 edNews_timeLineArticle">
+<!--RepeatEnd:Before:-->
+<!--ArticleTemplate-->
+	<article class="edNews_article edNews_clearFix row edNews_timeLineRow">
+		<div class="col-md-4 col-lg-3 d-flex align-items-center edNews_timeLine">
+			<div>
+				[EasyDNNnews:IfExists:Event]
+				<div class="h4 title edNews_eventStartDay"><span class="h3"><i class="fas fa-calendar mr-2"></i></span>[EasyDNNnews:EventStartDay] [EasyDNNnews:EventStartMonthNameShort] [EasyDNNnews:EventStartYear]</div>
+				<div class="h2 text-primary title mt-0 mb-2 edNews_startTime">[EasyDNNnews:EventStartTime]</div>
+				[EasyDNNnews:IfExists:EventLocation]
+				<div class="title"><i class="fas fa-map-marker-alt text-primary mr-2"></i><small>[EasyDNNnews:EventLocation]</small></div>
+				[EasyDNNnews:EndIf:EventLocation]
+				[EasyDNNnews:EndIf:Event]
+				[EasyDNNnews:IfNotExists:Event]
+				<div class="h4 title edNews_eventStartDay"><span class="h3"><i class="fas fa-clock mr-2"></i></span>[EasyDNNnews:PublishDay] [EasyDNNnews:PublishMonthString] [EasyDNNnews:PublishYear]</div>
+				<div class="h2 text-primary title mt-0 mb-2 edNews_startTime">[EasyDNNnews:FormatedDate:t]</div>
+				[EasyDNNnews:EndIf:Event]
+			</div>
+		</div>
+		<div class="col-md-8 col-lg-9">
+			<div class="edNews_additionalCards edNews_additionalCardsLeftImage">
+				[EasyDNNnews:HasArticlePermissions]
+				<div class="edn_adminActions">
+					[EasyDNNnews:ArticlePermissions:Edit]
+					[EasyDNNnews:ArticlePermissions:Publish]
+					[EasyDNNnews:ArticlePermissions:Approve]
+				</div>
+				[EasyDNNnews:HasArticlePermissionsEnd]
+				[EasyDNNnews:IfExists:Image]
+				<div class="edNews_additionalCardsImage">
+					<a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]" title="[EasyDNNnews:Title]">
+						<img loading="lazy" class="img-fluid" alt="[EasyDNNnews:Title]" src="[EasyDNNnews:Image]" />
+					</a>
+				</div>
+				[EasyDNNnews:EndIf:Image]
+				<div class="edNews_additionalCardsArticleContent">
+					<h2 class="title h3 mt-1 mb-2">
+						<a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]" title="[EasyDNNnews:Title]">[EasyDNNnews:Title]</a>
+					</h2>
+					<div class="edNews_summary">
+						[EasyDNNnews:Summary] <a href="[EasyDNNnews:Title:Link]" target="[EasyDNNnews:DetailTarget]">[EasyDNNnews:IfNotExists:EventRegistration][EasyDNNnewsLocalizedText:Read][EasyDNNnews:EndIf:EventRegistration][EasyDNNnews:IfExists:EventRegistration][EasyDNNnewsLocalizedText:Register][EasyDNNnews:EndIf:EventRegistration]...</a>
+					</div>
+					<hr>
+					<time class="d-flex justify-content-end align-items-center text-muted"><i class="material-icons mr-1 text-dark">schedule</i>[EasyDNNnews:IfNotExists:Event][EasyDNNnews:PublishDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event]</time>
+				</div>
+			</div>
+		</div>
+	</article>
+<!--ArticleEnd-->
+
+<!--ArticleRepeat:After:-->
+</div>
+[EasyDNNnews:IfExists:RSS]
+<hr class="mt-5">
+<a class="text-right d-block m-3" href="[EasyDNNnews:RSSLink]" target="_blank" title="[EasyDNNnewsLocalizedText:RSSLinkText]"><i class="material-icons">rss_feed</i><span class="sr-only">[EasyDNNnewsLocalizedText:RSSLinkText]</span></a>
+[EasyDNNnews:EndIf:RSS]
+<!--RepeatEnd:After:-->

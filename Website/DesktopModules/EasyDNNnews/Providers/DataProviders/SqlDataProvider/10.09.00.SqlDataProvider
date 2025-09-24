@@ -1,0 +1,7 @@
+﻿IF NOT EXISTS (SELECT UpdateVersion FROM {databaseOwner}[{objectQualifier}EasyDNNNewsUpdate] WHERE UpdateVersion = '10.09.00')
+BEGIN
+	INSERT {databaseOwner}[{objectQualifier}EasyDNNNewsUpdate]([UpdateVersion],[Finished],[InstallType]) VALUES(N'10.09.00',0, N'DNN')
+END
+GO
+
+DELETE FROM {databaseOwner}[{objectQualifier}EasyDNNNewsDNNSearchItems];

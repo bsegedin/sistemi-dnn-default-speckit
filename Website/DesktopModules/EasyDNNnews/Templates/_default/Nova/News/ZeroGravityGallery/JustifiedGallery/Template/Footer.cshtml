@@ -1,0 +1,10 @@
+﻿@inherits DotNetNuke.Web.Razor.DotNetNukeWebPage<EasyDNNSolutions.Modules.EasyDNNNews.ZeroGravityGallerySettings>
+</div>
+
+<script type="text/javascript">
+	$("#@("justifiednr"+Model.ArticleID)").justifiedGallery({
+		rowHeight: @Model.ThumbnailHeight,
+		lastRow: 'nojustify',
+		margins: 3
+	});
+</script>

@@ -1,0 +1,79 @@
+<!--TemplateGroup:listArticleMulti3-->
+
+<!--ArticleRepeat:Before:-->
+<div class="[EasyDNNnews:ArticleListWrapperClass]">
+<!--RepeatEnd:Before:-->
+
+<!--MultiArticleTemplate-->
+<!--Before:1:2:-->
+	<div class="row">
+<!--BeforeEnd-->
+<!--ArticleRepeat:1:2:-->
+		<article class="col-md-6">
+			[EasyDNNnews:HasArticlePermissions]
+			<div class="edn_adminActions">
+				[EasyDNNnews:ArticlePermissions:Edit]
+				[EasyDNNnews:ArticlePermissions:Publish]
+				[EasyDNNnews:ArticlePermissions:Approve]
+			</div>
+			[EasyDNNnews:HasArticlePermissionsEnd]
+			<div class="card card-raised card-background" [EasyDNNnews:IfExists:Image]style="background-image:url([EasyDNNnews:Image:Width:540:Height:320:Resize:Crop])"[EasyDNNnews:EndIf:Image]>
+				<div class="card-body">
+					<h6 class="card-category text-info">[EasyDNNnews:Categories separator=" " last]</h6>
+					<h3 class="card-title"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]" title="[EasyDNNnews:Title]">[EasyDNNnews:Title:Limit:55]</a></h3>
+					<div class="card-description mb-2">
+						[EasyDNNnews:Summary:Limit:250]
+					</div>
+					<a class="btn btn-primary btn-round" href="[EasyDNNnews:Title:Link]" target="[EasyDNNnews:DetailTarget]">[EasyDNNnews:IfNotExists:EventRegistration][EasyDNNnewsLocalizedText:Read][EasyDNNnews:EndIf:EventRegistration][EasyDNNnews:IfExists:EventRegistration][EasyDNNnewsLocalizedText:Register][EasyDNNnews:EndIf:EventRegistration]</a>
+				</div>
+			</div>
+		</article>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+<!--After:1:2:-->
+	</div>
+<!--AfterEnd-->
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--Before:3:-->
+	<div class="row">
+	<!--BeforeEnd-->
+	<!--ArticleRepeat:3:-->
+		<article class="col-12">
+			[EasyDNNnews:HasArticlePermissions]
+			<div class="edn_adminActions">
+				[EasyDNNnews:ArticlePermissions:Edit]
+				[EasyDNNnews:ArticlePermissions:Publish]
+				[EasyDNNnews:ArticlePermissions:Approve]
+			</div>
+			[EasyDNNnews:HasArticlePermissionsEnd]
+			<div class="card card-raised card-background" style="background-image:url([EasyDNNnews:Image:Width:540:Height:320:Resize:Crop])">
+				<div class="card-body">
+					<h6 class="card-category text-info">[EasyDNNnews:Categories separator=" " last]</h6>
+					<h3 class="card-title"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]" title="[EasyDNNnews:Title]">[EasyDNNnews:Title:Limit:55]</a></h3>
+					<div class="card-description mb-2">
+						[EasyDNNnews:Summary:Limit:250]
+					</div>
+					<a class="btn btn-primary btn-round" href="[EasyDNNnews:Title:Link]" target="[EasyDNNnews:DetailTarget]">[EasyDNNnews:IfNotExists:EventRegistration][EasyDNNnewsLocalizedText:Read][EasyDNNnews:EndIf:EventRegistration][EasyDNNnews:IfExists:EventRegistration][EasyDNNnewsLocalizedText:Register][EasyDNNnews:EndIf:EventRegistration]</a>
+				</div>
+			</div>
+		</article>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+<!--After:3:-->
+	</div>
+<!--AfterEnd-->
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--ArticleRepeat:After:-->
+</div>
+[EasyDNNnews:IfExists:RSS]
+<hr class="mt-5">
+<a class="text-right d-block m-3" href="[EasyDNNnews:RSSLink]" target="_blank" title="[EasyDNNnewsLocalizedText:RSSLinkText]"><i class="material-icons">rss_feed</i><span class="sr-only">[EasyDNNnewsLocalizedText:RSSLinkText]</span></a>
+[EasyDNNnews:EndIf:RSS]
+<!--RepeatEnd:After:-->
+<!--MultiArticleEnd-->

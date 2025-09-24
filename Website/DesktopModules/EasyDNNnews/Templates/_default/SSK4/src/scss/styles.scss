@@ -1,0 +1,43 @@
+
+/* ==========================================================================
+	COMPONENTS / EASY-DNN-NEWS /
+========================================================================== */
+
+
+@use "sass:color";
+
+@use "../fonts/documents/style.scss" as * with (
+  $icomoon-font-path: "../fonts"
+);
+
+@use "views/extended-icon-names" as *;
+
+@use "views/icon-colors" with (
+  $color-icons: true,
+  $bgcolor-icons: false,
+  $icon-color: white
+);
+
+@use "views/layout" with (
+  $document-icon-size: 22px,
+  $document-title-size: 24px
+);
+
+
+@import 'bootstrap/scss/bootstrap';
+
+
+// Gloabl variables
+@import "views/edn-global";
+
+
+// Detail variables
+@import "views/detail-carusel";
+@import "views/detail-default";
+@import "views/detail-mosaic";
+
+
+// List variables
+@import "views/list-cards";
+@import "views/list-feed";
+@import "views/list-swiper";

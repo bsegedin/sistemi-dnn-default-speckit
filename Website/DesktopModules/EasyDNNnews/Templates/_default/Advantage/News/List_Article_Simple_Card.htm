@@ -1,0 +1,27 @@
+<!--TemplateGroup:listArticleDefault-->
+<!--ArticleRepeat:Before:-->
+<div class="[EasyDNNnews:ArticleListWrapperClass] mb-3">
+<!--RepeatEnd:Before:-->
+<!--ArticleTemplate-->
+	<div class="ednCB_animatedArticle ednCB_3 mt-3">
+		<div class="edNews_smallCardArticle">
+			<a title="[EasyDNNnews:Title]" href="[EasyDNNnews:Title:Link]">
+				[EasyDNNnews:IfExists:Image]
+				<img loading="lazy" src="[EasyDNNnews:Image]">
+				[EasyDNNnews:EndIf:Image]
+				<div class="ml-3">
+					<span class="edNews_smallTitle title h5">[EasyDNNnews:Title]</span><br>
+					<time class="text-muted small">[EasyDNNnews:IfNotExists:Event][EasyDNNnews:PublishDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event]</time>
+				</div>
+			</a>
+		</div>
+	</div>
+<!--ArticleEnd-->
+
+<!--ArticleRepeat:After:-->
+</div>
+[EasyDNNnews:IfExists:RSS]
+<hr class="mt-5">
+<a class="text-right d-block m-3" href="[EasyDNNnews:RSSLink]" target="_blank" title="[EasyDNNnewsLocalizedText:RSSLinkText]"><i class="material-icons">rss_feed</i><span class="sr-only">[EasyDNNnewsLocalizedText:RSSLinkText]</span></a>
+[EasyDNNnews:EndIf:RSS]
+<!--RepeatEnd:After:-->

@@ -1,0 +1,69 @@
+﻿@using DotNetNuke.Web.DDRMenu;
+@using System.Dynamic;
+@inherits DotNetNuke.Web.Razor.DotNetNukeWebPage<dynamic>
+  
+@using ToSic.Razor.Blade;
+
+@{ 
+  var root = Model.Source.root; 
+  var guid = Guid.NewGuid().ToString("n").Substring(0, 8);
+  }
+
+@helper RenderNodes(IList<MenuNode> nodes) {
+
+  if (nodes.Count > 0)
+  {
+    string listLevel = nodes[0].Depth == 0 ? "c-list--root" : "c-list--child";
+
+    <ul class="c-list @listLevel">
+    @foreach (var node in nodes)
+    {
+      var cssClasses = new List<string>();
+        if (node.HasChildren()) { cssClasses.Add("has-children"); }
+        if (node.Selected) { cssClasses.Add("is-selected"); }
+        if (node.First) { cssClasses.Add("is-first"); }
+        if (node.Last) { cssClasses.Add("is-last"); }
+        if (node.Breadcrumb && node.HasChildren()) { cssClasses.Add("is-open"); }
+        cssClasses.Add( (node.Depth == 0 ? "c-item--parent" : "c-item--child") );
+
+      var classString = new HtmlString((cssClasses.Count == 0) ? "" : ("" + String.Join(" ", cssClasses.ToArray()) + ""));
+
+      <li class="c-item @classString">
+        <div class="c-link">
+          @* @if(Text.Has(node.LargeImage)) {
+            <div class="c-image"><img src="@node.LargeImage" class="o-image"></div>
+          } *@
+          <a class="o-link" href="@node.Url">@node.Text</a>
+          @if (node.HasChildren()) { <div class="js-toggle o-toggle o-toggle--accordion"></div>}
+        </div>
+        @if (node.HasChildren()) { @RenderNodes(node.Children) }
+      </li>
+    }
+    </ul>
+  }
+
+}
+
+@* Root navigacije *@
+
+<div id="nav-@guid" class="c-ddr c-ddr--tree">
+  @RenderNodes(root.Children)
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const navItems = document.querySelectorAll('#nav-@guid .js-toggle');
+    
+    if(navItems) {
+      navItems.forEach(
+        function(element) {
+          element.addEventListener ('click', function (item) { 
+            item.currentTarget
+              .closest('.c-item')
+              .classList.toggle('is-open');
+          });
+        }
+      )
+    };
+  });
+</script>

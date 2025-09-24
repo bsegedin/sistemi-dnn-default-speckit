@@ -1,0 +1,3042 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!--
+		Microsoft ResX Schema
+
+		Version 2.0
+
+		The primary goals of this format is to allow a simple XML format
+		that is mostly human readable. The generation and parsing of the
+		various data types are done through the TypeConverter classes
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">2.0</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+				<value>[base64 mime encoded serialized .NET Framework object]</value>
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+				<value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+				<comment>This is a comment</comment>
+		</data>
+
+		There are any number of "resheader" rows that contain simple
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a
+		type or mimetype. Type corresponds to a .NET class that support
+		text/value conversion through the TypeConverter architecture.
+		Classes that don't support this are serialized and stored with the
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the
+		ResXResourceReader how to depersist the object. This is currently not
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format
+		that the ResXResourceWriter will generate, however the reader can
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with
+						: System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+						: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with
+						: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+						: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array
+						: using a System.ComponentModel.TypeConverter
+						: and then encoded with base64 encoding.
+		-->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+<data name="btnDocUploadResource1.Text" xml:space="preserve">
+    <value>&lt;span&gt;DODAJ&lt;/span&gt;</value>
+</data>
+<data name="btnGoArticleResource1.Text" xml:space="preserve">
+    <value>Ažuriraj &amp;amp; Prikaži</value>
+</data>
+<data name="btnIntegGalleryResource1.Text" xml:space="preserve">
+    <value>Dodaj galeriju u članak</value>
+</data>
+<data name="btnOpenEasyDnnGalleryResource1.Text" xml:space="preserve">
+    <value>Otvori galeriju</value>
+</data>
+<data name="btnRemoveArticleImageResource1.Text" xml:space="preserve">
+    <value>Ukloni</value>
+</data>
+<data name="btnUpdateArticleResource1.Text" xml:space="preserve">
+    <value>Ažuriraj članak</value>
+</data>
+<data name="btnUpdateCloseResource1.Text" xml:space="preserve">
+    <value>Ažuriraj &amp;amp; Zatvori</value>
+</data>
+<data name="ButtonSharedResource1.Text" xml:space="preserve">
+    <value>Gumb</value>
+</data>
+<data name="cbAllDayEventResource1.Text" xml:space="preserve">
+    <value>Cjelodnevni događaj</value>
+</data>
+<data name="cbShowGalleryResource1.Text" xml:space="preserve">
+    <value>Prikaži galeriju</value>
+</data>
+<data name="cbShowMainArticleImageListResource1.Text" xml:space="preserve">
+    <value>Prikaži glavnu sliku članka na popisu</value>
+</data>
+<data name="cbShowMainArticleImageResource1.Text" xml:space="preserve">
+    <value>Prikaži glavnu sliku članka u detaljima</value>
+</data>
+<data name="cvGINumber0Resource1.ErrorMessage" xml:space="preserve">
+    <value>Unesite broj.</value>
+</data>
+<data name="cvGINumberResource1.ErrorMessage" xml:space="preserve">
+    <value>Unesite broj.</value>
+</data>
+<data name="cvGIThumbnailHeightResource1.ErrorMessage" xml:space="preserve">
+    <value>Unesite broj.</value>
+</data>
+<data name="cvGIThumbnailWidthResource1.ErrorMessage" xml:space="preserve">
+    <value>Unesite broj.</value>
+</data>
+<data name="cvLightBoxGalleryNumberOfItems0Resource1.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="cvLightBoxGalleryNumberOfItemsResource1.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="cvPublishDate0Resource1.ErrorMessage" xml:space="preserve">
+    <value>Nevažeći datum.</value>
+</data>
+<data name="cvPublishDateResource1.ErrorMessage" xml:space="preserve">
+    <value>Nevažeći datum.</value>
+</data>
+<data name="hlOpenGalleryResource1.Text" xml:space="preserve">
+    <value>Otvori Media manager</value>
+</data>
+<data name="ibAddImagesResource1.Text" xml:space="preserve">
+    <value>Dodaj galeriju</value>
+</data>
+<data name="ibDisplayArticleGalleryResource1.Text" xml:space="preserve">
+    <value>Prikaži ovu galeriju</value>
+</data>
+<data name="lbArticleGalleryImagesResource1.Text" xml:space="preserve">
+    <value>ČLANAK&lt;span class="blue dot"&gt;&lt;/span&gt;</value>
+</data>
+<data name="lbCancelLocalizationResource1.Text" xml:space="preserve">
+    <value>Zatvori</value>
+</data>
+<data name="lbCLCopyDefaultsResource1.Text" xml:space="preserve">
+    <value>Kopiraj iz zadanog jezika</value>
+</data>
+<data name="lbCLSaveLocalizationResource1.Text" xml:space="preserve">
+    <value>Spremi prijevod</value>
+</data>
+<data name="lbCustomGalleryResource1.Text" xml:space="preserve">
+    <value>PRILAGOĐENO&lt;span class="yellow dot"&gt;&lt;/span&gt;</value>
+</data>
+<data name="lbDeleteArticleResource1.Text" xml:space="preserve">
+    <value>Obriši članak</value>
+</data>
+<data name="lbDeleteDocResource1.ToolTip" xml:space="preserve">
+    <value>Obriši ovaj dokument</value>
+</data>
+<data name="lbDocUpdateResource1.ToolTip" xml:space="preserve">
+    <value>Spremi promjene</value>
+</data>
+<data name="lbGallerySettingsResource1.Text" xml:space="preserve">
+    <value>Pogledaj postavke galerije</value>
+</data>
+<data name="lblAddPerArticlePermissionResource1.Text" xml:space="preserve">
+    <value>Dozvole po članku</value>
+</data>
+<data name="lblApprovingMessageResource1.Text" xml:space="preserve">
+    <value>Nakon ažuriranja, članak mora ponovno biti odobren.</value>
+</data>
+<data name="lbLastAddedTagsResource1.Text" xml:space="preserve">
+    <value>ZADNJE DODANO PRVO</value>
+</data>
+<data name="lblCategorySelectErrorResource1.Text" xml:space="preserve">
+    <value>Odaberite kategoriju.</value>
+</data>
+<data name="lblCategorySelectResource1.Text" xml:space="preserve">
+    <value>Odaberite kategoriju:</value>
+</data>
+<data name="lblCLSelectLanguageResource1.Text" xml:space="preserve">
+    <value>Odaberite jezik:</value>
+</data>
+<data name="lblContentLocalizationLocalizedLanguagesResource1.Text" xml:space="preserve">
+    <value>Prevedeni jezici:</value>
+</data>
+<data name="lblContentLocalizationMediaDescriptionResource1.Text" xml:space="preserve">
+    <value>Opis medija:</value>
+</data>
+<data name="lblContentLocalizationMediaTitleResource1.Text" xml:space="preserve">
+    <value>Naslov medija:</value>
+</data>
+<data name="lblDocUploadDescriptionResource1.Text" xml:space="preserve">
+    <value>Opis dokumenta:</value>
+</data>
+<data name="lblDocUploadSelectFileResource1.Text" xml:space="preserve">
+    <value>Odaberite dokument:</value>
+</data>
+<data name="lblDocUploadTitleResource1.Text" xml:space="preserve">
+    <value>Naslov dokumenta:</value>
+</data>
+<data name="lblEventDateErrorResource1.Text" xml:space="preserve">
+    <value>Završni datum je manji ili jednak početnom.</value>
+</data>
+<data name="lblExpireDateErrorResource1.Text" xml:space="preserve">
+    <value>Nevažeći datum.</value>
+</data>
+<data name="lblGallerySelectResource1.Text" xml:space="preserve">
+    <value>Odaberite galeriju:</value>
+</data>
+<data name="lblGalSetThenumberOfItems0Resource1.Text" xml:space="preserve">
+    <value>Broj stavki po stranici:</value>
+</data>
+<data name="lblIsArticleEventResource1.Text" xml:space="preserve">
+    <value>Dodaj kao događaj</value>
+</data>
+<data name="lblLocalizedLanguagesResource1.Text" xml:space="preserve">
+    <value>Nema</value>
+</data>
+<data name="lblLocLangArticleResource1.Text" xml:space="preserve">
+    <value>Prevedeni jezici za ovaj članak:</value>
+</data>
+<data name="lbLocalizeContentResource1.Text" xml:space="preserve">
+    <value>Dodaj prijevod</value>
+</data>
+<data name="lbLocalizeimageResource1.Text" xml:space="preserve">
+    <value>Dodaj prijevod</value>
+</data>
+<data name="lblPortalDefLanguageResource1.Text" xml:space="preserve">
+    <value>Zadani jezik portala:</value>
+</data>
+<data name="lblPubDateErrorResource1.Text" xml:space="preserve">
+    <value>Nevažeći datum.</value>
+</data>
+<data name="lblSelectDetailTargetResource1.Text" xml:space="preserve">
+    <value>Odaberite cilj:</value>
+</data>
+<data name="lblShowToUnauthorizedUserResource1.Text" xml:space="preserve">
+    <value>Neautorizirani korisnici:</value>
+</data>
+<data name="lblUsernameToAddResource1.Text" xml:space="preserve">
+    <value>Dodaj korisnika prema korisničkom imenu:</value>
+</data>
+<data name="lbMostPopularTagsResource1.Text" xml:space="preserve">
+    <value>NAJPOPULARNIJE PRVO</value>
+</data>
+<data name="lbRemoveDisplayArticleGalleryResource1.Text" xml:space="preserve">
+    <value>Ne prikazuj galeriju</value>
+</data>
+<data name="lbSetArticleImageArtGalleryResource1.Text" xml:space="preserve">
+    <value>Postavi kao glavnu sliku članka</value>
+</data>
+<data name="lbSharedArticleGalleryImagesResource1.Text" xml:space="preserve">
+    <value>Zajedničko</value>
+</data>
+<data name="lbUsernameAddResource1.Text" xml:space="preserve">
+    <value>Dodaj</value>
+</data>
+<data name="lbUserPremissionRemoveResource1.Text" xml:space="preserve">
+    <value>Ukloni</value>
+</data>
+<data name="LinkButton1Resource1.ToolTip" xml:space="preserve">
+    <value>Uredi ovaj dokument</value>
+</data>
+<data name="LinkButton2Resource1.ToolTip" xml:space="preserve">
+    <value>Odbaci promjene</value>
+</data>
+<data name="ListItemResource1.Text" xml:space="preserve">
+    <value>Tekst/HTML</value>
+</data>
+<data name="ListItemResource10.Text" xml:space="preserve">
+    <value>Lightbox galerija</value>
+</data>
+<data name="ListItemResource11.Text" xml:space="preserve">
+    <value>Audio galerija</value>
+</data>
+<data name="ListItemResource12.Text" xml:space="preserve">
+    <value>Video galerija</value>
+</data>
+<data name="ListItemResource13.Text" xml:space="preserve">
+    <value>Donja pozicija</value>
+</data>
+<data name="ListItemResource14.Text" xml:space="preserve">
+    <value>Gornja pozicija</value>
+</data>
+<data name="ListItemResource15.Text" xml:space="preserve">
+    <value>Numerički</value>
+</data>
+<data name="ListItemResource16.Text" xml:space="preserve">
+    <value>Strelice (Sljedeće, Prethodno)</value>
+</data>
+<data name="ListItemResource17.Text" xml:space="preserve">
+    <value>Strelice (Sljedeće, Prethodno, Prvo, Zadnje)</value>
+</data>
+<data name="ListItemResource18.Text" xml:space="preserve">
+    <value>Odaberite kategoriju</value>
+</data>
+<data name="ListItemResource19.Text" xml:space="preserve">
+    <value>Odaberite galeriju</value>
+</data>
+<data name="ListItemResource2.Text" xml:space="preserve">
+    <value>Stranica</value>
+</data>
+<data name="ListItemResource20.Text" xml:space="preserve">
+    <value>10</value>
+</data>
+<data name="ListItemResource21.Text" xml:space="preserve">
+    <value>20</value>
+</data>
+<data name="ListItemResource22.Text" xml:space="preserve">
+    <value>30</value>
+</data>
+<data name="ListItemResource23.Text" xml:space="preserve">
+    <value>50</value>
+</data>
+<data name="ListItemResource24.Text" xml:space="preserve">
+    <value>100</value>
+</data>
+<data name="ListItemResource25.Text" xml:space="preserve">
+    <value>Odaberite ulogu</value>
+</data>
+<data name="ListItemResource26.Text" xml:space="preserve">
+    <value>Odaberite autora</value>
+</data>
+<data name="ListItemResource27.Text" xml:space="preserve">
+    <value>Članak izvan mreže</value>
+</data>
+<data name="ListItemResource28.Text" xml:space="preserve">
+    <value>Objavi članak</value>
+</data>
+<data name="ListItemResource3.Text" xml:space="preserve">
+    <value>Datoteka</value>
+</data>
+<data name="ListItemResource4.Text" xml:space="preserve">
+    <value>Poveznica</value>
+</data>
+<data name="ListItemResource5.Text" xml:space="preserve">
+    <value>Nema</value>
+</data>
+<data name="ListItemResource6.Text" xml:space="preserve">
+    <value>_self</value>
+</data>
+<data name="ListItemResource7.Text" xml:space="preserve">
+    <value>_blank</value>
+</data>
+<data name="ListItemResource8.Text" xml:space="preserve">
+    <value>_parent</value>
+</data>
+<data name="ListItemResource9.Text" xml:space="preserve">
+    <value>_top</value>
+</data>
+	<data name="revEventEndTImeResource1.ErrorMessage" xml:space="preserve">
+		<value>ss:mm</value>
+	</data>
+	<data name="revEventStartTimeResource1.ErrorMessage" xml:space="preserve">
+		<value>ss:mm</value>
+	</data>
+	<data name="revPublishTIme0Resource1.ErrorMessage" xml:space="preserve">
+		<value>ss:mm</value>
+	</data>
+	<data name="revPublishTImeResource1.ErrorMessage" xml:space="preserve">
+		<value>ss:mm</value>
+	</data>
+	<data name="rfvArchiveDate0Resource1.ErrorMessage" xml:space="preserve">
+		<value>Date required.</value>	   
+</data>
+<data name="rfvArchiveDateResource1.ErrorMessage" xml:space="preserve">
+    <value>Datum je obavezan.</value>
+</data>
+<data name="rfvDocumentTitleResource1.ErrorMessage" xml:space="preserve">
+    <value>Ovo polje je obavezno.</value>
+</data>
+<data name="rfvEventEndDateResource1.ErrorMessage" xml:space="preserve">
+    <value>Datum je obavezan.</value>
+</data>
+<data name="rfvEventEndResource1.ErrorMessage" xml:space="preserve">
+    <value>Vrijeme je obavezno.</value>
+</data>
+<data name="rfvEventStartDateResource1.ErrorMessage" xml:space="preserve">
+    <value>Datum je obavezan.</value>
+</data>
+<data name="rfvEventStartTimeResource1.ErrorMessage" xml:space="preserve">
+    <value>Vrijeme je obavezno.</value>
+</data>
+<data name="rfvGIItemsPerPage0Resource1.ErrorMessage" xml:space="preserve">
+    <value>Ovo polje je obavezno.</value>
+</data>
+<data name="rfvGIItemsPerPageResource1.ErrorMessage" xml:space="preserve">
+    <value>Ovo polje je obavezno.</value>
+</data>
+<data name="rfvGIThumbanilHeightResource1.ErrorMessage" xml:space="preserve">
+    <value>Ovo polje je obavezno.</value>
+</data>
+<data name="rfvGIThumbanilWidthResource1.ErrorMessage" xml:space="preserve">
+    <value>Ovo polje je obavezno.</value>
+</data>
+<data name="rfvRhumbImageWidth0Resource1.ErrorMessage" xml:space="preserve">
+    <value>Ovo polje je obavezno.</value>
+</data>
+<data name="rfvRhumbImageWidth1Resource1.ErrorMessage" xml:space="preserve">
+    <value>Ovo polje je obavezno.</value>
+</data>
+<data name="rfvTitleResource1.ErrorMessage" xml:space="preserve">
+    <value>Ovo polje je obavezno.</value>
+	</data>
+	<data name="tbGIItemsPerPageResource1.Text" xml:space="preserve">
+		<value>4</value>
+	</data>
+	<data name="tbGIThumbnailHeightResource1.Text" xml:space="preserve">
+		<value>100</value>
+	</data>
+	<data name="tbGIThumbnailWidthResource1.Text" xml:space="preserve">
+		<value>100</value>
+	</data>
+	<data name="tbNumberOfColumnsResource1.Text" xml:space="preserve">
+		<value>4</value>
+	</data>
+	<data name="tbxGalleryHeightResource1.Text" xml:space="preserve">
+		<value>600</value>
+	</data>
+	<data name="tbxGalleryWidthResource1.Text" xml:space="preserve">
+		<value>700</value>
+	</data>			
+<data name="Media list.HeaderText" xml:space="preserve">
+    <value>Popis medija</value>
+</data>
+<data name="Users.HeaderText" xml:space="preserve">
+    <value>Korisnici</value>
+</data>
+<data name="Edit article.HeaderText" xml:space="preserve">
+    <value>Uredi članak</value>
+</data>
+<data name="Actions.HeaderText" xml:space="preserve">
+    <value>Radnje</value>
+</data>
+<data name="Title.HeaderText" xml:space="preserve">
+    <value>Naslov</value>
+</data>
+<data name="Description.HeaderText" xml:space="preserve">
+    <value>Opis</value>
+</data>
+<data name="Filename.HeaderText" xml:space="preserve">
+    <value>Naziv datoteke</value>
+</data>
+<data name="Author.HeaderText" xml:space="preserve">
+    <value>Autor</value>
+</data>
+<data name="Roles.HeaderText" xml:space="preserve">
+    <value>Uloge</value>
+</data>
+<data name="View article.HeaderText" xml:space="preserve">
+  <value>Pogledaj članak</value>
+</data>
+<data name="tvCatAndSubCatResource1.CollapseImageToolTip" xml:space="preserve">
+  <value>Sažmi {0}</value>
+</data>
+<data name="tvCatAndSubCatResource1.ExpandImageToolTip" xml:space="preserve">
+  <value>Proširi {0}</value>
+</data>
+<data name="tvCatAndSubCatResource1.SkipLinkText" xml:space="preserve">
+  <value>Preskoči navigacijske poveznice.</value>
+</data>
+<data name="ADDEXISTINGTAGS.Text" xml:space="preserve">
+  <value>DODAJ POSTOJEĆE OZNAKE</value>
+</data>
+<data name="Articledetailtype.Text" xml:space="preserve">
+  <value>Vrsta detalja članka</value>
+</data>
+<data name="Categories.Text" xml:space="preserve">
+  <value>Kategorije</value>
+</data>
+<data name="CopyAndPaste.Text" xml:space="preserve">
+  <value>Kopiraj i zalijepi ovaj token u polje za sadržaj članka.</value>
+</data>
+<data name="Croptosize.Text" xml:space="preserve">
+  <value>Prilagodi veličini</value>
+</data>
+<data name="EditArticle.Text" xml:space="preserve">
+  <value>Uredi članak</value>
+</data>
+<data name="Height.Text" xml:space="preserve">
+  <value>Visina:</value>
+</data>
+<data name="Itemtokensettings.Text" xml:space="preserve">
+  <value>Postavke tokena stavke</value>
+</data>
+<data name="lblAllowComments.HelpText" xml:space="preserve">
+  <value>Omogući komentiranje članaka.</value>
+</data>
+<data name="lblAllowComments.Text" xml:space="preserve">
+  <value>Omogući komentare:</value>
+</data>
+<data name="lblArticleCommentsTheme.HelpText" xml:space="preserve">
+  <value>Tema komentara članka:</value>
+</data>
+<data name="lblArticleCommentsTheme.Text" xml:space="preserve">
+  <value>Tema komentara članka:</value>
+</data>
+<data name="lblArticleCSSStyle.HelpText" xml:space="preserve">
+  <value>Odaberite stil prikaza za odabranu temu.</value>
+</data>
+<data name="lblArticleCSSStyle.Text" xml:space="preserve">
+  <value>Stil prikaza:</value>
+</data>
+<data name="lblArticleDetailsTemplate.HelpText" xml:space="preserve">
+  <value>Odaberite HTML predložak. HTML predložak je odgovoran za izgled detalja članka. HTML predlošci mogu se uređivati u uređivaču predložaka (Nadzorna ploča &gt; Predlošci).</value>
+</data>
+<data name="lblArticleDetailsTemplate.Text" xml:space="preserve">
+  <value>Predložak detalja članka:</value>
+</data>
+<data name="lblArticleDetailsTheme.HelpText" xml:space="preserve">
+  <value>Odaberite temu za detalje članka.</value>
+</data>
+<data name="lblArticleDetailsTheme.Text" xml:space="preserve">
+  <value>Tema detalja članka:</value>
+</data>
+<data name="lblArticleSummary.HelpText" xml:space="preserve">
+  <value>Unesite sažetak članka u ovo polje. Sažetak članka obično se koristi kao kratki uvod na popisu članaka. HTML uređivač koji se koristi za uređivanje ovog polja je onaj koji je postavljen kao zadani uređivač u DNN-u.</value>
+</data>
+<data name="lblArticleSummary.Text" xml:space="preserve">
+  <value>Sažetak</value>
+</data>
+<data name="lblArticleTags.HelpText" xml:space="preserve">
+  <value>Dodajte oznake članka u ovo polje. Oznake su odvojene zarezom. Klikom na gumb Dodaj postojeće oznake možemo dodati oznake koje su već dodane u člancima. Oznake članka su opcionalne.</value>
+</data>
+<data name="lblArticleTags.Text" xml:space="preserve">
+  <value>Oznake članka</value>
+</data>
+<data name="lblArticleTitle.HelpText" xml:space="preserve">
+  <value>Dodajte naslov (obavezno)</value>
+</data>
+<data name="lblArticleTitle.Text" xml:space="preserve">
+  <value>Naslov</value>
+</data>
+<data name="lblArticleURL.HelpText" xml:space="preserve">
+  <value>SEO prijateljske poveznice automatski se stvaraju na temelju naslova članka. Ovdje možete promijeniti automatski generiranu poveznicu ako želite. Klikom na gumb Resetiraj članak, URL se vraća na automatski generiranu poveznicu prije promjena.</value>
+</data>
+<data name="lblArticleURL.Text" xml:space="preserve">
+  <value>URL članka:</value>
+</data>
+<data name="lblChOwner.HelpText" xml:space="preserve">
+  <value>Promijeni vlasnika:</value>
+</data>
+<data name="lblChOwner.Text" xml:space="preserve">
+  <value>Promijeni vlasnika:</value>
+</data>
+<data name="lblCLArticle.HelpText" xml:space="preserve">
+  <value>Unesite sadržaj članka u ovo polje. Sadržaj članka se prikazuje kada otvorimo članak. HTML uređivač koji se koristi je onaj postavljen kao zadani u DNN-u.</value>
+</data>
+<data name="lblCLArticle.Text" xml:space="preserve">
+  <value>Sadržaj:</value>
+</data>
+<data name="lblCLSubtitle.HelpText" xml:space="preserve">
+  <value>Podnaslov</value>
+</data>
+<data name="lblCLSubtitle.Text" xml:space="preserve">
+  <value>Podnaslov</value>
+</data>
+<data name="lblCLSummary.HelpText" xml:space="preserve">
+  <value>Unesite sažetak članka u ovo polje. Sažetak članka obično se koristi kao kratki uvod na popisu članaka. HTML uređivač koji se koristi je zadani u DNN-u.</value>
+</data>
+<data name="lblCLSummary.Text" xml:space="preserve">
+  <value>Sažetak</value>
+</data>
+<data name="lblCLTitle.HelpText" xml:space="preserve">
+  <value>Naslov</value>
+</data>
+<data name="lblCLTitle.Text" xml:space="preserve">
+  <value>Naslov</value>
+</data>
+<data name="lblContent.HelpText" xml:space="preserve">
+  <value>Unesite sadržaj članka u ovo polje. Sadržaj članka se prikazuje kada otvorimo članak. HTML uređivač koji se koristi je zadani u DNN-u.</value>
+</data>
+<data name="lblContent.Text" xml:space="preserve">
+  <value>Sadržaj:</value>
+</data>
+<data name="lblContentLocalizationDescription.HelpText" xml:space="preserve">
+  <value>Opis:</value>
+</data>
+<data name="lblContentLocalizationDescription.Text" xml:space="preserve">
+  <value>Opis:</value>
+</data>
+<data name="lblContentLocalizationSelectLanguage.HelpText" xml:space="preserve">
+  <value>Odaberite jezik koji želite urediti. Nema potrebe uređivati zadani jezik.</value>
+</data>
+<data name="lblContentLocalizationSelectLanguage.Text" xml:space="preserve">
+  <value>Odaberi jezik:</value>
+</data>
+<data name="lblContentLocalizationTitle.HelpText" xml:space="preserve">
+  <value>Naslov:</value>
+</data>
+<data name="lblContentLocalizationTitle.Text" xml:space="preserve">
+  <value>Naslov:</value>
+</data>
+<data name="lblEventEndDateTime.HelpText" xml:space="preserve">
+  <value>Završni datum:</value>
+</data>
+<data name="lblEventEndDateTime.Text" xml:space="preserve">
+  <value>Završni datum:</value>
+</data>
+<data name="lblEventStartDateTime.HelpText" xml:space="preserve">
+  <value>Početni datum:</value>
+</data>
+<data name="lblEventStartDateTime.Text" xml:space="preserve">
+  <value>Početni datum:</value>
+</data>
+<data name="lblExpireDate.HelpText" xml:space="preserve">
+  <value>Datum isteka je vrijeme kada članak više neće biti prikazan. Ovdje unesite datum i vrijeme.</value>
+</data>
+<data name="lblExpireDate.Text" xml:space="preserve">
+  <value>Datum isteka:</value>
+</data>
+<data name="lblFeaturedArticle.HelpText" xml:space="preserve">
+  <value>Ako je ova opcija označena, članak će biti označen kao istaknuti.</value>
+</data>
+<data name="lblFeaturedArticle.Text" xml:space="preserve">
+  <value>Istaknuti članak:</value>
+</data>
+<data name="lblowner.HelpText" xml:space="preserve">
+  <value>Vlasnik članka.</value>
+</data>
+<data name="lblowner.Text" xml:space="preserve">
+  <value>Vlasnik članka:</value>
+</data>
+<data name="lblPublishDate.HelpText" xml:space="preserve">
+  <value>Datum objave je vrijeme kada se članak počinje prikazivati. Ovdje unesite datum i vrijeme.</value>
+</data>
+<data name="lblPublishDate.Text" xml:space="preserve">
+  <value>Datum objave:</value>
+</data>
+<data name="lblSubtitle.HelpText" xml:space="preserve">
+  <value>Dodajte podnaslov (opcionalno)</value>
+</data>
+<data name="lblSubtitle.Text" xml:space="preserve">
+  <value>Podnaslov</value>
+</data>
+<data name="lblUseDefaultTemplate.HelpText" xml:space="preserve">
+  <value>Koristi zadanu temu/predložak.</value>
+</data>
+<data name="lblUseDefaultTemplate.Text" xml:space="preserve">
+  <value>Koristi zadanu temu/predložak:</value>
+</data>
+<data name="Leftclear.Text" xml:space="preserve">
+  <value>Poravnaj lijevo</value>
+</data>
+<data name="Leftwrap.Text" xml:space="preserve">
+  <value>Omotaj lijevo</value>
+</data>
+<data name="METAdescription.Text" xml:space="preserve">
+  <value>Meta opis</value>
+</data>
+<data name="METAkeywords.Text" xml:space="preserve">
+  <value>META ključne riječi</value>
+</data>
+<data name="Onclickaction.Text" xml:space="preserve">
+  <value>Akcija na klik</value>
+</data>
+<data name="Position.Text" xml:space="preserve">
+  <value>Pozicija:</value>
+</data>
+<data name="Proportional.Text" xml:space="preserve">
+  <value>Proporcionalno</value>
+</data>
+<data name="Rightwrap.Text" xml:space="preserve">
+  <value>Omotaj desno</value>
+</data>
+<data name="SEOsettings.Text" xml:space="preserve">
+  <value>SEO postavke</value>
+</data>
+<data name="Sizing.Text" xml:space="preserve">
+  <value>Veličina</value>
+</data>
+<data name="Width.Text" xml:space="preserve">
+  <value>Širina:</value>
+</data>
+<data name="Generatetoken.Text" xml:space="preserve">
+  <value>Generiraj token</value>
+</data>
+<data name="Linktext.Text" xml:space="preserve">
+  <value>Tekst poveznice</value>
+</data>
+<data name="Mainarticlemap.Text" xml:space="preserve">
+  <value>Glavna karta članka</value>
+</data>
+<data name="None.Text" xml:space="preserve">
+  <value>Nema</value>
+</data>
+<data name="Note.Text" xml:space="preserve">
+  <value>Napomena: Ako ne postavite ovaj tekst, token se neće prikazati kao standardna tekstualna poveznica.</value>
+</data>
+<data name="Openiteminlightbox.Text" xml:space="preserve">
+  <value>Otvori u lightboxu</value>
+</data>
+<data name="RedirecttosetURL.Text" xml:space="preserve">
+  <value>Preusmjeri na postavljeni URL medija</value>
+</data>
+<data name="Searchforlocation.Text" xml:space="preserve">
+  <value>Pretraži lokaciju:</value>
+</data>
+<data name="Showastandardtextlink.Text" xml:space="preserve">
+  <value>Prikaži kao standardnu tekstualnu poveznicu</value>
+</data>
+<data name="Showdescription.Text" xml:space="preserve">
+  <value>Prikaži opis</value>
+</data>
+<data name="Showtitle.Text" xml:space="preserve">
+  <value>Prikaži naslov</value>
+</data>
+<data name="Add marker.Text" xml:space="preserve">
+  <value>Dodaj marker</value>
+</data>
+<data name="Addmap.Text" xml:space="preserve">
+  <value>Dodaj kartu</value>
+</data>
+<data name="Backtoediting.Text" xml:space="preserve">
+  <value>Natrag na uređivanje</value>
+</data>
+<data name="CopyAndPasteToken.Text" xml:space="preserve">
+  <value>Kopiraj i zalijepi token u odjeljak sadržaja članka.</value>
+</data>
+<data name="Delete.Text" xml:space="preserve">
+  <value>Izbriši</value>
+</data>
+<data name="Enablescrollwheelzoom.Text" xml:space="preserve">
+  <value>Omogući zumiranje kotačićem miša</value>
+</data>
+<data name="Galleriesincluded.Text" xml:space="preserve">
+  <value>Galerije uključene</value>
+</data>
+<data name="Generalsettings.Text" xml:space="preserve">
+  <value>Opće postavke</value>
+</data>
+<data name="HeightMap.Text" xml:space="preserve">
+  <value>Visina:</value>
+</data>
+<data name="Latitude.Text" xml:space="preserve">
+  <value>Latituda:</value>
+</data>
+<data name="Longitude.Text" xml:space="preserve">
+  <value>Longituda:</value>
+</data>
+<data name="Mainarticleimage.Text" xml:space="preserve">
+  <value>Glavna slika članka</value>
+</data>
+<data name="Mainarticlemapisnotset.Text" xml:space="preserve">
+  <value>Još nema glavne karte članka</value>
+</data>
+<data name="Mainarticlemapisset.Text" xml:space="preserve">
+  <value>Glavna karta članka je dodana</value>
+</data>
+<data name="Mapeditor.Text" xml:space="preserve">
+  <value>Uređivač karte</value>
+</data>
+<data name="Mapmarkers.Text" xml:space="preserve">
+  <value>Markeri karte</value>
+</data>
+<data name="Maptype.Text" xml:space="preserve">
+  <value>Vrsta karte:</value>
+</data>
+<data name="Remove.Text" xml:space="preserve">
+  <value>Ukloni</value>
+</data>
+<data name="StartUpload.Text" xml:space="preserve">
+  <value>Pokreni prijenos</value>
+</data>
+<data name="Thegalleryisempty.Text" xml:space="preserve">
+  <value>Nema galerije u ovom članku</value>
+</data>
+<data name="ThisImage.Text" xml:space="preserve">
+  <value>&lt;strong&gt;Ova slika&lt;/strong&gt; je odabrana kao glavna slika članka</value>
+</data>
+<data name="WidthMap.Text" xml:space="preserve">
+  <value>Širina:</value>
+</data>
+<data name="Zoom.Text" xml:space="preserve">
+  <value>Povećanje:</value>
+</data>
+<data name="Action.Text" xml:space="preserve">
+  <value>Akcija</value>
+</data>
+<data name="Customtoken.Text" xml:space="preserve">
+  <value>Uređivač tokena</value>
+</data>
+<data name="Description.Text" xml:space="preserve">
+  <value>Opis</value>
+</data>
+<data name="DOCUMENTSincluded.Text" xml:space="preserve">
+  <value>Dokumenti</value>
+</data>
+<data name="GalleryPanel.Text" xml:space="preserve">
+  <value>Panel galerije</value>
+</data>
+<data name="GalleryWithArticle.Text" xml:space="preserve">
+  <value>Ova galerija je prikazana u članku</value>
+</data>
+<data name="Media.Text" xml:space="preserve">
+  <value>Mediji</value>
+</data>
+<data name="NotWithArticle.Text" xml:space="preserve">
+  <value>Ova galerija nije prikazana u članku</value>
+</data>
+<data name="Show.Text" xml:space="preserve">
+  <value>Pokaži</value>
+</data>
+<data name="Title.Text" xml:space="preserve">
+  <value>Naslov</value>
+</data>
+<data name="Addmarker.Text" xml:space="preserve">
+  <value>Dodaj marker</value>
+</data>
+<data name="addVideoFromYouTube.Text" xml:space="preserve">
+    <value>Dodaj videozapis s YouTubea, Vimea ili Wistie:</value>
+</data>
+<data name="EnterVideoURL.Text" xml:space="preserve">
+    <value>Unesite URL videozapisa...</value>
+</data>
+<data name="AllTags.Text" xml:space="preserve">
+    <value>SVE OZNAKE</value>
+</data>
+<data name="lblChameleonLayout.HelpText" xml:space="preserve">
+    <value>Izgled galerije</value>
+</data>
+<data name="lblChameleonLayout.Text" xml:space="preserve">
+    <value>Izgled galerije</value>
+</data>
+<data name="lblChameleonLayoutTheme.HelpText" xml:space="preserve">
+    <value>Tema Chameleona:</value>
+</data>
+<data name="lblChameleonLayoutTheme.Text" xml:space="preserve">
+    <value>Tema Chameleona:</value>
+</data>
+<data name="lblChameleonLayoutThemeStyle.HelpText" xml:space="preserve">
+    <value>Stil teme Chameleona:</value>
+</data>
+<data name="lblChameleonLayoutThemeStyle.Text" xml:space="preserve">
+    <value>Stil teme Chameleona:</value>
+</data>
+<data name="lblFixedResponsiveLayout.HelpText" xml:space="preserve">
+    <value>Fiksni ili responzivni izgled:</value>
+</data>
+<data name="lblFixedResponsiveLayout.Text" xml:space="preserve">
+    <value>Fiksni ili responzivni izgled:</value>
+</data>
+<data name="lblGalleryHeight.HelpText" xml:space="preserve">
+    <value>Visina galerije:</value>
+</data>
+<data name="lblGalleryHeight.Text" xml:space="preserve">
+    <value>Visina galerije:</value>
+</data>
+<data name="lblGalleryWidth.HelpText" xml:space="preserve">
+    <value>Širina galerije:</value>
+</data>
+<data name="lblGalleryWidth.Text" xml:space="preserve">
+    <value>Širina galerije:</value>
+</data>
+<data name="lblGIGalleryPosition.HelpText" xml:space="preserve">
+    <value>Pozicija galerije:</value>
+</data>
+<data name="lblGIGalleryPosition.Text" xml:space="preserve">
+    <value>Pozicija galerije:</value>
+</data>
+<data name="lblGIGalleryType.HelpText" xml:space="preserve">
+    <value>Vrsta prikaza galerije:</value>
+</data>
+<data name="lblGIGalleryType.Text" xml:space="preserve">
+    <value>Vrsta prikaza galerije:</value>
+</data>
+<data name="lblGIItemsPerPage.HelpText" xml:space="preserve">
+    <value>Stavki po stranici:</value>
+</data>
+<data name="lblGIItemsPerPage.Text" xml:space="preserve">
+    <value>Stavki po stranici:</value>
+</data>
+<data name="lblGINumberOfColumns.HelpText" xml:space="preserve">
+    <value>Broj stupaca:</value>
+</data>
+<data name="lblGINumberOfColumns.Text" xml:space="preserve">
+    <value>Broj stupaca:</value>
+</data>
+<data name="lblGIThumbHeight.HelpText" xml:space="preserve">
+    <value>Visina minijature:</value>
+</data>
+<data name="lblGIThumbHeight.Text" xml:space="preserve">
+    <value>Visina minijature:</value>
+</data>
+<data name="lblGIThumbWidth.HelpText" xml:space="preserve">
+    <value>Širina minijature:</value>
+</data>
+<data name="lblGIThumbWidth.Text" xml:space="preserve">
+    <value>Širina minijature:</value>
+</data>
+<data name="liFixed.Text" xml:space="preserve">
+    <value>Fiksni izgled</value>
+</data>
+<data name="liResponsive.Text" xml:space="preserve">
+    <value>Responzivni izgled</value>
+</data>
+<data name="ResetarticleURL.Text" xml:space="preserve">
+    <value>Resetiraj URL članka</value>
+</data>
+<data name="rvChameleonWidthPerct.ErrorMessage" xml:space="preserve">
+    <value>Unesite vrijednost između 0-100.</value>
+</data>
+<data name="AdvancedSettings.Text" xml:space="preserve">
+    <value>NAPREDNE POSTAVKE / VLASNIK ČLANKA</value>
+</data>
+<data name="Close.Text" xml:space="preserve">
+    <value>Zatvori</value>
+</data>
+<data name="Copydefaultvalues.Text" xml:space="preserve">
+    <value>Kopiraj iz zadanog jezika</value>
+</data>
+<data name="Defaultportallanguage.Text" xml:space="preserve">
+    <value>Zadani jezik portala:</value>
+</data>
+<data name="lblGIDisplayItemDescription.HelpText" xml:space="preserve">
+    <value>Prikaži opis stavke:</value>
+</data>
+<data name="lblGIDisplayItemDescription.Text" xml:space="preserve">
+    <value>Prikaži opis stavke:</value>
+</data>
+<data name="lblGIDisplayItemDescriptionLightBox.HelpText" xml:space="preserve">
+    <value>Prikaži opis stavke u Lightboxu:</value>
+</data>
+<data name="lblGIDisplayItemDescriptionLightBox.Text" xml:space="preserve">
+    <value>Prikaži opis stavke u Lightboxu:</value>
+</data>
+<data name="lblGIDisplayItemTitle.HelpText" xml:space="preserve">
+    <value>Prikaži naslov stavke:</value>
+</data>
+<data name="lblGIDisplayItemTitle.Text" xml:space="preserve">
+    <value>Prikaži naslov stavke:</value>
+</data>
+<data name="lblGIDisplayItemTitleLightBox.HelpText" xml:space="preserve">
+    <value>Prikaži naslov stavke u Lightboxu:</value>
+</data>
+<data name="lblGIDisplayItemTitleLightBox.Text" xml:space="preserve">
+    <value>Prikaži naslov stavke u Lightboxu:</value>
+</data>
+<data name="lblGIGalleryTheme.HelpText" xml:space="preserve">
+    <value>Tema galerije:</value>
+</data>
+<data name="lblGIGalleryTheme.Text" xml:space="preserve">
+    <value>Tema galerije:</value>
+</data>
+<data name="Savelocalization.Text" xml:space="preserve">
+    <value>Spremi prijevod</value>
+</data>
+<data name="lblArticleCommentsTemplate.HelpText" xml:space="preserve">
+    <value>Odaberite HTML predložak za komentare. Predlošci se mogu uređivati u uređivaču predložaka (Nadzorna ploča &gt; Predlošci).</value>
+</data>
+<data name="lblArticleCommentsTemplate.Text" xml:space="preserve">
+    <value>Predložak komentara članka:</value>
+</data>
+<data name="btnDeleteLocalization.Text" xml:space="preserve">
+    <value>Obriši odabrani prijevod</value>
+</data>
+<data name="cbShowEndDate.Text" xml:space="preserve">
+    <value>Prikaži datum završetka</value>
+</data>
+<data name="DeleteArticleConfirm.Text" xml:space="preserve">
+    <value>Jeste li sigurni da želite obrisati ovaj članak?</value>
+</data>
+<data name="Editarticle.HeaderText" xml:space="preserve">
+    <value>Uredi članak</value>
+</data>
+<data name="History.Text" xml:space="preserve">
+    <value>Povijest</value>
+</data>
+<data name="lblPostToJournal.Text" xml:space="preserve">
+    <value>Objavi u Dnevnik</value>
+</data>
+<data name="lblSocialSecurityGroups.Text" xml:space="preserve">
+    <value>Grupe:</value>
+</data>
+<data name="lblSocialSecuritySelect.Text" xml:space="preserve">
+    <value>Pogledaj:</value>
+</data>
+<data name="liImage.Text" xml:space="preserve">
+    <value>Slika</value>
+</data>
+<data name="liVideo.Text" xml:space="preserve">
+    <value>Video/Animirani gif</value>
+</data>
+<data name="Permissionsperarticleoverride.Text" xml:space="preserve">
+    <value>Dopuštenja po članku nadjačavaju sva ostala dopuštenja</value>
+</data>
+<data name="Previousversionsaved.Text" xml:space="preserve">
+    <value>Prethodna verzija spremljena:</value>
+</data>
+<data name="Roles.Text" xml:space="preserve">
+    <value>Uloge</value>
+</data>
+<data name="Security.Text" xml:space="preserve">
+    <value>Sigurnost:</value>
+</data>
+<data name="Social.Text" xml:space="preserve">
+    <value>Društveno</value>
+</data>
+<data name="Viewarticle.HeaderText" xml:space="preserve">
+    <value>Pogledaj članak</value>
+</data>
+<data name="Youdonothavepermision.Text" xml:space="preserve">
+    <value>Nemate dopuštenje za uređivanje ovog članka.</value>
+</data>
+<data name="Addasarticlemap.Text" xml:space="preserve">
+    <value>Dodaj kao kartu članka</value>
+</data>
+<data name="AddGoogleMapslocation.Text" xml:space="preserve">
+    <value>Dodaj Google Maps lokaciju</value>
+</data>
+<data name="Addmapmarker.Text" xml:space="preserve">
+    <value>Dodaj oznaku na karti</value>
+</data>
+<data name="Atitleisrequired.Text" xml:space="preserve">
+    <value>Naslov je obavezan</value>
+</data>
+<data name="Cancel.Text" xml:space="preserve">
+    <value>Odustani</value>
+</data>
+<data name="Centeronmap.Text" xml:space="preserve">
+    <value>Centriraj na karti</value>
+</data>
+<data name="Close.Text1" xml:space="preserve">
+    <value>Zatvori</value>
+</data>
+<data name="Confirm.Text" xml:space="preserve">
+    <value>Potvrdi</value>
+</data>
+<data name="Customizegalleryitemtoken.Text" xml:space="preserve">
+    <value>Prilagodi token stavke galerije</value>
+</data>
+<data name="Edit.Text" xml:space="preserve">
+    <value>Uredi</value>
+</data>
+<data name="HTMoptional.Text" xml:space="preserve">
+    <value>HTML: (opcionalno)</value>
+</data>
+<data name="Title.Text1" xml:space="preserve">
+    <value>Naslov</value>
+</data>
+<data name="Articleto.Text" xml:space="preserve">
+    <value>članak za:</value>
+</data>
+<data name="Post.Text" xml:space="preserve">
+    <value>Objavi</value>
+</data>
+<data name="Articleimageadded.Text" xml:space="preserve">
+    <value>Slika članka dodana.</value>
+</data>
+<data name="Articleupdated.Text" xml:space="preserve">
+    <value>Članak ažuriran.</value>
+</data>
+<data name="Documentuploaded.Text" xml:space="preserve">
+    <value>Dokument uspješno prenesen.</value>
+</data>
+<data name="OwnerIsAddedAutomatically.Text" xml:space="preserve">
+    <value>Vlasnik je automatski dodan</value>
+</data>
+<data name="PleaseSelctDifferntUsername.Text" xml:space="preserve">
+    <value>Odaberite drugo korisničko ime</value>
+</data>
+<data name="Pleaseselectfile.Text" xml:space="preserve">
+    <value>Molimo odaberite datoteku.</value>
+</data>
+<data name="Thatuserdoesnotexist.Text" xml:space="preserve">
+    <value>Taj korisnik ne postoji</value>
+</data>
+<data name="Useralreadyaddedtolist.Text" xml:space="preserve">
+    <value>Korisnik je već dodan na popis</value>
+</data>
+<data name="YouAreNotAllowed.Text" xml:space="preserve">
+    <value>Nemate dopuštenje za uređivanje ovog članka</value>
+</data>
+	<data name="lblHideDefaultLocale.Text" xml:space="preserve">
+		<value>Ne prikazuj ovaj članak na zadatom jeziku:</value>
+	</data>
+	<data name="ArticleTokens.Text" xml:space="preserve">
+<value>[EasyDNNnews:PageBreak] - Stvara prekid stranice članka.
+[ReadMore] - Prekida članak u popisu članaka.
+[EasyDNNnews:PaidContentStart] - Označava početak plaćenog sadržaja.
+[EasyDNNnews:PaidContentEnd] - Označava kraj plaćenog sadržaja.
+[EasyDNNnews:UnPaidContentStart] - Označava početak neplaćenog sadržaja.
+[EasyDNNnews:UnPaidContentEnd] - Označava kraj neplaćenog sadržaja.
+[EasyDNNnewsSystemToken:SysFacebookLikeButton] - Umeće Facebook gumb za "sviđa mi se".
+[EasyDNNnewsSystemToken:SysTwitter] - Umeće Twitter gumb.
+[EasyDNNnewsSystemToken:SysGooglePlus] - Umeće Google Plus gumb.
+[EasyDNNnewsSystemToken:SysFacebookShareButton] - Umeće Facebook gumb za dijeljenje.
+[EasyDNNnewsSystemToken:SysAddThis] - Umeće AddThis gumb za dijeljenje.</value>
+
+</data>
+<data name="UploadComplete.Text" xml:space="preserve">
+    <value>Učitavanje završeno</value>
+</data>
+<data name="Timezone.Text" xml:space="preserve">
+    <value>Vremenska zona:</value>
+</data>
+<data name="ArticleGalleryTip.Text" xml:space="preserve">
+    <value>Galerija članka</value>
+</data>
+<data name="CustomGalleryTip.Text" xml:space="preserve">
+    <value>Prilagođena galerija</value>
+</data>
+<data name="SharedGalleryTip.Text" xml:space="preserve">
+    <value>Zajednička galerija</value>
+</data>
+<data name="lblHideDefaultLocale.Help" xml:space="preserve">
+    <value>Uključivanjem ove opcije članak se može isključiti iz prikaza na zadatom jeziku. Na primjer, na stranicama s tri različita jezika: engleski (zadani), njemački i talijanski. Članak je preveden samo na talijanski jezik i ne treba se prikazivati na zadatom jeziku.
+Savjet: Također možete isključiti prikaz članaka na njemačkom jeziku ako nisu prevedeni. Idite na Postavke modula &gt; Glavne postavke prikaza i uključite opciju "Ne prikazuj članke ako nemaju prijevod za odabrani jezik"</value>
+</data>
+<data name="Areyousure.Text" xml:space="preserve">
+    <value>Jeste li sigurni da želite obrisati ovaj članak?</value>
+</data>
+<data name="btnCancelResource1.ToolTip" xml:space="preserve">
+    <value>Zatvori</value>
+</data>
+<data name="btnDocUpload.ToolTip" xml:space="preserve">
+    <value>Učitaj dokument</value>
+</data>
+<data name="btnGoArticle.ToolTip" xml:space="preserve">
+    <value>Ažuriraj i pogledaj</value>
+</data>
+<data name="btnUpdateArticle.ToolTip" xml:space="preserve">
+    <value>Ažuriraj članak</value>
+</data>
+<data name="btnUpdateClose.ToolTip" xml:space="preserve">
+    <value>Ažuriraj i zatvori</value>
+</data>
+<data name="lbDeleteArticleResource1.ToolTip" xml:space="preserve">
+    <value>Obriši članak</value>
+</data>
+<data name="lbLocalizeContent.ToolTip" xml:space="preserve">
+    <value>Dodaj prijevod</value>
+</data>
+<data name="ImgeTitleDescriptionSettings.Text" xml:space="preserve">
+    <value>Naslov i opis</value>
+</data>
+<data name="lblMainImageDescriptionLozalization.Help" xml:space="preserve">
+    <value>Prijevod opisa glavne slike.</value>
+</data>
+<data name="lblMainImageDescriptionLozalization.Text" xml:space="preserve">
+    <value>Opis glavne slike:</value>
+</data>
+<data name="lblMainImageTitleLozalization.Help" xml:space="preserve">
+    <value>Prijevod naslova glavne slike.</value>
+</data>
+<data name="lblMainImageTitleLozalization.Text" xml:space="preserve">
+    <value>Naslov glavne slike:</value>
+</data>
+<data name="lblCFGroupSelection.HelpText" xml:space="preserve">
+    <value>Odaberite grupu prilagođenih polja. Samo jedna grupa po članku može biti odabrana i spremljena.</value>
+</data>
+<data name="lblCFGroupSelection.Text" xml:space="preserve">
+    <value>Grupa prilagođenih polja:</value>
+</data>
+<data name="lblShowCustomFields.Text" xml:space="preserve">
+    <value>Prilagođena polja</value>
+</data>
+<data name="liNoCustomFieldGroup.Text" xml:space="preserve">
+    <value>-- Nije kreirana nijedna grupa prilagođenih polja --</value>
+</data>
+<data name="lblLightboxGalleryResizeMethod.HelpText" xml:space="preserve">
+    <value>Odaberite metodu promjene veličine za generiranje sličica slika.</value>
+</data>
+<data name="lblLightboxGalleryResizeMethod.Text" xml:space="preserve">
+    <value>Metoda promjene veličine za sličice:</value>
+</data>
+<data name="liCrop.Text" xml:space="preserve">
+    <value>Promijeni veličinu i obreži</value>
+</data>
+<data name="liCropAndPropotional.Text" xml:space="preserve">
+    <value>Promijeni veličinu i obreži horizontalno, proporcionalno promijeni vertikalne slike</value>
+</data>
+<data name="liPropotional.Text" xml:space="preserve">
+    <value>Proporcionalna promjena veličine</value>
+</data>
+<data name="lblCategorySelectionCollapseAll.Text" xml:space="preserve">
+    <value>Sakrij sve</value>
+</data>
+<data name="lblCategorySelectionExpandAll.Text" xml:space="preserve">
+    <value>Prikaži sve</value>
+</data>
+<data name="lblChameleonResponsiveMainImageWidth.HelpText" xml:space="preserve">
+    <value>Maksimalna širina korištena za generiranje glavne responzivne slike.</value>
+</data>
+<data name="lblChameleonResponsiveMainImageWidth.Text" xml:space="preserve">
+    <value>Širina glavne slike:</value>
+</data>
+<data name="fineUploaderDragImagesHere.Text" xml:space="preserve">
+    <value>Povucite slike ovdje</value>
+</data>
+<data name="fineUploaderSelectFiles.Text" xml:space="preserve">
+    <value>Odaberite slike</value>
+</data>
+<data name="fineUploaderStartUpload.Text" xml:space="preserve">
+    <value>Počni učitavanje</value>
+</data>
+<data name="NoPreviewAvalible.Text" xml:space="preserve">
+    <value>Nema pregleda</value>
+</data>
+<data name="of.Text" xml:space="preserve">
+    <value>od</value>
+</data>
+<data name="Queued.Text" xml:space="preserve">
+    <value>Na čekanju</value>
+</data>
+<data name="Retry.Text" xml:space="preserve">
+    <value>Pokušaj ponovno</value>
+</data>
+<data name="Uploadfailed.Text" xml:space="preserve">
+    <value>Učitavanje nije uspjelo</value>
+</data>
+<data name="rblAddDocumentType-newDocument.Text" xml:space="preserve">
+    <value>Učitaj nove dokumente</value>
+</data>
+<data name="rblAddDocumentType-existingDocument.Text" xml:space="preserve">
+    <value>Dodaj postojeći dokument</value>
+</data>
+<data name="fineUploaderSelectDocuments.Text" xml:space="preserve">
+    <value>Odaberite dokumente</value>
+</data>
+<data name="fineUploaderDragFilesHere.Text" xml:space="preserve">
+    <value>Povucite datoteke ovdje</value>
+</data>
+<data name="fineUploaderUpload.Text" xml:space="preserve">
+    <value>Učitaj</value>
+</data>
+<data name="DocumentArticleLink_ArticleNotFound.Text" xml:space="preserve">
+    <value>Odabrani članak nije pronađen.</value>
+</data>
+<data name="DocumentArticleLink_DocumentNotFound.Text" xml:space="preserve">
+    <value>Odabrani dokument nije pronađen.</value>
+</data>
+<data name="DocumentArticleLink_SqlConnectionError.Text" xml:space="preserve">
+    <value>Pogreška pri povezivanju s bazom podataka.</value>
+</data>
+<data name="DocumentArticleLink_ExistingDocumentAdded.Text" xml:space="preserve">
+    <value>Postojeći dokument je dodan.</value>
+</data>
+<data name="lblDocumentsReplaceFile.Text" xml:space="preserve">
+    <value>Zamijeni postojeću datoteku:</value>
+</data>
+<data name="liCustomlink.Text" xml:space="preserve">
+    <value>Vanjska poveznica</value>
+</data>
+<data name="liPage.Text" xml:space="preserve">
+    <value>Poveznica na stranicu</value>
+</data>
+<data name="liNewsarticle.Text" xml:space="preserve">
+    <value>Poveznica na članak</value>
+</data>
+<data name="liExistinglink.Text" xml:space="preserve">
+    <value>Postojeća poveznica</value>
+</data>
+<data name="rfvtbxCustomLink.ErrorMessage" xml:space="preserve">
+    <value>Molimo unesite URL.</value>
+</data>
+<data name="rfvNewsArticleID.ErrorMessage" xml:space="preserve">
+    <value>Molimo odaberite novinski članak</value>
+</data>
+<data name="rfvExistingLinksID.ErrorMessage" xml:space="preserve">
+    <value>Molimo navedite ID postojećeg dokumenta.</value>
+</data>
+<data name="cvExistingLinksID.ErrorMessage" xml:space="preserve">
+    <value>ID postojeće poveznice mora biti cijeli broj.</value>
+</data>
+<data name="lblCustomLink.Text" xml:space="preserve">
+    <value>URL:</value>
+</data>
+<data name="lblSearchArticleText.Text" xml:space="preserve">
+    <value>Pretraži novinske članke:</value>
+</data>
+<data name="lblLinkTitle.Text" xml:space="preserve">
+    <value>Naslov poveznice:</value>
+</data>
+<data name="lblLinkDescription.Text" xml:space="preserve">
+    <value>Opis poveznice:</value>
+</data>
+<data name="lblSearchLinkText.Text" xml:space="preserve">
+    <value>Pretraži poveznice:</value>
+</data>
+<data name="lblExistingLinksID.Text" xml:space="preserve">
+    <value>ID poveznice:</value>
+</data>
+<data name="Links.Text" xml:space="preserve">
+    <value>Poveznice</value>
+</data>
+<data name="Add.Text" xml:space="preserve">
+    <value>Dodaj</value>
+</data>
+<data name="TitleDescription.HeaderText" xml:space="preserve">
+    <value>Naslov / Opis</value>
+</data>
+<data name="Link.HeaderText" xml:space="preserve">
+    <value>Poveznica</value>
+</data>
+<data name="Lang.HeaderText" xml:space="preserve">
+    <value>Jezik</value>
+</data>
+<data name="Target.HeaderText" xml:space="preserve">
+    <value>Odredište</value>
+</data>
+<data name="rfvExistingDocumentID.ErrorMessage" xml:space="preserve">
+    <value>ID dokumenta mora biti postavljen</value>
+</data>
+<data name="cvExistingDocumentID.ErrorMessage" xml:space="preserve">
+    <value>ID dokumenta mora biti cijeli broj</value>
+</data>
+<data name="Searchdocuments.Text" xml:space="preserve">
+    <value>Pretraži dokumente:</value>
+</data>
+<data name="Documentid.Text" xml:space="preserve">
+    <value>ID dokumenta:</value>
+</data>
+<data name="Info.HeaderText" xml:space="preserve">
+    <value>Informacije</value>
+</data>
+<data name="Show.HeaderText" xml:space="preserve">
+    <value>Prikaži</value>
+</data>
+<data name="NumberOfDownloads.Text" xml:space="preserve">
+    <value>preuzimanja</value>
+</data>
+<data name="liAllLanguages.Text" xml:space="preserve">
+    <value>Svi jezici</value>
+</data>
+<data name="liDefaultPortalLanguage.Text" xml:space="preserve">
+    <value>Zadani</value>
+</data>
+<data name="cvDailyRecurringEventDays.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="cvDayOfMonth.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="cvEndsAfterOcurrences.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="cvOfEveryMonth.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="cvtbxRepeatedOnDay.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="cvUpcomingOccurrences.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="cvWeeklyRecurringEventWeeks.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="lblRecurrenceType.Help" xml:space="preserve">
+    <value>Odaberite vrstu ponavljanja.</value>
+</data>
+<data name="lblRecurrenceType.Text" xml:space="preserve">
+    <value>Vrsta ponavljanja:</value>
+</data>
+<data name="lblRecurringDays.Text" xml:space="preserve">
+    <value>dan(a)</value>
+</data>
+<data name="lblrecurringEvent.Help" xml:space="preserve">
+    <value>Kreirajte ponavljajući događaj.</value>
+</data>
+<data name="lblrecurringEvent.Text" xml:space="preserve">
+    <value>Ponavljajući događaj:</value>
+</data>
+<data name="lblRecurringEvery.Text" xml:space="preserve">
+    <value>Svaki</value>
+</data>
+<data name="lblRecurringMonth.Text" xml:space="preserve">
+    <value>mjesec(a)</value>
+</data>
+<data name="lblRecurringMonthEvery.Text" xml:space="preserve">
+    <value>od svakog:</value>
+</data>
+<data name="lblRecurringWeeks.Text" xml:space="preserve">
+    <value>tjedan(a) na</value>
+</data>
+<data name="lblUpcomingOccurrences.Text" xml:space="preserve">
+    <value>Prikaži nadolazeća ponavljanja</value>
+</data>
+<data name="lblWeeklyRecurringEvery.Text" xml:space="preserve">
+    <value>Ponavljaj svakih:</value>
+</data>
+<data name="liApril.Text" xml:space="preserve">
+    <value>Travanj</value>
+</data>
+<data name="liAugust.Text" xml:space="preserve">
+    <value>Kolovoz</value>
+</data>
+<data name="liDaily.Text" xml:space="preserve">
+    <value>Dnevno</value>
+</data>
+<data name="liDecember.Text" xml:space="preserve">
+    <value>Prosinac</value>
+</data>
+<data name="liEndbydate.Text" xml:space="preserve">
+    <value>Završi prema datumu</value>
+</data>
+<data name="liEndsafterocurrences.Text" xml:space="preserve">
+    <value>Završi nakon ponavljanja</value>
+</data>
+<data name="liEvery.Text" xml:space="preserve">
+    <value>Svaki:</value>
+</data>
+<data name="liFebruary.Text" xml:space="preserve">
+    <value>Veljača</value>
+</data>
+<data name="liFirst.Text" xml:space="preserve">
+    <value>Prvi</value>
+</data>
+<data name="liFourth.Text" xml:space="preserve">
+    <value>Četvrti</value>
+</data>
+<data name="liFriday.Text" xml:space="preserve">
+    <value>Petak</value>
+</data>
+<data name="liJanuary.Text" xml:space="preserve">
+    <value>Siječanj</value>
+</data>
+<data name="liJuly.Text" xml:space="preserve">
+    <value>Srpanj</value>
+</data>
+<data name="liJune.Text" xml:space="preserve">
+    <value>Lipanj</value>
+</data>
+<data name="liLast.Text" xml:space="preserve">
+    <value>Zadnji</value>
+</data>
+<data name="liMarch.Text" xml:space="preserve">
+    <value>Ožujak</value>
+</data>
+<data name="liMay.Text" xml:space="preserve">
+    <value>Svibanj</value>
+</data>
+<data name="liMonday.Text" xml:space="preserve">
+    <value>Ponedjeljak</value>
+</data>
+<data name="liMonthly.Text" xml:space="preserve">
+    <value>Mjesečno</value>
+</data>
+<data name="liNovember.Text" xml:space="preserve">
+    <value>Studeni</value>
+</data>
+<data name="liOctober.Text" xml:space="preserve">
+    <value>Listopad</value>
+</data>
+<data name="liRepeatedon.Text" xml:space="preserve">
+    <value>Ponovljeno na:</value>
+</data>
+<data name="liRepeatedonday.Text" xml:space="preserve">
+    <value>Ponovljeno na dan:</value>
+</data>
+<data name="liSaturday.Text" xml:space="preserve">
+    <value>Subota</value>
+</data>
+<data name="liSecond.Text" xml:space="preserve">
+    <value>Drugi</value>
+</data>
+<data name="liSeptember.Text" xml:space="preserve">
+    <value>Rujan</value>
+</data>
+<data name="liSunday.Text" xml:space="preserve">
+    <value>Nedjelja</value>
+</data>
+<data name="liThe.Text" xml:space="preserve">
+    <value>To:</value>
+</data>
+<data name="liThird.Text" xml:space="preserve">
+    <value>Treći</value>
+</data>
+<data name="liThuesday.Text" xml:space="preserve">
+    <value>Utorak</value>
+</data>
+<data name="liThursday.Text" xml:space="preserve">
+    <value>Četvrtak</value>
+</data>
+<data name="liWednesday.Text" xml:space="preserve">
+    <value>Srijeda</value>
+</data>
+<data name="liWeekly.Text" xml:space="preserve">
+    <value>Tjedno</value>
+</data>
+<data name="liYearly.Text" xml:space="preserve">
+    <value>Godišnje</value>
+</data>
+<data name="revEndsAfterOcurrences.ErrorMessage" xml:space="preserve">
+    <value>Samo pozitivni brojevi. Nula nije dopuštena.</value>
+</data>
+<data name="revUpcomingOccurrences.ErrorMessage" xml:space="preserve">
+    <value>Samo pozitivni brojevi. Nula nije dopuštena.</value>
+</data>
+<data name="rfvDailyRecurringEventDays.ErrorMessage" xml:space="preserve">
+    <value>Dani su obavezni.</value>
+</data>
+<data name="rfvDayOfMonth.ErrorMessage" xml:space="preserve">
+    <value>Dan je obavezan.</value>
+</data>
+<data name="rfvEndsAfterOcurrences.ErrorMessage" xml:space="preserve">
+    <value>Ponavljanja su obavezna.</value>
+</data>
+<data name="rfvOfEveryMonth.ErrorMessage" xml:space="preserve">
+    <value>Dan je obavezan.</value>
+</data>
+<data name="rfvRecurringEndByDate.ErrorMessage" xml:space="preserve">
+    <value>Datum je obavezan.</value>
+</data>
+<data name="rfvRepeatedOnDay.ErrorMessage" xml:space="preserve">
+    <value>Dan je obavezan.</value>
+</data>
+<data name="rfvUpcomingOccurrences.ErrorMessage" xml:space="preserve">
+    <value>Nadolazeća ponavljanja su obavezna.</value>
+</data>
+<data name="rfvWeeklyRecurringEventWeeks.ErrorMessage" xml:space="preserve">
+    <value>Tjedan je obavezan.</value>
+</data>
+<data name="rvDayOfMonth.ErrorMessage" xml:space="preserve">
+    <value>Unesite broj između 1-31.</value>
+</data>
+<data name="rvRepeatedOnDay.ErrorMessage" xml:space="preserve">
+    <value>Unesite broj između 1-31.</value>
+</data>
+<data name="lblDetailsDocumentsTemplate.HelpText" xml:space="preserve">
+    <value>Odaberite HTML predložak za odjeljak dokumenata. Odjeljak dokumenata je dio liste ili detalja članka koji se koristi za prikaz dokumenata dodanih u članku pomoću opcije Dokument u formi Dodaj-Uredi članak. HTML predloške možete uređivati u uređivaču predložaka (Nadzorna ploča &gt; Predlošci).</value>
+</data>
+<data name="lblDetailsDocumentsTemplate.Text" xml:space="preserve">
+    <value>Predložak dokumenata:</value>
+</data>
+<data name="lblDetailsLinksTemplate.HelpText" xml:space="preserve">
+    <value>Odaberite HTML predložak za odjeljak poveznica. Odjeljak poveznica je dio liste ili detalja članka koji se koristi za prikaz dokumenata dodanih u članku pomoću opcije Poveznice u formi Dodaj-Uredi članak. HTML predloške možete uređivati u uređivaču predložaka (Nadzorna ploča &gt; Predlošci).</value>
+</data>
+<data name="lblDetailsLinksTemplate.Text" xml:space="preserve">
+    <value>Predložak poveznica:</value>
+</data>
+<data name="lblDetailsRelatedArticlesTemplate.HelpText" xml:space="preserve">
+    <value>Odaberite HTML predložak za odjeljak srodnih članaka. Odjeljak srodnih članaka je dio liste ili detalja članka koji prikazuje povezane članke. HTML predloške možete uređivati u uređivaču predložaka (Nadzorna ploča &gt; Predlošci).</value>
+</data>
+<data name="lblDetailsRelatedArticlesTemplate.Text" xml:space="preserve">
+    <value>Predložak srodnih članaka:</value>
+</data>
+<data name="EventRegistration.HeaderText" xml:space="preserve">
+    <value>Omogući registraciju događaja</value>
+</data>
+<data name="Attendees.HeaderText" xml:space="preserve">
+    <value>Sudionici</value>
+</data>
+<data name="CustomContent.HeaderText" xml:space="preserve">
+    <value>Prilagođeni sadržaj</value>
+</data>
+<data name="EndDateTime.HeaderText" xml:space="preserve">
+    <value>Datum završetka</value>
+</data>
+<data name="StartDateTime.HeaderText" xml:space="preserve">
+    <value>Datum početka</value>
+</data>
+<data name="UpdateToEnableEditRecurrance.Text" xml:space="preserve">
+    <value>Za omogućavanje uređivanja ponavljajućih događaja ažurirajte članak.</value>
+</data>
+<data name="btnDeleteLocalization.ToolTip" xml:space="preserve">
+    <value>Izbriši odabrani prijevod</value>
+</data>
+<data name="Closesettings.Text" xml:space="preserve">
+    <value>Zatvori postavke</value>
+</data>
+<data name="lbCLCopyDefaults.ToolTip" xml:space="preserve">
+    <value>Kopiraj iz zadanog jezika</value>
+</data>
+<data name="lblCustomFieldsLocalization.Help" xml:space="preserve">
+    <value>Prijevod prilagođenih polja</value>
+</data>
+<data name="lblCustomFieldsLocalization.Text" xml:space="preserve">
+    <value>Prilagođena polja:</value>
+</data>
+<data name="Deletethisdocument.Text" xml:space="preserve">
+    <value>Izbriši ovaj dokument</value>
+</data>
+<data name="Deletethislink.Text" xml:space="preserve">
+    <value>Izbriši ovu poveznicu</value>
+</data>
+<data name="Editthisdocument.Text" xml:space="preserve">
+    <value>Uredi ovaj dokument</value>
+</data>
+<data name="Editthislink.Text" xml:space="preserve">
+    <value>Uredi ovu poveznicu</value>
+</data>
+<data name="Owner.Text" xml:space="preserve">
+    <value>Vlasnik</value>
+</data>
+<data name="Selectauthor.Text" xml:space="preserve">
+    <value>Odaberite autora</value>
+</data>
+<data name="lblGalleryLightbox.Help" xml:space="preserve">
+    <value>Odaberite tip lightbox galerije.</value>
+</data>
+<data name="lblGalleryLightbox.Text" xml:space="preserve">
+    <value>Odaberite tip lightboxa:</value>
+</data>
+<data name="lblRegistrationOnEvent.Text" xml:space="preserve">
+    <value>Omogući registracije:</value>
+</data>
+<data name="lblRegistrationOnEvent.Help" xml:space="preserve">
+    <value>Uključite ovu opciju ako želite omogućiti korisničku registraciju na događaj. Ova opcija se ne može isključiti ako postoji postojeća registracija na događaj.</value>
+</data>
+<data name="lblEventType.Text" xml:space="preserve">
+    <value>Vrsta događaja:</value>
+</data>
+<data name="lblEventType.Help" xml:space="preserve">
+    <value>Vrsta događaja.</value>
+</data>
+<data name="lblEventMaxNumberOfTickets.Text" xml:space="preserve">
+    <value>Broj mjesta:</value>
+</data>
+<data name="lblEventMaxNumberOfTickets.Help" xml:space="preserve">
+    <value>Maksimalni broj mjesta (sudionika) koji se mogu prijaviti na događaj. 0 znači neograničeno.</value>
+</data>
+<data name="lblNumberofseatsunlimited.Text" xml:space="preserve">
+    <value>(0 znači neograničeno)</value>
+</data>
+<data name="rfvMaxNumberOfTickets.ErrorMessage" xml:space="preserve">
+    <value>Obavezno.</value>
+</data>
+<data name="cvMaxNumberOfTickets.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="revMaxNumberOfTickets.ErrorMessag" xml:space="preserve">
+    <value>Samo pozitivni brojevi. Nula znači sva mjesta.</value>
+</data>
+<data name="lblEnableRegistration.Text" xml:space="preserve">
+    <value>Početak registracije:</value>
+</data>
+<data name="lblEnableRegistration.Help" xml:space="preserve">
+    <value>Odredite vrijeme kada su registracije korisnika omogućene. Prva moguća opcija je 'Nakon datuma objave', što znači da su registracije moguće odmah nakon objave. Druga opcija je 'Broj dana prije događaja', gdje se može postaviti broj dana prije početka događaja kada je registracija omogućena.</value>
+</data>
+<data name="liAfterpublishdate.Text" xml:space="preserve">
+    <value>Nakon datuma objave</value>
+</data>
+<data name="liNumberofdaysbeforeeventstartdate.Text" xml:space="preserve">
+    <value>Broj dana prije početka događaja</value>
+</data>
+<data name="rfvEnableDaysBeforeStartDate.ErrorMessage" xml:space="preserve">
+    <value>Obavezno.</value>
+</data>
+<data name="cvEnableDaysBeforeStartDate.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="revEnableDaysBeforeStartDate.ErrorMessage" xml:space="preserve">
+    <value>Samo pozitivni brojevi. Nula znači sva mjesta.</value>
+</data>
+<data name="lblDisableRegistration.Text" xml:space="preserve">
+    <value>Kraj registracije:</value>
+</data>
+<data name="lblDisableRegistration.Help" xml:space="preserve">
+    <value>Odredite vrijeme kada registracije završavaju. Prva opcija je 'Kada događaj počne', što znači da su registracije zatvorene na početku događaja. Druga opcija je 'Broj dana prije događaja', gdje se može postaviti broj dana prije početka događaja kada registracija više neće biti omogućena.</value>
+</data>
+<data name="liWheneventstarts.Text" xml:space="preserve">
+    <value>Kada događaj počne</value>
+</data>
+<data name="rfvDisableDaysBeforeStartDate.ErrorMessage" xml:space="preserve">
+    <value>Obavezno.</value>
+</data>
+<data name="cvDisableDaysBeforeStartDate.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="revDisableDaysBeforeStartDate.ErrorMessage" xml:space="preserve">
+    <value>Samo pozitivni brojevi. Nula znači sva mjesta.</value>
+</data>
+<data name="lblTicketsUserCanRegister.Text" xml:space="preserve">
+    <value>Rezervacija mjesta po korisniku:</value>
+</data>
+<data name="lblTicketsUserCanRegister.Help" xml:space="preserve">
+    <value>Ovdje možete odrediti koliko mjesta jedan korisnik može rezervirati. Ako je odabrana opcija 'Neograničeno', korisnik može rezervirati neograničen broj mjesta. Ako je odabrana opcija 'Min - Max vrijednost', moguće je postaviti minimalni i maksimalni broj mjesta koji jedan korisnik može rezervirati.</value>
+</data>
+<data name="liUnlimited.Text" xml:space="preserve">
+    <value>Neograničeno</value>
+</data>
+<data name="liMinMaxvalue.Text" xml:space="preserve">
+    <value>Min - Max vrijednost</value>
+</data>
+<data name="rfvEventRegisterMinTickets.ErrorMessage" xml:space="preserve">
+    <value>Obavezno.</value>
+</data>
+<data name="cvEventRegisterMinTickets.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="revEventRegisterMinTickets.ErrorMessage" xml:space="preserve">
+    <value>Samo pozitivni brojevi. Nula znači sva mjesta.</value>
+</data>
+<data name="rfEventRegisterMaxTickets.ErrorMessage" xml:space="preserve">
+    <value>Obavezno.</value>
+</data>
+<data name="cvEventRegisterMaxTickets.ErrorMessage" xml:space="preserve">
+    <value>Unesite samo broj.</value>
+</data>
+<data name="revEventRegisterMaxTickets.ErrorMessage" xml:space="preserve">
+    <value>Samo pozitivni brojevi. Nula znači sva mjesta.</value>
+</data>
+<data name="lblRegistrationType.Text" xml:space="preserve">
+    <value>Tip registracije korisnika:</value>
+</data>
+<data name="lblRegistrationType.Help" xml:space="preserve">
+    <value>Ovdje možete odabrati tip registracije. Ako je odabrana opcija 'Registracija na stranici je potrebna', korisnik se mora registrirati na stranici ili registrirati. Ako je odabrana opcija 'Registracija na stranici nije potrebna', korisnici se mogu registrirati na događaj bez registracije na stranici. Osim ove opcije, potrebno je postaviti koji korisnici imaju mogućnost registracije u postavkama modula (Postavke &gt; 1. Dozvole &gt; Omogući registraciju događaja).</value>
+</data>
+<data name="liRegistrationonsiteisnecessary.Text" xml:space="preserve">
+    <value>Registracija na stranici je potrebna</value>
+</data>
+<data name="liRegistrationonsiteisnotnecessary.Text" xml:space="preserve">
+    <value>Registracija na stranici nije potrebna</value>
+</data>
+<data name="lblEventRegistrationRole.Text" xml:space="preserve">
+    <value>Dodaj registrirane korisnike u ulogu:</value>
+</data>
+<data name="lblEventRegistrationRole.Help" xml:space="preserve">
+    <value>Ovdje možemo postaviti mogućnost dodavanja određene DNN sigurnosne uloge korisniku nakon registracije. Ako je odabrana opcija 'Nijedna', korisnik se ne dodaje u ulogu. Ako je odabrana opcija 'Odaberi ulogu', možemo odabrati ulogu u koju se korisnik dodaje nakon registracije.</value>
+</data>
+<data name="liNone.Text" xml:space="preserve">
+    <value>Nijedna</value>
+</data>
+<data name="liSelectrole.Text" xml:space="preserve">
+    <value>Odaberi ulogu</value>
+</data>
+<data name="lblRegistrationApproval.Text" xml:space="preserve">
+    <value>Potrebno odobrenje:</value>
+</data>
+<data name="lblRegistrationApproval.Help" xml:space="preserve">
+    <value>Ako je ova opcija uključena, potrebno je odobrenje za podnesene registracije.</value>
+</data>
+<data name="lblDisableFurtherRegistration.Text" xml:space="preserve">
+    <value>Onemogući daljnje registracije:</value>
+</data>
+<data name="lblDisableFurtherRegistration.Help" xml:space="preserve">
+    <value>Ako je ova opcija uključena, daljnje registracije su onemogućene bez obzira na trajanje postavljeno u postavkama.</value>
+</data>
+<data name="lblShowRegistredUsersRole.Text" xml:space="preserve">
+    <value>Vidljivost liste sudionika:</value>
+</data>
+<data name="lblShowRegistredUsersRole.Help" xml:space="preserve">
+    <value>Ovdje možete postaviti kome je lista registriranih korisnika vidljiva. Ako je odabrana opcija 'Nijedna', lista nije vidljiva nikome. Kada je odabrana opcija 'Svi', lista je vidljiva svima, a ako je odabrana opcija 'Odaberi ulogu', možemo odabrati sigurnosnu ulogu kojoj je lista vidljiva.</value>
+</data>
+<data name="liAll.Text" xml:space="preserve">
+    <value>Svi</value>
+</data>
+<data name="lblRegistrationCFtemplateID.Text" xml:space="preserve">
+    <value>Predložak polja obrasca registracije:</value>
+</data>
+<data name="lblRegistrationCFtemplateID.Help" xml:space="preserve">
+    <value>Ovdje možete odabrati grupu prilagođenih polja za obrazac registracije. Grupa prilagođenih polja se kreira u Nadzornoj ploči &gt; Prilagođena polja.</value>
+</data>
+<data name="lblSendInvitations.Text" xml:space="preserve">
+    <value>Koristi zadane pozivnice:</value>
+</data>
+<data name="lblSendInvitations.Help" xml:space="preserve">
+    <value>Ako je ova opcija uključena, događaj će koristiti zadane postavke pozivnica. Zadane postavke vrijede za cijeli portal. Dodatne promjene i prilagodbe pozivnica su moguće.</value>
+</data>
+<data name="lblSendReminders.Text" xml:space="preserve">
+    <value>Koristi zadane podsjetnike:</value>
+</data>
+<data name="lblSendReminders.Help" xml:space="preserve">
+    <value>Ako je ova opcija uključena, događaj će koristiti zadane postavke podsjetnika. Zadane postavke vrijede za cijeli portal. Dodatne promjene i prilagodbe podsjetnika su moguće.</value>
+</data>
+<data name="lblReccuringInEditMode.Text" xml:space="preserve">
+    <value>Uredi pojedinačni ponavljajući događaj:</value>
+</data>
+<data name="lblReccuringInEditMode.Help" xml:space="preserve">
+    <value>Ako je ova opcija uključena, moguće je uređivati pojedinačni ponavljajući događaj iz serije događaja. Upozorenje: ako se ova opcija naknadno isključi, sve promjene primijenjene na pojedinačne ponavljajuće događaje će se izgubiti.</value>
+</data>
+<data name="DocumentDownload.HeaderText" xml:space="preserve">
+    <value>Preuzimanje dokumenta</value>
+</data>
+<data name="Leftwrapp.Text" xml:space="preserve">
+    <value>Lijevo poravnanje</value>
+</data>
+<data name="Rightwrapp.Text" xml:space="preserve">
+    <value>Desno poravnanje</value>
+</data>
+<data name="VideoUploaded.Text" xml:space="preserve">
+    <value>Video je učitan.</value>
+</data>
+<data name="ErrorWhileUploadingVideo.Text" xml:space="preserve">
+    <value>Pogreška prilikom učitavanja videa.</value>
+</data>
+<data name="APIKeyMissing.Text" xml:space="preserve">
+    <value>API ključ nedostaje.</value>
+</data>
+<data name="WrongFileType.Text" xml:space="preserve">
+    <value>Neispravan tip datoteke.</value>
+</data>
+<data name="PleaseSelectVideoFile.Text" xml:space="preserve">
+    <value>Molimo odaberite video datoteku.</value>
+</data>
+<data name="lblUploadToWistiaService.Text" xml:space="preserve">
+    <value>Učitaj video na Wistia servis:</value>
+</data>
+<data name="btnWistiaSingleUpload.Text" xml:space="preserve">
+    <value>Učitaj</value>
+</data>
+<data name="liRegistrationType.Text" xml:space="preserve">
+    <value>Tip registracije događaja:</value>
+</data>
+<data name="liRegistrationTypeClassinc.Text" xml:space="preserve">
+    <value>Klasik</value>
+</data>
+<data name="liRegistrationTypeSocial.Text" xml:space="preserve">
+    <value>Društveni (samo za registrirane korisnike)</value>
+</data>
+<data name="RecurringEventsCopyContent.Text" xml:space="preserve">
+    <value>Kopiraj iz zadanog jezika</value>
+</data>
+<data name="RecurringEventsDeleteContent.Text" xml:space="preserve">
+    <value>Izbriši</value>
+</data>
+<data name="liPrettyPhoto.Text" xml:space="preserve">
+    <value>PrettyPhoto</value>
+</data>
+<data name="liSocialMediaBoxLite.Text" xml:space="preserve">
+    <value>SocialMediaBox Lite</value>
+</data>
+<data name="liSocialMediaBox.Text" xml:space="preserve">
+    <value>SocialMediaBox Advanced</value>
+</data>
+<data name="liOpenDetailsInGravityGallery.Text" xml:space="preserve">
+    <value>Otvori detalje u Gravity galeriji</value>
+</data>
+<data name="lblChameleonOpenDetailsInGravityGallery.Text" xml:space="preserve">
+    <value>Otvori detalje medija u Gravity galeriji:</value>
+</data>
+<data name="lblChameleonOpenDetailsInGravityGallery.Help" xml:space="preserve">
+    <value>Uključite ovu opciju za otvaranje detalja medija u Gravity galeriji. Ako uključite ovu opciju, također morate odabrati opciju 'Otvori detalje u Gravity galeriji' u odabiru tipa lightboxa.</value>
+</data>
+<data name="lblChameleonGravityGalleryInstances.Help" xml:space="preserve">
+    <value>Odaberite Gravity gallery modul za prikaz cijele galerije.</value>
+</data>
+<data name="lblChameleonGravityGalleryInstances.Text" xml:space="preserve">
+    <value>Odaberite Gravity gallery modul:</value>
+</data>
+<data name="liSelectGravityGalleryModuleInstance.Text" xml:space="preserve">
+    <value>Odaberite instancu Gravity gallery modula</value>
+</data>
+<data name="lblGravityGalleryThumbnailWidth.Help" xml:space="preserve">
+    <value>Širina minijature galerije.</value>
+</data>
+<data name="lblGravityGalleryThumbnailWidth.Text" xml:space="preserve">
+    <value>Širina minijature galerije:</value>
+</data>
+<data name="lblGravityGalleryThumbnailHeight.Text" xml:space="preserve">
+    <value>Visina minijature galerije:</value>
+</data>
+<data name="lblGravityGalleryThumbnailHeight.Help" xml:space="preserve">
+    <value>Visina minijature galerije.</value>
+</data>
+<data name="lblGravityGalleryItemsPerPage.Text" xml:space="preserve">
+    <value>Stavki po stranici:</value>
+</data>
+<data name="lblGravityGalleryItemsPerPage.Help" xml:space="preserve">
+    <value>Stavki po stranici.</value>
+</data>
+<data name="lblGravityGalleryEnablePagination.Text" xml:space="preserve">
+    <value>Omogući paginaciju:</value>
+</data>
+<data name="lblGravityGalleryEnablePagination.Help" xml:space="preserve">
+    <value>Omogući paginaciju.</value>
+</data>
+<data name="lblGravityGalleryResizeMethod.Help" xml:space="preserve">
+    <value>Metoda promjene veličine minijature.</value>
+</data>
+<data name="lblGravityGalleryResizeMethod.Text" xml:space="preserve">
+    <value>Metoda promjene veličine minijature:</value>
+</data>
+<data name="liResizeAndCrop.Text" xml:space="preserve">
+    <value>Promijeni veličinu i obreži</value>
+</data>
+<data name="liProportionalResize.Text" xml:space="preserve">
+    <value>Proporcionalno mijenjanje veličine</value>
+</data>
+<data name="lblShowLinkToGravityGallery.Text" xml:space="preserve">
+    <value>Prikaži poveznicu na Gravity galeriju:</value>
+</data>
+<data name="lblShowLinkToGravityGallery.Help" xml:space="preserve">
+    <value>Prikaži poveznicu na Gravity galeriju.</value>
+</data>
+<data name="lbllGravityGalleryInstances.Text" xml:space="preserve">
+    <value>Odaberite Gravity gallery modul:</value>
+</data>
+<data name="lbllGravityGalleryInstances.Help" xml:space="preserve">
+    <value>Odaberite Gravity gallery modul za prikaz cijele galerije.</value>
+</data>
+<data name="lblGravityGallerySelectTemplate.Help" xml:space="preserve">
+    <value>Odaberite HTML predložak za Gravity galeriju. Ovaj predložak će se koristiti ako se Gravity galerija koristi za prikaz galerija unutar članaka. HTML predloške možete uređivati u uređivaču predložaka (Nadzorna ploča &gt; Predlošci).</value>
+</data>
+<data name="lblGravityGallerySelectTemplate.Text" xml:space="preserve">
+    <value>Odaberite predložak Gravity galerije:</value>
+</data>
+<data name="lblMetaDescription.Text" xml:space="preserve">
+    <value>Meta opis:</value>
+</data>
+<data name="lblMetaDescription.HelpText" xml:space="preserve">
+    <value>Unesite meta opis za članak. Ovo polje je opcionalno.</value>
+</data>
+<data name="lblMetaKeywords.Text" xml:space="preserve">
+    <value>Meta ključna riječ:</value>
+</data>
+<data name="lblMetaKeywords.HelpText" xml:space="preserve">
+    <value>Unesite meta ključne riječi za članak. Ovo polje je opcionalno.</value>														
+	</data>
+<data name="DraftArticle.Text" xml:space="preserve">
+    <value>Ako je ova opcija odabrana, članak je u načinu skice i nije objavljen.</value>
+</data>
+<data name="PublishArticle.Text" xml:space="preserve">
+    <value>Ako je ova opcija odabrana, članak će biti objavljen.</value>
+</data>
+<data name="galleryPanelTooltip.Text" xml:space="preserve">
+    <value>Ovdje možete dodati galeriju i slike u članku. Gumbi Odaberi slike i Počni učitavanje slika pojavit će se nakon klika na gumb Dodaj galeriju. Klikom na gumb Odaberi slike možete odabrati slike s računala, a zatim ih učitati klikom na gumb Počni učitavanje. Nakon učitavanja, popis dodanih slika bit će prikazan u ovom panelu.</value>
+</data>
+<data name="documentsIncludedTooltip.Text" xml:space="preserve">
+    <value>Ovdje možete dodati dokumente u članke. Dokumenti dodani na ovaj način bit će prikazani na dnu članka u okviru za dokumente. Korištenjem tokena, mogu se dodati izravno u sažetak članka ili sadržaj članka. Ako želite dodati nove dokumente, odaberite opciju Učitaj nove dokumente, kliknite na gumb “Odaberi dokumente” i na kraju kliknite na gumb Učitaj za učitavanje dokumenata u članak. Ako želite dodati postojeće dokumente, odaberite opciju Dodaj postojeći dokument, upišite početak naslova članka u “Pretraži dokument” i odaberite dokument. Kliknite na gumb Dodaj. Nakon dodavanja dokumenta, popis dodanih dokumenata bit će prikazan u ovom panelu.</value>
+</data>
+<data name="linksTooltip.Text" xml:space="preserve">
+    <value>Ovdje možete dodati linkove u članku. Linkovi dodani na ovaj način bit će prikazani na kraju članka u okviru za linkove. Korištenjem tokena, mogu se dodati u sažetak članka i sadržaj. Moguće je odabrati više vrsta linkova. Vanjski link je link na vanjsku stranicu. Link na stranicu je link na stranicu unutar web-mjesta. Link na članak je link na već dodani članak. Opcija Postojeći link omogućuje dodavanje već dodanih linkova bez ponovnog unosa svih podataka. Nakon dodavanja linkova, popis dodanih linkova bit će prikazan u ovom panelu.</value>
+</data>
+<data name="advancedSettingsTooltip.Text" xml:space="preserve">
+    <value>Ovdje je moguće odabrati ili promijeniti autora članka. Odaberite DNN sigurnosnu ulogu, a zatim (novog) autora.</value>
+</data>
+<data name="isArticleEventTooltip.Text" xml:space="preserve">
+    <value>Ako je ova opcija uključena, članak će biti dodan kao događaj, što znači da je potrebno dodati datum početka i završetka te je moguće konfigurirati druge opcije vezane uz događaj.</value>
+</data>
+<data name="PleaseEnterValidEventStartTime.Text" xml:space="preserve">
+    <value>Molimo unesite valjano vrijeme početka događaja.</value>
+</data>
+<data name="PleaseEnterValidEventEndTime.Text" xml:space="preserve">
+    <value>Molimo unesite valjano vrijeme završetka događaja.</value>
+</data>
+<data name="EventEndDateAndStartDateAreEqual.Text" xml:space="preserve">
+    <value>Datum završetka događaja i datum početka su isti.</value>
+</data>
+<data name="PleaseEnterValidPublishTime.Text" xml:space="preserve">
+    <value>Molimo unesite valjano vrijeme objave.</value>
+</data>
+<data name="PleaseEnterValidExpireTime.Text" xml:space="preserve">
+    <value>Molimo unesite valjano vrijeme isteka.</value>
+</data>
+<data name="PublishDateIsGreaterThenExpireDate.Text" xml:space="preserve">
+    <value>Datumi nisu valjani. Datum objave je veći od datuma isteka.</value>
+</data>
+<data name="SelectDayOfWeek.Text" xml:space="preserve">
+    <value>Odaberite dan u tjednu!</value>
+</data>
+<data name="RecurringEndDateMustBeGreaterThanStartDate.Text" xml:space="preserve">
+    <value>Datum završetka ponavljanja mora biti veći od datuma početka!</value>
+</data>
+<data name="EventDatesAndTimeError.Text" xml:space="preserve">
+    <value>Greška u datumima i vremenu događaja!</value>
+</data>
+<data name="EventPaymentCostDefinitionNotValid.Text" xml:space="preserve">
+    <value>Definicija cijene događaja nije valjana.</value>
+</data>
+<data name="EventDiscountsDefinitionNotValid.Text" xml:space="preserve">
+    <value>Definicija popusta za događaj nije valjana.</value>
+</data>
+<data name="ArticleDoesntExist.Text" xml:space="preserve">
+    <value>Članak ne postoji.</value>
+</data>
+<data name="PleaseInsertIntegerValue.Text" xml:space="preserve">
+    <value>Molimo unesite cijeli broj!</value>
+</data>
+<data name="PleaseInsertDecimalValue.Text" xml:space="preserve">
+    <value>Molimo unesite decimalnu vrijednost!</value>
+</data>
+<data name="PleaseInsertCurrencyValue.Text" xml:space="preserve">
+    <value>Molimo unesite vrijednost valute!</value>
+</data>
+<data name="EnterValidURL.Text" xml:space="preserve">
+    <value>Molimo unesite valjani URL!</value>
+</data>
+<data name="UsersAllreadyRegistratedToEvents.Text" xml:space="preserve">
+    <value>Korisnici su već registrirani na događaje. Generiranje svih vrijednosti je onemogućeno. Uredite pojedinačno ponavljanje.</value>
+</data>
+<data name="ArticleImageNotSelected.Text" xml:space="preserve">
+    <value>Slika članka nije odabrana.</value>
+</data>
+<data name="FixedPriceNotValid.Text" xml:space="preserve">
+    <value>Fiksna cijena nije valjana.</value>
+</data>
+<data name="FixedPriceMustBePositiveNumberOrZero.Text" xml:space="preserve">
+    <value>Fiksna cijena mora biti pozitivan broj ili nula.</value>
+</data>
+<data name="EventPaymentDefineAtLeastOnePrice.Text" xml:space="preserve">
+    <value>Event payment - definirajte barem jednu cijenu.</value>
+</data>
+<data name="ErrorInPaymentTypeSelection.Text" xml:space="preserve">
+    <value>Greška pri odabiru vrste plaćanja.</value>
+</data>
+<data name="EnterValidEmail.Text" xml:space="preserve">
+    <value>Molimo unesite valjanu email adresu!</value>
+</data>
+<data name="ErrorWhileUploadingFile.Text" xml:space="preserve">
+    <value>Greška prilikom učitavanja datoteke</value>
+</data>
+<data name="CanUploadExeComBatFiles.Text" xml:space="preserve">
+    <value>Ne možete učitati exe, com, bat datoteke</value>
+</data>
+<data name="TheDocumentIdIsntAValidNumber.Text" xml:space="preserve">
+    <value>ID dokumenta nije valjan broj</value>
+</data>
+<data name="ThereWasAnErrorWhileSavingTheDocument.Text" xml:space="preserve">
+    <value>Došlo je do greške prilikom spremanja dokumenta.</value>
+</data>
+<data name="UpdateArticleAndSaveEventAsRecurringEvent.Text" xml:space="preserve">
+    <value>Za omogućavanje uređivanja ponavljajućih događaja morate ažurirati članak kako bi se događaj spremio kao ponavljajući.</value>
+</data>
+<data name="UpdateArticleAndSaveArticleAsEvent.Text" xml:space="preserve">
+    <value>Za omogućavanje uređivanja ponavljajućih događaja morate ažurirati članak kako bi se članak spremio kao događaj.</value>
+</data>
+<data name="InvalidStartDate.Text" xml:space="preserve">
+    <value>Nevažeći datum početka.</value>
+</data>
+<data name="InvalidEndDate.Text" xml:space="preserve">
+    <value>Nevažeći datum završetka.</value>
+</data>
+<data name="ContentDeleted.Text" xml:space="preserve">
+    <value>Sadržaj je izbrisan.</value>
+</data>
+<data name="LocaleDeleted.Text" xml:space="preserve">
+    <value>Jezik izbrisan</value>
+</data>
+<data name="PleaseSelectLanguage.Text" xml:space="preserve">
+    <value>Molimo odaberite jezik</value>
+</data>
+<data name="TheArticleDoesntExist.Text" xml:space="preserve">
+    <value>Članak ne postoji ili nemate dozvolu za njegov pregled.</value>
+</data>
+<data name="ArticleIDNotValid.Text" xml:space="preserve">
+    <value>ID članka nije valjan. (ArticleID mora biti cijeli broj).</value>
+</data>
+<data name="TheLinkWasAddedSuccesfully.Text" xml:space="preserve">
+    <value>Link je uspješno dodan.</value>
+</data>
+<data name="AddingTheLinkFailed.Text" xml:space="preserve">
+    <value>Dodavanje linka nije uspjelo. Došlo je do greške prilikom dodavanja linka u bazu podataka.</value>
+</data>
+<data name="TheURLIsntValid.Text" xml:space="preserve">
+    <value>URL nije valjan.</value>
+</data>
+<data name="PageNotValid.Text" xml:space="preserve">
+    <value>Stranica nije valjana. (Tabid nije cijeli broj).</value>
+</data>
+<data name="YouCannotAddMoreArtciles.Text" xml:space="preserve">
+    <value>Ne možete dodati više članaka. Dosegnuli ste maksimalni dopušteni broj članaka.</value>
+</data>
+<data name="TooManyCategoriesSelected.Text" xml:space="preserve">
+    <value>Odabrano je previše kategorija. Možete odabrati do {0} kategorija.</value>
+</data>
+<data name="TooManyTagsAdded.Text" xml:space="preserve">
+    <value>Dodano je previše oznaka. Možete dodati do {0} oznaka.</value>
+</data>
+<data name="YouCanNotAddMoreLinks.Text" xml:space="preserve">
+    <value>Ne možete dodati više linkova. Možete dodati do {0} linkova.</value>
+</data>
+<data name="YouCanNotAddMoreDocuments.Text" xml:space="preserve">
+    <value>Ne možete dodati više dokumenata. Možete dodati do {0} dokumenata.</value>
+</data>
+<data name="YouCanNotAddMoreDocumentsRecurringEvent.Text" xml:space="preserve">
+    <value>Ne možete dodati više dokumenata ovom ponavljajućem događaju. Možete dodati do {0} dokumenata.</value>
+</data>
+<data name="YouCanNotAddMoreVideos.Text" xml:space="preserve">
+    <value>Ne možete dodati više videozapisa. Možete dodati do {0} videozapisa.</value>
+</data>
+<data name="YouCanNotUploadMoreImages.Text" xml:space="preserve">
+    <value>Ne možete učitati više slika. Možete učitati do {0} slika.</value>
+</data>
+<data name="lblYouCanNotAddMedia.Text" xml:space="preserve">
+    <value>Ne možete učitati slike ili dodavati videozapise.</value>
+</data>
+<data name="liSocialMediaBoxPlus.Text" xml:space="preserve">
+    <value>SocialMediaBox Plus</value>
+</data>
+<data name="lblUploadToVimeoService.Text" xml:space="preserve">
+    <value>Učitaj video na Vimeo servis:</value>
+</data>
+<data name="btnVimeoSingleUpload.Text" xml:space="preserve">
+    <value>Učitaj</value>
+</data>
+<data name="lblContactEmail.Help" xml:space="preserve">
+    <value>Kontakt email.</value>
+</data>
+<data name="lblContactEmail.Text" xml:space="preserve">
+    <value>Kontakt email:</value>
+</data>
+<data name="ContactEmailNotValid.Text" xml:space="preserve">
+    <value>Kontakt email nije važeći.</value>
+</data>
+<data name="TextEditorMaxChar.Text" xml:space="preserve">
+    <value>Preostalo znakova: {1}</value>
+</data>
+<data name="lblAuthorAlias.Help" xml:space="preserve">
+    <value>Alias autora.</value>
+</data>
+<data name="lblAuthorAlias.Text" xml:space="preserve">
+    <value>Alias autora:</value>
+</data>
+<data name="lblTitleTag.Help" xml:space="preserve">
+    <value>Ovdje možete unijeti prilagođeni naslov. Ako se prilagođeni naslov ne unese, automatski se generira prema postavkama u Nadzornoj ploči &gt; Opće postavke.</value>
+</data>
+<data name="lblTitleTag.Text" xml:space="preserve">
+    <value>Naslov (title tag):</value>
+</data>
+<data name="Page.Text" xml:space="preserve">
+    <value>Odaberite stranicu:</value>
+</data>
+<data name="lbMustSaveBeforeEnable.Text" xml:space="preserve">
+    <value>Da biste omogućili proces registracije, prvo spremite članak.</value>
+</data>
+<data name="AddNewArticleTitle.Text" xml:space="preserve">
+    <value>Dodaj članak</value>
+</data>
+<data name="btnAddAndClose.Text" xml:space="preserve">
+    <value>Spremi i zatvori</value>
+</data>
+<data name="btnAddAndClose.ToolTip" xml:space="preserve">
+    <value>Spremi i zatvori</value>
+</data>
+<data name="btnAddAndView.Text" xml:space="preserve">
+    <value>Spremi i pogledaj</value>
+</data>
+<data name="btnAddAndView.ToolTip" xml:space="preserve">
+    <value>Spremi i pogledaj</value>
+</data>
+<data name="btnAddNewArticle.Text" xml:space="preserve">
+    <value>Spremi članak</value>
+</data>
+<data name="btnAddNewArticle.ToolTip" xml:space="preserve">
+    <value>Spremi članak</value>
+</data>
+<data name="rfvAddEmbedVideoURL.ErrorMessage" xml:space="preserve">
+    <value>Molimo unesite važeći URL.</value>
+</data>
+<data name="cvMainGalleryAddEmbedVideo.ErrorMessage" xml:space="preserve">
+    <value>Nevažeći URL.</value>
+</data>
+<data name="All.Text" xml:space="preserve">
+    <value>Svi</value>
+</data>
+<data name="EditMap.Text" xml:space="preserve">
+    <value>Uredi kartu</value>
+</data>
+<data name="btnCancel.Text" xml:space="preserve">
+    <value>Odustani</value>
+</data>
+<data name="Tags.Text" xml:space="preserve">
+    <value>Oznake</value>
+</data>
+<data name="DragAndDropImagesHereOrClickOnSelectImagesButton.Text" xml:space="preserve">
+    <value>Povucite i ispustite slike ovdje ili kliknite na gumb Odaberi slike</value>
+</data>
+<data name="lblGIPagerStyle.Text" xml:space="preserve">
+    <value>Stil paginacije:</value>
+</data>
+<data name="lblGIPagerStyle.Help" xml:space="preserve">
+    <value>Stil paginacije.</value>
+</data>
+<data name="lblGIImagesResize.Text" xml:space="preserve">
+    <value>Promijeni veličinu i obreži slike:</value>
+</data>
+<data name="lblGIImagesResize.Help" xml:space="preserve">
+    <value>Promijeni veličinu i obreži slike. Ako nije označeno, slike će se proporcionalno smanjiti.</value>
+</data>
+<data name="lblChameleonResizeMethod.Text" xml:space="preserve">
+    <value>Metoda promjene veličine za izradu minijatura:</value>
+</data>
+<data name="lblChameleonResizeMethod.HelpText" xml:space="preserve">
+    <value>Odaberite metodu promjene veličine prilikom generiranja minijatura slika.</value>
+</data>
+<data name="lblGravityGalleryDisplayDescriptionInLightbox.Text" xml:space="preserve">
+    <value>Prikaži opis stavke u Lightboxu:</value>
+</data>
+<data name="lblGravityGalleryDisplayDescriptionInLightbox.Help" xml:space="preserve">
+    <value>Prikaži opis stavke u Lightboxu.</value>
+</data>
+<data name="lblGravityGalleryDisplayTitleInLightbox.Text" xml:space="preserve">
+    <value>Prikaži naslov stavke u Lightboxu:</value>
+</data>
+<data name="lblGravityGalleryDisplayTitleInLightbox.Help" xml:space="preserve">
+    <value>Prikaži naslov stavke u Lightboxu.</value>
+</data>
+<data name="lblGravityGalleryDisplayDescription.Text" xml:space="preserve">
+    <value>Prikaži opis stavke:</value>
+</data>
+<data name="lblGravityGalleryDisplayDescription.Help" xml:space="preserve">
+    <value>Prikaži opis stavke.</value>
+</data>
+<data name="lblGravityGalleryDisplayTitle.Text" xml:space="preserve">
+    <value>Prikaži naslov stavke:</value>
+</data>
+<data name="lblGravityGalleryDisplayTitle.Help" xml:space="preserve">
+    <value>Prikaži naslov stavke.</value>
+</data>
+<data name="lblByAttendeesCost.Text" xml:space="preserve">
+    <value>Troškovi po sudionicima:</value>
+</data>
+<data name="lblByAttendeesCost.Help" xml:space="preserve">
+    <value>Prilagodite nazive troškova. Članak mora biti spremljen prije lokalizacije naziva troškova.</value>
+</data>
+<data name="lblRecurringEventSummary.Text" xml:space="preserve">
+    <value>Sažetak:</value>
+</data>
+<data name="lblRecurringEventSummary.Help" xml:space="preserve">
+    <value>Sažetak.</value>
+</data>
+<data name="lblRecurringEventArticle.Text" xml:space="preserve">
+    <value>Članak:</value>
+</data>
+<data name="lblRecurringEventArticle.Help" xml:space="preserve">
+    <value>Članak.</value>
+</data>
+<data name="lblEventPayment.Text" xml:space="preserve">
+    <value>Plaćanje:</value>
+</data>
+<data name="lblEventPayment.Help" xml:space="preserve">
+    <value>Plaćanje.</value>
+</data>
+<data name="lblEventChargeBy.Text" xml:space="preserve">
+    <value>Naplata prema:</value>
+</data>
+<data name="lblEventChargeBy.Help" xml:space="preserve">
+    <value>Naplata prema.</value>
+</data>
+<data name="lblCostPerBooking.Text" xml:space="preserve">
+    <value>Trošak po rezervaciji:</value>
+</data>
+<data name="lblCostPerBooking.Help" xml:space="preserve">
+    <value>Trošak po rezervaciji, bez obzira na broj sudionika.</value>
+</data>
+<data name="lblCostPerAttendee.Text" xml:space="preserve">
+    <value>Trošak po sudioniku:</value>
+</data>
+<data name="lblCostPerAttendee.Help" xml:space="preserve">
+    <value>Trošak po sudioniku, možete imati više razina cijena.</value>
+</data>
+<data name="Name.Text" xml:space="preserve">
+    <value>Naziv</value>
+</data>
+<data name="Cost.Text" xml:space="preserve">
+    <value>Trošak</value>
+</data>
+<data name="Attendees.Text" xml:space="preserve">
+    <value>Sudionici</value>
+</data>
+<data name="Discount.Text" xml:space="preserve">
+    <value>Popust</value>
+</data>
+<data name="lblBulkDiscount.Text" xml:space="preserve">
+    <value>Popust za veći broj:</value>
+</data>
+<data name="lblBulkDiscount.Help" xml:space="preserve">
+    <value>Politika popusta kada ima više od jednog sudionika, možete unijeti broj (npr. 1.5) ili postotak (npr. 10%).</value>
+</data>
+<data name="MainImageTitle.Text" xml:space="preserve">
+    <value>Naslov glavne slike članka</value>
+</data>
+<data name="MainImageDescription.Text" xml:space="preserve">
+    <value>Opis glavne slike članka</value>
+</data>
+<data name="SaveChanges.Text" xml:space="preserve">
+    <value>Spremi promjene</value>
+</data>
+<data name="DiscardChanges.Text" xml:space="preserve">
+    <value>Odustani od promjena</value>
+</data>
+<data name="TokenList.Text" xml:space="preserve">
+    <value>Popis tokena</value>
+</data>
+<data name="ShowHideTokenList.Text" xml:space="preserve">
+    <value>Prikaži/Sakrij popis tokena</value>
+</data>
+<data name="lbAddEmedVideoToGallery.Text" xml:space="preserve">
+    <value>Dodaj video</value>
+</data>
+<data name="lbSharedAddEmedVideoToGallery.Text" xml:space="preserve">
+    <value>Dodaj video</value>
+</data>
+<data name="lbCustomAddEmedVideoToGallery.Text" xml:space="preserve">
+    <value>Dodaj video</value>
+</data>
+<data name="DragAndDropDocumentsHere.Text" xml:space="preserve">
+    <value>Povucite i ispustite dokumente ovdje ili kliknite na gumb Odaberi dokumente</value>
+</data>
+<data name="cbRecurringEvent.Text" xml:space="preserve">
+    <value>Ponavljanje</value>
+</data>
+<data name="cbRegistrationOnEvent.Text" xml:space="preserve">
+    <value>Omogući registracije</value>
+</data>
+<data name="cbReccuringInEditMode.Text" xml:space="preserve">
+    <value>Uredi pojedinačni ponavljajući događaj</value>
+</data>
+<data name="EditContent.Text" xml:space="preserve">
+    <value>Uredi sadržaj</value>
+</data>
+<data name="EditDateTime.Text" xml:space="preserve">
+    <value>Uredi datum/vrijeme</value>
+</data>
+<data name="DeleteThisRecurringEvent.Text" xml:space="preserve">
+    <value>Izbriši ovaj ponavljajući događaj</value>
+</data>
+<data name="btnShowAddRecuringEvent.Text" xml:space="preserve">
+    <value>Dodaj događaj</value>
+</data>
+<data name="cbRegistrationApproval.Text" xml:space="preserve">
+    <value>Potrebno odobrenje</value>
+</data>
+<data name="cbDisableFurtherRegistration.Text" xml:space="preserve">
+    <value>Onemogući daljnje registracije</value>
+</data>
+<data name="cbSendInvitations.Text" xml:space="preserve">
+    <value>Koristi zadane pozivnice</value>
+</data>
+<data name="cbSendReminders.Text" xml:space="preserve">
+    <value>Koristi zadane podsjetnike</value>
+</data>
+<data name="liFree.Text" xml:space="preserve">
+    <value>Besplatno</value>
+</data>
+<data name="liPaid.Text" xml:space="preserve">
+    <value>Plaćeno</value>
+</data>
+<data name="liAttendee.Text" xml:space="preserve">
+    <value>Sudionik</value>
+</data>
+<data name="liFixedPrice.Text" xml:space="preserve">
+    <value>Fiksna cijena</value>
+</data>
+<data name="cbAllowComments.Text" xml:space="preserve">
+    <value>Dopusti komentare</value>
+</data>
+<data name="cbFeaturedArticle.Text" xml:space="preserve">
+    <value>Izdvojeni članak</value>
+</data>
+<data name="UseDefaultAccount.Text" xml:space="preserve">
+    <value>Koristi zadani račun</value>
+</data>
+<data name="ConfirmDeleteEvent.Text" xml:space="preserve">
+    <value>Jeste li sigurni da želite izbrisati ovaj događaj?</value>
+</data>
+<data name="ConfirmDeleteEventWithRegistration.Text" xml:space="preserve">
+    <value>Jeste li sigurni da želite izbrisati ovaj događaj s omogućenim registracijama?</value>
+</data>
+<data name="PermissionsToDownload.HeaderText" xml:space="preserve">
+    <value>Dozvole za preuzimanje</value>
+</data>
+<data name="Default.Text" xml:space="preserve">
+    <value>Zadano</value>
+</data>
+<data name="liUpload.Text" xml:space="preserve">
+    <value>Učitaj</value>
+</data>
+<data name="liServer.Text" xml:space="preserve">
+    <value>Dodaj s poslužitelja</value>
+</data>
+<data name="lbAddGalleryImageFromServer.Text" xml:space="preserve">
+    <value>Dodaj sliku</value>
+</data>
+<data name="PleaseSelectImageFile.Text" xml:space="preserve">
+    <value>Molimo odaberite datoteku slike.</value>
+</data>
+<data name="ImageAdded.Text" xml:space="preserve">
+    <value>Slika dodana.</value>
+</data>
+<data name="lbSharedAddGalleryImageFromServer.Text" xml:space="preserve">
+    <value>Dodaj sliku</value>
+</data>
+<data name="lbAddCustomGalleryImageFromServer.Text" xml:space="preserve">
+    <value>Dodaj sliku</value>
+</data>
+<data name="YouCanNotAddMoreImages.Text" xml:space="preserve">
+    <value>Ne možete dodati više slika</value>
+</data>
+<data name="lbAddDocumentsFromServer.Text" xml:space="preserve">
+    <value>Dodaj dokument</value>
+</data>
+<data name="PleaseSelectAFile.Text" xml:space="preserve">
+    <value>Molimo odaberite datoteku</value>
+</data>
+<data name="DocumentAdded.Text" xml:space="preserve">
+    <value>Dokument dodan.</value>
+</data>
+<data name="AddColumn.Text" xml:space="preserve">
+    <value>Dodaj stupac</value>
+</data>
+<data name="AddDate.Text" xml:space="preserve">
+    <value>Dodaj datum</value>
+</data>
+<data name="AddName.Text" xml:space="preserve">
+    <value>Dodaj naziv</value>
+</data>
+<data name="AddRow.Text" xml:space="preserve">
+    <value>Dodaj redak</value>
+</data>
+<data name="CostKeyValuePairNotValid.Text" xml:space="preserve">
+    <value>Par ključ/vrijednost troška nije važeći!</value>
+</data>
+<data name="CostPlaceholder.Text" xml:space="preserve">
+    <value>Trošak</value>
+</data>
+<data name="DefineAtLeastOneValue.Text" xml:space="preserve">
+    <value>Definirajte barem jednu vrijednost!</value>
+</data>
+<data name="MustDefineDateRestriction.Text" xml:space="preserve">
+    <value>Morate definirati vrijednosti vremenskog ograničenja za plaćanje!</value>
+</data>
+<data name="NamePlaceholder.Text" xml:space="preserve">
+    <value>Naziv</value>
+</data>
+<data name="OneOfTheCostValuesIsNotSet.Text" xml:space="preserve">
+    <value>Jedna od vrijednosti troška nije postavljena!</value>
+</data>
+<data name="OneOfTheDateValuesIsNotSet.Text" xml:space="preserve">
+    <value>Jedna od vrijednosti datuma nije postavljena!</value>
+</data>
+<data name="OneOfTheNameValuesIsNotSet.Text" xml:space="preserve">
+    <value>Jedna od vrijednosti naziva nije postavljena!</value>
+</data>
+<data name="RemoveTitle.Text" xml:space="preserve">
+    <value>Ukloni</value>
+</data>
+<data name="lblChameleonResponsiveMainImageHeight.HelpText" xml:space="preserve">
+    <value>Unesite visinu glavne slike u pikselima.</value>
+</data>
+<data name="lblChameleonResponsiveMainImageHeight.Text" xml:space="preserve">
+    <value>Visina glavne slike:</value>
+</data>
+<data name="rfvtbxChameleonResponsiveMainImageHeight.ErrorMessage" xml:space="preserve">
+    <value>Ovo polje je obavezno.</value>
+</data>
+<data name="cvChameleonResponsiveMainImageHeight.ErrorMessage" xml:space="preserve">
+    <value>Molimo unesite samo broj.</value>
+</data>
+<data name="rvtbxGalleryHeight.ErrorMessage" xml:space="preserve">
+    <value>Unesite vrijednost između 0-100.</value>
+</data>
+<data name="DeleteConfirm.Text" xml:space="preserve">
+    <value>Jeste li sigurni da želite izbrisati ovu stavku?</value>
+</data>
+<data name="DeleteDocumentConfirm.Text" xml:space="preserve">
+    <value>Jeste li sigurni da želite izbrisati ovaj dokument?</value>
+</data>
+<data name="DeleteLinkConfirm.Text" xml:space="preserve">
+    <value>Jeste li sigurni da želite izbrisati ovaj link?</value>
+</data>
+<data name="EditDateRestrictionPayment.Text" xml:space="preserve">
+    <value>Uredi vremensko ograničenje plaćanja</value>
+</data>
+<data name="SaveToEnableEditRecurrance.Text" xml:space="preserve">
+    <value>Da biste omogućili uređivanje ponavljajućih događaja, spremite članak.</value>
+</data>
+<data name="cbEnableCancelRegistrations.Text" xml:space="preserve">
+    <value>Omogući otkazivanje registracija</value>
+</data>
+<data name="lblEnableCancelRegistrations.Help" xml:space="preserve">
+    <value>Omogući otkazivanje registracija.</value>
+</data>
+<data name="lblEnableCancelRegistrations.Text" xml:space="preserve">
+    <value>Omogući otkazivanje registracija:</value>
+</data>
+<data name="General.Text" xml:space="preserve">
+    <value>Općenito</value>
+</data>
+<data name="OpenGraph.Text" xml:space="preserve">
+    <value>Open Graph</value>
+</data>
+<data name="TwitterCards.Text" xml:space="preserve">
+    <value>Twitter kartice</value>
+</data>
+<data name="lblOpenGraphMetaTags.Text" xml:space="preserve">
+    <value>Open Graph meta oznake:</value>
+</data>
+<data name="lblOpenGraphMetaTags.HelpText" xml:space="preserve">
+    <value>Open Graph meta oznake.</value>
+</data>
+<data name="lblTwitterCardsMetaTags.Text" xml:space="preserve">
+    <value>Twitter kartice meta oznake:</value>
+</data>
+<data name="lblTwitterCardsMetaTags.HelpText" xml:space="preserve">
+    <value>Twitter kartice meta oznake.</value>
+</data>
+<data name="lbGravityGalleryJpegQuality.Help" xml:space="preserve">
+    <value>Postavite kvalitetu slika. Viša vrijednost znači bolju kvalitetu. Vrijednosti moraju biti između 1 i 100.</value>
+</data>
+<data name="lbGravityGalleryJpegQuality.Text" xml:space="preserve">
+    <value>Kvaliteta JPEG slike:</value>
+</data>
+<data name="rfvGravityGalleryJpegQuality.ErrorMessage" xml:space="preserve">
+    <value>Ovo polje je obavezno.</value>
+</data>
+<data name="rvGravityGalleryJpegQuality.ErrorMessage" xml:space="preserve">
+    <value>Unesite vrijednost između 1 - 100.</value>
+</data>
+<data name="lbChameleonJpegQuality.Help" xml:space="preserve">
+    <value>Postavite kvalitetu slika. Viša vrijednost znači bolju kvalitetu. Vrijednosti moraju biti između 1 i 100.</value>
+</data>
+<data name="lbChameleonJpegQuality.Text" xml:space="preserve">
+    <value>Kvaliteta JPEG slike:</value>
+</data>
+<data name="rfvChameleonJpegQuality.ErrorMessage" xml:space="preserve">
+    <value>Ovo polje je obavezno.</value>
+</data>
+<data name="rvChameleonJpegQuality.ErrorMessage" xml:space="preserve">
+    <value>Unesite vrijednost između 1 - 100.</value>
+</data>
+<data name="rfvGIJpegQuality.ErrorMessage" xml:space="preserve">
+    <value>Ovo polje je obavezno.</value>
+</data>
+<data name="rvGIJpegQuality.ErrorMessage" xml:space="preserve">
+    <value>Unesite vrijednost između 1 - 100.</value>
+</data>
+<data name="lbGIJpegQuality.Help" xml:space="preserve">
+    <value>Postavite kvalitetu slika. Viša vrijednost znači bolju kvalitetu. Vrijednosti moraju biti između 1 i 100.</value>
+</data>
+<data name="lbGIJpegQuality.Text" xml:space="preserve">
+    <value>Kvaliteta JPEG slike:</value>
+</data>
+<data name="UserWall.Text" xml:space="preserve">
+    <value>Zid korisnika</value>
+</data>
+<data name="StructuredData.Text" xml:space="preserve">
+    <value>Strukturirani podaci</value>
+</data>
+<data name="lblStructuredDataJson.HelpText" xml:space="preserve">
+    <value>JSON koji sadrži strukturirane podatke članka.</value>
+</data>
+<data name="lblStructuredDataJson.Text" xml:space="preserve">
+    <value>JSON strukturiranih podataka:</value>
+</data>
+<data name="lblOpenGraphTemplate.Text" xml:space="preserve">
+    <value>Predložak Open Graph:</value>
+</data>
+<data name="lblOpenGraphTemplate.HelpText" xml:space="preserve">
+    <value>Odaberite predložak za Open Graph meta oznake.</value>
+</data>
+<data name="lblTwitterCardsTemplate.HelpText" xml:space="preserve">
+    <value>Odaberite predložak za Twitter kartice meta oznake:</value>
+</data>
+<data name="lblTwitterCardsTemplate.Text" xml:space="preserve">
+    <value>Predložak Twitter kartica:</value>
+</data>
+<data name="lblStructuredDataTemplate.Text" xml:space="preserve">
+    <value>Predložak strukturiranih podataka:</value>
+</data>
+<data name="lblStructuredDataTemplate.HelpText" xml:space="preserve">
+    <value>Odaberite predložak za strukturirane podatke.</value>
+</data>
+<data name="cvStructuredDataJSON.ErrorMessage" xml:space="preserve">
+    <value>Nevažeći podaci. Zamijenite vrijednosti oznaka stvarnim podacima.</value>
+</data>
+<data name="SelectMetaDataTemplate.Text" xml:space="preserve">
+    <value>Odaberite predložak</value>
+</data>
+<data name="liApprove.Text" xml:space="preserve">
+    <value>Odobri članak</value>
+</data>
+<data name="Approve.Text" xml:space="preserve">
+    <value>Odobri</value>
+</data>
+<data name="Publish.Text" xml:space="preserve">
+    <value>Objavi</value>
+</data>
+<data name="Reject.Text" xml:space="preserve">
+    <value>Odbij</value>
+</data>
+<data name="Workflow.Text" xml:space="preserve">
+    <value>Radni tok:</value>
+</data>
+<data name="CurentState.Text" xml:space="preserve">
+    <value>Trenutno stanje: </value>
+</data>
+<data name="Approve.HelpText" xml:space="preserve">
+    <value>Odobri trenutno stanje radnog toka.</value>
+</data>
+<data name="Publish.HelpText" xml:space="preserve">
+    <value>Objavi trenutni članak.</value>
+</data>
+<data name="Reject.HelpText" xml:space="preserve">
+    <value>Odbij trenutno stanje radnog toka članka.</value>
+</data>
+<data name="PleaseEnterRejectMessage.Text" xml:space="preserve">
+    <value>Molimo unesite poruku odbijanja:</value>
+</data>
+<data name="YouAreEditingArticleRevision.Text" xml:space="preserve">
+    <value>Uređujete reviziju članka.</value>
+</data>
+<data name="WorkflowLog.Text" xml:space="preserve">
+    <value>Dnevnik radnog toka</value>
+</data>
+<data name="State.Text" xml:space="preserve">
+    <value>Stanje</value>
+</data>
+<data name="User.Text" xml:space="preserve">
+    <value>Korisnik</value>
+</data>
+<data name="Date.Text" xml:space="preserve">
+    <value>Datum</value>
+</data>
+<data name="Update.Text" xml:space="preserve">
+    <value>Ažuriranje</value>
+</data>
+<data name="WorkDone.Text" xml:space="preserve">
+    <value>Obavljeno</value>
+</data>
+<data name="SomeoneIsCurrentlyEditingThisArticle.Text" xml:space="preserve">
+    <value>Netko trenutno uređuje ovaj članak.</value>
+</data>
+<data name="rfTags.ErrorMessage" xml:space="preserve">
+    <value>Molimo unesite barem jednu oznaku.</value>
+</data>
+<data name="Approve_StateDraft.Text" xml:space="preserve">
+    <value>Zahtjev za odobrenje</value>
+</data>
+<data name="CharacterCount.HelpText" xml:space="preserve">
+    <value>Broj znakova</value>
+</data>
+<data name="AddTag.Text" xml:space="preserve">
+    <value>Dodaj</value>
+</data>
+<data name="ImagesNotUploaded.Text" xml:space="preserve">
+    <value>Odabrane slike nisu učitane. Učitajte slike ili otkažite učitavanje.</value>
+</data>
+<data name="NewArticleAdded.Text" xml:space="preserve">
+    <value>Dodan je novi članak</value>
+</data>
+<data name="EnterTitlePlaceholder.Text" xml:space="preserve">
+    <value>Unesite naslov *</value>
+</data>
+<data name="EnterSubtitlePlaceholder.Text" xml:space="preserve">
+    <value>Unesite podnaslov</value>
+</data>
+<data name="SelectFolder.Text" xml:space="preserve">
+    <value>Odaberite mapu:</value>
+</data>
+<data name="SelectFile.Text" xml:space="preserve">
+    <value>Odaberite datoteku:</value>
+</data>
+<data name="ErrorWhileProcessingDetailFile.Text" xml:space="preserve">
+    <value>Pogreška pri obradi datoteke detalja članka. Molimo odaberite datoteku detalja članka.</value>
+</data>
+<data name="WebsiteUrl.Text" xml:space="preserve">
+    <value>URL web stranice:</value>
+</data>
+<data name="PublishExpireDate.Text" xml:space="preserve">
+    <value>Datum objave/isteka</value>
+</data>
+<data name="SelectTags.Text" xml:space="preserve">
+    <value>Odaberite oznake</value>
+</data>
+<data name="Yes.Text" xml:space="preserve">
+    <value>Da</value>
+</data>
+<data name="No.Text" xml:space="preserve">
+    <value>Ne</value>
+</data>
+<data name="Replace.Text" xml:space="preserve">
+    <value>Zamijeni</value>
+</data>
+<data name="EditLink.Text" xml:space="preserve">
+    <value>Uredi link</value>
+</data>
+<data name="LinkUpdated.Text" xml:space="preserve">
+    <value>Link ažuriran</value>
+</data>
+<data name="MediaManager.Text" xml:space="preserve">
+    <value>Upravitelj medija</value>
+</data>
+<data name="DeleteMediaConfirm.Text" xml:space="preserve">
+    <value>Jeste li sigurni da želite izbrisati ovu sliku?</value>
+</data>
+<data name="TitleEdit.Text" xml:space="preserve">
+    <value>Naslov:</value>
+</data>
+<data name="DescriptionEdit.Text" xml:space="preserve">
+    <value>Opis:</value>
+</data>
+<data name="editMediaTitleDescription.Text" xml:space="preserve">
+    <value>Uredi naslov i opis</value>
+</data>
+<data name="lblAritcleGalelryGravityToken.Text" xml:space="preserve">
+    <value>Token galerije članka:</value>
+</data>
+<data name="cbAddNoFollowTag.Text" xml:space="preserve">
+    <value>Dodaj robots meta oznaku:</value>
+</data>
+<data name="cbAddNoFollowTag.HelpText" xml:space="preserve">
+    <value>Dodaj robots meta oznaku u detalje članka.</value>
+</data>
+<data name="lblAritcleGaleryGravityToken.Text" xml:space="preserve">
+    <value>Token galerije:</value>
+</data>
+<data name="lblAritcleGaleryGravityToken.Help" xml:space="preserve">
+    <value>Token galerije.</value>
+</data>
+<data name="lbCreateNewGallery.Text" xml:space="preserve">
+    <value>Stvori novu galeriju</value>
+</data>
+<data name="lblCreateNewGallery.Text" xml:space="preserve">
+    <value>Naziv galerije:</value>
+</data>
+<data name="rfvCreateNewGallery.ErrorMessage" xml:space="preserve">
+    <value>Molimo unesite naziv galerije.</value>
+</data>
+<data name="lblNewGalleryCreated.Text" xml:space="preserve">
+    <value>Nova galerija stvorena.</value>
+</data>
+<data name="IconText.Text" xml:space="preserve">
+    <value>Ikona</value>
+</data>
+<data name="WorkflowState_Publish.Text" xml:space="preserve">
+    <value>Objavi</value>
+</data>
+<data name="WorkflowState_Draft.Text" xml:space="preserve">
+    <value>Skica</value>
+</data>
+<data name="WorkflowState_Approve.Text" xml:space="preserve">
+    <value>Odobri</value>
+</data>
+<data name="WorkflowName_Contentstaging.Text" xml:space="preserve">
+    <value>Priprema sadržaja</value>
+</data>
+<data name="WorkflowName_Contentapproval.Text" xml:space="preserve">
+    <value>Odobrenje sadržaja</value>
+</data>
+<data name="DeleteImageConfirm.Text" xml:space="preserve">
+    <value>Jeste li sigurni da želite izbrisati ovu sliku?</value>
+</data>
+<data name="CreateWebpFormat.Text" xml:space="preserve">
+    <value>Stvori WebP verziju slike</value>
+</data>
+<data name="lblAddWebpImage.Text" xml:space="preserve">
+    <value>Omogući WebP format slike:</value>
+</data>
+<data name="lblAddWebpImage.HelpText" xml:space="preserve">
+    <value>Omogući podršku za WebP format slike.</value>
+</data>
+<data name="AddDetailsImage.Text" xml:space="preserve">
+    <value>Dodaj drugu sliku za detalje članka</value>
+</data>
+<data name="lbAddDetailsImage.Text" xml:space="preserve">
+    <value>Dodaj</value>
+</data>
+<data name="lbSetDetailsArticleImageArtGallery.Text" xml:space="preserve">
+    <value>Postavi kao sliku detalja članka</value>
+</data>
+<data name="ArticleDetailsImage.Text" xml:space="preserve">
+    <value>Slika detalja članka</value>
+</data>
+<data name="ThisDetailsImage.Text" xml:space="preserve">
+    <value>Ova slika je odabrana kao slika detalja članka.</value>
+</data>
+<data name="lbRemoveDetailsImage.Text" xml:space="preserve">
+    <value>Ukloni</value>
+</data>
+<data name="SelectArticleDetailsImage.Text" xml:space="preserve">
+    <value>Odaberite sliku detalja članka iz galerije</value>
+</data>
+<data name="fineUploaderSelectMedia.Text" xml:space="preserve">
+    <value>Odaberite medij</value>
+</data>
+<data name="lblAddTopicForComments.Text" xml:space="preserve">
+    <value>Stvori temu na forumu za ovaj članak</value>
+</data>
+<data name="lblAddTopicForComments.HelpText" xml:space="preserve">
+    <value>Omogućite ovu opciju za stvaranje teme na forumu za ovaj članak.</value>
+</data>
+<data name="PaidContent.HeaderText" xml:space="preserve">
+    <value>Plaćeni sadržaj</value>
+</data>
+<data name="lblZeroGravityGallerySelectTemplate.Text" xml:space="preserve">
+    <value>Predložak Zero Gravity galerije:</value>
+</data>
+<data name="lblZeroGravityGallerySelectTemplate.Help" xml:space="preserve">
+    <value>Odaberite HTML predložak za Zero Gravity galeriju. Ovaj predložak će se koristiti za prikaz galerija unutar članaka. HTML predloške možete uređivati u uređivaču predložaka (Nadzorna ploča &gt; Predlošci).</value>
+</data>
+<data name="lblZeroGravityGalleryThumbnailWidth.Text" xml:space="preserve">
+    <value>Širina sličice slike:</value>
+</data>
+<data name="lblZeroGravityGalleryThumbnailWidth.Help" xml:space="preserve">
+    <value>Unesite širinu sličica galerija u člancima.</value>
+</data>
+<data name="lblZeroGravityGalleryThumbnailHeight.Text" xml:space="preserve">
+    <value>Visina sličice slike:</value>
+</data>
+<data name="lblZeroGravityGalleryThumbnailHeight.Help" xml:space="preserve">
+    <value>Unesite visinu sličica galerija u člancima.</value>
+</data>
+<data name="lbZeroGravityGalleryJpegQuality.Help" xml:space="preserve">
+    <value>Postavite kvalitetu slika. Viša vrijednost znači bolju kvalitetu. Vrijednosti moraju biti između 1 i 100.</value>
+</data>
+<data name="lbZeroGravityGalleryJpegQuality.Text" xml:space="preserve">
+    <value>Kvaliteta JPEG slike:</value>
+</data>
+<data name="lblZeroGravityGalleryResizeMethod.Text" xml:space="preserve">
+    <value>Metoda promjene veličine sličica:</value>
+</data>
+<data name="lblZeroGravityGalleryResizeMethod.Help" xml:space="preserve">
+    <value>Odaberite metodu promjene veličine slika.</value>
+</data>
+<data name="liOpenAIImage.Text" xml:space="preserve">
+    <value>Generiraj sliku s AI</value>
+</data>
+<data name="lblOpenAIImagePrompt.Text" xml:space="preserve">
+    <value>Unesite tekst za generiranje slike:</value>
+</data>
+<data name="rfvOpenAIImagePrompt.ErrorMessage" xml:space="preserve">
+    <value>Molimo unesite tekst.</value>
+</data>
+<data name="btnOpenAIImagePrompt.Text" xml:space="preserve">
+    <value>Generiraj slike</value>
+</data>
+<data name="lbAddOpenAIImageToGallery.Text" xml:space="preserve">
+    <value>Dodaj sliku u galeriju</value>
+</data>
+<data name="lblGenerateArticeleTextTitle.Text" xml:space="preserve">
+    <value>Generiraj tekst članka</value>
+</data>
+<data name="rfvTextToGenerateArticle.ErrorMessage" xml:space="preserve">
+    <value>Molimo unesite tekst.</value>
+</data>
+<data name="liReplace.Text" xml:space="preserve">
+    <value>Zamijeni</value>
+</data>
+<data name="liAppend.Text" xml:space="preserve">
+    <value>Dopuni</value>
+</data>
+<data name="GenerateAITextCommand.Text" xml:space="preserve">
+    <value>Vi ste pisac članaka. Napišite {1} članak o {0}.</value>
+</data>
+<data name="liNormal.Text" xml:space="preserve">
+    <value>Normalno</value>
+</data>
+<data name="liPersuasive.Text" xml:space="preserve">
+    <value>Uvjerljivo</value>
+</data>
+<data name="liInformative.Text" xml:space="preserve">
+    <value>Informativno</value>
+</data>
+<data name="liDescriptive.Text" xml:space="preserve">
+    <value>Opisno</value>
+</data>
+<data name="liCreative.Text" xml:space="preserve">
+    <value>Kreativno</value>
+</data>
+<data name="liNarrative.Text" xml:space="preserve">
+    <value>Narativno</value>
+</data>
+<data name="liArgumentative.Text" xml:space="preserve">
+    <value>Argumentativno</value>
+</data>
+<data name="liAnalytical.Text" xml:space="preserve">
+    <value>Analitično</value>
+</data>
+<data name="liEvaluative.Text" xml:space="preserve">
+    <value>Evaluativno</value>
+</data>
+<data name="lblAIGeneratedArticle.Text" xml:space="preserve">
+    <value>Generirani tekst:</value>
+</data>
+<data name="btnUseGenerateArticeleText.Text" xml:space="preserve">
+    <value>Kopiraj tekst</value>
+</data>
+<data name="lblAIGenerateArticleLanguage.Text" xml:space="preserve">
+    <value>Odaberite jezik članka:</value>
+</data>
+<data name="lblAIGenerateArticleStyle.Text" xml:space="preserve">
+    <value>Odaberite stil članka:</value>
+</data>
+<data name="lblTextToGenerateArticle.Text" xml:space="preserve">
+    <value>Upute za AI:</value>
+</data>
+<data name="RelativePath.Text" xml:space="preserve">
+    <value>Relativna putanja korisnika</value>
+</data>
+<data name="Absolutepath.Text" xml:space="preserve">
+    <value>Koristi apsolutnu putanju</value>
+</data>
+<data name="UserFolder.Text" xml:space="preserve">
+    <value>Početna mapa korisnika:</value>
+</data>
+<data name="AddCustomFields.Text" xml:space="preserve">
+    <value>Dodaj prilagođena polja:</value>
+</data>
+<data name="CustomFieldsTitleHelp.Text" xml:space="preserve">
+    <value>Dodajte prilagođena polja članku.</value>
+</data>
+<data name="PublishDetails.Text" xml:space="preserve">
+    <value>Detalji objave</value>
+</data>
+<data name="AlternateText.Text" xml:space="preserve">
+    <value>Alternativni tekst:</value>
+</data>
+<data name="lblAddPerArticlePermission.Help" xml:space="preserve">
+    <value>Postavite dozvole po članku.</value>
+</data>
+<data name="SocialSharing.Text" xml:space="preserve">
+    <value>Dijeljenje na društvenim mrežama</value>
+</data>
+<data name="SocialSharing.Help" xml:space="preserve">
+    <value>Dijeljenje na društvenim mrežama.</value>
+</data>
+<data name="Upload.Text" xml:space="preserve">
+    <value>Učitaj</value>
+</data>
+<data name="Files.Text" xml:space="preserve">
+    <value>Datoteke</value>
+</data>
+<data name="GenerateMapToken.Text" xml:space="preserve">
+    <value>Generiraj map token</value>
+</data>
+<data name="lbTranslateWithAI.Text" xml:space="preserve">
+    <value>Prevedi s AI</value>
+</data>
+<data name="OK.Text" xml:space="preserve">
+    <value>U redu</value>
+</data>
+<data name="RemoveMainArticleImage.Text" xml:space="preserve">
+    <value>Ukloni glavnu sliku članka</value>
+</data>
+<data name="RemoveDetailsArticleImage.Text" xml:space="preserve">
+    <value>Ukloni sliku detalja članka</value>
+</data>
+<data name="btnContentLocalizationGenerateAI.Text" xml:space="preserve">
+    <value>Prevedi s AI</value>
+</data>
+<data name="GenerateArticlewithAI.Text" xml:space="preserve">
+    <value>Generiraj članak s AI</value>
+</data>
+<data name="Tools.Text" xml:space="preserve">
+    <value>Alati</value>
+</data>
+<data name="ReplaceFile.Text" xml:space="preserve">
+    <value>Zamijeni datoteku</value>
+</data>
+<data name="Back.Text" xml:space="preserve">
+    <value>Natrag</value>
+</data>
+<data name="liSelectedlanguage.Text" xml:space="preserve">
+    <value>Odabrani jezik</value>
+</data>
+<data name="liOnlylanguagesWithoutTranslation.Text" xml:space="preserve">
+    <value>Samo jezici bez prijevoda</value>
+</data>
+<data name="AllLocalizationChangesWillBeLost.Text" xml:space="preserve">
+    <value>Sve promjene lokalizacije bit će prebrisane. Nastaviti?</value>
+</data>
+<data name="AItranslateOptions.Text" xml:space="preserve">
+    <value>Opcije AI prijevoda</value>
+</data>
+<data name="AItranslateOptions.Help" xml:space="preserve">
+    <value>Odabrani jezik - prijevod odabranog jezika,&lt;br&gt;
+           Svi jezici - prijevod članka na sve dostupne jezike,&lt;br&gt;
+           Samo jezici bez prijevoda - prijevod članka samo na jezike na kojima prijevod još ne postoji
+    </value>
+</data>
+<data name="lblAIGeneratedArticleTitle.Text" xml:space="preserve">
+    <value>Generirani naslov:</value>
+</data>
+<data name="liNoAction.Text" xml:space="preserve">
+    <value>Nema akcije</value>
+</data>
+<data name="lblAIGeneratedArticleSubtitle.Text" xml:space="preserve">
+    <value>Generirani podnaslov:</value>
+</data>
+<data name="lblAIGeneratedArticleTags.Text" xml:space="preserve">
+    <value>Generirane oznake:</value>
+</data>
+<data name="lblAIGeneratedArticleSummary.Text" xml:space="preserve">
+    <value>Generirani sažetak:</value>
+</data>
+<data name="lbGenerateAISEO.Text" xml:space="preserve">
+    <value>Generiraj SEO s AI</value>
+</data>
+<data name="AddLink.Text" xml:space="preserve">
+    <value>Dodaj link</value>
+</data>
+<data name="ListMediaType.Text" xml:space="preserve">
+    <value>Vrsta medija (lista)</value>
+</data>
+<data name="DetailsMediaType.Text" xml:space="preserve">
+    <value>Vrsta medija (detalji)</value>
+</data>
+<data name="lblNotLocalizedLanguagesHelp.Text" xml:space="preserve">
+    <value>Neprevedeni jezici za ovaj članak:</value>
+</data>
+<data name="CreateSrcSet.Text" xml:space="preserve">
+    <value>Stvori HTML &lt;source&gt; srcset atribut</value>
+</data>
+<data name="InsertImageIntoArticle.Text" xml:space="preserve">
+    <value>Umetni sliku u članak</value>
+</data>
+</root>

@@ -1,0 +1,49 @@
+header {
+  box-shadow: 0 .125rem .25rem rgba(2, 6, 23, .075);
+  margin-bottom: 4rem;
+
+  @include media-breakpoint-up(lg) {
+    &.navbar {
+      padding: 1rem;
+    }
+  }
+  // Logo
+  .navbar-brand {
+    display: flex;
+    align-items: baseline;
+
+    > span {
+      font-style: italic;
+      font-size: .875rem;
+      opacity: .5;
+    }
+  }
+  // Search Layout
+  #dnn_dnnSearch_ClassicSearch {
+    display: flex;
+    align-items: center;
+
+    @include media-breakpoint-down(lg) {
+      padding: 1rem 0;
+      width: 100%;
+
+      .searchInputContainer {
+        width: 100%;
+      }
+    }
+
+    .dnnSearchBoxClearText {
+      top: 5px;
+    }
+
+    input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    > a {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}

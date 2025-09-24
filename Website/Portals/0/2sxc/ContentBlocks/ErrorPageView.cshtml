@@ -1,0 +1,36 @@
+@inherits Custom.Hybrid.Razor14
+@using AppCode
+
+@{
+  // Load the ViewHelper library
+    var viewHelpers = CreateInstance("AppCode/ViewHelpers.cs"); 
+  //var viewHelpers = new ViewHelpers(); // This is not workimg right now for dynamic approuch only works for typed approuch or if use main DNN App_Code folder
+}
+
+<div class="container">
+  <div class="error-page">
+    <div class="l-data">
+      @Edit.Toolbar(Content)
+      <div class="o-title">@Content.Title</div>
+      <div class="o-subtitle">@Content.Kicker</div>
+      <div class="o-description">@Html.Raw(Content.Body)</div>
+    </div>
+
+    @if (Content.LinkList != null && Content.LinkList.Count > 0)
+    {
+      <div class="o-cta">
+        @foreach (var link in Content.LinkList)
+        {
+          if (link != null && !string.IsNullOrEmpty(link.Path))
+          {
+          <div class="l-action">
+            <a href="@link.Path" target="@link.Target" class="btn btn-primary @link.ButtonType">
+              @link.Title
+            </a>
+          </div>
+          }
+        }
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,110 @@
+<!--TemplateGroup:newsListArticleDefault-->
+
+<!--ArticleTemplate-->
+<div class="edn-item">
+   <article class="l-item">
+      <div class="c-item card">
+         <div class="c-item__media mb-3">
+            <figure class="l-item__media l-item__media--4by3">
+               [EasyDNNnews:IfExists:Image]<img src="[EasyDNNnews:Image]?w=240&h=198&mode=crop"
+                  class="c-item__image lazyload" alt="[EasyDNNnews:Title]"
+                  onerror="imgNotFoundError(this)" />[EasyDNNnews:EndIf:Image]
+               [EasyDNNnews:IfNotExists:Image]<img
+                  src="/Portals/0/images/brand/edn-feed-placeholder.jpg?w=240&h=198&mode=crop"
+                  class="c-item__image lazyload" alt="[EasyDNNnews:Title]" />[EasyDNNnews:EndIf:Image]
+            </figure>
+         </div>
+
+         <div class="c-item__footer p-4 pt-0">
+            <div class="c-date">
+               <div class="o-date"><strong>[EasyDNNnews:FormatedDate:d. M. yyy.]</strong></div>
+            </div>
+            <div class="c-title mb-2">
+               <h5 class="o-title"><a href="[EasyDNNnews:Title:Link]" class="o-link">[EasyDNNnews:Title]</a></h5>
+            </div>
+            <div class="c-subtitle">
+               [EasyDNNnews:IfExists:SubTitle]
+               <h6 class="o-subtitle">[EasyDNNnews:SubTitle]</h6>
+               [EasyDNNnews:EndIf:SubTitle]
+            </div>
+         </div>
+      </div>
+
+   </article>
+</div>
+<!--ArticleEnd-->
+
+<!--ArticleRepeat:Before:-->
+<section
+   class="js-swiper-gallery swiper swiper-stage swiper-stage-[EasyDNNnews:ModuleID] edn-feed edn-feed--slider ssk4-edn-feed--slider js-edn-feed--slider-[EasyDNNnews:ModuleID]">
+   <!--RepeatEnd:Before:-->
+   <!--ArticleRepeat:After:-->
+</section>
+
+<script type="text/javascript"
+   src="/DesktopModules/EasyDNNnews/Templates/_default/SSK4/dist/swiper/swiper-bundle.min.js"></script>
+<link rel="stylesheet" type="text/css"
+   href="/DesktopModules/EasyDNNnews/Templates/_default/SSK4/dist/swiper/swiper-bundle.min.css">
+<script type="text/javascript" src="/DesktopModules/EasyDNNnews/Templates/_default/SSK4/js/edn-helpers.js"></script>
+
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+      const moduleId = '[EasyDNNnews:ModuleID]';
+      renderSwiperArticle(moduleId);
+
+      var swiper = new Swiper(".swiper-stage-" + moduleId, {
+         loop: true,
+         slidesPerView: 2,
+         spaceBetween: 10,
+         navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+         },
+         on: {
+            init: function () {
+               equalizeSlideHeights();
+            },
+            resize: function () {
+               equalizeSlideHeights();
+            }
+         },
+         breakpoints: {
+            992: {
+               slidesPerView: 3
+            },
+            1200: {
+               slidesPerView: 4,
+            }
+         }
+      });
+
+      // Equalize all slide heights to the tallest one
+      function equalizeSlideHeights() {
+         const slides = document.querySelectorAll(".swiper-stage-" + moduleId + " .swiper-slide");
+         let maxHeight = 0;
+
+         // Reset and measure
+         slides.forEach(slide => {
+            slide.style.height = "auto";
+            const height = slide.offsetHeight;
+            if (height > maxHeight) {
+               maxHeight = height;
+            }
+         });
+
+         // Apply max height to all
+         slides.forEach(slide => {
+            slide.style.height = maxHeight + "px";
+         });
+      }
+
+      // Re-equalize after all lazy images load
+      document.addEventListener("lazyloaded", function () {
+         equalizeSlideHeights();
+      });
+   });
+</script>
+
+
+
+<!--RepeatEnd:After:-->

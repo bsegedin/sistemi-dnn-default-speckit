@@ -1,0 +1,47 @@
+.cookie-container {
+  margin-top: -3rem;
+  h1, h2, h3, h4, h5 {
+    margin: 2rem 0;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  table {
+    overflow-x: scroll;
+  }
+}
+
+div._CookieScriptReportPageCheckbox {
+  margin: .5rem;
+}
+
+.cookie-container--inner {
+  > div {
+    overflow-x: auto;
+  }
+}
+
+._CookieScriptReportPageSaveSettingButton {
+  background: #0B457F;
+  border-color: #0B457F;
+  color: white;
+  transition: none;
+  padding: .5rem 1rem;
+  width: auto;
+  height: auto;
+  font-size: 1.125rem;
+  border-radius: 30px;
+  margin-top: .5rem;
+  border: 0;
+  @media (min-width: 992px) {
+    margin: 1rem;
+  }
+  &:hover, &:active, &:focus {
+    background-color: #0B457F;
+    background: linear-gradient(90deg, rgb(18, 110, 203) 0%, rgb(11, 69, 127) 100%);
+    border: 0;
+  }
+}

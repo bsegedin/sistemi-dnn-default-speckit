@@ -1,0 +1,283 @@
+
+
+.l-view--accordion {
+
+  h1, h2, h3, h4, h5 {
+    line-height: .5;
+  }
+
+  // Warranty 
+  
+  &.warranty {
+    background-color: white;
+    .accordion-item button {
+      //padding-left: 20px
+    }
+
+    .accordion-item .accordion-caption table thead th:first-child {
+      padding-left: 1rem;
+      width: auto;
+      @media (min-width: 576px) {
+        padding-left: 2rem;
+      }
+
+
+    }
+
+    .accordion-item .accordion-caption table thead th {
+      padding-left: 0;
+    }
+
+    .accordion-item .accordion-caption table tbody tr td {
+      padding-left: 0;
+    }
+
+    .accordion-item .accordion-caption table tbody tr td:first-child {
+      padding-left: 1rem;
+      width: auto;
+      @media (min-width: 576px) {
+        padding-left: 2rem;
+      }
+    }
+  }
+
+  // Secondary Layout 
+
+  &.secondary-layout {
+    .accordion-item {
+      button {
+        background-color: var(--bs-gray-100);
+
+        // Dark mode styles
+        [data-bs-theme='dark'] & {
+          background-color: black
+        }
+
+
+
+        @media (min-width: 1200px) {
+          padding-left: 2rem;
+        }
+  
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
+
+    .accordion-caption {
+      .o-title {
+        display: block;
+        padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
+        @media (min-width: 1200px) {
+          padding-left: 2rem;
+        }  
+      }
+
+      .o-body {
+        .o-title {
+          display: block;
+
+        }
+      }
+
+      .o-title {
+        display: none;
+      }
+
+      table {
+        margin-bottom: 0;
+        thead {
+          tr {
+            @media (max-width: 768px) {
+              th {
+                font-size: .875rem;
+              }
+            }
+          }
+          th {
+            background-color: var(--main-color);
+            padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
+            font-size: 32px;
+            line-height: 38.4px;
+            font-weight: 500;
+            color: var(--primary);
+            border-bottom: 0;
+
+            @media (min-width: 1200px) {
+              padding-left: 8rem;
+            }
+            &:first-child {
+              @media (min-width: 1200px) {
+                width: 80%;
+              } 
+            }
+          }
+        }
+
+        tbody {
+          tr {
+            td {
+              background-color: white;
+              border-bottom: 1px solid var(--default-active);
+              padding-right: 3rem;
+              text-align: right;
+              color: var(--primary);
+              @media (max-width: 768px) {
+                font-size: 16px;
+              } 
+              &:first-child {
+                text-align: left;
+                border-right: 1px solid white;
+                color: inherit;
+                border-right: 0;
+
+                @media (min-width: 1200px) {
+                  padding-left: 8rem;
+                  width: 80%;
+                } 
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  .accordion-header {
+    margin-bottom: 2px;
+    .o-title {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1;
+    }
+  }
+
+  .accordion-item {
+    border: 0;
+    margin-bottom: 2px;
+    button {
+      background-color: var(--bs-gray-100);
+      color: var(--bs-primary);
+      // Dark mode styles
+      [data-bs-theme='dark'] & {
+        background-color: black
+      }
+
+
+      @media (min-width: 1200px) {
+        padding-left: 2rem;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    .accordion-caption {
+      .o-title {
+        display: block;
+        padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
+        @media (min-width: 1200px) {
+          padding-left: 2rem;
+        }  
+      }
+
+      .o-body {
+        .o-title {
+          display: block;
+        }
+      }
+
+      .o-title {
+        display: none;
+      }
+
+      table {
+        margin-bottom: 0;
+        thead {
+          tr {
+            @media (max-width: 768px) {
+              th {
+                font-size: 1rem;
+              }
+            }
+          }
+          th {
+            background-color: var(--default-active);
+            padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
+            font-family: "changan uni type";
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            font-size: 20px;
+            line-height: 38.4px;
+            font-weight: 500;
+            color: var(--primary);
+            border-bottom: 0;
+
+            @media (min-width: 1200px) {
+              padding-left: 2rem;
+            }
+            &:first-child {
+              @media (min-width: 1200px) {
+                width: 80%;
+              } 
+            }
+          }
+        }
+
+        tbody {
+          tr {
+            td {
+              border-bottom: 2px solid var(--default-active);
+              padding-left: 2rem;
+              padding-right: 1rem;
+              text-align: right;
+              @media (min-width: 576px) {
+                padding-right: 3rem;
+              } 
+
+              @media (max-width: 768px) {
+                font-size: 16px;
+                padding-left: 1rem;
+
+              } 
+              &:first-child {
+                text-align: left;
+                border-right: 1px solid white;
+                color: inherit;
+                border-right: 0;
+
+                @media (min-width: 1200px) {
+                  padding-left: 2rem;
+                  width: 80%;
+                } 
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+  }
+}
+
+ .l-view--accordion .accordion-item button[aria-expanded="true"]::after {
+   content: url(/images/accordion-down.svg);
+   width: 30px;
+   height: 40px;
+   background-image: none;
+   transform: rotate(0);
+   //transform: none;
+ }
+
+ .l-view--accordion .accordion-item button[aria-expanded="false"]::after {
+  content: url(/images/plus-sharp.svg);
+  width: 25px;
+  height: 20px;
+  background-image: none;
+}
+
+

@@ -1,0 +1,40 @@
+<!--TemplateGroup:newsListArticleDefault-->
+
+<!--ArticleTemplate-->
+<article class="l-item">
+
+  <div class="c-item card">
+
+    <figure class="c-item__media">
+      <div class="c-image">
+        [EasyDNNnews:IfExists:Image]
+        <img src="[EasyDNNnews:Image]?w=640&mode=crop&scale=both" class="o-image" loading="lazy"
+          alt="[EasyDNNnews:Title]" />[EasyDNNnews:EndIf:Image]
+        [EasyDNNnews:IfNotExists:Image]<img src="/Portals/0/images/brand/edn-feed-placeholder.jpg" class="o-image"
+          loading="lazy" alt="[EasyDNNnews:Title]" />[EasyDNNnews:EndIf:Image]
+      </div>
+    </figure>
+
+    <div class="c-item__footer p-4 pt-0">
+      <div class="c-date">
+        <div class="o-date"><strong>[EasyDNNnews:FormatedDate:d. M. yyy.]</strong></div>
+      </div>
+      <div class="c-title mb-2">
+        <h5 class="o-title"><a href="[EasyDNNnews:Title:Link]" class="o-link">[EasyDNNnews:Title]</a></h5>
+      </div>
+      <div class="c-subtitle">
+        [EasyDNNnews:IfExists:SubTitle]
+        <h6 class="o-subtitle">[EasyDNNnews:SubTitle]</h6>
+        [EasyDNNnews:EndIf:SubTitle]
+      </div>
+    </div>
+  </div>
+</article>
+<!--ArticleEnd-->
+
+<!--ArticleRepeat:Before:-->
+<section class="edn-list edn-list--cards ssk4-edn-list--cards mb-5">
+  <!--RepeatEnd:Before:-->
+  <!--ArticleRepeat:After:-->
+</section>
+<!--RepeatEnd:After:-->

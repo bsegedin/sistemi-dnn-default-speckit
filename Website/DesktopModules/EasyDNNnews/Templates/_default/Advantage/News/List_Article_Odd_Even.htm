@@ -1,0 +1,44 @@
+<!--TemplateGroup:listArticleDefault-->
+<!--ArticleRepeat:Before:-->
+<div class="[EasyDNNnews:ArticleListWrapperClass] mb-3 edNews_oddEven edNews_defaultList">
+<!--RepeatEnd:Before:-->
+<!--ArticleTemplate-->
+<article class="edNews_clearFix">
+	[EasyDNNnews:HasArticlePermissions]
+	<div class="edn_adminActions">
+		[EasyDNNnews:ArticlePermissions:Edit]
+		[EasyDNNnews:ArticlePermissions:Publish]
+		[EasyDNNnews:ArticlePermissions:Approve]
+	</div>
+	[EasyDNNnews:HasArticlePermissionsEnd]
+	<div class="edNews_article card card-plain card-blog d-block">
+		[EasyDNNnews:IfExists:Image]
+		<div class="edNews_articleImage">
+			<div class="card-header card-header-image">
+				<a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]" title="[EasyDNNnews:Title]">
+					<img loading="lazy" class="img" alt="[EasyDNNnews:Title]" src="[EasyDNNnews:Image]" />
+				</a>
+			</div>
+		</div>
+		[EasyDNNnews:EndIf:Image]
+		<div class="card-category">[EasyDNNnews:Categories separator=" " last]</div>
+		<h2 class="card-title h3">
+			<a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]" title="[EasyDNNnews:Title]">[EasyDNNnews:Title]</a>
+		</h2>
+		<div class="card-description edNews_summary">
+			[EasyDNNnews:Summary] <a href="[EasyDNNnews:Title:Link]" target="[EasyDNNnews:DetailTarget]">[EasyDNNnews:IfNotExists:EventRegistration][EasyDNNnewsLocalizedText:Read][EasyDNNnews:EndIf:EventRegistration][EasyDNNnews:IfExists:EventRegistration][EasyDNNnewsLocalizedText:Register][EasyDNNnews:EndIf:EventRegistration]...</a>
+		</div>
+		<div class="author mt-3">
+			<b>[EasyDNNnews:Author:Link]</b>, [EasyDNNnews:IfNotExists:Event][EasyDNNnews:PublishDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event]
+		</div>
+	</div>
+</article>
+<!--ArticleEnd-->
+
+<!--ArticleRepeat:After:-->
+</div>
+[EasyDNNnews:IfExists:RSS]
+<hr class="mt-5">
+<a class="text-right d-block m-3" href="[EasyDNNnews:RSSLink]" target="_blank" title="[EasyDNNnewsLocalizedText:RSSLinkText]"><i class="material-icons">rss_feed</i><span class="sr-only">[EasyDNNnewsLocalizedText:RSSLinkText]</span></a>
+[EasyDNNnews:EndIf:RSS]
+<!--RepeatEnd:After:-->

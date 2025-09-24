@@ -1,0 +1,167 @@
+// Drag and Drop CSS
+
+.dnnDragHint {
+  outline: 1px dashed #ccc;
+  height: 22px !important;
+  cursor: move;
+}
+
+.dnnHelperTip {
+  position: relative;
+  display: block;
+}
+
+.dnnClear {
+  clear: both;
+}
+
+.dnnTooltip .dnnFormHelpContent, 
+.dnnHelperTip .dnnFormHelpContent {
+  visibility: hidden;
+  z-index: 10;
+  position: absolute;
+  width: 200px;
+  padding: 10px;
+  padding-left: 30px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.75);
+  font-size: 11px;
+  color: #ddd;
+  text-align: left;
+}
+
+.dnnFormHelpContent span {
+  display: block;
+  word-wrap: break-word;
+}
+
+.dnnClear:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+  font-size: 0;
+}
+
+.actionMenu .dnn_mact {
+  margin-left: -60px !important;
+}
+
+.jspPane {
+  position: absolute;
+  width: 100% !important;
+  box-sizing: content-box;
+  margin-left: 0 !important;
+
+}
+
+// Module Settings
+
+ul.dnnAdminTabNav {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 37px;
+  border-bottom: 1px solid #c2c2c2;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 2rem;
+  border-radius: 0;
+}
+
+ul.dnnAdminTabNav li {
+
+  &.ui-state-active {
+    a {
+      color: #495057;
+      background-color: #fff;
+      border-color: #dee2e6 #dee2e6 #fff;
+    }
+  }
+
+  a {
+    display: block;
+    margin-bottom: -1px;
+    background: 0 0;
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    text-decoration: none;
+    padding: .5rem 1rem;
+  }
+
+}
+
+h2.dnnFormSectionHead {
+  margin-top: 8px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #ddd;
+  font-size: 32px;
+  line-height: 36px;
+  letter-spacing: -0.03em;
+}
+
+h2.dnnFormSectionHead a {
+  display: block;
+  padding-left: 3px;
+  background: url(../../../../../images/down-icn.png) no-repeat right 50%;
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  letter-spacing: normal;
+  font-weight: normal;
+}
+
+h2.dnnFormSectionHead a.dnnSectionExpanded {
+  background: url(../../../../../images/up-icn.png) no-repeat right 50%;
+  color: #222;
+}
+
+.dnnForm .dnnFormItem {
+  clear: both;
+  width: 100%;
+  display: block;
+  position: relative;
+  text-align: left;
+
+  .dnnLabel {
+    display: inline-block;
+    float: left;
+    position: relative;
+    width: 32.075%;
+    padding-right: 20px;
+    margin-right: 18px;
+    overflow: visible;
+    text-align: right;
+  }
+}
+
+.DnnModule-Admin {
+  .dnnFormItem input[type="checkbox"], 
+  .dnnFormItem input[type="radio"] {
+    z-index: 2 !important;
+    opacity: 1 !important;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+
+.dnnCheckbox {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dnnFormItem input[type="checkbox"] + span, 
+.dnnFormItem input[type="radio"] + span {
+  margin: 5px;
+}
+
+.dnnFormItem input[type="checkbox"] + span, 
+.dnnFormItem input[type="radio"] + span {
+  display: inline-block;
+  width: auto;
+  margin: 6px 5px 6px 5px;
+}

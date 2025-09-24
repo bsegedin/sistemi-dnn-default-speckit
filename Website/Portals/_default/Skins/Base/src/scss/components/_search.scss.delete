@@ -1,0 +1,236 @@
+.ModSearchResultsC {
+  margin-top: 10rem;
+  @extend .container;
+
+  .dnnSearchBoxPanel {
+    background-color: white;
+    padding: 0;
+  }
+
+  .dnnSearchBox {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+
+    input,
+    input:focus {
+      position: relative;
+      left: 0;
+      border: 1px solid;
+      padding: 10px;
+      width: calc(100% - 63px) !important;
+      height: 48px !important;
+      border-radius: .5rem;
+    }
+
+    input {
+      border: 1px solid #ccc;
+      &:focus {
+        border: 1px solid $primary;
+      }
+    }
+  }
+
+  .dnnSearchResultAdvancedTip {
+    display: none !important;
+    float: none;
+    width: auto;
+    text-align: right;
+    margin-bottom: .5rem;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  a.dnnSearchBoxClearText {
+    top: 16px;
+    margin: auto;
+    right: 100px !important;
+    left: auto;
+
+    @media (min-width: 992px) {
+      top: 0;
+      bottom: 0;
+    }
+  }
+
+  a.dnnSearchButton {
+    position: relative;
+    top: 0;bottom: 0;
+    margin: 0;
+    width: 48px;height: 48px;
+    background-color: $primary;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-left: 15px;
+    &:hover {
+      opacity: .9;
+    }
+  }
+
+  .dnnSearchBox_advanced {
+    display: none !important;
+    position: relative;
+    right: 0;
+    top: 0;
+    flex: 0 0 100%;
+    margin-left: 0;
+    margin-top: 1rem;
+    @media (min-width: 992px) {
+      flex: 1 0 0%;
+      margin-left: 1rem;
+      margin-top: 0;
+    }
+
+    a.dnnSearchBox_advanced_label {
+      color: #0B457F;
+      border: 2px solid #0B457F;
+      background-color:transparent !important;
+      height: 48px;
+      border-radius: 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 500;
+      background-position: 90% center !important;
+      &:hover {
+        background-color: $primary !important;
+        color: white;
+
+      }
+    }
+
+    .dnnFormItem {
+      display: flex;
+    }
+
+    .dnnActions {
+      margin: 0 !important;
+    }
+
+    .dnnSearchBox_advanced_dropdown {
+      border-radius: .5rem;
+      padding: 2rem;
+      @media (max-width: 992px) {
+        width: 100%;
+      }
+    }
+
+    #dnnSearchResultAdvancedForm {
+      @media (max-width: 992px) {
+        width: 100%;
+        .dnnCheckbox {
+          top: 0;
+        }
+      }
+    }
+
+    .dnnFormItem .dnnTagsInput {
+      width: 100% !important; 
+    }
+
+    .dnnFormItem > .selectize-control {
+      width: 100% !important;
+      margin-bottom: 0;
+    }
+
+  }
+
+  .dnnSearchBox_advanced > .dnnSearchBox_advanced_label {
+    height: auto;
+  }
+
+  .dnnSearchResultPanel {
+    background-color: #f6f6f6;
+    border-radius: .5rem;
+    padding: 10px;
+
+    @media (min-width: 992px) { 
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+
+    .dnnRight .dnnSearchResultCountPerPage {
+      margin: 0;
+      vertical-align: middle !important;
+      margin-right: .5rem;
+    }
+
+    .selectize-control {
+      display: flex !important;
+    }
+
+    > div {
+      &:first-child {
+        order: 2;
+      }
+      &:nth-child(2) {
+        order: 1;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .dnnSearchResultSortOptions {
+      border: 0;
+      padding: 0;
+      margin-left: 1rem;
+      margin-bottom: 1rem;
+      @media (min-width: 992px) { 
+        margin-bottom: 0;
+      }
+      li {
+        margin: 0;
+        a {
+          text-decoration: none;
+          background: $primary;
+          color: white;
+          &:hover {
+            background: $primary-light;
+            color: $primary;
+          }
+        }
+
+        &.active {
+          a {
+            background: $primary-light;
+            color: $primary;
+          }
+        }
+
+        &:first-child {
+          margin-right: -5px;
+          a {
+            border-top-left-radius: .5rem;
+            border-bottom-left-radius: .5rem;
+          }
+        }
+
+        &:last-child {
+          a {
+            border-top-right-radius: .5rem;
+            border-bottom-right-radius: .5rem;
+          }
+        }
+      }
+    }
+
+    .dnnRight {
+      margin: 0;
+    }
+
+  }
+
+  .selectize-control.single .selectize-input, 
+  .selectize-dropdown.single {
+    border-color: #b8b8b8;
+  }
+
+}

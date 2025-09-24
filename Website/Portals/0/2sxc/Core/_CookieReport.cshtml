@@ -1,0 +1,17 @@
+@inherits Custom.Hybrid.Razor14
+
+<div class="cookie-container container">
+  @if (Edit.Enabled)
+  {
+    <div class="d-flex justify-content-center m-3">
+      <button type="button" class="btn btn-primary" onclick="$2sxc(449, 449).manage.run({'action':'app-settings'}, event);">
+        Open App Settings
+      </button>
+    </div>
+  }
+  <div class="row">
+    <div class="col-12 col-md-8 mx-auto cookie-container--inner">
+      @Html.Raw(App.Settings.CookieReportScript)
+    </div>
+  </div>
+</div>

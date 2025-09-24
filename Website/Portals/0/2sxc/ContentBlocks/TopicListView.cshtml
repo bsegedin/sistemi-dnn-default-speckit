@@ -1,0 +1,139 @@
+@inherits Custom.Hybrid.Razor14
+@using AppCode;
+@using Core;
+
+@{
+  // Get Content data from the data model
+  var contentItems = AsList(Content);
+
+  // Get authentication status using CmsContext
+  var isAnonymus = CmsContext.User.IsAnonymous;
+
+  // Filter content to get only the links that the user has access to. Admins and Content Editors can see demo items but public users can't.
+  var filteredContentItems = CoreHelpers.FilterContent(contentItems, isAnonymus);
+
+  // Get List (Header) data from the data model
+  var header = AsDynamic(Header);
+  var headerPresentation = AsDynamic(header.Presentation);
+
+  // Load the ViewHelper library
+  var viewHelpers = CreateInstance("AppCode/ViewHelpers.cs");
+  //var viewHelpers = new ViewHelpers(); // This is not workimg right now for dynamic approuch only works for typed approuch or if use main DNN App_Code folder
+
+  // Set the classes for the section wrapper using header settings
+  var defaultSectionClasses = new List<string> { "app-cb" };
+  string headerContainerType = viewHelpers.GetStringByCondition(headerPresentation.ContainerType, "", 2, headerPresentation.ContainerType);
+  string sectionClasses = viewHelpers.CreateCssClassList(defaultSectionClasses, headerContainerType);
+
+  // Set the INNER section wrapper using header settings
+  var defaultInnerSectionClasses = new List<string> { "l-view", "l-view--topiclist" };
+  // We take list of classes from backend separated with comma and convert it to space separated string
+  string modifiersWrapperClasses = viewHelpers.ConvertCommaListToSpaceList(headerPresentation.Modifiers);
+  string headerBgColor = viewHelpers.GetStringByCondition(headerPresentation.BgColor, "", 2, headerPresentation.BgColor);
+  string innerSectionClasses = viewHelpers.CreateCssClassList(defaultInnerSectionClasses, headerBgColor);
+
+  /* Set the carousel id using moduleid. We need this to have more then one carousel on page.
+  int moduleId = CmsContext.Module.Id;
+  string topicListId = $"swiper-{moduleId}";
+  string topicListIdHashTag = $"#{topicListId}";*/
+
+  var captionImageField = header.Field("Image");
+  // Aspect ratio for the image
+  string arFormat2sxc = viewHelpers.GetStringByCondition(headerPresentation.ImageAspectRatio, "3:2", 1);
+  var captionImgSettings = Kit.Image.Settings(aspectRatio: arFormat2sxc, width: headerPresentation.ImageWidth);
+  var captionImage = Kit.Image.Img(captionImageField, width: headerPresentation.ImageWidth, settings: captionImgSettings, imgClass: "d-block w-100");
+
+  // Prefill form data for the header based on view type
+  var headerPrefill = new
+  {
+    ViewType = "TopicListHeader",
+  };
+  // Prefill form data for the item based on view type
+  var itemPrefill = new
+  {
+    ViewType = "TopicList",
+  };
+
+  // Get view settings
+  //dynamic settings = AsDynamic(Settings);
+}
+
+@Html.Partial("_Shared/_Assets.cshtml")
+
+@Edit.Toolbar(header, prefill: headerPrefill)
+@* Check if view use correct ViewType value in header settings *@
+@Html.Partial("_Shared/_CheckViewType.cshtml", new { viewTypeString = headerPrefill.ViewType, viewTypeEntry = headerPresentation.ViewType })
+
+<section class="@sectionClasses">
+  <div class="@innerSectionClasses">
+    <div class="topic-list ratio" style="@viewHelpers.CreateBsAspectRatioAttribute(arFormat2sxc)">
+      <div class="topic-list__media">
+        <figure class="o-image">
+          @if (!string.IsNullOrEmpty(header.Image))
+          {
+            @captionImage
+          }
+          else
+          {
+            var placeholderImage = Kit.Image.Img(App.Settings.ImagePlaceholder, width: headerPresentation.ImageWidth, settings: captionImgSettings, imgClass: "d-block w-100");
+            @placeholderImage
+          }
+        </figure>
+      </div>
+
+      <div class="topic-list__content">
+        <div class="topic-header">
+          <div class="@viewHelpers.GetStringByCondition("topic-list-caption " + modifiersWrapperClasses, "topic-list-caption", 2, headerPresentation.Modifiers)">
+            <div class="l-item__body @viewHelpers.GetStringByCondition(headerPresentation.TextAlign, "text-start") @viewHelpers.GetStringByCondition(headerPresentation.TextColor, "text-body")" style="left:0; right:0">
+              @Html.Partial("_Shared/_Text.cshtml", new { kicker = header.Kicker, title = header.Title, body = header.Body, kickerSize = headerPresentation.KickerSize, kickerWeight = headerPresentation.KickerWeight, headingSize = headerPresentation.HeadingSize, headingWeight = headerPresentation.headingWeight, headingType = headerPresentation.HeadingType })
+              @Html.Partial("_Shared/_links.cshtml", new { links = AsDynamic(header.LinkList) })
+            </div>
+          </div>
+        </div>
+
+        <div class="topic-listview">
+          <div class="row">
+            @for (int i = 0; i < filteredContentItems.Count; i++)
+            {
+              var data = filteredContentItems[i];
+              // Get Image object to use in the template
+              var imageField = data.Field("Image");
+              // Get AttachedVideo entity
+              var attachedVideo = AsDynamic(data.AttachedVideo);
+              bool hasVideo = attachedVideo != null && attachedVideo.Count > 0;
+              // Get Content item presentation settings
+              var presentation = AsDynamic(data.Presentation);
+              // Set image settings
+              var imgSettings = Kit.Image.Settings(aspectRatio: (!string.IsNullOrEmpty(presentation.ImageAspectRatio) ? presentation.ImageAspectRatio : "3:2"), width: presentation.ImageWidth);
+              // Prepare image for rendering, take a look options at: https://docs.2sxc.org/net-code/images/index.html and https://docs.2sxc.org/basics/images/guide/index.html
+              var mainImage = Kit.Image.Img(imageField, width: presentation.ImageWidth, settings: imgSettings, imgClass: "d-block w-100");
+              // We take list of classes from backend separated with comma and convert it to space separated string
+              string modifiersItemClasses = viewHelpers.ConvertCommaListToSpaceList(presentation.Modifiers);
+
+              <div class="@viewHelpers.GetStringByCondition("topic-list-item col-4 " + modifiersItemClasses, "topic-list-item col-12 col-md-4", 2, presentation.Modifiers)" @Edit.TagToolbar(data, toolbar: new[] { "settings&hover=left&autoAddMore=start" })>
+                <div class="topic-list-item__inner">
+                  @if (!string.IsNullOrEmpty(data.Image))
+                  {
+                    <div class="topic-item-image">@mainImage</div>
+                  }
+
+                <div class="l-item__body @viewHelpers.GetStringByCondition(presentation.TextAlign, "text-start")" style="left:0; right:0">
+                  @if (!isAnonymus)
+                  {
+                    <small class="badge @(CoreHelpers.GetBadgeClass(data)) rounded-pill">
+                      @CoreHelpers.GetBadgeText(data)
+                    </small>
+                  }
+                  @* Check if view use correct ViewType value in content item settings *@
+                  @Html.Partial("_Shared/_CheckViewType.cshtml", new { viewTypeString = itemPrefill.ViewType, viewTypeEntry = presentation.ViewType })
+                  @Html.Partial("_Shared/_Text.cshtml", new { body = data.Body, title = data.Title, headingSize = presentation.HeadingSize, headingWeight = presentation.headingWeight, headingType = presentation.HeadingType })
+                </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

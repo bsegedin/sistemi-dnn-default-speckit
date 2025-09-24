@@ -1,0 +1,105 @@
+@inherits Custom.Hybrid.Razor14
+@using ToSic.Razor.Blade
+@using AppCode;
+@using Core;
+
+@{
+  // Get Content item presentation settings
+  var presentation = AsDynamic(Content.Presentation);
+
+  //Convert Content to list for easy filtering
+  var contentItem = AsList(Content);
+
+  // Get authentication status using CmsContext
+  var isAnonymus = CmsContext.User.IsAnonymous;
+
+  // Filter content to get only the links that the user has access to. Admins and Content Editors can see demo items but public users can't.
+  var filteredContent = CoreHelpers.FilterContent(contentItem, isAnonymus);
+
+  // Split the aspect ratio string and calculate the percentage
+  /*var ratioParts = arFormat2sxc.Split(':');
+  double x = Convert.ToDouble(ratioParts[0]);
+  double y = Convert.ToDouble(ratioParts[1]);
+  int aspectRatioPercent = (int)Math.Round((y / x) * 100);
+  string aspectRatioStyle = $"--bs-aspect-ratio: {aspectRatioPercent}%;";*/
+
+  // Load the ViewHelper library
+  var viewHelpers = CreateInstance("AppCode/ViewHelpers.cs");
+  //var viewHelpers = new ViewHelpers(); // This is not workimg right now for dynamic approuch only works for typed approuch or if use main DNN App_Code folder
+
+  // Get Image object to use in the template
+  var imageField = Content.Field("Image");
+  // We need to kind of formats for aspect ratio, one for 2sxc and one for Bootstrap
+  string arFormat2sxc = viewHelpers.GetStringByCondition(presentation.ImageAspectRatio, "5:1", 1);
+  var imgSettings = Kit.Image.Settings(aspectRatio: arFormat2sxc, width: presentation.ImageWidth);
+  var mainImage = Kit.Image.Img(imageField, settings: imgSettings);
+  //string imageUrl = mainImage.Src;
+  string imageUrl = !string.IsNullOrEmpty(imageField.Url) ? mainImage.Src : App.Settings.ImagePlaceholder;
+
+  // Get Mobile Image object to use in the template
+  var mobileImgSettings = Kit.Image.Settings(aspectRatio: "4:3", width: 800);
+  var mobileImage = Kit.Image.Img(imageField, settings: mobileImgSettings);
+  //string mobileImageUrl = mobileImage.Src;
+  string mobileImageUrl = !string.IsNullOrEmpty(imageField.Url) ? mobileImage.Src : App.Settings.ImagePlaceholder;
+
+  // Set the classes for the section wrapper using header settings
+  var defaultSectionClasses = new List<string> { "app-cb" };
+  string sectionClasses = viewHelpers.CreateCssClassList(defaultSectionClasses, "");
+
+  // Set the INNER section wrapper using header settings
+  var defaultInnerSectionClasses = new List<string> { "l-view", "l-view--hero", "jumbotron", "jumbotron-fluid" };
+  string modifiersItemClasses = viewHelpers.ConvertCommaListToSpaceList(presentation.Modifiers);
+  string innerSectionClasses = viewHelpers.CreateCssClassList(defaultInnerSectionClasses, modifiersItemClasses);
+
+  // Determine the heading tag (e.g., "h1", "h2", etc.) to use later in the template
+  string headingTag = viewHelpers.GetStringByCondition(presentation.headingType, "h2", 1);
+
+  // Get view settings
+  //dynamic settings = AsDynamic(Settings);
+}
+
+@* Assets needed for view *@
+@Html.Partial("_Shared/_Assets.cshtml")
+
+<style>
+  .jumbotron-image {
+    background-image: url('@imageUrl');
+    @viewHelpers.CreateBsAspectRatioAttribute(arFormat2sxc);
+  }
+  @@media (max-width: 512px) {
+    .jumbotron-image {
+      background-image: url('@mobileImageUrl');
+      @viewHelpers.CreateBsAspectRatioAttribute("4:3")
+    }
+  }
+</style>
+@if(filteredContent.Count > 0)
+{
+    <section class="@sectionClasses">
+      <div class="@innerSectionClasses">
+        <div class="jumbotron text-white jumbotron-image l-item ratio">
+          <div class="l-item__body">
+            @Edit.Toolbar(Content)
+            <div class="container">
+              @if (!isAnonymus)
+              {
+                <small class="badge @(CoreHelpers.GetBadgeClass(Content)) rounded-pill">
+                  @CoreHelpers.GetBadgeText(Content)
+                </small>
+              }
+              @if (!string.IsNullOrEmpty(Content.Title) && presentation.headingSize != "hide")
+              {
+                @Tag.Custom(headingTag).Class($"o-title {presentation.headingSize} {presentation.headingWeight}").Attr("aria-label", "Title").Wrap(Content.Title)
+              }
+              @if (!string.IsNullOrEmpty(Content.Kicker) && presentation.kickerSize != "hide")
+              {
+                @Tag.P().Class($"o-kicker {presentation.kickerSize} {presentation.kickerWeight}").Attr("aria-label", "Kicker").Wrap(Content.Kicker)
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ }
+
+

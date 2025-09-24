@@ -1,0 +1,175 @@
+@inherits Custom.Hybrid.Razor14
+@using AppCode;
+@using Core;
+
+@{
+  // Get Content data from the data model
+  var contentItems = AsList(Content);
+
+  // Get authentication status using CmsContext
+  var isAnonymus = CmsContext.User.IsAnonymous;
+
+  // Filter content to get only the links that the user has access to. Admins and Content Editors can see demo items but public users can't.
+  var filteredContentItems = CoreHelpers.FilterContent(contentItems, isAnonymus);
+
+  // Get List (Header) data from the data model
+  var header = AsDynamic(Header);
+
+  // Load the ViewHelper library
+  var viewHelpers = CreateInstance("AppCode/ViewHelpers.cs");
+  //var viewHelpers = new ViewHelpers(); // This is not workimg right now for dynamic approuch only works for typed approuch or if use main DNN App_Code folder
+
+  // Set the classes for the section wrapper using header settings
+  var defaultSectionClasses = new List<string> { "app-cb" };
+  string headerContainerType = viewHelpers.GetStringByCondition(header.ContainerType, "", 2, header.ContainerType);
+  string sectionClasses = viewHelpers.CreateCssClassList(defaultSectionClasses, headerContainerType);
+
+  // Set the INNER section wrapper using header settings
+  var defaultInnerSectionClasses = new List<string> { "l-view", "l-view--swiper" };
+  // We take list of classes from backend separated with comma and convert it to space separated string
+  string modifiersWrapperClasses = viewHelpers.ConvertCommaListToSpaceList(header.Modifiers);
+  string headerBgColor = viewHelpers.GetStringByCondition(header.BgColor, "", 2, header.BgColor);
+  string innerSectionClasses = viewHelpers.CreateCssClassList(defaultInnerSectionClasses, modifiersWrapperClasses, headerBgColor);
+
+  // Set the carousel id using moduleid. We need this to have more then one carousel on page.
+  int moduleId = CmsContext.Module.Id;
+  string swiperId = $"swiper-{moduleId}";
+  string swiperIdHashTag = $"#{swiperId}";
+
+  // Prefill form data for the header based on view type
+  var headerPrefill = new
+  {
+    ViewType = "SwipedBlock",
+  };
+
+  // Get view settings
+  //dynamic settings = AsDynamic(Settings);
+}
+
+@Html.Partial("_Shared/_Assets.cshtml", new { plugins = "swiper,hls" })
+
+@Edit.Toolbar(header, prefill: headerPrefill)
+@* Check if view use correct ViewType value in header settings *@
+@Html.Partial("_Shared/_CheckViewType.cshtml", new { viewTypeString = headerPrefill.ViewType, viewTypeEntry = header.ViewType })
+
+<section class="@sectionClasses">
+  <div class="@innerSectionClasses">
+    <div id="@swiperId" class="swiper" data-bs-ride="@(header.EnableAutoplay ? "carousel" : "ride")">
+      <div class="swiper-wrapper">
+        @for (int i = 0; i < filteredContentItems.Count; i++)
+        {
+            var data = filteredContentItems[i];
+            // Get Image object to use in the template
+            var imageField = data.Field("Image");
+            // Get AttachedVideo entity
+            var attachedVideo = AsDynamic(data.AttachedVideo);
+            bool hasVideo = attachedVideo != null && attachedVideo.Count > 0;
+            // Get Content item presentation settings
+            var presentation = AsDynamic(data.Presentation);
+            // Set image settings
+            var imgSettings = Kit.Image.Settings(aspectRatio: (!string.IsNullOrEmpty(presentation.ImageAspectRatio) ? presentation.ImageAspectRatio : "3:2"), width: presentation.ImageWidth);
+            // Prepare image for rendering, take a look options at: https://docs.2sxc.org/net-code/images/index.html and https://docs.2sxc.org/basics/images/guide/index.html
+            var mainImage = Kit.Image.Img(imageField, width: presentation.ImageWidth, settings: imgSettings, imgClass: "d-block w-100");
+            // We take list of classes from backend separated with comma and convert it to space separated string
+            string modifiersItemClasses = viewHelpers.ConvertCommaListToSpaceList(presentation.Modifiers);
+            bool useImageOverlay = presentation.UseImageOverlay ?? false;
+
+            <div style="height: auto;" class="@viewHelpers.GetStringByCondition("swiper-slide ", "swiper-slide", 2, presentation.Modifiers) @viewHelpers.GetStringByCondition("overlay-body__text", "", 3, "", useImageOverlay)" @Edit.TagToolbar(data, toolbar: new[] { "settings&hover=left&autoAddMore=start" })>
+              @if (!isAnonymus)
+              {
+                <small class="badge @(CoreHelpers.GetBadgeClass(data)) rounded-pill">
+                  @CoreHelpers.GetBadgeText(data)
+                </small>
+              }
+
+              @* Check if view use correct ViewType value in content item settings *@
+              @Html.Partial("_Shared/_CheckViewType.cshtml", new { viewTypeString = headerPrefill.ViewType, viewTypeEntry = presentation.ViewType })
+
+              @if (hasVideo)
+              {
+                @Html.Partial("_Shared/_Video.cshtml", new { attachedVideo = attachedVideo })
+              }
+              else if (!string.IsNullOrEmpty(data.Image))
+              {
+                @mainImage
+              }
+              else
+              {
+                @* No image attached, display a placeholder image *@
+                var placeholderImage = Kit.Image.Picture(App.Settings.ImagePlaceholder, width: presentation.ImageWidth, settings: imgSettings);
+                <figure class="o-image">
+                  @placeholderImage
+                </figure>
+              }
+              @if (header.EnableCaptions)
+              {
+                <div class="@viewHelpers.GetStringByCondition("l-item__body swiper-caption card-img-overlay " + modifiersItemClasses, "l-item__body swiper-caption " + modifiersItemClasses, 3, "", useImageOverlay) @viewHelpers.GetStringByCondition(presentation.TextAlign, "text-start")" style="left:0; right:0">
+                    @if (useImageOverlay)
+                    {
+                    <a class="js-close-overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path class="fa-secondary" opacity=".4" d="" /><path class="fa-primary" d="M345 137c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-119 119L73 103c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l119 119L39 375c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l119-119L311 409c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-119-119L345 137z" /></svg>
+                    </a>
+                    }
+                    <div class="@viewHelpers.GetStringByCondition("o-description", "o-description--default", 3, "", useImageOverlay) @viewHelpers.GetStringByCondition(presentation.TextColor)">
+                        @Html.Partial("_Shared/_Text.cshtml", new { kicker = data.Kicker, title = data.Title, body = data.Body, kickerSize = presentation.KickerSize, kickerWeight = presentation.KickerWeight, headingSize = presentation.HeadingSize, headingWeight = presentation.headingWeight, headingType = presentation.HeadingType })
+                        @Html.Partial("_Shared/_links.cshtml", new { links = AsDynamic(data.LinkList) })
+                    </div>
+                </div>
+              }
+            </div>
+        }
+      </div>
+      @if (header.ShowIndicators)
+      {
+        <div class="swiper-pagination"></div>
+      }
+      @if (header.ShowControls)
+      {
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    const swiperEl = document.getElementById("@swiperId");
+    const swiperVideos = swiperEl.querySelectorAll("video");
+
+    var swiper = new Swiper('@swiperIdHashTag', {
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      },
+      slidesPerView: "auto",
+      watchSlidesProgress: true,
+      grabCursor: true,
+      //spaceBetween: 24,
+      centeredSlides: true,
+      loop: true,
+      initialSlide: 3,
+      autoplay: '@header.EnableAutoplay' === 'False' ? false : {delay: '@header.SlideInterval'},
+      effect: '@header.EnableCrossfade' === 'True' ? 'fade' : '',
+      fadeEffect: {
+        crossFade: '@header.EnableCrossfade' === 'True' ? true : false
+      },
+    });
+    swiper.on('transitionEnd', function(){
+      swiperVideos.forEach(video => {
+        video.pause();
+        video.currentTime = 0;
+      })
+      const activeSlide = swiperEl.querySelectorAll(".swiper-slide")[this.activeIndex];
+      const activeSlideVideo = activeSlide.querySelector("video");
+      if(activeSlideVideo && activeSlideVideo.autoplay) {
+        activeSlideVideo.play();
+      }
+    })
+  });
+</script>

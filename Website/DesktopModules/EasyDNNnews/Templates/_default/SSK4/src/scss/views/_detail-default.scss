@@ -1,0 +1,57 @@
+
+
+/* ==========================================================================
+	COMPONENTS / EASY-DNN-NEWS / EDN articles detail - Default
+========================================================================== */
+	
+.ssk4-edn-article-detail--default {
+	.l-media {
+
+		// Swiper
+
+		.swiper {
+			background-color: black;
+
+			&-slide {
+				text-align: center;
+				font-size: 18px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.swiper-gallery-stage {
+				margin-bottom: 2rem;
+				img {
+					object-fit: cover;
+					width: 1200px;
+					height: 550px;
+				}
+			}
+
+			.swiper-gallery-nav {
+				display: flex;
+				justify-content: center;
+				padding: 2rem;
+				padding-top: 0;
+
+				swiper-slide {
+					width: 100px !important;
+					height: 100px;
+					cursor: pointer;
+					img {
+						object-fit: cover;
+					}
+				}
+
+			}
+
+			swiper-slide {
+				display: flex;
+				justify-content: center;
+			}
+
+		}
+
+	}
+}

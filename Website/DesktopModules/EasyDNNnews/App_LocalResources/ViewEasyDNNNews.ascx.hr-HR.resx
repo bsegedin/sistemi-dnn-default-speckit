@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+<data name="AddContent.Action" xml:space="preserve">
+    <value>Dodaj novi članak</value>
+  </data>
+  <data name="btnAddComentResource.Text" xml:space="preserve">
+    <value>Dodaj komentar</value>
+  </data>
+  <data name="btnRateResource.Text" xml:space="preserve">
+    <value>Ocijeni</value>
+  </data>
+  <data name="CategoryEditor" xml:space="preserve">
+    <value>Uređivač kategorija</value>
+  </data>
+  <data name="ModuleHelp.Text" xml:space="preserve">
+    <value>EasyDNNNews modul</value>
+  </data>
+  <data name="Read.Text" xml:space="preserve">
+    <value>Pročitaj više</value>
+  </data>
+  <data name="More.Text" xml:space="preserve">
+    <value>Više</value>
+  </data>
+  <data name="First.Text" xml:space="preserve">
+    <value>Prva</value>
+  </data>
+  <data name="Last.Text" xml:space="preserve">
+    <value>Zadnja</value>
+  </data>
+  <data name="Next.Text" xml:space="preserve">
+    <value>Sljedeća</value>
+  </data>
+  <data name="Previous.Text" xml:space="preserve">
+    <value>Prethodna</value>
+  </data>
+  <data name="PaidContent.Text" xml:space="preserve">
+    <value>&lt;br /&gt;&lt;b&gt;Ovaj sadržaj je dostupan samo korisnicima s plaćenom pretplatom.&lt;/b&gt;</value>
+  </data>
+  <data name="SendEmail.Text" xml:space="preserve">
+    <value>Pošalji e-mail prijatelju</value>
+  </data>
+  <data name="ArticleNumberOfComments.Text" xml:space="preserve">
+    <value>{0} komentara na članak "{1}"</value>
+  </data>
+  <data name="AricleRating.Text" xml:space="preserve">
+    <value>Ocjena članka</value>
+  </data>
+  <data name="NoRating.Text" xml:space="preserve">
+    <value>Nema ocjene</value>
+  </data>
+  <data name="Related Articles.Text" xml:space="preserve">
+    <value>Povezani članci</value>
+  </data>
+  <data name="Documents.Text" xml:space="preserve">
+    <value>Dokumenti za preuzimanje</value>
+  </data>
+  <data name="LatestNews.Text" xml:space="preserve">
+    <value>Najnovije vijesti</value>
+  </data>
+  <data name="ContactAuthor.Text" xml:space="preserve">
+    <value>Kontaktiraj autora</value>
+  </data>
+  <data name="FullBioLink.Text" xml:space="preserve">
+    <value>Cijela biografija</value>
+  </data>
+  <data name="FullBioTitle.Text" xml:space="preserve">
+    <value>Cijela biografija</value>
+  </data>
+  <data name="SendEmailTitle.Text" xml:space="preserve">
+    <value>Kontakt obrazac</value>
+  </data>
+  <data name="ContactGroup.Text" xml:space="preserve">
+    <value>Kontakt grupa</value>
+  </data>
+  <data name="AuthorsProfileRSSLinkText.Text" xml:space="preserve">
+    <value>RSS autora</value>
+  </data>
+  <data name="LinkToOriginalArticle.Text" xml:space="preserve">
+    <value>Veza na izvorni članak</value>
+  </data>
+  <data name="LeaveAComment.Text" xml:space="preserve">
+    <value>Ostavite komentar</value>
+  </data>
+  <data name="Author.Text" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="Categories.Text" xml:space="preserve">
+    <value>Kategorije</value>
+  </data>
+  <data name="Comments.Text" xml:space="preserve">
+    <value>Komentari</value>
+  </data>
+  <data name="Numberofviews.Text" xml:space="preserve">
+    <value>Broj pregleda</value>
+  </data>
+  <data name="Views.Text" xml:space="preserve">
+    <value>Pregledi</value>
+  </data>
+  <data name="Otherpostsby.Text" xml:space="preserve">
+    <value>Ostale objave autora</value>
+  </data>
+  <data name="Publishedon.Text" xml:space="preserve">
+    <value>Objavljeno</value>
+  </data>
+  <data name="Tags.Text" xml:space="preserve">
+    <value>Oznake</value>
+  </data>
+  <data name="AddComment.Text" xml:space="preserve">
+    <value>Dodaj komentar</value>
+  </data>
+  <data name="CommentText.Text" xml:space="preserve">
+    <value>Komentar:</value>
+  </data>
+  <data name="ReplyTo.Text" xml:space="preserve">
+    <value>Odgovor na</value>
+  </data>
+  <data name="lbAboutMe.Text" xml:space="preserve">
+    <value>O meni</value>
+  </data>
+  <data name="lbAddArticles.Text" xml:space="preserve">
+    <value>Dodaj članak</value>
+  </data>
+  <data name="lbApproveComments.Text" xml:space="preserve">
+    <value>Odobri komentar</value>
+  </data>
+  <data name="lbApproveRoles.Text" xml:space="preserve">
+    <value>Odobri članke</value>
+  </data>
+  <data name="lbArticleEditor.Text" xml:space="preserve">
+    <value>Upravitelj članaka</value>
+  </data>
+  <data name="lbCategoryEdit.Text" xml:space="preserve">
+    <value>Uređivač kategorija</value>
+  </data>
+  <data name="lbDashboard.Text" xml:space="preserve">
+    <value>Nadzorna ploča</value>
+  </data>
+  <data name="lbDBSettings.Text" xml:space="preserve">
+    <value>Postavke</value>
+  </data>
+  <data name="Eventdate.Text" xml:space="preserve">
+    <value>Datum događaja</value>
+  </data>
+  <data name="EditArticle.Text" xml:space="preserve">
+    <value>Uredi članak</value>
+  </data>
+  <data name="Approve.Text" xml:space="preserve">
+    <value>Odobri</value>
+  </data>
+  <data name="Publish.Text" xml:space="preserve">
+    <value>Objavi</value>
+  </data>
+  <data name="NoPortalToShare.Text" xml:space="preserve">
+    <value>Super korisnik je onemogućio dijeljenje portala. Uredite i spremite postavke.</value>
+  </data>
+  <data name="NoArticleOrPermission.Text" xml:space="preserve">
+    <value>&lt;a href="[EasyDNNnews:LoginUrl]"&gt;Prijavite se za pregled članka&lt;/a&gt;</value>
+  </data>
+  <data name="CommentApproval.Text" xml:space="preserve">
+    <value>Hvala na komentaru. Vaš komentar će biti vidljiv nakon odobrenja.</value>
+  </data>
+  <data name="CommentReplay.Text" xml:space="preserve">
+    <value>Odgovarate na komentar korisnika {0}</value>
+  </data>
+  <data name="lbCancelUpdateComment.Text" xml:space="preserve">
+    <value>&lt;span&gt;Otkaži&lt;/span&gt;</value>
+  </data>
+  <data name="lbDeleteComment.Text" xml:space="preserve">
+    <value>Obriši komentar</value>
+  </data>
+  <data name="lbEditComment.Text" xml:space="preserve">
+    <value>Uredi komentar</value>
+  </data>
+  <data name="lblAddComment.Text" xml:space="preserve">
+    <value>Komentar:</value>
+  </data>
+  <data name="lblAddCommentEmail.Text" xml:space="preserve">
+    <value>E-mail:</value>
+  </data>
+  <data name="lblAddCommentName.Text" xml:space="preserve">
+    <value>Ime:</value>
+  </data>
+  <data name="lblCaptchaError.Text" xml:space="preserve">
+    <value>Molimo riješite captcha provjeru.</value>
+  </data>
+  <data name="lbUpdateComment.Text" xml:space="preserve">
+    <value>&lt;span&gt;Ažuriraj&lt;/span&gt;</value>
+  </data>
+  <data name="lblAddCommentEmailValid.Text" xml:space="preserve">
+    <value>Unesite valjanu e-mail adresu.</value>
+  </data>
+  <data name="lblAddCommentError.Text" xml:space="preserve">
+    <value>Unesite komentar.</value>
+  </data>
+  <data name="lblAddCommentEmailError.Text" xml:space="preserve">
+    <value>Unesite e-mail adresu.</value>
+  </data>
+  <data name="lblAddCommentNameError.Text" xml:space="preserve">
+    <value>Unesite ime.</value>
+  </data>
+  <data name="RSSLinkText.Text" xml:space="preserve">
+    <value>RSS</value>
+  </data>
+  <data name="EventLocation.Text" xml:space="preserve">
+    <value>Lokacija događaja</value>
+  </data>
+  <data name="ExportEvent.Text" xml:space="preserve">
+    <value>Izvezi događaj</value>
+  </data>
+  <data name="ConnectWith.Text" xml:space="preserve">
+    <value>Poveži se s</value>
+  </data>
+  <data name="Posted.Text" xml:space="preserve">
+    <value>Objavljeno</value>
+  </data>
+  <data name="CommentDeleteConfirm.Text" xml:space="preserve">
+    <value>return confirm('Jeste li sigurni?');</value>
+  </data>
+  <data name="LinksIncluded.Text" xml:space="preserve">
+    <value>Više poveznica</value>
+  </data>
+  <data name="NumberOfSearchResult.Text" xml:space="preserve">
+    <value>&lt;p class="edn_searchInfoResults"&gt;Broj rezultata pretrage: &lt;span&gt;{0}&lt;/span&gt;&lt;/p&gt;</value>
+  </data>
+  <data name="UpcomingEvents.Text" xml:space="preserve">
+    <value>Nadolazeći događaji</value>
+  </data>
+  <data name="Downloads.Text" xml:space="preserve">
+    <value>preuzimanje(a)</value>
+  </data>
+  <data name="PrintButton.Text" xml:space="preserve">
+    <value>Ispis</value>
+  </data>
+  <data name="MapsTitle.Text" xml:space="preserve">
+    <value>Lokacija</value>
+  </data>
+  <data name="DetailsCF.Text" xml:space="preserve">
+    <value>Detalji</value>
+  </data>
+  <data name="GalleryTitle.Text" xml:space="preserve">
+    <value>Galerija</value>
+  </data>
+  <data name="ContactAuthorGroupTitle.Text" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="CommentsTitle.Text" xml:space="preserve">
+    <value>Komentari</value>
+  </data>
+  <data name="NumberOfAttendants.Text" xml:space="preserve">
+    <value>Sudjeluje</value>
+  </data>
+  <data name="MaxNumberOfTickets.Text" xml:space="preserve">
+    <value>Sjedala</value>
+  </data>
+  <data name="NotUsedTickets.Text" xml:space="preserve">
+    <value>Preostalo</value>
+  </data>
+  <data name="ListOfAttendants.Text" xml:space="preserve">
+    <value>Sudionici</value>
+  </data>
+  <data name="Attendees.Text" xml:space="preserve">
+    <value>Sudionici</value>
+  </data>
+  <data name="Register.Text" xml:space="preserve">
+    <value>Registriraj se</value>
+  </data>
+  <data name="lbEventsManager.Text" xml:space="preserve">
+    <value>Upravitelj događaja</value>
+  </data>
+  <data name="AreYouGoing.Text" xml:space="preserve">
+    <value>Hoćete li doći?</value>
+  </data>
+  <data name="liMaybe.Text" xml:space="preserve">
+    <value>Možda</value>
+  </data>
+  <data name="liNo.Text" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="liYes.Text" xml:space="preserve">
+    <value>Da</value>
+  </data>
+  <data name="PreviusArticle.Text" xml:space="preserve">
+    <value>Prethodni članak</value>
+  </data>
+  <data name="NextArticle.Text" xml:space="preserve">
+    <value>Sljedeći članak</value>
+  </data>
+  <data name="ViewInGallery.Text" xml:space="preserve">
+    <value>Pogledaj u galeriji</value>
+  </data>
+  <data name="Price.Text" xml:space="preserve">
+    <value>Cijena</value>
+  </data>
+  <data name="rfvPleaseMessage.Text" xml:space="preserve">
+    <value>Unesite poruku.</value>
+  </data>
+  <data name="CopyArticle.Text" xml:space="preserve">
+    <value>Kopiraj članak</value>
+  </data>
+  <data name="rfvContactFormCompany.ErrorMessage" xml:space="preserve">
+    <value>Unesite naziv tvrtke.</value>
+  </data>
+  <data name="lblContactFormCompany.Text" xml:space="preserve">
+    <value>Tvrtka:</value>
+  </data>
+  <data name="NoContentMessage.Text" xml:space="preserve">
+    <value>Nema sadržaja</value>
+  </data>
+  <data name="ContentErrorMessage.Text" xml:space="preserve">
+    <value>Došlo je do problema pri učitavanju sadržaja.</value>
+  </data>
+  <data name="PreviousPageText.Text" xml:space="preserve">
+    <value>Prethodna</value>
+  </data>
+  <data name="NextPageText.Text" xml:space="preserve">
+    <value>Sljedeća</value>
+  </data>
+  <data name="ContentBlocks_AllCategoriesText.Text" xml:space="preserve">
+    <value>Sve</value>
+  </data>
+  <data name="CommentsAnchor.Text" xml:space="preserve">
+    <value>komentari</value>
+  </data>
+  <data name="infoImportWhereToOpen.Text" xml:space="preserve">
+    <value>Napomena: Uvezli ste postavke. Provjerite koja će instanca otvoriti detalje.</value>
+  </data>
+  <data name="infoWhereToOpen.Text" xml:space="preserve">
+    <value>Mjesto za otvaranje poveznica nije postavljeno. Stranica ili modul vijesti ne postoji. Uredite postavke.</value>
+  </data>
+  <data name="AllEvents.Text" xml:space="preserve">
+    <value>Svi događaji</value>
+  </data>
+  <data name="Current.Text" xml:space="preserve">
+    <value>Trenutno</value>
+  </data>
+  <data name="Unregister.Text" xml:space="preserve">
+    <value>Poništi registraciju</value>
+  </data>
+  <data name="MoreInfo.Text" xml:space="preserve">
+    <value>Više informacija</value>
+  </data>
+  <data name="ArticleList.Text" xml:space="preserve">
+    <value>Članci</value>
+  </data>
+  <data name="Copyright.Text" xml:space="preserve">
+    <value>Autorska prava</value>
+  </data>
+  <data name="lblShowCommentsGDPRComplianceAgreementRules.Text" xml:space="preserve">
+    <value>Ovaj obrazac prikuplja vaše ime, e-mail, IP adresu i sadržaj kako bismo mogli pratiti komentare na web stranici. Za više informacija pogledajte našu &lt;a href="[EasyDNNnews:PrivacyPageUrl]" target="_blank"&gt;Politiku privatnosti&lt;/a&gt; i &lt;a href="[EasyDNNnews:TermsPageUrl]" target="_blank"&gt;Uvjeti korištenja&lt;/a&gt; gdje ćete saznati gdje, kako i zašto pohranjujemo vaše podatke.</value>
+  </data>
+  <data name="cbShowCommentsGDPRComplianceAgreementRules.Text" xml:space="preserve">
+    <value>Slažem se</value>
+  </data>
+  <data name="lblShowCommentsGDPRComplianceAgreementError.Text" xml:space="preserve">
+    <value>Morate pročitati i prihvatiti ova pravila.</value>
+  </data>
+  <data name="AnonymDNNProfileLink.Text" xml:space="preserve">
+    <value>Anonimno</value>
+  </data>
+<data name="Upvote.Text" xml:space="preserve">
+    <value>Pozitivno ocijeni</value>
+</data>
+<data name="Downvote.Text" xml:space="preserve">
+    <value>Negativno ocijeni</value>
+</data>
+<data name="Share.Text" xml:space="preserve">
+    <value>Podijeli</value>
+</data>
+<data name="SwitchArticle.Text" xml:space="preserve">
+    <value>Promijeni članak</value>
+</data>
+<data name="ArticleHasRevision.Text" xml:space="preserve">
+    <value>Članak ima reviziju</value>
+</data>
+<data name="ArticleIsNotPublished.Text" xml:space="preserve">
+    <value>Članak nije objavljen</value>
+</data>
+<data name="NoArticleOrPermission404.Text" xml:space="preserve">
+    <value>&lt;div style="width: 50%;min-height: 250px;border: 1px solid #F0F0F0;margin-top: 200px;margin-left: auto;margin-right: auto;font-family: arial;background: #fbfbfb;border-radius: 10px;color: #696969;font-size: 16px;"&gt;&lt;div style="text-align:center; padding-top:100px"&gt;404 Nije pronađeno&lt;/div&gt;&lt;/div&gt;</value>
+</data>
+<data name="lbThemeSelection.Text" xml:space="preserve">
+    <value>Odabir teme</value>
+</data>
+<data name="PleaseInsertIntegerValue.Text" xml:space="preserve">
+    <value>Unesite cijeli broj!</value>
+</data>
+<data name="PleaseInsertDecimalValue.Text" xml:space="preserve">
+    <value>Unesite decimalnu vrijednost!</value>
+</data>
+<data name="PleaseInsertCurrencyValue.Text" xml:space="preserve">
+    <value>Unesite novčanu vrijednost!</value>
+</data>
+<data name="EnterValidEmail.Text" xml:space="preserve">
+    <value>Unesite važeću e-mail adresu!</value>
+</data>
+<data name="EnterValidURL.Text" xml:space="preserve">
+    <value>Unesite važeći URL!</value>
+</data>
+<data name="SelectValue.Text" xml:space="preserve">
+    <value>Odaberite vrijednost</value>
+</data>
+<data name="LoadMoreComments.Text" xml:space="preserve">
+    <value>Učitaj više komentara</value>
+</data>
+<data name="AriaLabelNextPage.Text" xml:space="preserve">
+    <value>Sljedeća stranica</value>
+</data>
+<data name="AriaLabelLastPage.Text" xml:space="preserve">
+    <value>Zadnja stranica</value>
+</data>
+<data name="AriaLabelPageNumber.Text" xml:space="preserve">
+    <value>Stranica {0}</value>
+</data>
+<data name="AriaLabelFirstPage.Text" xml:space="preserve">
+    <value>Prva stranica</value>
+</data>
+<data name="AriaLabelPreviousPage.Text" xml:space="preserve">
+    <value>Prethodna stranica</value>
+</data>
+<data name="LatestCommentsOnForum.Text" xml:space="preserve">
+    <value>Komentari na forumu</value>
+</data>
+<data name="OpenInSimpleForum.Text" xml:space="preserve">
+    <value>Pogledaj raspravu na forumu</value>
+</data>
+<data name="ExportToCSV.Text" xml:space="preserve">
+    <value>Izvezi u CSV</value>
+</data>
+<data name="Related.Text" xml:space="preserve">
+    <value>Povezano</value>
+</data>
+<data name="Articles.Text" xml:space="preserve">
+    <value>Članci</value>
+</data>
+</root>

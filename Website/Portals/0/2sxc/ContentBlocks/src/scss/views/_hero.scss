@@ -1,0 +1,45 @@
+.l-view--hero {
+  position: relative;
+  &.jumbotron {
+    &::after {
+      @media (max-width: 992px) {
+        content: "";
+        width: 100%;height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        display: block;position: absolute;
+        left: 0;top: 0;
+      }
+    }
+  }
+  .ratio {
+    &::before {
+      @media (max-width: 992px) {
+          padding-top: 80% !important;
+      }
+    }
+  }
+
+
+  .jumbotron-image {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+  }
+
+  .l-item__body {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .o-title {
+    position: relative;
+    z-index: 9;
+    @media (max-width: 992px) {
+      text-align: center;
+    }
+  }
+  
+}
+

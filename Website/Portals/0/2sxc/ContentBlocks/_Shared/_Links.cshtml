@@ -1,0 +1,26 @@
+@inherits Custom.Hybrid.Razor14
+
+@{
+  var links = AsDynamic(DynamicModel.links);
+}
+
+@* Show links if they are attaced to content item *@
+@if (links != null && links.Count > 0)
+{
+  <ul class="o-cta">
+    @foreach (var link in links)
+    {
+      <li>
+        <a href="@link.Path" target="@link.Target" class="btn @link.ButtonType">
+          @* Optional: Display an icon if available *@
+          @if (!string.IsNullOrEmpty(link.Icon))
+          {
+            <img src="@link.Icon" alt="Icon" />
+          }
+          @* Display the title *@
+          @link.Title
+        </a>
+      </li>
+    }
+  </ul>
+}

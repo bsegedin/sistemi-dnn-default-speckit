@@ -1,0 +1,24 @@
+
+
+/* ==========================================================================
+	COMPONENTS / EASY-DNN-NEWS / EDN articles detail - Mosaic
+	========================================================================== */
+	
+	.ssk4-edn-article-detail--mosaic {
+		.l-gallery-grid--mosaic {
+			display: grid;
+			grid-template-columns: 70% 30%;
+			grid-template-rows: 250px 250px;
+			gap: 10px;
+
+			> div {
+				cursor: pointer;
+			}
+
+			img {
+				width: 100%;height: 100%; 
+				object-fit: cover;
+			}
+
+		}
+	}

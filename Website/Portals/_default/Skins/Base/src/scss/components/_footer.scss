@@ -1,0 +1,42 @@
+footer {
+  flex-shrink: 0;
+  background-color: var(--bs-gray-900);
+  color: white;
+  padding: 1rem 2rem;
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    display: flex;
+    filter: brightness(0) invert(1);
+  }
+
+
+  .social-links-description {
+    display: none;
+  }
+
+  // social-links 
+
+  .group-social-media {
+
+    ul {
+
+      li {
+        margin-right: .5rem;
+        a {
+          background-color: white;
+          border-radius: .5rem;
+        }
+
+      }
+    }
+
+  }
+
+
+}

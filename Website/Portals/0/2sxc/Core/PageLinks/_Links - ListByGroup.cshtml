@@ -1,0 +1,99 @@
+@inherits Custom.Hybrid.Razor14
+@using System.Linq;
+@using System.Collections.Generic;
+@using Core;
+
+@{
+  // Get authentication status using CmsContext
+  var isAnonymus = CmsContext.User.IsAnonymous;
+
+  // Get the current LinkGroup and its properties
+  var linkGroup = Content;
+  var showTitle = linkGroup.showTitle != false;
+  var showIcon = !String.IsNullOrEmpty(linkGroup.Icon);
+  var groupCssClass = !String.IsNullOrEmpty(linkGroup.CssClassName) ? linkGroup.CssClassName : "";
+  var groupIdentity = linkGroup.GroupIdentity;
+  var isGroupDemo = linkGroup.IsDemoItem ?? false;
+
+  // Initialize filteredContent
+  List<dynamic> filteredContent = new List<dynamic>();
+
+  // If the LinkGroup is a demo item and the user is anonymous, do not display the group or its links
+  if (!(isGroupDemo && isAnonymus))
+  {
+    // Get all links and filter by GroupIdentity, then sort by OrderNumber
+    var allLinks = AsList(App.Data["Links"]);
+    var links = allLinks
+      .Where(l => l.Group.Get<string>("GroupIdentity") == groupIdentity)
+      .OrderBy(l => l.OrderNumber);
+
+    // Filter content to get only the links that the user has access to. Admins and Content Editors can see demo items but public users can't.
+    filteredContent = CoreHelpers.FilterContent(links, isAnonymus);
+  }
+}
+
+@if (!(isGroupDemo && isAnonymus))
+{
+  @Edit.Toolbar(linkGroup)
+  <div class="app-pagelinks @groupCssClass">
+    @if (showTitle)
+    {
+      <header class="c-title mb-3">
+        <h3 class="o-title">@linkGroup.Title</h3>
+      </header>
+    }
+    @if (!String.IsNullOrEmpty(linkGroup.Description) || showIcon)
+    {
+      <p class="o-description">
+        @if (showIcon)
+        {
+          <img src="@linkGroup.Icon" alt="Group Icon" class="bi" style="width: 18px;">
+        }
+        @Html.Raw(linkGroup.Description)
+      </p>
+    }
+    @if (!isAnonymus)
+    {
+      <small class="badge @(CoreHelpers.GetBadgeClass(linkGroup))">
+        @CoreHelpers.GetBadgeText(linkGroup)
+      </small>
+    }
+
+    <div class="list-group">
+      @foreach (var item in filteredContent)
+      {
+        <a href="@item.Url"
+           target="@(String.IsNullOrEmpty(item.Target) ? "_self" : item.Target)"
+           class="list-group-item list-group-item-action @(!String.IsNullOrEmpty(item.cssClassName) ? item.cssClassName : "")"
+           @Edit.TagToolbar(item)>
+
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">
+              @if (!String.IsNullOrEmpty(item.Icon))
+              {
+                <img src="@item.Icon" alt="@item.Title Icon" class="me-2" style="width: 20px;">
+              }
+              @if (!(item.IsTitleHidden == true))
+              {
+                @item.Title
+              }
+            </h5>
+            @if (!isAnonymus)
+            {
+              <small class="badge @(CoreHelpers.GetBadgeClass(item))">
+                @CoreHelpers.GetBadgeText(item)
+              </small>
+            }
+          </div>
+
+          @if (!String.IsNullOrEmpty(item.Description))
+          {
+            <p class="mb-1">@Html.Raw(item.Description)</p>
+          }
+        </a>
+      }
+    </div>
+  </div>
+}
+
+

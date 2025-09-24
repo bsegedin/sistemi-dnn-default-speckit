@@ -1,0 +1,59 @@
+<!--TemplateGroup:listArticleMulti-->
+
+<!--ArticleRepeat:Before:-->
+<!--RepeatEnd:Before:-->
+
+<!--MultiArticleTemplate-->
+<!--Before:1:2:-->
+<div class="edn_flexRowWrap edn_alignItemsStretch">
+<!--BeforeEnd-->
+<!--ArticleRepeat:1:2:-->
+	<article class="edn_col edn_col50 edn_simpleArticle edn_imageLeft [EasyDNNnews:FeaturedArticle]">
+		<figure class="edn_flexRow edn_alignItemsCenter">
+			[EasyDNNnews:IfExists:Image]
+			<a class="edn_imageWrapper" href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><img loading="lazy" class="edn_articleImage" alt="[EasyDNNnews:Title]" src="[EasyDNNnews:Image]"/></a>
+			[EasyDNNnews:EndIf:Image]
+			<div>
+				<h3 class="edn_articleTitle"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><span class="edn_featuredBadge">Exclusive</span>[EasyDNNnews:Title]</a></h3>
+				<div class="edn_articleMeta">
+					[EasyDNNnews:Author:Image:Width:20:Height:20:Resize:Crop] [EasyDNNnews:Author:Link] - <time class="edn_time">[EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfNotExists:Event][EasyDNNnews:FormatedDate:MMMM d, yyyy][EasyDNNnews:EndIf:Event]</time>
+				</div>
+			</div>
+		</figure>
+	</article>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+<!--After:1:2:-->
+</div>
+<!--AfterEnd-->
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--Before:3:4:5:6:-->
+<div class="edn_flexRowWrap edn_alignItemsStretch">
+<!--BeforeEnd-->
+<!--ArticleRepeat:3:4:5:6:-->
+	<article class="edn_col edn_col25 edn_simpleArticle edn_imageTop [EasyDNNnews:FeaturedArticle]">
+		<figure>
+			[EasyDNNnews:IfExists:Image]
+			<a class="edn_imageWrapper" href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><img loading="lazy" class="edn_articleImage" alt="[EasyDNNnews:Title]" src="[EasyDNNnews:Image]"/></a>
+			[EasyDNNnews:EndIf:Image]
+			<h2 class="edn_articleTitle edn_articleTitleSmall"><a href="[EasyDNNnews:ReadMore]" target="[EasyDNNnews:DetailTarget]"><span class="edn_featuredBadge">Exclusive</span>[EasyDNNnews:Title]</a></h2>
+		</figure>
+		<div class="edn_articleMeta">
+			[EasyDNNnews:Author:Image:Width:20:Height:20:Resize:Crop] [EasyDNNnews:Author:Link] - <time class="edn_time">[EasyDNNnews:IfExists:Event][EasyDNNnews:EventDate][EasyDNNnews:EndIf:Event][EasyDNNnews:IfNotExists:Event][EasyDNNnews:FormatedDate:MMMM d, yyyy][EasyDNNnews:EndIf:Event]</time>
+		</div>
+	</article>
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+<!--After:3:4:5:6:-->
+</div>
+<!--AfterEnd-->
+<!--RepeatEnd-->
+<!--MultiArticleEnd-->
+
+<!--MultiArticleTemplate-->
+<!--ArticleRepeat:After:-->
+<!--RepeatEnd:After:-->
+<!--MultiArticleEnd-->

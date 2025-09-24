@@ -1,0 +1,151 @@
+@using DotNetNuke.Entities.Tabs
+@using DotNetNuke.Entities.Portals
+@using DotNetNuke.Web.DDRMenu;
+@using System.Dynamic;
+@inherits DotNetNuke.Web.Razor.DotNetNukeWebPage<dynamic>
+
+@{
+  var root = Model.Source.root;
+}
+
+@helper RenderNodes(IList<MenuNode> nodes)
+{
+  if (nodes.Count > 0)
+  {
+    string ulClass = "";
+    string ariaLabel = "";
+
+    // Set the appropriate class based on depth
+    if (nodes[0].Depth == 0)
+    {
+      ulClass = "navbar-nav";
+    }
+    else if (nodes[0].Depth == 1)
+    {
+      ulClass = "dropdown-menu";
+    }
+    else
+    {
+      ulClass = "dropdown-menu dropdown-submenu";
+    }
+
+    <ul class="@ulClass" @ariaLabel>
+      @foreach (var node in nodes)
+      {
+        var cssClasses = new List<string>();
+        cssClasses.Add("nav-item");
+        cssClasses.Add("nav-" + node.TabId);
+
+        if (node.First) { cssClasses.Add("first"); }
+        if (node.Last) { cssClasses.Add("last"); }
+        if (node.HasChildren())
+        {
+          cssClasses.Add("has-child");
+          if (node.Depth == 0)
+          {
+            cssClasses.Add("dropdown");
+          }
+          else if (node.Depth == 1)
+          {
+            cssClasses.Add("dropdown-submenu");
+          }
+        }
+        if (!node.Enabled) { cssClasses.Add("disabled"); }
+        if (node.Breadcrumb)
+        {
+          cssClasses.Add("active");
+        }
+        else
+        {
+          cssClasses.Add("inactive");
+        }
+
+        var classString = new HtmlString((cssClasses.Count == 0) ? "" : (" class=\"" + String.Join(" ", cssClasses.ToArray()) + "\""));
+
+        var linkCssClasses = new List<string>();
+
+        // Handle different link classes based on depth
+        if (node.Depth == 0)
+        {
+          linkCssClasses.Add("nav-link");
+          if (node.HasChildren())
+          {
+            linkCssClasses.Add("dropdown-toggle");
+          }
+        }
+        else
+        {
+          linkCssClasses.Add("dropdown-item");
+          if (node.HasChildren() && node.Depth == 1)
+          {
+            linkCssClasses.Add("dropdown-toggle");
+          }
+        }
+
+        if (node.Breadcrumb) { linkCssClasses.Add("active"); }
+
+        var linkClassString = new HtmlString((linkCssClasses.Count == 0) ? "" : (" class=\"" + String.Join(" ", linkCssClasses.ToArray()) + "\""));
+
+        // Set appropriate data attributes for dropdowns based on depth
+    
+        string dataAttributes = "";
+        if (node.HasChildren())
+        {
+          if (node.Depth == 0)
+          {
+            dataAttributes = "";
+          }
+          else if (node.Depth == 1)
+          {
+            dataAttributes = "";
+          }
+        }
+
+
+        <li @classString>
+
+          <a @linkClassString
+             target='@(node.Target == "_blank" ? "_blank" : "_self")'
+             href='@(node.Enabled ? node.Url : "javascript:void(0)")'
+             @Html.Raw(dataAttributes)>
+            @node.Text
+            @if (node.HasChildren() && node.Depth >= 1)
+            {
+              <span class="dropdown-item-indicator d-none"><i class="bi bi-chevron-right"></i></span>
+            }
+          </a>
+          @if (node.HasChildren())
+          {
+            <span class="js-nav-item-sub-opener d-flex d-lg-none" data-toggle-dropdown=".dropdown-@node.TabId">
+              <i class="toggle-icon"></i>
+            </span>
+          }
+
+          @RenderNodes(node.Children)
+        </li>
+      }
+    </ul>
+  }
+}
+
+@RenderNodes(root.Children)
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".js-nav-item-sub-opener").forEach(toggle => {
+      toggle.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const parentLi = this.closest("li");
+        const submenu = parentLi.querySelector(":scope > ul");
+
+        // Toggle submenu visibility
+        if (submenu) {
+          submenu.classList.toggle("show");
+          this.classList.toggle("active");
+        }
+      });
+    });
+  });
+</script>

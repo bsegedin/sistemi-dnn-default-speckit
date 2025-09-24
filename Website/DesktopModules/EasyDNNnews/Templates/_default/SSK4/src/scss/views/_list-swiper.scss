@@ -1,0 +1,27 @@
+
+
+/* ==========================================================================
+	COMPONENTS / EASY-DNN-NEWS / EDN articles list - Swiper
+========================================================================== */
+	
+.ssk4-edn-feed--slider {
+
+	.swiper-wrapper {
+		article, .c-item {
+			height: 100%;
+			overflow: hidden;
+		}
+
+		.c-item {
+			&__media {
+				height: 200px;
+				figure, img {
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+		}
+
+	}
+
+}

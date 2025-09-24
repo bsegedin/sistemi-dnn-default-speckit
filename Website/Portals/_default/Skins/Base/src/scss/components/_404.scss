@@ -1,0 +1,45 @@
+.error-page {
+  height: auto;
+  padding: 5rem 1rem 0;
+  @include media-breakpoint-up(lg) {
+    padding: 10rem 10rem 0;
+  }
+  .l-data {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .o-title {
+    font-size: 8rem;
+    line-height: 1;
+    color: $primary;
+    @include media-breakpoint-up(lg) {
+      font-size: 20rem;
+    }
+  }
+
+  .o-subtitle {
+    font-size:  2.5rem;
+    line-height: 1;
+    margin-bottom: 1rem;
+    @include media-breakpoint-up(lg) {
+      font-size:  5rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .o-description {
+    font-size:  1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .l-action {
+    display: flex;
+    justify-content: center;
+  }
+
+}

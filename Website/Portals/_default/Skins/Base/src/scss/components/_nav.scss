@@ -1,0 +1,243 @@
+// Enhanced Bootstrap Navigation
+.navbar-collapse {
+  justify-content: flex-end;
+}
+
+.navbar-nav {
+  // Variables
+  --bs-navbar-nav-link-padding-x: 1.5rem;
+  --bs-navbar-nav-link-padding-y: 0.75rem;
+  --bs-navbar-item-transition: all 0.3s ease;
+  --bs-navbar-dropdown-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --bs-navbar-dropdown-animation: fadeIn 0.3s ease;
+  margin-left: auto;
+  // Nav items - basic styling
+  .nav-item {
+
+    position: relative;
+    transition: var(--bs-navbar-item-transition);
+    @include media-breakpoint-down(lg) {
+      padding: 1rem 0.5rem;
+      border-bottom: 1px solid var(--bs-gray-400);
+      .nav-link {
+        &.active {
+          background-color: transparent; // Ensure active items have a transparent background
+          color: var(--bs-primary);
+          font-weight: 600;
+        }
+      }
+
+      .dropdown-toggle {
+        &.active {
+          background-color: transparent; // Ensure active items have a transparent background
+          color: var(--bs-primary);
+          font-weight: 600;
+        }
+        &::after {
+          content: none; // Remove default caret icon
+        }
+      }
+    }
+    a, span {
+      @include media-breakpoint-up(lg) {
+        padding-left: var(--bs-navbar-nav-link-padding-x);
+        padding-right: var(--bs-navbar-nav-link-padding-x);
+        padding-top: var(--bs-navbar-nav-link-padding-y);
+        padding-bottom: var(--bs-navbar-nav-link-padding-y);
+        font-weight: 500;
+        position: relative;
+        background-color: transparent; // Ensure inactive items have a transparent background
+
+        &:hover, &:focus, &:active {
+          background-color: rgba(var(--bs-primary-rgb), 0.1);
+          color: var(--bs-primary);
+        }
+
+        &.active {
+          background-color: rgba(var(--bs-primary-rgb), 0.1); // Use the same background color as hover
+          color: var(--bs-primary);
+        }
+
+ 
+
+      }
+    }
+    // Dropdown behavior
+    @include media-breakpoint-up(lg) {
+      &.dropdown {
+        &:hover > .dropdown-menu {
+          display: block;
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+  // Dropdown styling
+  @include media-breakpoint-up(lg) {
+    .dropdown-menu {
+      padding: 0.5rem 0;
+      margin: 0;
+      border-radius: 0.5rem;
+      border: none;
+      box-shadow: var(--bs-navbar-dropdown-shadow);
+      transition: var(--bs-navbar-item-transition);
+      transform: translateY(10px);
+      opacity: 0;
+      visibility: hidden;
+      display: none; // Ensure dropdowns are hidden by default
+
+      .dropdown-item {
+        padding: var(--bs-navbar-nav-link-padding-y) var(--bs-navbar-nav-link-padding-x) !important; // Override Bootstrap padding
+        font-weight: 400;
+        transition: var(--bs-navbar-item-transition);
+        background-color: transparent; // Ensure inactive items have a transparent background
+
+        &:hover, &:focus, &:active {
+          background-color: rgba(var(--bs-primary-rgb), 0.1);
+          color: var(--bs-primary);
+        }
+
+        &.active {
+          background-color: rgba(var(--bs-primary-rgb), 0.1); // Use the same background color as hover
+          color: var(--bs-primary);
+        }
+      }
+    }
+  }
+  /* Multi-level dropdown menus */
+  .dropdown-submenu {
+    position: relative;
+    > .dropdown-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -0.5rem;
+    margin-left: 0.125rem;
+    display: none; // Ensure submenus are hidden by default
+  }
+
+  .dropdown-submenu:hover > .dropdown-menu {
+    @include media-breakpoint-up(lg) { 
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+  /* Visual indicator for dropdown items with children */
+  .dropdown-item-indicator {
+    margin-left: 0.75rem;
+    font-size: 0.75rem;
+    transition: transform 0.2s ease;
+  }
+
+  .dropdown-submenu:hover .dropdown-item-indicator {
+    transform: translateX(3px);
+  }
+  /* Mobile view adjustments */
+  @media (max-width: 991.98px) {
+    .dropdown-menu {
+      box-shadow: none;
+      border: 0;
+      transform: none;
+      opacity: 1;
+      visibility: visible;
+      display: none;
+      padding-left: 1rem;
+      &.show {
+        display: block;
+      }
+
+      li {
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed var(--bs-gray-400);
+        &:last-child {
+          border-bottom: none;
+        }
+
+        a {
+          padding-left: 0;
+          &:hover, &:focus, &:active {
+            background-color: transparent;
+            color: var(--bs-primary);
+            font-weight: 600;
+          }
+          &.active {
+            background-color: transparent;
+            color: var(--bs-primary);
+            font-weight: 600;
+          }
+        }
+
+        .js-nav-item-sub-opener {
+          display: none !important;
+
+        }
+
+      }
+
+      .dropdown-menu {
+        display: none;
+      }
+
+    }
+
+    .dropdown-submenu .dropdown-menu {
+      left: 0;
+      margin-left: 1rem;
+      border-left: 2px solid var(--bs-secondary);
+    }
+
+  }
+
+
+  .js-nav-item-sub-opener {
+    position: absolute;
+    right: 0.5rem;
+    top: 20px;
+    background-color: var(--bs-primary, #007bff);
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .toggle-icon {
+      width: 10px;
+      height: 10px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      transform: rotate(45deg);
+      transition: transform 0.3s ease;
+    }
+  
+    &.active .toggle-icon {
+      transform: rotate(-135deg);
+    }
+  }
+
+}
+
+
+// Animation for dropdown menus
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

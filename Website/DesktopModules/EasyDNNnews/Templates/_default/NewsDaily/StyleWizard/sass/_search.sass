@@ -1,0 +1,899 @@
+#{$baseThemeClass}
+
+	&.eds_subCollection_search
+		float: none
+		height: auto
+		min-width: 0
+		width: auto
+		overflow: visible
+		transition: none 0 none
+
+		input
+
+			&::-webkit-input-placeholder
+				color: inherit
+				font: inherit
+				opacity: 1
+
+			&::-moz-placeholder
+				color: inherit
+				font: inherit
+				opacity: 1
+
+			&:-ms-input-placeholder
+				color: inherit
+				font: inherit
+				opacity: 1
+
+			&:-moz-placeholder
+				color: inherit
+				font: inherit
+				opacity: 1
+
+		.acInput
+
+			&.acLoading
+				background-image: url("_-StyleAssetsClientRoot-_images/common/indicator.gif") !important
+				background-repeat: no-repeat !important
+				background-position: 95% 50% !important
+
+		.search_input
+			border: solid 3px $primaryColor
+			background-color: #fff
+
+			&::after
+				display: block
+				content: ""
+				clear: both
+				font-size: 0
+				line-height: 0
+				height: 0
+
+			.input
+				float: left
+				padding: 0 1rem
+				line-height: 0
+				font-size: 0
+				width: 85%
+
+				input[type="text"],
+				input[type="text"]:hover,
+				input[type="text"]:focus
+					border: none
+					outline: none
+					background: none #fff
+					box-shadow: none
+					color: $darkColor
+					line-height: 3rem
+					height: 3rem
+					font-size: 1.1rem
+					width: 100%
+					margin: 0
+					padding: 0
+					transition: all 200ms
+
+			.do_search
+				padding: 0
+				line-height: 3rem
+				font-size: 1rem
+				float: right
+				min-width: 3rem
+				width: 13%
+				text-align: center
+				text-decoration: none
+				border: solid 1px $primaryColor
+				border-top: none !important
+				border-right: none !important
+				border-bottom: none !important
+				background: none transparent
+
+				&::before
+					content: "\f002"
+					display: inline-block
+					vertical-align: middle
+					font: normal 900 1.5rem/3rem $icon
+					color: $darkColor
+
+				&:hover
+					text-decoration: none
+					background-color: $primaryColor
+
+					&::before
+						color: #fff
+
+				> span
+					display: none
+
+			&.button_outside
+				border: none !important
+					radius: 0 !important
+				background: none transparent !important
+				box-shadow: none !important
+
+				.input
+					float: none
+					width: auto
+					padding: 0
+
+					input[type="text"]
+						padding: 0 1rem
+						height: auto
+
+					input[type="text"],
+					input[type="text"]:hover,
+					input[type="text"]:focus
+						border: solid 1px $darkColor
+
+				.do_search
+					width: auto
+					clear: both
+					border: 3px solid $primaryColor !important
+					background: none #fff
+					text-shadow: none
+					text-decoration: none
+					font-family: $headingsFont
+					font-size: 1rem
+					text-transform: uppercase
+					padding: 0 1rem
+					box-shadow: none
+					margin-top: 10px
+					color: $primaryColor
+					transition: all 200ms linear
+
+					> span
+						display: inline-block
+						padding-left: 10px
+
+					&:hover
+						color: #fff
+						background-color: $primaryColor
+
+			.acInput
+
+				&.acLoading
+					background-image: url("_-StyleAssetsClientRoot-_images/common/indicator.gif")
+					background-repeat: none
+					background-position: 90% 10%
+
+		.edncf_AdvancedSearch
+
+			.edncf_container
+				position: relative
+				padding: 5px 0 20px
+
+				> span
+					display: block
+					margin-bottom: 25px
+
+				> div
+					margin-bottom: 25px
+
+				label
+					font-weight: normal
+					margin: 0
+					padding: 0
+					line-height: 1
+					color: #828282
+					font-size: 15px
+					font-family: $defaultFont
+
+				.edncf_DropDownList
+
+					> span
+						border: solid 3px $primaryColor
+						display: block
+						position: relative
+						overflow: hidden
+						background-color: #fff
+						line-height: 44px
+						padding-right: 35px
+
+						&::after
+							position: absolute
+							top: 0
+							bottom: 0
+							right: 0
+							content: "\f107"
+							color: $primaryColor
+							font-size: 20px
+							width: 44px
+							z-index: 1
+							font-family: $icon
+							font-weight: 900
+							text-align: center
+							border: solid 3px $primaryColor
+							border-top: none !important
+							border-right: none !important
+							border-bottom: none !important
+
+						select
+							border: none
+							background: none transparent
+							box-shadow: none
+							outline: none
+							width: 125%
+							position: relative
+							z-index: 2
+							padding: 0 10px
+							color: $defaultColor
+							font-size: 16px
+							font-family: $defaultFont
+							margin: 0
+							height: 44px
+
+							&:focus
+								outline: none
+
+							&:disabled
+								color: #ccc !important
+
+				.edncf_Multiselect
+
+					.edncf_MultiselectGroup
+
+						.ms-parent
+							width: 100% !important
+							display: block
+							position: relative
+
+						.ms-choice
+							display: block
+							width: 100%
+							border: solid 3px $primaryColor
+							display: block
+							position: relative
+							overflow: hidden
+							background-color: #fff
+							line-height: 40px
+							text-align: left
+							padding: 0 45px 0 10px
+							box-shadow: none
+							outline: none
+
+							> span
+								white-space: nowrap
+								overflow: hidden
+								text-overflow: ellipsis
+								display: block
+								line-height: 40px
+								color: $defaultColor
+								font-size: 16px
+								font-family: $defaultFont
+								opacity: 1
+								cursor: unset
+								background: none
+								vertical-align: unset
+								display: inline
+
+							> div
+								position: absolute
+								top: 0
+								bottom: 0
+								right: 0
+								width: 40px
+								z-index: 1
+								text-align: center
+								border: solid 3px $primaryColor
+								border-top: none !important
+								border-right: none !important
+								border-bottom: none !important
+
+								&::before
+									content: "\f107"
+									color: $primaryColor
+									font-size: 20px
+									font-weight: 900
+									font-family: $icon
+
+
+								&.open
+
+									&::before
+										content: "\f106"
+
+							&.disabled
+								cursor: default
+
+						.ms-drop
+							display: none
+							overflow: hidden
+							position: absolute
+							width: 100%
+							z-index: 1000
+							border: solid 1px #d4d4d4
+							margin-top: 1px
+							background-color: #fff
+
+							ul
+								margin: 0
+								padding: 10px
+								overflow: auto
+
+								> li
+									background-image: none
+									display: list-item
+									list-style: outside none none
+									position: static
+									padding: 0
+									margin: 0 0 3px
+
+									label
+										display: block
+										white-space: nowrap
+
+										> input
+											display: none
+
+										> span
+											display: inline-block
+											vertical-align: middle
+											font-weight: normal
+
+							&.bottom
+								top: 100%
+
+							&.top
+								bottom: 100%
+
+				.edncf_Text
+
+					.edncf_TextInput
+
+						input
+							border: solid 3px $primaryColor
+							padding: 0 10px
+							line-height: 42px
+							height: 50px
+							color: #848484
+							font-size: 16px
+							width: 100%
+							background: none #fff
+							font-family: $defaultFont
+							margin: 0
+							padding: 0 10px
+							box-shadow: none
+							outline: none
+
+				.edncf_Text label,
+				.edncf_dateSearchField label,
+				.edncf_MultiselectGroup .ms-parent > label,
+				.edncf_DropDownList.edncf_MultiDropDownList > label,
+				.edncf_DropDownList.edncf_MultiCheckBoxList > label
+					display: block
+					margin-bottom: 5px
+
+				.edncf_RangeSliderInput
+
+					> span
+
+						> label
+							display: block
+							margin-bottom: 10px
+							font-family: $headingsFont
+							font-size: 18px
+							color: #828282
+
+					.irs
+						margin-top: 40px
+						height: 50px
+						position: relative
+						display: block
+
+						.irs-line
+							display: block
+							position: relative
+							background-color: #e1e4e9
+							height: 17px
+
+							.irs-line-left,
+							.irs-line-right,
+							.irs-line-mid
+								display: none
+
+						.irs-diapason
+							top: 0
+							position: absolute
+							display: block
+							left: 0
+							width: 100%
+							height: 17px
+							background-color: $primaryColor
+
+						.irs-slider
+							background-color: $primaryColor
+							height: 35px
+							width: 11px
+							cursor: default
+							display: block
+							position: absolute
+							z-index: 1
+							top: -9px
+
+						.irs-from,
+						.irs-to,
+						.irs-single
+							color: $primaryColor
+							position: absolute
+							white-space: nowrap
+							top: 30px
+							font-size: 12px
+							line-height: 1
+
+						.irs-single
+							display: inline-block !important
+							font-size: 16px
+
+						.irs-from,
+						.irs-to
+							top: -35px
+							background-color: $primaryColor
+							color: #fff
+							display: inline-block
+							padding: 5px
+							min-width: 50px
+							opacity: 0
+							transition: all 300ms ease
+
+							&::after
+								content: ""
+								background-color: $primaryColor
+								-ms-transform: rotate(45deg)
+								-webkit-transform: rotate(45deg)
+								transform: rotate(45deg)
+								position: absolute
+								width: 8px
+								height: 8px
+								bottom: -4px
+								left: 50%
+								margin-left: -3px
+
+						.irs-min,
+						.irs-max
+							//top: 30px
+							//font-size: 12px
+							//line-height: 1
+							//color: $defaultColor
+							//position: absolute
+							display: none !important
+
+						//.irs-min
+							//left: 0
+
+						//.irs-max
+							//right: 0
+
+						&:hover
+
+							.irs-from,
+							.irs-to
+								opacity: 1
+								top: -40px
+
+				.edncf_CheckBox .edncf_ltIE,
+				.edncf_CheckBoxList .edncf_CheckBoxListGroup .edncf_ltIE .edncf_CheckBox
+
+					input[type="checkbox"]
+						display: inline
+
+					label
+						padding-left: 0
+
+						&::before
+							display: none
+
+				.edncf_RadioButtonList .edncf_RadioButtonGroup .edncf_ltIE .edncf_RadioButton
+
+					input[type="radio"]
+						display: inline
+
+					label
+						padding-left: 0
+
+						&::before
+							display: none
+
+				.edncf_CheckBox label,
+				.edncf_RadioButton label,
+				.edncf_Multiselect .edncf_MultiselectGroup .ms-drop ul > li label > span
+					display: inline-block
+					vertical-align: middle
+					font-weight: normal
+					position: relative
+					padding-left: 35px
+					line-height: 25px
+
+					&::before,
+					&::after
+						position: absolute
+						content: ""
+						line-height: 0
+						display: inline-block
+
+					&::before
+						width: 25px
+						height: 25px
+						border: solid 3px $primaryColor
+						left: 0
+						top: 0
+
+					&::after
+						color: $primaryColor
+						font-family: $icon
+						font-weight: 900
+
+				.edncf_CheckBox label,
+				.edncf_Multiselect .edncf_MultiselectGroup .ms-drop ul > li label > span
+
+					&::after
+						top: 13px
+						left: 4px
+						font-size: 17px
+
+				.edncf_CheckBox input[type="checkbox"]:checked + label,
+				.edncf_Multiselect .edncf_MultiselectGroup .ms-drop ul > li.selected label > span
+
+					&::after
+						content: "\f00c"
+
+				.edncf_RadioButton label,
+				.edncf_Multiselect.edncf_RadioButtonListMultiselectDropdown .edncf_MultiselectGroup .ms-drop ul > li label > span,
+
+					&::before
+						border-radius: 50%
+
+				.edncf_RadioButton label,
+				.edncf_Multiselect.edncf_RadioButtonListMultiselectDropdown .edncf_MultiselectGroup .ms-drop ul > li label > span
+
+					&::after
+						top: 12px
+						left: 5px
+						font-size: 17px
+
+				.edncf_RadioButton input[type="radio"]:checked + label,
+				.edncf_Multiselect.edncf_RadioButtonListMultiselectDropdown .edncf_MultiselectGroup .ms-drop ul > li.selected label > span
+
+					&::after
+						content: "\f111"
+
+				.edncf_CheckBox,
+				.edncf_RadioButton
+					display: block
+					margin: 4px 0
+
+					input
+						display: none
+
+				.edncf_dateSearchField
+
+					.input-group
+						margin: 0
+
+						+ .input-group
+							margin-top: 5px
+
+					.glyphicon
+						font-family: "Glyphicons Halflings"
+
+					.form-control
+						border: solid 3px $primaryColor
+							radius: 0
+						box-shadow: none
+						outline: none
+						color: $defaultColor
+						font-size: 16px
+						font-family: $defaultFont
+						height: 46px
+						line-height: 40px
+						margin: 0
+						background-color: #fff
+						padding: 0 6px
+
+					.input-group-addon
+						border: solid 3px $primaryColor
+							left: none !important
+							radius: 0
+						background-color: #fff
+						height: 46px
+						padding: 0 13px
+						color: $primaryColor
+						line-height: 40px
+						vertical-align: top
+
+				.edncf_CheckBoxList,
+				.edncf_RadioButtonList
+
+					> span
+						display: block
+						margin-bottom: 5px
+						font-family: $headingsFont
+						color: $defaultColor
+						font-size: 18px
+						margin-top: 10px
+
+				.edncf_submitContainer
+					text-align: right
+					padding-top: 20px
+					margin: 0
+
+					> a
+						display: inline-block
+						text-shadow: none
+						text-decoration: none
+						font-family: $headingsFont
+						font-size: 18px
+						line-height: 44px
+						text-transform: uppercase
+						padding: 0 20px
+						box-shadow: none
+						color: $primaryColor
+						transition: all 200ms linear
+
+						&:hover
+							text-decoration: none
+
+						&.edncf_submit
+							border: 3px solid $primaryColor
+							background-color: #fff
+
+							&:hover
+								color: #fff
+								background-color: $primaryColor
+
+							&::before
+								content: "\f002"
+								display: inline-block
+								vertical-align: top
+								font-family: $icon
+								font-size: 28px
+								margin-right: 10px
+								font-style: normal
+								font-weight: 900
+								line-height: 44px
+
+						&.edncf_reset
+							border: solid 1px #ddd
+							color: $primaryColor
+							margin-left: 10px
+							line-height: 48px
+
+							&:hover
+								color: $defaultColor
+								border: solid 1px $primaryColor
+
+				.edncf_searchInProgressOverlay
+					position: absolute
+					top: 0
+					bottom: 0
+					left: 0
+					right: 0
+					margin: 0
+					padding: 0
+					background-color: #fff
+					opacity: 0.7
+					z-index: 999
+
+					&::after
+						display: block
+						text-align: center
+						top: 50%
+						left: 50%
+						margin-left: -50px
+						position: absolute
+						content: "\f1ce"
+						font-family: $icon
+						font-weight: 900
+						font-size: 100px
+						line-height: 0
+						color: $primaryColor
+						-webkit-animation: fa-spin 2s infinite linear
+						animation: fa-spin 2s infinite linear
+
+			&.edncf_horizontalOrientation
+
+				.edncf_container
+					padding-bottom: 0
+
+					> span
+						display: inline-block
+						vertical-align: middle
+						margin: 0 30px 15px 0
+
+					.edncf_DropDownList
+
+						> span
+							min-width: 145px
+
+							select
+								width: 160%
+
+					.edncf_Multiselect
+
+						.edncf_MultiselectGroup
+
+							.ms-parent
+								width: 250px !important
+								display: inline-block
+
+							.ms-choice
+								min-width: 145px
+
+					.edncf_RangeSliderInput
+						display: block
+						margin-right: 0
+
+					.edncf_CheckBoxList > span,
+					.edncf_RadioButtonList > span
+						display: inline-block
+						margin-bottom: 0
+
+					.edncf_CheckBoxList,
+					.edncf_RadioButtonList
+						display: inline-block
+						margin-right: 15px
+
+						.edncf_CheckBox,
+						.edncf_RadioButton
+							display: inline-block
+							margin: 4px 10px
+
+					.edncf_dateSearchField
+						display: block
+						margin-right: 0
+
+						> .input-group
+							float: left
+							width: 49%
+
+							& + .input-group
+								float: right
+								margin: 0
+
+						&::after
+							content: ""
+							display: table
+							width: 100%
+							height: 0
+							overflow: hidden
+							clear: both
+
+					.edncf_Text
+
+						> span
+							display: inline-block
+							vertical-align: middle
+
+							& + span
+								margin-left: 15px
+
+					.edncf_submitContainer
+						display: inline-block
+						vertical-align: top
+						padding: 0
+
+		.ednSbl_search
+
+			.ednSbl_list
+				margin: 0 -0.2rem
+				padding: 0
+				font-size: 0
+				line-height: 0
+
+			.ednSbl_itemWrapper
+				list-style-type: none
+				display: inline-block
+				vertical-align: middle
+				margin: .4rem
+				transition: all 300ms
+
+				&.ednSbl_selected
+
+					.ednSbl_item
+
+						> span
+							box-shadow: 0 0 0 3px $primaryColor inset
+
+						.ednSbl_letter
+							background-color: $primaryColor
+							color: #fff
+
+				&:hover
+
+					a.ednSbl_item
+						z-index: 1
+
+						> span
+							box-shadow: 0 0 0 3px $primaryColor inset
+
+						.ednSbl_count
+							width: auto
+							padding: .6rem .7rem
+
+			span.ednSbl_item
+				color: #b4b4b4
+
+				.ednSbl_letter + .ednSbl_count
+					display: none
+
+			.ednSbl_item
+				font: 1rem/1.2 $defaultFont
+				display: inline-block
+				text-decoration: none
+				color: $defaultColor
+				transition: all 300ms
+				position: relative
+
+				> span
+					padding: .6rem 1rem
+					display: inline-block
+					vertical-align: middle
+					text-align: center
+					box-shadow: 0 0 0 3px #dadada inset
+
+				.ednSbl_letter
+					min-width: 30px
+
+				.ednSbl_count
+					width: 0
+					background-color: $primaryColor
+					color: #fff
+					transition: all 300ms
+					padding: .6rem 0
+					position: absolute
+					top: 0
+					bottom: 0
+					left: 100%
+
+	.edn_searchInfoResults
+		margin: 30px 0 !important
+		padding: 10px 15px !important
+		background-color: #efefef
+		border: solid 1px #A3A3A3
+		color: #4A4A4A !important
+		font-size: 14px !important
+		line-height: 1.3 !important
+
+		> span
+			font-weight: bold
+			color: #333
+			font-size: 14px !important
+			line-height: 1.3 !important
+
+.EDN_search
+
+	&.theme_#{$themeName}
+		padding: 0px
+		border: 1px solid $primaryColor
+		background-color: #fff
+		overflow: hidden
+		z-index: 9999999
+		margin: 0
+
+		ul
+			margin: 0px
+			padding: .5rem
+
+			li
+				list-style-type: none
+				margin: 0px
+				padding: 0
+
+				span
+
+					a
+						padding: 2px 10px
+						display: block
+						font-size: .9rem
+						line-height: 1.2
+						color: $darkColor
+						text-decoration: none
+						border: solid 1px transparent
+						transition: all 100ms linear
+
+						&:hover
+							text-decoration: none
+
+				&.acSelect
+
+					a
+						border-color: #d7d7d7 transparent
+						color: $primaryColor

@@ -1,0 +1,17 @@
+
+.link-list {
+  list-style-type: none;
+  padding: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  li {
+    margin-right: .5rem;
+    margin-bottom: .5rem;
+  }
+
+}
+
+
+
