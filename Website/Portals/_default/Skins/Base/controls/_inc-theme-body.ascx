@@ -42,8 +42,9 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvas" aria-controls="navbarOffcanvas" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-start navbar-collapse" id="navbarOffcanvas" tabindex="-1" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas offcanvas-start navbar-collapse" id="navbarOffcanvas" tabindex="-1" aria-labelledby="offcanvasNavbarLabel" data-bs-scroll="false" data-bs-backdrop="true">
             <div class="offcanvas-header">
+                <h2 id="offcanvasNavbarLabel" class="visually-hidden"><%= ThemeHelpers.LocalizeString("Nav.Offcanvas.Label", this) %></h2>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="desktop-body offcanvas-body pt-0 align-items-center">
@@ -113,6 +114,9 @@
     <div class="l-copyright d-flex justify-content-center border-top">
         <dnn:COPYRIGHT ID="dnnCopyright" runat="server" CssClass="copyright-box pt-3" />
     </div>
+    <div class="container py-3">
+        <dnn:MENU ID="serviceMenu" MenuStyle="nav/service" runat="server" />
+    </div>
 </footer>
 
 <dnn:DnnCssInclude runat="server" FilePath="dist/styles.css" Priority="98" PathNameAlias="SkinPath" HtmlAttributesAsString="rel:'stylesheet preload', as:'style'" />
@@ -136,6 +140,10 @@
         // Set NodeSelector attributes for NAV SkinObjects
         mainMenu.NodeSelector = ThemeHelpers.MainNavNodeSelector;
         asideMenu.NodeSelector = ThemeHelpers.SectionPageId.ToString(); 
+        if (serviceMenu != null)
+        {
+            serviceMenu.NodeSelector = ThemeHelpers.MainNavNodeSelector; // TODO: adjust to service-specific selector when defined
+        }
 
         // Set various FavIcon and Icon headers according to best practices
         // The next line is disabled by default, because it requires RazorBlade to be installed.

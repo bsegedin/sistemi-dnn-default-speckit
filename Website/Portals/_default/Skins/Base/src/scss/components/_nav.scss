@@ -1,27 +1,101 @@
-// Enhanced Bootstrap Navigation
+// Navigation (Desktop) using Figma tokens
+:root {
+  --figma-nav-text-color: #0d1c29;
+  --figma-nav-font-family: 'Arial', sans-serif;
+  --figma-nav-font-size: 16px;
+  --figma-nav-font-weight: 700;
+  --figma-nav-gap: 35px;
+}
+
+header .navbar-nav {
+  gap: var(--figma-nav-gap);
+
+  .nav-link {
+    color: var(--figma-nav-text-color);
+    font-family: var(--figma-nav-font-family);
+    font-size: var(--figma-nav-font-size);
+    font-weight: var(--figma-nav-font-weight);
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: var(--bs-navbar-nav-link-padding-y, .75rem) var(--bs-navbar-nav-link-padding-x, 1rem);
+
+    &:hover,
+    &:focus {
+      opacity: .8;
+    }
+
+    &.active {
+      color: var(--figma-nav-text-color);
+    }
+  }
+
+  .dropdown-menu {
+    padding: .5rem 0;
+  }
+}
+// Enhanced Bootstrap Navigation - Figma Design Tokens Applied
 .navbar-collapse {
   justify-content: flex-end;
 }
 
 .navbar-nav {
-  // Variables
-  --bs-navbar-nav-link-padding-x: 1.5rem;
+  // Figma Design Tokens - Main Menu
+  --figma-nav-text-color: #0d1c29;
+  --figma-nav-font-family: 'Arial', sans-serif;
+  --figma-nav-font-size: 16px;
+  --figma-nav-font-weight: 700;
+  --figma-nav-gap: 35px;
+  --figma-nav-line-height: 1;
+  
+  // Bootstrap overrides with Figma values
+  --bs-navbar-nav-link-padding-x: calc(var(--figma-nav-gap) / 2);
   --bs-navbar-nav-link-padding-y: 0.75rem;
   --bs-navbar-item-transition: all 0.3s ease;
   --bs-navbar-dropdown-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   --bs-navbar-dropdown-animation: fadeIn 0.3s ease;
+  
   margin-left: auto;
-  // Nav items - basic styling
+  gap: var(--figma-nav-gap);
+  
+  // Apply Figma typography to all nav items
+  font-family: var(--figma-nav-font-family);
+  font-size: var(--figma-nav-font-size);
+  font-weight: var(--figma-nav-font-weight);
+  line-height: var(--figma-nav-line-height);
+  color: var(--figma-nav-text-color);
+  // Nav items - Figma styling applied
   .nav-item {
-
     position: relative;
     transition: var(--bs-navbar-item-transition);
+    
+    .nav-link {
+      color: var(--figma-nav-text-color);
+      font-family: var(--figma-nav-font-family);
+      font-size: var(--figma-nav-font-size);
+      font-weight: var(--figma-nav-font-weight);
+      line-height: var(--figma-nav-line-height);
+      text-transform: uppercase;
+      white-space: nowrap;
+      
+      &:hover,
+      &:focus {
+        color: var(--figma-nav-text-color);
+        opacity: 0.7;
+      }
+      
+      &.active {
+        color: var(--figma-nav-text-color);
+        font-weight: var(--figma-nav-font-weight);
+      }
+    }
+    
     @include media-breakpoint-down(lg) {
       padding: 1rem 0.5rem;
       border-bottom: 1px solid var(--bs-gray-400);
+      
       .nav-link {
         &.active {
-          background-color: transparent; // Ensure active items have a transparent background
+          background-color: transparent;
           color: var(--bs-primary);
           font-weight: 600;
         }

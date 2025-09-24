@@ -13,12 +13,12 @@
   if (nodes.Count > 0)
   {
     string ulClass = "";
-    string ariaLabel = "";
 
     // Set the appropriate class based on depth
     if (nodes[0].Depth == 0)
     {
-      ulClass = "navbar-nav";
+      // Align right like typical header layouts
+      ulClass = "navbar-nav ms-auto";
     }
     else if (nodes[0].Depth == 1)
     {
@@ -29,7 +29,7 @@
       ulClass = "dropdown-menu dropdown-submenu";
     }
 
-    <ul class="@ulClass" @ariaLabel>
+    <ul class="@ulClass">
       @foreach (var node in nodes)
       {
         var cssClasses = new List<string>();
@@ -86,20 +86,24 @@
 
         var linkClassString = new HtmlString((linkCssClasses.Count == 0) ? "" : (" class=\"" + String.Join(" ", linkCssClasses.ToArray()) + "\""));
 
-        // Set appropriate data attributes for dropdowns based on depth
-    
-        string dataAttributes = "";
-        if (node.HasChildren())
+        // Set appropriate Bootstrap 5 dropdown attributes on links with children
+        var linkAttrs = new List<string>();
+        if (node.Enabled == false)
         {
-          if (node.Depth == 0)
-          {
-            dataAttributes = "";
-          }
-          else if (node.Depth == 1)
-          {
-            dataAttributes = "";
-          }
+          linkAttrs.Add("tabindex=\"-1\"");
+          linkAttrs.Add("aria-disabled=\"true\"");
         }
+        if (node.HasChildren() && node.Depth == 0)
+        {
+          linkAttrs.Add("role=\"button\"");
+          linkAttrs.Add("data-bs-toggle=\"dropdown\"");
+          linkAttrs.Add("aria-expanded=\"false\"");
+        }
+        if (node.Breadcrumb)
+        {
+          linkAttrs.Add("aria-current=\"page\"");
+        }
+        var dataAttributes = string.Join(" ", linkAttrs);
 
 
         <li @classString>

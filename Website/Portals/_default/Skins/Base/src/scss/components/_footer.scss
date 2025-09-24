@@ -21,22 +21,72 @@ footer {
   }
 
   // social-links 
-
   .group-social-media {
-
     ul {
-
       li {
         margin-right: .5rem;
         a {
           background-color: white;
           border-radius: .5rem;
         }
-
       }
     }
-
   }
 
-
+  // Service Menu - Figma Design Tokens Applied
+  .service-nav {
+    // Figma Design Tokens - Service Menu
+    --figma-service-text-color: #0d1c29;
+    --figma-service-font-family: 'Arial', sans-serif;
+    --figma-service-font-size: 18px;
+    --figma-service-font-weight: 400;
+    --figma-service-line-height: 1;
+    --figma-service-gap: 24px;
+    
+    display: flex;
+    gap: var(--figma-service-gap);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    .nav-item {
+      position: relative;
+      
+      .nav-link {
+        color: var(--figma-service-text-color);
+        font-family: var(--figma-service-font-family);
+        font-size: var(--figma-service-font-size);
+        font-weight: var(--figma-service-font-weight);
+        line-height: var(--figma-service-line-height);
+        text-decoration: none;
+        text-transform: uppercase;
+        white-space: nowrap;
+        padding: 0;
+        
+        &:hover,
+        &:focus {
+          color: var(--figma-service-text-color);
+          opacity: 0.7;
+          text-decoration: underline;
+        }
+        
+        &.active {
+          color: var(--figma-service-text-color);
+          font-weight: var(--figma-service-font-weight);
+        }
+      }
+      
+      // Service menu underline from Figma
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: var(--figma-service-text-color);
+        opacity: 0.3;
+      }
+    }
+  }
 }

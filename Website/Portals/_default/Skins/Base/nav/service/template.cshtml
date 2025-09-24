@@ -1,0 +1,19 @@
+@using DotNetNuke.Web.DDRMenu
+@inherits DotNetNuke.Web.Razor.DotNetNukeWebPage<dynamic>
+@{
+    var root = Model.Source.root;
+}
+
+@helper RenderFlat(IList<MenuNode> nodes)
+{
+    if (nodes == null || nodes.Count == 0) { return; }
+    <ul class="nav service-nav">
+        @foreach (var n in nodes)
+        {
+            var li = n.Breadcrumb ? "nav-item active" : "nav-item";
+            <li class="@li"><a class="nav-link" href='@(n.Enabled ? n.Url : "#")'>@n.Text</a></li>
+        }
+    </ul>
+}
+
+@RenderFlat(root.Children)

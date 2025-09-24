@@ -1,0 +1,42 @@
+@inherits DotNetNuke.Web.DDRMenu.DDRMenuTemplate
+@using DotNetNuke.Web.DDRMenu
+@functions {
+    string ItemClasses(MenuNode node)
+    {
+        var classes = new List<string> { "nav-item" };
+        if (node.Selected || node.Breadcrumb) classes.Add("active");
+        if (node.Children.Any()) classes.Add("dropdown");
+        return string.Join(" ", classes);
+    }
+    string LinkClasses(MenuNode node)
+    {
+        var classes = new List<string> { "nav-link" };
+        if (node.Children.Any()) classes.Add("dropdown-toggle");
+        return string.Join(" ", classes);
+    }
+}
+
+@helper RenderLevel(IEnumerable<MenuNode> nodes, int level)
+{
+    if (nodes == null || !nodes.Any()) { return; }
+    var ulClass = level == 0 ? "navbar-nav ms-auto" : "dropdown-menu";
+    <ul class="@ulClass">
+        @foreach (var n in nodes)
+        {
+            var hasChildren = n.Children.Any();
+            <li class="@ItemClasses(n)">
+                <a href="@(n.Enabled ? n.Url : "#")"
+                   class="@LinkClasses(n)"
+                   @(hasChildren ? "data-bs-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"" : "")>
+                    @n.Text
+                </a>
+                @if (hasChildren)
+                {
+                    @RenderLevel(n.Children, level + 1)
+                }
+            </li>
+        }
+    </ul>
+}
+
+@RenderLevel(Model.Root.Children, 0)

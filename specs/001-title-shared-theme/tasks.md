@@ -74,15 +74,15 @@
       Purpose: pane visibility, formatting, composing theme objects, Client Resource Management.
 - [ ] T018 Update wrapper skins to delegate to shared body control and pass attributes
       Files: `...\Skins\Base\*.ascx` (e.g., Default.ascx, SingleNarow.ascx, SplitPanesCenter.ascx, SplitPanesFluid.ascx)
-- [ ] T019 Implement DDR Menu Razor templates — Main Menu
-      File: `...\Skins\Base\menus\MainMenu\index.cshtml`
+- [X] T019 Implement DDR Menu Razor templates — Main Menu
+      File: `...\Skins\Base\nav\main\template.cshtml`
       Requirement: Must match Figma Desktop/Mobile; no hard-coded menu HTML in skins.
-- [ ] T020 Implement DDR Menu Razor templates — Service Menu
-      File: `...\Skins\Base\menus\ServiceMenu\index.cshtml`
+- [X] T020 Implement DDR Menu Razor templates — Service Menu
+      File: `...\Skins\Base\nav\service\template.cshtml`
       Requirement: Must match Figma Desktop/Mobile; no hard-coded menu HTML in skins.
-- [ ] T021 Wire DDR Menu skin objects in skins to use Razor templates
+- [X] T021 Wire DDR Menu skin objects in skins to use Razor templates
       Files: `...\Skins\Base\*.ascx` — add DDR Menu SkinObject references with `MenuStyle="Razor"` and template path.
- - [ ] T021a Implement mobile Bootstrap Offcanvas menu wiring in `_inc-theme-body.ascx`
+ - [X] T021a Implement mobile Bootstrap Offcanvas menu wiring in `_inc-theme-body.ascx`
       Files: `...\Skins\Base\controls\_inc-theme-body.ascx[.cs]`
       Requirement: Hide desktop menu on mobile; offcanvas content rendered via DDR Razor template; ensure focus trap, Esc to close, ARIA attributes.
 - [ ] T022 Author tokens in SCSS as CSS variables

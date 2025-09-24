@@ -1,0 +1,24 @@
+@using DotNetNuke.Web.DDRMenu
+@inherits DotNetNuke.Web.Razor.DotNetNukeWebPage<dynamic>
+@{
+    var root = Model.Source.root;
+}
+
+@helper RenderNodes(IList<MenuNode> nodes)
+{
+    if (nodes == null || nodes.Count == 0) { return; }
+    <ul class="nav flex-column">
+        @foreach (var node in nodes)
+        {
+            var liClasses = new List<string>{"nav-item"};
+            if (node.Breadcrumb) liClasses.Add("active");
+            var aClasses = new List<string>{"nav-link"};
+            <li class="@string.Join(" ", liClasses)">
+                <a class="@string.Join(" ", aClasses)" href='@(node.Enabled ? node.Url : "#")'>@node.Text</a>
+                @RenderNodes(node.Children)
+            </li>
+        }
+    </ul>
+}
+
+@RenderNodes(root.Children)

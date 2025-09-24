@@ -1,21 +1,89 @@
+// Offcanvas (Mobile) navigation
+:root {
+  --figma-offcanvas-width: 300px;
+  --figma-offcanvas-text-color: #0d1c29;
+}
+
+.offcanvas {
+  --bs-offcanvas-width: var(--figma-offcanvas-width);
+
+  .offcanvas-body .navbar-nav {
+    display: flex !important;
+    flex-direction: column;
+    gap: 0;
+
+    .nav-link,
+    .dropdown-item {
+      color: var(--figma-offcanvas-text-color);
+      padding: 1rem 1rem;
+      border-radius: 0;
+      text-transform: uppercase;
+    }
+
+    .dropdown-menu {
+      position: static;
+      float: none;
+      display: block;
+      width: 100%;
+      margin: 0;
+      border: 0;
+      box-shadow: none;
+
+      .dropdown-item {
+        padding-left: 2rem;
+      }
+    }
+  }
+}
 
 
+// Mobile Offcanvas Navigation - Figma Design Applied
 @include media-breakpoint-down(lg) {
-
   .navbar {
     .offcanvas {
-
       &-header {
         justify-content: flex-end;
         width: 100%;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(13, 28, 41, 0.1);
       }
   
       &-body {
         width: 100%;
+        padding: 1rem;
+        
+        // Apply Figma navigation styling to mobile menu
+        .navbar-nav {
+          .nav-item {
+            .nav-link {
+              color: var(--figma-nav-text-color, #0d1c29);
+              font-family: var(--figma-nav-font-family, 'Arial', sans-serif);
+              font-size: var(--figma-nav-font-size, 16px);
+              font-weight: var(--figma-nav-font-weight, 700);
+              text-transform: uppercase;
+              padding: 1rem 0;
+              border-bottom: 1px solid rgba(13, 28, 41, 0.1);
+              
+              &:hover,
+              &:focus {
+                color: var(--figma-nav-text-color, #0d1c29);
+                opacity: 0.7;
+                background-color: rgba(13, 28, 41, 0.05);
+              }
+              
+              &.active {
+                color: var(--figma-nav-text-color, #0d1c29);
+                font-weight: var(--figma-nav-font-weight, 700);
+                background-color: rgba(13, 28, 41, 0.1);
+              }
+            }
+            
+            &:last-child .nav-link {
+              border-bottom: none;
+            }
+          }
+        }
       }
-  
-  
     }
   }
-
 }

@@ -72,6 +72,7 @@
 //@import "components/search-overlay";
 //@import "components/country-chooser";
 @import "components/header"; 
+@import "components/nav"; 
 @import "components/footer"; 
 @import "components/buttons"; 
 
@@ -89,6 +90,7 @@
 
 // Navigations / Menus
 @import "components/nav-mobile-to-top";
+@import "components/offcanvas";
 //@import "components/section-nav";
 @import "components/nav-language";
 @import "components/nav-breadcrumb";

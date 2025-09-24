@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <template>template.cshtml</template>
+  <stylesheets>
+    <stylesheet>/dist/styles.css</stylesheet>
+  </stylesheets>
+  <!-- Optional: you can add <scripts> here if this menu needs JS -->
+</manifest>
