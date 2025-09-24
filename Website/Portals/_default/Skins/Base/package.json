@@ -6,7 +6,9 @@
   "scripts": {
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
-    "update-lib-bootstrap": "(ROBOCOPY node_modules\\bootstrap\\dist\\js dist\\lib bootstrap.bundle.min.js bootstrap.bundle.js.map ) ^& IF %ERRORLEVEL% LEQ 1 exit 0"
+    "update-lib-bootstrap": "(ROBOCOPY node_modules\\bootstrap\\dist\\js dist\\lib bootstrap.bundle.min.js bootstrap.bundle.js.map ) ^& IF %ERRORLEVEL% LEQ 1 exit 0",
+  "update-lib-glightbox": "(ROBOCOPY node_modules\\glightbox\\dist dist\\lib glightbox.min.js glightbox.js.map glightbox.min.css ) ^& IF %ERRORLEVEL% LEQ 1 exit 0 ^& (ROBOCOPY node_modules\\glightbox\\dist\\css dist\\lib glightbox.min.css ) ^& IF %ERRORLEVEL% LEQ 1 exit 0",
+    "update-libs": "npm run update-lib-bootstrap ^& npm run update-lib-glightbox"
   },
   "author": "Sistemi.hr",
   "license": "MIT",

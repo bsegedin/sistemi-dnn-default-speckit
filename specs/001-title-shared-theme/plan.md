@@ -34,15 +34,15 @@
 [Extract from feature spec: primary requirement + technical approach from research]
 
 ## Technical Context
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: ASP.NET Web Forms (.NET Framework 4.8), C# 8.0 (via Roslyn), ASCX/HTML, SCSS, JavaScript (ES6)  
+**Primary Dependencies**: Figma MCP (VS Code), DNN CE 9.13.x+, Bootstrap v5, webpack  
+**Storage**: N/A  
+**Testing**: Visual baseline diffs, WCAG 2.1 AA audits, performance budget checks  
+**Target Platform**: VS Code on Windows  
+**Project Type**: single  
+**Performance Goals**: CSS ≤ 200 KB, JS ≤ 100 KB at FCP on key templates  
+**Constraints**: Styles authored only in SCSS under `Portals/_default/Skins/Base/src/scss/`; no direct CSS edits  
+**Scale/Scope**: Base skins: Default, SingleNarow, SplitPanesCenter, SplitPanesFluid (extend as needed)
 
 ## Constitution Check
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
@@ -50,12 +50,11 @@
 - Figma as source of truth: Are required tokens/components defined and approved in Figma for this feature?
 - Starter Kit: Is this repository used as the base (no ad-hoc scaffolding) and are theme identifiers/pipeline configured from it?
 - Figma coverage: Does the plan include both Desktop layout and Mobile layout parity for affected views?
-- Figma MCP: Is the VS Code Figma MCP configured and used for inspection/export of the relevant pages?
+- Figma MCP: Is VS Code Figma MCP installed, authenticated, and used for inspection/export of the relevant pages?
 - Navigation menus: Are Figma groups "Main menu" and "Service menu" implemented using DNN DDR Menu with Razor templates (no hard-coded menu HTML)?
 - Mobile navigation: Is Bootstrap Offcanvas used for mobile, with desktop menu hidden on mobile, and the offcanvas content rendered by a DDR Razor template (a11y respected)?
-- Styles pipeline: Will styles be authored only in `Portals/_default/Skins/Base/src/scss/` with Bootstrap v5 and built via webpack (no direct CSS edits)?
+- Compilation: Is the DNN Roslyn compiler (2sxc) installed/enabled and are we targeting C# 8.0 safely for the runtime?
 - JS packaging: Are all third-party JS dependencies declared in `package.json` and copied into `dist` (e.g., `dist/lib`) via scripts, with no `node_modules` deployed to prod/test?
-- Compilation: Is the DNN Roslyn compiler (2sxc) installed/enabled and is the code targeting C# 8.0 features safely supported by the runtime?
 - Theme architecture: Does the plan use the shared body control at `Portals/_default/Skins/Base/controls/_inc-theme-body.ascx` with wrapper-passed attributes, and any helper usage complies with `App_Code/BaseTheme/ThemeHelpers.cs` contract?
 - Token parity: Will new/changed tokens be exposed as CSS variables under `:root` with stable names?
 - A11y: Does the design meet WCAG 2.1 AA (contrast, focus, keyboard)? Any exceptions documented?
