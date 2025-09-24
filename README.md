@@ -1,29 +1,9 @@
-# Podaci za projekt: DNN default install
+# Podaci za projekt: DNN default SpecKit experiments
 
 ## DEV
 
-* Lokacija repozitorija unutar Materijali: D:\Materijali\Sistemi\DnnDefault\Dev\sistemi-dnn-default
+* Lokacija repozitorija unutar Materijali: D:\Materijali\Sistemi\DnnDefault\Dev\sistemi-dnn-default-speckit
 * CMS: DNN 
-* SQL server: sql7int
+* SQL server: local
 * SQL baza: Sistemi_DNNDefault
-* URL: defaultdnn.dev.sistemi.hr
-
-## TEST
-
-* Lokacija repozitorija na web serveru: C:\Websites\ImeFoldera\
-* Web server: webX.colo
-* SQL server: sqlX.colo
-* SQL baza: IMEBAZE
-* URL: URL
-
-## LIVE
-
-* Lokacija repozitorija na web serveru: C:\Websites\ImeFoldera\
-* Web server: webX.colo
-* SQL server: sqlX.colo 
-* SQL baza: IMEBAZE
-* URL: URL
-
-## CORE MODIFIKACIJE
-
-* [Path/File]
+* URL: sistemi-dnn-default-speckit
