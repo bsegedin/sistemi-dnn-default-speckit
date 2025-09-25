@@ -7,3 +7,7 @@
 * SQL server: local
 * SQL baza: Sistemi_DNNDefault
 * URL: sistemi-dnn-default-speckit
+
+## Dokumentacija
+
+- Projektna konstitucija: `.specify/memory/constitution.md`
