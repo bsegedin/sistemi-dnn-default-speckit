@@ -6,4 +6,4 @@
 * CMS: DNN 
 * SQL server: local
 * SQL baza: Sistemi_DNNDefault
-* URL: sistemi-dnn-default-speckit
+* URL: [sistemi-dnn-default-speckit](https://defaultdnn-speckit.dev.sistemi.hr/)
